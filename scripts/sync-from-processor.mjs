@@ -187,6 +187,23 @@ function stableJson(value) {
   return JSON.stringify(value);
 }
 
+// Description text is Studio metadata, not executable rule behavior.
+function runtimeComparable(value) {
+  if (Array.isArray(value)) return value.map((item) => runtimeComparable(item));
+  if (!value || typeof value !== "object") return value;
+
+  const result = {};
+  for (const [key, item] of Object.entries(value)) {
+    if (key === "description") continue;
+    result[key] = runtimeComparable(item);
+  }
+  return result;
+}
+
+function runtimeStableJson(value) {
+  return stableJson(runtimeComparable(value));
+}
+
 function normalizeKnownLegacyDuplicates(artifacts) {
   const issueDateCondition = artifacts.find(
     (artifact) => artifact.id === "library.documents.cond_issue_date_gt_birth_if_format_ok",
@@ -363,12 +380,12 @@ function addResidentTaxFlagCatalog(manifest) {
 function addStudioPolishCatalog(manifest) {
   const artifacts = {
     "library.address.cond_registration_fias_structure_for_ru": [
-      "Если адрес регистрации в РФ, проверяем структуру ФИАС",
-      "Для российского адреса регистрации проверяет обязательные структурные поля адреса",
+      "Если адрес в РФ, проверяем структуру ФИАС",
+      "Для российского адреса регистрации, места жительства или пребывания проверяет обязательные структурные поля адреса",
     ],
-    "library.fl_nonresident.address.cond_registration_fias_structure_for_ru": [
-      "Если адрес нерезидента в РФ, проверяем структуру ФИАС",
-      "Для российского адреса места жительства, регистрации или пребывания ФЛ-нерезидента проверяет обязательные структурные поля адреса",
+    "library.address.pred_full_address_present": [
+      "Полный адрес заполнен",
+      "Условие для проверок полного адреса регистрации, места жительства или пребывания",
     ],
     "library.address.cond_street_type_if_present": [
       "Если указан тип улицы, проверяем справочник",
@@ -410,6 +427,10 @@ function addStudioPolishCatalog(manifest) {
       "Тип улицы есть в справочнике",
       "Проверяет, что тип улицы адреса регистрации поддерживается справочником",
     ],
+    street_types_fias_basic: [
+      "Справочник типов улиц ФИАС",
+      "Допустимые типы улиц для структурированного российского адреса",
+    ],
     "library.common.account_number_format": [
       "Номер номинального счёта корректного формата",
       "Проверяет формат номера номинального счёта для привязки бенефициара",
@@ -429,6 +450,22 @@ function addStudioPolishCatalog(manifest) {
     "library.nonresident.add_doc_issuer_required": [
       "Кем выдан документ на пребывание указано",
       "Проверяет, что заполнен орган, выдавший документ на право пребывания",
+    ],
+    add_doc_type_codes: [
+      "Справочник документов права пребывания/проживания",
+      "Коды дополнительных документов нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
+    ],
+    "library.nonresident.add_doc_series_required": [
+      "Серия документа на пребывание указана",
+      "Проверяет, что серия документа на право пребывания или миграционной карты заполнена",
+    ],
+    "library.nonresident.add_doc_type_code_supported": [
+      "Тип документа на пребывание поддерживается",
+      "Проверяет, что тип дополнительного документа входит в справочник",
+    ],
+    "library.nonresident.cond_add_doc_type_code_supported": [
+      "Если указан тип документа на пребывание, проверяем справочник",
+      "Запускает проверку справочника только когда тип дополнительного документа заполнен",
     ],
     "library.nonresident.cond_add_doc_right_to_stay_doc": [
       "Если выбран документ на право пребывания, проверяем его поля",
@@ -521,18 +558,6 @@ function addIpNonresidentCatalog(manifest) {
     "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required": {
       title: "Адрес регистрирующего органа ИП указан",
       description: "Проверяет, что адрес регистрирующего органа заполнен",
-    },
-    "library.ip_nonresident.address.cond_registration_fias_structure_for_ru": {
-      title: "Если адрес ИП-нерезидента в РФ, проверяем структуру ФИАС",
-      description: "Для российского адреса ИП-нерезидента проверяет обязательные структурные поля адреса",
-    },
-    "library.ip_nonresident.nonresident.add_doc_issuer_required": {
-      title: "Кем выдан дополнительный документ указано",
-      description: "Проверяет, что для дополнительного документа указан выдавший орган",
-    },
-    "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc": {
-      title: "Если указан документ на право пребывания, проверяем его поля",
-      description: "Проверяет обязательные поля документа на право пребывания или проживания",
     },
   });
 }
@@ -1042,7 +1067,7 @@ function buildConflictMap(baseArtifacts, nextArtifacts, contour) {
     }
 
     const existing = byId.get(artifact.id);
-    if (!existing || stableJson(existing) === stableJson(artifact)) continue;
+    if (!existing || runtimeStableJson(existing) === runtimeStableJson(artifact)) continue;
 
     result[artifact.id] = scopedArtifactId(artifact, contour);
   }
@@ -1073,7 +1098,7 @@ function resolveConflictMap(baseArtifacts, nextArtifacts, contour) {
     for (const artifact of nextArtifacts) {
       const rewritten = rewriteIds(artifact, conflictMap);
       const existing = byId.get(rewritten.id);
-      if (!existing || stableJson(existing) === stableJson(rewritten)) continue;
+      if (!existing || runtimeStableJson(existing) === runtimeStableJson(rewritten)) continue;
 
       if (!conflictMap[artifact.id]) {
         conflictMap[artifact.id] = scopedArtifactId(artifact, contour);
@@ -1114,7 +1139,7 @@ function mergeArtifacts(contourArtifacts) {
 
     for (const artifact of rewrittenArtifacts) {
       const existing = byId.get(artifact.id);
-      if (existing && stableJson(existing) === stableJson(artifact)) {
+      if (existing && runtimeStableJson(existing) === runtimeStableJson(artifact)) {
         shared += 1;
         continue;
       }
@@ -1185,7 +1210,16 @@ function namespaceDuplicateCheckCodes(artifacts) {
   return aliases;
 }
 
-function mergeCatalogs(sources, reports) {
+function pruneArtifactCatalog(manifest, artifacts) {
+  const artifactIds = new Set(artifacts.map((artifact) => artifact.id));
+  for (const artifactId of Object.keys(manifest.catalog.artifacts)) {
+    if (!artifactIds.has(artifactId)) {
+      delete manifest.catalog.artifacts[artifactId];
+    }
+  }
+}
+
+function mergeCatalogs(sources, reports, artifacts) {
   const manifest = {
     project: {
       id: "nominal-beneficiaries-rules",
@@ -1243,6 +1277,7 @@ function mergeCatalogs(sources, reports) {
   addUlResidentCatalog(manifest);
   addUlNonresidentCatalog(manifest);
   addUnbindCatalog(manifest);
+  pruneArtifactCatalog(manifest, artifacts);
 
   return manifest;
 }
@@ -1915,6 +1950,7 @@ for (const artifact of artifacts) {
 const manifest = mergeCatalogs(
   sources.map(({ source }) => source),
   reports,
+  artifacts,
 );
 writeJson(path.join(rootDir, "manifest.json"), manifest);
 writeSamples();

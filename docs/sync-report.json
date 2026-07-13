@@ -84,21 +84,19 @@
     {
       "contour": "fl_nonresident",
       "sourceArtifacts": 225,
-      "shared": 145,
-      "added": 80,
-      "scopedConflicts": 12,
+      "shared": 147,
+      "added": 78,
+      "scopedConflicts": 10,
       "conflictMap": {
         "document_type_codes_fl": "dictionaries.fl_nonresident.document_type_codes_fl",
         "library.address.full_address": "library.fl_nonresident.address.full_address",
-        "library.address.cond_address_line_if_present": "library.fl_nonresident.address.cond_address_line_if_present",
-        "library.address.pred_full_address_present": "library.fl_nonresident.address.pred_full_address_present",
         "library.common.contacts_any": "library.fl_nonresident.common.contacts_any",
         "library.documents.cond_passport_rf_fields": "library.fl_nonresident.documents.cond_passport_rf_fields",
         "library.documents.issuer_no_extra_spaces": "library.fl_nonresident.documents.issuer_no_extra_spaces",
         "library.documents.issuer_no_garbage_symbols": "library.fl_nonresident.documents.issuer_no_garbage_symbols",
         "library.documents.type_code_in_dictionary": "library.fl_nonresident.documents.type_code_in_dictionary",
         "library.fl.precheck_identity_any": "library.fl_nonresident.fl.precheck_identity_any",
-        "library.address.cond_registration_fias_structure_for_ru": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru",
+        "library.address.cond_address_line_if_present": "library.fl_nonresident.address.cond_address_line_if_present",
         "library.documents.cond_issuer_if_present": "library.fl_nonresident.documents.cond_issuer_if_present"
       }
     },
@@ -129,30 +127,22 @@
     {
       "contour": "ip_nonresident",
       "sourceArtifacts": 235,
-      "shared": 189,
-      "added": 46,
-      "scopedConflicts": 20,
+      "shared": 197,
+      "added": 38,
+      "scopedConflicts": 12,
       "conflictMap": {
         "document_type_codes_fl": "dictionaries.ip_nonresident.document_type_codes_fl",
         "library.address.full_address": "library.ip_nonresident.address.full_address",
-        "library.address.cond_address_line_if_present": "library.ip_nonresident.address.cond_address_line_if_present",
-        "library.address.pred_full_address_present": "library.ip_nonresident.address.pred_full_address_present",
         "library.common.contacts_any": "library.ip_nonresident.common.contacts_any",
         "library.documents.cond_passport_rf_fields": "library.ip_nonresident.documents.cond_passport_rf_fields",
         "library.documents.issuer_no_extra_spaces": "library.ip_nonresident.documents.issuer_no_extra_spaces",
         "library.documents.issuer_no_garbage_symbols": "library.ip_nonresident.documents.issuer_no_garbage_symbols",
         "library.documents.type_code_in_dictionary": "library.ip_nonresident.documents.type_code_in_dictionary",
         "library.fl.precheck_identity_any": "library.ip_nonresident.fl.precheck_identity_any",
-        "library.address.cond_registration_fias_structure_for_ru": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru",
         "library.nonresident.add_doc_required": "library.ip_nonresident.nonresident.add_doc_required",
-        "add_doc_type_codes": "dictionaries.ip_nonresident.add_doc_type_codes",
-        "library.nonresident.add_doc_type_code_supported": "library.ip_nonresident.nonresident.add_doc_type_code_supported",
-        "library.nonresident.add_doc_issuer_required": "library.ip_nonresident.nonresident.add_doc_issuer_required",
-        "library.nonresident.add_doc_series_required": "library.ip_nonresident.nonresident.add_doc_series_required",
+        "library.address.cond_address_line_if_present": "library.ip_nonresident.address.cond_address_line_if_present",
         "library.documents.cond_issuer_if_present": "library.ip_nonresident.documents.cond_issuer_if_present",
-        "library.nonresident.cond_add_doc_required_unless_belarus": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus",
-        "library.nonresident.cond_add_doc_type_code_supported": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported",
-        "library.nonresident.cond_add_doc_right_to_stay_doc": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc"
+        "library.nonresident.cond_add_doc_required_unless_belarus": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus"
       }
     },
     {
@@ -374,24 +364,6 @@
       "firstArtifactId": "library.nonresident.add_doc_required"
     },
     {
-      "artifactId": "library.ip_nonresident.nonresident.add_doc_type_code_supported",
-      "legacyCode": "FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
-      "firstArtifactId": "library.nonresident.add_doc_type_code_supported"
-    },
-    {
-      "artifactId": "library.ip_nonresident.nonresident.add_doc_issuer_required",
-      "legacyCode": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
-      "firstArtifactId": "library.nonresident.add_doc_issuer_required"
-    },
-    {
-      "artifactId": "library.ip_nonresident.nonresident.add_doc_series_required",
-      "legacyCode": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.SERIES.REQUIRED",
-      "firstArtifactId": "library.nonresident.add_doc_series_required"
-    },
-    {
       "artifactId": "library.ul.type_supported",
       "legacyCode": "BEN.TYPE.UNSUPPORTED",
       "code": "UL.BEN.TYPE.UNSUPPORTED",
@@ -542,5 +514,5 @@
       "firstArtifactId": "library.ul.tax.cp_us_not_true"
     }
   ],
-  "artifactCount": 430
+  "artifactCount": 420
 }

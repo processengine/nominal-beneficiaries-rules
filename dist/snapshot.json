@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "a58b6ccdb41429b68a058b964f43c23cb0ebd7e66f59150ec384699fe400fbcc",
+  "sourceHash": "1da51e6cdf289367789cb85f86f1492f1d097e23528f519eb1205e152ad7fd2b",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -35,16 +35,6 @@
       "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
       "entries": [
         "004"
-      ]
-    },
-    {
-      "id": "dictionaries.ip_nonresident.add_doc_type_codes",
-      "type": "dictionary",
-      "description": "Merchant-коды дополнительных документов ИП-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
-      "entries": [
-        "007",
-        "005",
-        "006"
       ]
     },
     {
@@ -552,7 +542,7 @@
           "condition": "internal.fl_nonresident.blocks.address.registration_country_if_present"
         },
         {
-          "condition": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru"
+          "condition": "library.address.cond_registration_fias_structure_for_ru"
         },
         {
           "condition": "library.address.cond_postal_address_if_present"
@@ -1277,10 +1267,10 @@
           "condition": "library.nonresident.cond_add_doc_if_present"
         },
         {
-          "condition": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported"
+          "condition": "library.nonresident.cond_add_doc_type_code_supported"
         },
         {
-          "condition": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc"
+          "condition": "library.nonresident.cond_add_doc_right_to_stay_doc"
         },
         {
           "condition": "library.nonresident.cond_add_doc_migration_card"
@@ -1301,7 +1291,7 @@
           "condition": "internal.ip_nonresident.blocks.address.registration_country_if_present"
         },
         {
-          "condition": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru"
+          "condition": "library.address.cond_registration_fias_structure_for_ru"
         },
         {
           "condition": "library.address.cond_postal_address_if_present"
@@ -3881,42 +3871,12 @@
       "description": "Если полный адрес места жительства / регистрации / пребывания заполнен, проверяем формат и длину",
       "when": {
         "all": [
-          "library.fl_nonresident.address.pred_full_address_present"
+          "library.address.pred_full_address_present"
         ]
       },
       "steps": [
         {
           "rule": "library.fl_nonresident.address.full_address"
-        }
-      ]
-    },
-    {
-      "id": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru",
-      "type": "condition",
-      "description": "Если адрес места жительства / регистрации / пребывания относится к РФ, требуем ФИАС-структуру адреса",
-      "when": {
-        "all": [
-          "library.address.pred_registration_country_ru"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.address.registration_region_code_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_city_or_locality_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_street_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_street_type_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_house_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_postal_required_for_ru"
         }
       ]
     },
@@ -3935,14 +3895,6 @@
         "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
         "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
       }
-    },
-    {
-      "id": "library.fl_nonresident.address.pred_full_address_present",
-      "type": "rule",
-      "description": "Заполнен полный адрес места жительства / регистрации / пребывания",
-      "role": "predicate",
-      "operator": "not_empty",
-      "field": "beneficiary.address.registration.fullAddress"
     },
     {
       "id": "library.fl_nonresident.common.contacts_any",
@@ -4452,42 +4404,12 @@
       "description": "Если полный адрес места жительства / регистрации / пребывания заполнен, проверяем формат и длину",
       "when": {
         "all": [
-          "library.ip_nonresident.address.pred_full_address_present"
+          "library.address.pred_full_address_present"
         ]
       },
       "steps": [
         {
           "rule": "library.ip_nonresident.address.full_address"
-        }
-      ]
-    },
-    {
-      "id": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru",
-      "type": "condition",
-      "description": "Если адрес места жительства / регистрации / пребывания относится к РФ, требуем ФИАС-структуру адреса",
-      "when": {
-        "all": [
-          "library.address.pred_registration_country_ru"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.address.registration_region_code_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_city_or_locality_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_street_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_street_type_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_house_required_for_ru"
-        },
-        {
-          "rule": "library.address.registration_postal_required_for_ru"
         }
       ]
     },
@@ -4506,14 +4428,6 @@
         "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
         "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
       }
-    },
-    {
-      "id": "library.ip_nonresident.address.pred_full_address_present",
-      "type": "rule",
-      "description": "Заполнен полный адрес места жительства / регистрации / пребывания",
-      "role": "predicate",
-      "operator": "not_empty",
-      "field": "beneficiary.address.registration.fullAddress"
     },
     {
       "id": "library.ip_nonresident.common.contacts_any",
@@ -4648,21 +4562,6 @@
       }
     },
     {
-      "id": "library.ip_nonresident.nonresident.add_doc_issuer_required",
-      "type": "rule",
-      "description": "Кем выдан обязательно для документа права пребывания/проживания ИП-нерезидента, если указан тип дополнительного документа",
-      "role": "check",
-      "operator": "not_empty",
-      "level": "ERROR",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
-      "message": "Не указан орган, выдавший дополнительный документ",
-      "field": "beneficiary.addDoc.issuer",
-      "meta": {
-        "legacyCode": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
       "id": "library.ip_nonresident.nonresident.add_doc_required",
       "type": "rule",
       "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
@@ -4682,46 +4581,6 @@
       }
     },
     {
-      "id": "library.ip_nonresident.nonresident.add_doc_series_required",
-      "type": "rule",
-      "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ИП-нерезидента.",
-      "role": "check",
-      "operator": "not_empty",
-      "level": "ERROR",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.SERIES.REQUIRED",
-      "message": "Не указана серия дополнительного документа",
-      "field": "beneficiary.addDoc.series",
-      "meta": {
-        "legacyCode": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
-      "id": "library.ip_nonresident.nonresident.add_doc_type_code_supported",
-      "type": "rule",
-      "description": "Код типа дополнительного документа должен входить в справочник: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
-      "role": "check",
-      "operator": "in_dictionary",
-      "level": "ERROR",
-      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
-      "message": "Код типа дополнительного документа не поддерживается",
-      "field": "beneficiary.addDoc.typeCode",
-      "dictionary": {
-        "type": "static",
-        "id": "dictionaries.ip_nonresident.add_doc_type_codes",
-        "description": "Merchant-коды дополнительных документов ИП-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
-        "entries": [
-          "007",
-          "005",
-          "006"
-        ]
-      },
-      "meta": {
-        "legacyCode": "FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
       "id": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus",
       "type": "condition",
       "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются.",
@@ -4729,36 +4588,6 @@
       "steps": [
         {
           "rule": "library.ip_nonresident.nonresident.add_doc_required"
-        }
-      ]
-    },
-    {
-      "id": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc",
-      "type": "condition",
-      "description": "Если указан документ права пребывания/проживания, проверяем обязательность серии и органа выдачи",
-      "when": {
-        "all": [
-          "library.nonresident.pred_add_doc_typeCode_present",
-          "library.nonresident.pred_add_doc_typeCode_not_migr"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.ip_nonresident.nonresident.add_doc_series_required"
-        },
-        {
-          "rule": "library.ip_nonresident.nonresident.add_doc_issuer_required"
-        }
-      ]
-    },
-    {
-      "id": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported",
-      "type": "condition",
-      "description": "Если указан тип дополнительного документа, проверяем справочник.",
-      "when": "library.nonresident.pred_add_doc_typeCode_present",
-      "steps": [
-        {
-          "rule": "library.ip_nonresident.nonresident.add_doc_type_code_supported"
         }
       ]
     },
@@ -6601,6 +6430,6 @@
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
     "description": "Пакет правил проверок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT, UL_NONRESIDENT validate-application и beneficiary.unbind в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.7.0"
+    "rulesetVersion": "0.7.1"
   }
 }

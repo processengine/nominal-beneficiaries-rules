@@ -1,8 +1,0 @@
-{
-  "id": "library.ip_nonresident.address.pred_full_address_present",
-  "type": "rule",
-  "description": "Заполнен полный адрес места жительства / регистрации / пребывания",
-  "role": "predicate",
-  "operator": "not_empty",
-  "field": "beneficiary.address.registration.fullAddress"
-}

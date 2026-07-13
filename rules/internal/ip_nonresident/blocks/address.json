@@ -11,7 +11,7 @@
       "condition": "internal.ip_nonresident.blocks.address.registration_country_if_present"
     },
     {
-      "condition": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru"
+      "condition": "library.address.cond_registration_fias_structure_for_ru"
     },
     {
       "condition": "library.address.cond_postal_address_if_present"
