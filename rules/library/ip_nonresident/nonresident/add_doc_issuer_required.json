@@ -1,0 +1,15 @@
+{
+  "id": "library.ip_nonresident.nonresident.add_doc_issuer_required",
+  "type": "rule",
+  "description": "Кем выдан обязательно для документа права пребывания/проживания ИП-нерезидента, если указан тип дополнительного документа",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+  "message": "Не указан орган, выдавший дополнительный документ",
+  "field": "beneficiary.addDoc.issuer",
+  "meta": {
+    "legacyCode": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

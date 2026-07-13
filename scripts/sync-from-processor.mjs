@@ -64,6 +64,24 @@ const contours = [
     entrypointId: "entrypoints.ip_resident.full_validation",
     currentDate: "2026-06-03",
   },
+  {
+    key: "ip_nonresident",
+    type: "IP_NONRESIDENT",
+    label: "ИП-нерезидент",
+    sourcePath: path.join(
+      processorDir,
+      "artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    ),
+    legacyFixtureFile: "ip-nonresident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "ip-nonresident.validate-application.rules-field-contract.json",
+    fixturePath: path.join(processorDir, "fixtures/BEN-IP-NONRESIDENT-VALID.json"),
+    entrypointId: "entrypoints.ip_nonresident.full_validation",
+    currentDate: "2026-05-18",
+  },
 ];
 
 const residentTaxFlagConfigs = [
@@ -325,13 +343,104 @@ function addStudioPolishCatalog(manifest) {
   }
 }
 
-function addScopedConflictCatalog(manifest, conflictMap) {
-  for (const [sourceId, scopedId] of Object.entries(conflictMap)) {
+function addIpNonresidentCatalog(manifest) {
+  Object.assign(manifest.catalog.fields, {
+    "beneficiary.ip.fullName": {
+      title: "Полное наименование ИП",
+      description: "Полное наименование индивидуального предпринимателя",
+    },
+    "beneficiary.ip.shortName": {
+      title: "Краткое наименование ИП",
+      description: "Краткое наименование индивидуального предпринимателя",
+    },
+    "beneficiary.ip.registration.number": {
+      title: "ОГРНИП",
+      description: "Государственный регистрационный номер индивидуального предпринимателя",
+    },
+    "beneficiary.ip.registration.date": {
+      title: "Дата госрегистрации ИП",
+      description: "Дата государственной регистрации индивидуального предпринимателя",
+    },
+    "beneficiary.ip.registration.agency": {
+      title: "Регистрирующий орган ИП",
+      description: "Наименование органа, зарегистрировавшего индивидуального предпринимателя",
+    },
+    "beneficiary.ip.registration.agencyCode": {
+      title: "Код регистрирующего органа ИП",
+      description: "Код органа, зарегистрировавшего индивидуального предпринимателя",
+    },
+    "beneficiary.ip.registration.agencyAddress": {
+      title: "Адрес регистрирующего органа ИП",
+      description: "Адрес органа, зарегистрировавшего индивидуального предпринимателя",
+    },
+  });
+
+  Object.assign(manifest.catalog.artifacts, {
+    "internal.ip_nonresident.blocks.ip_registration": {
+      title: "Регистрационные данные ИП",
+      description: "Проверяет наименование и регистрационные реквизиты ИП-нерезидента",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.full_name_required": {
+      title: "Полное наименование ИП указано",
+      description: "Проверяет, что полное наименование индивидуального предпринимателя заполнено",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.short_name_required": {
+      title: "Краткое наименование ИП указано",
+      description: "Проверяет, что краткое наименование индивидуального предпринимателя заполнено",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_number_required": {
+      title: "ОГРНИП указан",
+      description: "Проверяет, что ОГРНИП индивидуального предпринимателя заполнен",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_number_format": {
+      title: "ОГРНИП содержит 15 цифр",
+      description: "Проверяет формат ОГРНИП индивидуального предпринимателя",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_date_required": {
+      title: "Дата госрегистрации ИП указана",
+      description: "Проверяет, что дата государственной регистрации индивидуального предпринимателя заполнена",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_date_format": {
+      title: "Дата госрегистрации ИП в формате YYYY-MM-DD",
+      description: "Проверяет формат даты государственной регистрации индивидуального предпринимателя",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_required": {
+      title: "Регистрирующий орган ИП указан",
+      description: "Проверяет, что наименование регистрирующего органа заполнено",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_code_required": {
+      title: "Код регистрирующего органа ИП указан",
+      description: "Проверяет, что код регистрирующего органа заполнен",
+    },
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required": {
+      title: "Адрес регистрирующего органа ИП указан",
+      description: "Проверяет, что адрес регистрирующего органа заполнен",
+    },
+    "library.ip_nonresident.address.cond_registration_fias_structure_for_ru": {
+      title: "Если адрес ИП-нерезидента в РФ, проверяем структуру ФИАС",
+      description: "Для российского адреса ИП-нерезидента проверяет обязательные структурные поля адреса",
+    },
+    "library.ip_nonresident.nonresident.add_doc_issuer_required": {
+      title: "Кем выдан дополнительный документ указано",
+      description: "Проверяет, что для дополнительного документа указан выдавший орган",
+    },
+    "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc": {
+      title: "Если указан документ на право пребывания, проверяем его поля",
+      description: "Проверяет обязательные поля документа на право пребывания или проживания",
+    },
+  });
+}
+
+function addScopedConflictCatalog(manifest, report) {
+  const contour = contours.find((item) => item.key === report.contour);
+  const suffix = contour?.label ? `Версия правила для ${contour.label}.` : "Контурная версия правила.";
+
+  for (const [sourceId, scopedId] of Object.entries(report.conflictMap)) {
     const sourceMeta = manifest.catalog.artifacts[sourceId];
     if (sourceMeta && !manifest.catalog.artifacts[scopedId]) {
       manifest.catalog.artifacts[scopedId] = {
         ...sourceMeta,
-        description: `${sourceMeta.description || sourceMeta.title}. Версия правила для ФЛ-нерезидента.`,
+        description: `${sourceMeta.description || sourceMeta.title}. ${suffix}`,
       };
     }
   }
@@ -482,7 +591,9 @@ function namespaceDuplicateCheckCodes(artifacts) {
       ? "FL_NONRESIDENT"
       : artifact.id.includes("ip_resident")
         ? "IP_RESIDENT"
-        : "RULESET";
+        : artifact.id.includes("ip_nonresident")
+          ? "IP_NONRESIDENT"
+          : "RULESET";
     let candidate = `${prefix}.${legacyCode}`;
     let index = 2;
     while (seen.has(candidate)) {
@@ -509,7 +620,7 @@ function mergeCatalogs(sources, reports) {
       id: "nominal-beneficiaries-rules",
       version: packageJson.version,
       title: "Бенефициары номинальных счетов",
-      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT и IP_RESIDENT validate-application в режиме parity с processor-preprod.",
+      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT и IP_NONRESIDENT validate-application в режиме parity с processor-preprod.",
       language: "ru",
     },
     paths: {
@@ -546,7 +657,7 @@ function mergeCatalogs(sources, reports) {
   }
 
   for (const report of reports) {
-    addScopedConflictCatalog(manifest, report.conflictMap);
+    addScopedConflictCatalog(manifest, report);
   }
 
   manifest.catalog.operators = {
@@ -556,6 +667,7 @@ function mergeCatalogs(sources, reports) {
   delete manifest.catalog.artifacts.true_false;
   addResidentTaxFlagCatalog(manifest);
   addStudioPolishCatalog(manifest);
+  addIpNonresidentCatalog(manifest);
 
   return manifest;
 }
@@ -763,10 +875,63 @@ function writeIpResidentSamples(contour) {
   );
 }
 
+function writeIpNonresidentSamples(contour) {
+  const ok = readApplicationFixture(contour.fixturePath);
+  const usTaxResident = cloneJson(ok);
+  usTaxResident.beneficiary.tax.usTaxResident = true;
+  const invalidBoolean = cloneJson(ok);
+  invalidBoolean.beneficiary.tax.usResident = "false";
+  const missingRegistrationNumber = cloneJson(ok);
+  delete missingRegistrationNumber.beneficiary.ip.registration.number;
+  const invalidRegistrationNumber = cloneJson(ok);
+  invalidRegistrationNumber.beneficiary.ip.registration.number = "123";
+
+  writeJson(
+    path.join(rootDir, "samples/ip-nonresident.ok.json"),
+    sample(contour, "IP nonresident valid application", ok, { status: "OK", exact: true, issues: [] }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-nonresident.us-tax-resident.json"),
+    sample(contour, "IP nonresident US tax resident reject", usTaxResident, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "IP_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE", field: "beneficiary.tax.usTaxResident", level: "EXCEPTION" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-nonresident.invalid-boolean.json"),
+    sample(contour, "IP nonresident invalid boolean tax flag", invalidBoolean, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "BEN.TAX.US_RESIDENT.BOOL", field: "beneficiary.tax.usResident", level: "EXCEPTION" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-nonresident.missing-registration-number.json"),
+    sample(contour, "IP nonresident missing registration number", missingRegistrationNumber, {
+      status: "ERROR",
+      exact: true,
+      issues: [
+        { code: "IP.REGISTRATION_NUMBER.REQUIRED", field: "beneficiary.ip.registration.number", level: "ERROR" },
+        { code: "IP.REGISTRATION_NUMBER.FORMAT", field: "beneficiary.ip.registration.number", level: "ERROR" },
+      ],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-nonresident.invalid-registration-number.json"),
+    sample(contour, "IP nonresident invalid registration number", invalidRegistrationNumber, {
+      status: "ERROR",
+      exact: true,
+      issues: [{ code: "IP.REGISTRATION_NUMBER.FORMAT", field: "beneficiary.ip.registration.number", level: "ERROR" }],
+    }),
+  );
+}
+
 function writeSamples() {
   writeResidentSamples(contours[0]);
   writeNonresidentSamples(contours[1]);
   writeIpResidentSamples(contours[2]);
+  writeIpNonresidentSamples(contours[3]);
 }
 
 const sources = contours.map((contour) => ({ contour, source: readSource(contour) }));

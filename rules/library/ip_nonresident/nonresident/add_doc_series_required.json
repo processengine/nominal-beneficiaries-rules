@@ -1,0 +1,15 @@
+{
+  "id": "library.ip_nonresident.nonresident.add_doc_series_required",
+  "type": "rule",
+  "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ИП-нерезидента.",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+  "message": "Не указана серия дополнительного документа",
+  "field": "beneficiary.addDoc.series",
+  "meta": {
+    "legacyCode": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

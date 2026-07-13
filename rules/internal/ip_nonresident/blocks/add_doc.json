@@ -1,0 +1,24 @@
+{
+  "id": "internal.ip_nonresident.blocks.add_doc",
+  "type": "pipeline",
+  "description": "Проверка дополнительного документа ИП-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+  "strict": false,
+  "flow": [
+    {
+      "condition": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus"
+    },
+    {
+      "condition": "library.nonresident.cond_add_doc_if_present"
+    },
+    {
+      "condition": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported"
+    },
+    {
+      "condition": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc"
+    },
+    {
+      "condition": "library.nonresident.cond_add_doc_migration_card"
+    }
+  ],
+  "entrypoint": false
+}

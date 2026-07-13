@@ -1,0 +1,11 @@
+{
+  "id": "internal.ip_nonresident.blocks.ip_registration.registration_date_required",
+  "type": "rule",
+  "description": "Дата регистрации ИП обязательна",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "IP.REGISTRATION_DATE.REQUIRED",
+  "message": "Не указана дата государственной регистрации индивидуального предпринимателя",
+  "field": "beneficiary.ip.registration.date"
+}

@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "dcd993d55037ca6ad39389e482ac21ba13dcd6e62bd553e4e9b6ad95e55a55c3",
+  "sourceHash": "3574201a886b7183cf6ea3f6d65aa397ac61e75a6c7bfc6d7091d16be77ab4b6",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -33,6 +33,24 @@
       "id": "dictionaries.fl_nonresident.document_type_codes_fl",
       "type": "dictionary",
       "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+      "entries": [
+        "004"
+      ]
+    },
+    {
+      "id": "dictionaries.ip_nonresident.add_doc_type_codes",
+      "type": "dictionary",
+      "description": "Merchant-коды дополнительных документов ИП-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+      "entries": [
+        "007",
+        "005",
+        "006"
+      ]
+    },
+    {
+      "id": "dictionaries.ip_nonresident.document_type_codes_fl",
+      "type": "dictionary",
+      "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
       "entries": [
         "004"
       ]
@@ -159,6 +177,64 @@
       "message": "Бенефициар должен быть физическим лицом, резидентом РФ",
       "field": "beneficiary.type",
       "value": "FL_RESIDENT"
+    },
+    {
+      "id": "entrypoints.ip_nonresident.full_validation",
+      "type": "pipeline",
+      "description": "Валидация заявки ИП-нерезидента РФ",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.beneficiary_type_required"
+        },
+        {
+          "rule": "library.common.beneficiary_type_supported"
+        },
+        {
+          "rule": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.ip_registration"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.contacts_and_status"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.identity_core"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.identity_document"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.add_doc"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.address"
+        },
+        {
+          "pipeline": "internal.ip_nonresident.blocks.tax_flags"
+        }
+      ],
+      "entrypoint": true,
+      "required_context": [
+        "currentDate"
+      ]
+    },
+    {
+      "id": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident",
+      "type": "rule",
+      "description": "Тип бенефициара должен быть ИП-нерезидент",
+      "role": "check",
+      "operator": "equals",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.IP.TYPE.MISMATCH",
+      "message": "Бенефициар должен быть индивидуальным предпринимателем, нерезидентом РФ",
+      "field": "beneficiary.type",
+      "value": "IP_NONRESIDENT",
+      "meta": {
+        "legacyCode": "IP.TYPE.MISMATCH",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "entrypoints.ip_resident.full_validation",
@@ -956,6 +1032,508 @@
       "message": "Признак налогового резидентства США не допускается для ФЛ-резидента РФ",
       "field": "beneficiary.tax.usTaxResident",
       "value": true
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.add_doc",
+      "type": "pipeline",
+      "description": "Проверка дополнительного документа ИП-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "strict": false,
+      "flow": [
+        {
+          "condition": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_if_present"
+        },
+        {
+          "condition": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported"
+        },
+        {
+          "condition": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_migration_card"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.address",
+      "type": "pipeline",
+      "description": "Проверки адреса регистрации и почтового адреса",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.address.registration_country_required"
+        },
+        {
+          "condition": "internal.ip_nonresident.blocks.address.registration_country_if_present"
+        },
+        {
+          "condition": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru"
+        },
+        {
+          "condition": "library.address.cond_postal_address_if_present"
+        },
+        {
+          "condition": "library.address.cond_postal_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_code_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_name_if_present"
+        },
+        {
+          "condition": "library.address.cond_city_if_present"
+        },
+        {
+          "condition": "library.address.cond_locality_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_type_if_present"
+        },
+        {
+          "condition": "library.address.cond_house_if_present"
+        },
+        {
+          "condition": "library.address.cond_building_if_present"
+        },
+        {
+          "condition": "library.address.cond_flat_if_present"
+        },
+        {
+          "condition": "library.ip_nonresident.address.cond_address_line_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.address.registration_country_if_present",
+      "type": "condition",
+      "description": "Если страна адреса регистрации заполнена, проверяем формат и запрет США",
+      "when": {
+        "all": [
+          "library.address.pred_country_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.address.country"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.address.registration_country_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.address.registration_country_not_us",
+      "type": "rule",
+      "description": "Страна адреса регистрации не должна быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+      "message": "Адрес США не допускается для ИП-нерезидента",
+      "field": "beneficiary.address.registration.countryCode",
+      "value": "US",
+      "meta": {
+        "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.contacts_and_status",
+      "type": "pipeline",
+      "description": "Общие проверки контактов и статуса связи",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.participation_required"
+        },
+        {
+          "condition": "library.common.cond_participation_if_present"
+        },
+        {
+          "rule": "library.common.account_number_required"
+        },
+        {
+          "condition": "library.common.cond_account_number_if_present"
+        },
+        {
+          "rule": "library.ip_nonresident.common.contacts_any"
+        },
+        {
+          "condition": "library.common.cond_phone_if_present"
+        },
+        {
+          "condition": "library.common.cond_email_if_present"
+        },
+        {
+          "rule": "library.common.status_start_required"
+        },
+        {
+          "condition": "library.common.cond_status_start_if_present"
+        },
+        {
+          "condition": "library.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_core",
+      "type": "pipeline",
+      "description": "Основные персональные данные",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.fl.inn_required"
+        },
+        {
+          "condition": "library.fl.cond_inn_if_present"
+        },
+        {
+          "rule": "library.fl.last_name_required"
+        },
+        {
+          "condition": "library.fl.cond_last_name_if_present"
+        },
+        {
+          "rule": "library.fl.first_name_required"
+        },
+        {
+          "condition": "library.fl.cond_first_name_if_present"
+        },
+        {
+          "condition": "library.fl.cond_middle_name_if_present"
+        },
+        {
+          "rule": "library.fl.birth_date_required"
+        },
+        {
+          "condition": "library.fl.cond_birth_date_if_present"
+        },
+        {
+          "rule": "library.fl.birth_place_required"
+        },
+        {
+          "condition": "internal.ip_nonresident.blocks.identity_core.birth_place_if_present"
+        },
+        {
+          "rule": "library.fl.citizenship_required"
+        },
+        {
+          "condition": "internal.ip_nonresident.blocks.identity_core.citizenship_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_core.birth_place_if_present",
+      "type": "condition",
+      "description": "Если место рождения указано, то проверяем ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_birth_place_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "internal.ip_nonresident.blocks.identity_core.birth_place_not_usa"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_core.birth_place_not_usa",
+      "type": "rule",
+      "description": "Место рождения не должно содержать указание на США",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+      "message": "Место рождения не должно указывать на США",
+      "field": "beneficiary.fl.birthPlace",
+      "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$",
+      "meta": {
+        "legacyCode": "FL.BIRTH_PLACE.NOT_USA",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_core.citizenship_if_present",
+      "type": "condition",
+      "description": "Если гражданство указано, то проверяем формат и ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_citizenship_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.fl.citizenship_code_format"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.identity_core.citizenship_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_core.citizenship_not_us",
+      "type": "rule",
+      "description": "Код гражданства не должен быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
+      "message": "Гражданство США не допускается для ИП-нерезидента",
+      "field": "beneficiary.fl.citizenshipCode",
+      "value": "US",
+      "meta": {
+        "legacyCode": "FL.CITIZENSHIP.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.identity_document",
+      "type": "pipeline",
+      "description": "Проверка документа удостоверяющего личность",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.documents.type_code_required"
+        },
+        {
+          "rule": "library.ip_nonresident.documents.type_code_in_dictionary"
+        },
+        {
+          "rule": "library.documents.type_code_not_35"
+        },
+        {
+          "rule": "library.documents.number_required"
+        },
+        {
+          "rule": "library.documents.issuer_required"
+        },
+        {
+          "condition": "library.ip_nonresident.documents.cond_issuer_if_present"
+        },
+        {
+          "rule": "library.documents.issue_date_required"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_if_present"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_end_if_present"
+        },
+        {
+          "condition": "library.ip_nonresident.documents.cond_passport_rf_fields"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration",
+      "type": "pipeline",
+      "description": "Проверки регистрационных реквизитов ИП-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.full_name_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.short_name_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_number_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_number_format"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_date_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_date_format"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_code_required"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.full_name_required",
+      "type": "rule",
+      "description": "Наименование ИП обязательно",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.FULL_NAME.REQUIRED",
+      "message": "Не указано полное наименование индивидуального предпринимателя",
+      "field": "beneficiary.ip.fullName"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required",
+      "type": "rule",
+      "description": "Адрес регистрирующего органа ИП обязателен",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_AGENCY_ADDRESS.REQUIRED",
+      "message": "Не указан адрес регистрирующего органа индивидуального предпринимателя",
+      "field": "beneficiary.ip.registration.agencyAddress"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_agency_code_required",
+      "type": "rule",
+      "description": "Код регистрирующего органа ИП обязателен",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_AGENCY_CODE.REQUIRED",
+      "message": "Не указан код регистрирующего органа индивидуального предпринимателя",
+      "field": "beneficiary.ip.registration.agencyCode"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_agency_required",
+      "type": "rule",
+      "description": "Регистрирующий орган ИП обязателен",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_AGENCY.REQUIRED",
+      "message": "Не указан регистрирующий орган индивидуального предпринимателя",
+      "field": "beneficiary.ip.registration.agency"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_date_format",
+      "type": "rule",
+      "description": "Дата регистрации ИП должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_DATE.FORMAT",
+      "message": "Дата государственной регистрации ИП должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.ip.registration.date",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_date_required",
+      "type": "rule",
+      "description": "Дата регистрации ИП обязательна",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_DATE.REQUIRED",
+      "message": "Не указана дата государственной регистрации индивидуального предпринимателя",
+      "field": "beneficiary.ip.registration.date"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_number_format",
+      "type": "rule",
+      "description": "ОГРНИП ИП-нерезидента должен содержать 15 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_NUMBER.FORMAT",
+      "message": "ОГРНИП должен содержать ровно 15 цифр",
+      "field": "beneficiary.ip.registration.number",
+      "value": "^\\d{15}$"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.registration_number_required",
+      "type": "rule",
+      "description": "ОГРНИП обязателен для ИП-нерезидента",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.REGISTRATION_NUMBER.REQUIRED",
+      "message": "Не указан ОГРНИП индивидуального предпринимателя",
+      "field": "beneficiary.ip.registration.number"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.ip_registration.short_name_required",
+      "type": "rule",
+      "description": "Краткое наименование ИП обязательно",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP.SHORT_NAME.REQUIRED",
+      "message": "Не указано краткое наименование индивидуального предпринимателя",
+      "field": "beneficiary.ip.shortName"
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.tax_flags",
+      "type": "pipeline",
+      "description": "Проверка налоговых признаков ИП-нерезидента, FATCA/US и условных иностранных налоговых сведений",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.tax.us_tax_resident_bool"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.tax_flags.us_tax_resident_not_true"
+        },
+        {
+          "rule": "library.tax.us_resident_bool"
+        },
+        {
+          "rule": "internal.ip_nonresident.blocks.tax_flags.us_resident_not_true"
+        },
+        {
+          "condition": "library.tax.cond_foreign_tax_trigger_block"
+        },
+        {
+          "condition": "library.tax.cond_phone_foreign_required_if_triggered_and_rf_phone_missing"
+        },
+        {
+          "condition": "library.common.cond_phone_foreign_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.tax_flags.us_resident_not_true",
+      "type": "rule",
+      "description": "Признак резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "message": "Признак резидентства США не допускается для ИП-нерезидента РФ",
+      "field": "beneficiary.tax.usResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_nonresident.blocks.tax_flags.us_tax_resident_not_true",
+      "type": "rule",
+      "description": "Признак налогового резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "message": "Признак налогового резидентства США не допускается для ИП-нерезидента РФ",
+      "field": "beneficiary.tax.usTaxResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "internal.ip_resident.blocks.address",
@@ -3380,6 +3958,322 @@
       "field": "beneficiary.fl.middleName"
     },
     {
+      "id": "library.ip_nonresident.address.cond_address_line_if_present",
+      "type": "condition",
+      "description": "Если полный адрес места жительства / регистрации / пребывания заполнен, проверяем формат и длину",
+      "when": {
+        "all": [
+          "library.ip_nonresident.address.pred_full_address_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ip_nonresident.address.full_address"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.address.cond_registration_fias_structure_for_ru",
+      "type": "condition",
+      "description": "Если адрес места жительства / регистрации / пребывания относится к РФ, требуем ФИАС-структуру адреса",
+      "when": {
+        "all": [
+          "library.address.pred_registration_country_ru"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.address.registration_region_code_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_city_or_locality_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_street_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_street_type_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_house_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_postal_required_for_ru"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.address.full_address",
+      "type": "rule",
+      "description": "Если полный адрес места жительства / регистрации / пребывания передан, проверяем длину",
+      "role": "check",
+      "operator": "length_max",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+      "message": "Полный адрес места жительства / регистрации / пребывания превышает 500 символов",
+      "field": "beneficiary.address.registration.fullAddress",
+      "value": 500,
+      "meta": {
+        "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.address.pred_full_address_present",
+      "type": "rule",
+      "description": "Заполнен полный адрес места жительства / регистрации / пребывания",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.address.registration.fullAddress"
+    },
+    {
+      "id": "library.ip_nonresident.common.contacts_any",
+      "type": "rule",
+      "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+      "fields": [
+        "beneficiary.contacts.phone",
+        "beneficiary.contacts.email"
+      ],
+      "meta": {
+        "legacyCode": "BEN.CONTACTS.MIN_ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.documents.cond_issuer_if_present",
+      "type": "condition",
+      "description": "Если орган выдачи указан, выполняем мягкие проверки качества заполнения",
+      "when": "library.documents.pred_issuer_present",
+      "steps": [
+        {
+          "rule": "library.ip_nonresident.documents.issuer_no_extra_spaces"
+        },
+        {
+          "rule": "library.ip_nonresident.documents.issuer_no_garbage_symbols"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.documents.cond_passport_rf_fields",
+      "type": "condition",
+      "description": "Если тип документа = паспорт РФ, проверяем паспортные поля и код подразделения",
+      "when": {
+        "all": [
+          "library.documents.pred_type_code_passport_rf"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.documents.series_required"
+        },
+        {
+          "condition": "library.documents.cond_series_format_if_present"
+        },
+        {
+          "rule": "library.documents.number_passport_rf_format"
+        },
+        {
+          "rule": "library.documents.issuer_code_required"
+        },
+        {
+          "condition": "library.documents.cond_issuer_code_format_if_present"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.documents.issuer_no_extra_spaces",
+      "type": "rule",
+      "description": "Орган выдачи не должен содержать лишние пробелы",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "WARNING",
+      "code": "IP_NONRESIDENT.BEN.IDDOC.ISSUER.SPACES",
+      "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит лишние пробелы",
+      "field": "beneficiary.idDoc.issuer",
+      "value": "^(?!\\s)(?!.*\\s$)(?!.*\\s{2,}).+$",
+      "meta": {
+        "legacyCode": "BEN.IDDOC.ISSUER.SPACES",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.documents.issuer_no_garbage_symbols",
+      "type": "rule",
+      "description": "Орган выдачи не должен содержать мусорные символы",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "WARNING",
+      "code": "IP_NONRESIDENT.BEN.IDDOC.ISSUER.SYMBOLS",
+      "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит недопустимые символы",
+      "field": "beneficiary.idDoc.issuer",
+      "value": "^[A-Za-zА-Яа-яЁё0-9№.\\/\\- ]+$",
+      "meta": {
+        "legacyCode": "BEN.IDDOC.ISSUER.SYMBOLS",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.documents.type_code_in_dictionary",
+      "type": "rule",
+      "description": "Код типа документа должен входить в допустимый справочник",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+      "message": "Код типа документа должен входить в допустимый классификатор",
+      "field": "beneficiary.idDoc.typeCode",
+      "dictionary": {
+        "type": "static",
+        "id": "dictionaries.ip_nonresident.document_type_codes_fl",
+        "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
+        "entries": [
+          "004"
+        ]
+      },
+      "meta": {
+        "legacyCode": "BEN.IDDOC.TYPE_CODE.DICT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.fl.precheck_identity_any",
+      "type": "rule",
+      "description": "Для ИП-нерезидента должен быть указан ИНН или номер документа",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "EXCEPTION",
+      "code": "IP_NONRESIDENT.FL.IDENTITY.MIN.ONE",
+      "message": "Для ИП-нерезидента должен быть указан ИНН или номер документа",
+      "fields": [
+        "beneficiary.inn",
+        "beneficiary.idDoc.number"
+      ],
+      "meta": {
+        "legacyCode": "FL.IDENTITY.MIN.ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.add_doc_issuer_required",
+      "type": "rule",
+      "description": "Кем выдан обязательно для документа права пребывания/проживания ИП-нерезидента, если указан тип дополнительного документа",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+      "message": "Не указан орган, выдавший дополнительный документ",
+      "field": "beneficiary.addDoc.issuer",
+      "meta": {
+        "legacyCode": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.add_doc_required",
+      "type": "rule",
+      "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.REQUIRED",
+      "message": "Для ИП-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+      "fields": [
+        "beneficiary.addDoc.number",
+        "beneficiary.addDoc.issueDate",
+        "beneficiary.addDoc.issueDateEnd"
+      ],
+      "meta": {
+        "legacyCode": "FL_NONRES.ADD_DOC.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.add_doc_series_required",
+      "type": "rule",
+      "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ИП-нерезидента.",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+      "message": "Не указана серия дополнительного документа",
+      "field": "beneficiary.addDoc.series",
+      "meta": {
+        "legacyCode": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.add_doc_type_code_supported",
+      "type": "rule",
+      "description": "Код типа дополнительного документа должен входить в справочник: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "ERROR",
+      "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
+      "message": "Код типа дополнительного документа не поддерживается",
+      "field": "beneficiary.addDoc.typeCode",
+      "dictionary": {
+        "type": "static",
+        "id": "dictionaries.ip_nonresident.add_doc_type_codes",
+        "description": "Merchant-коды дополнительных документов ИП-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+        "entries": [
+          "007",
+          "005",
+          "006"
+        ]
+      },
+      "meta": {
+        "legacyCode": "FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus",
+      "type": "condition",
+      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются.",
+      "when": "library.nonresident.pred_citizenship_not_belarus",
+      "steps": [
+        {
+          "rule": "library.ip_nonresident.nonresident.add_doc_required"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc",
+      "type": "condition",
+      "description": "Если указан документ права пребывания/проживания, проверяем обязательность серии и органа выдачи",
+      "when": {
+        "all": [
+          "library.nonresident.pred_add_doc_typeCode_present",
+          "library.nonresident.pred_add_doc_typeCode_not_migr"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ip_nonresident.nonresident.add_doc_series_required"
+        },
+        {
+          "rule": "library.ip_nonresident.nonresident.add_doc_issuer_required"
+        }
+      ]
+    },
+    {
+      "id": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported",
+      "type": "condition",
+      "description": "Если указан тип дополнительного документа, проверяем справочник.",
+      "when": "library.nonresident.pred_add_doc_typeCode_present",
+      "steps": [
+        {
+          "rule": "library.ip_nonresident.nonresident.add_doc_type_code_supported"
+        }
+      ]
+    },
+    {
       "id": "library.ip_resident.fl.precheck_identity_any",
       "type": "rule",
       "description": "Для владельца ИП-резидента должен быть указан ИНН или номер документа",
@@ -4248,7 +5142,7 @@
   "meta": {
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT и IP_RESIDENT validate-application в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.3.0"
+    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT и IP_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+    "rulesetVersion": "0.4.0"
   }
 }

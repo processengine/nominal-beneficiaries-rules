@@ -1,0 +1,18 @@
+{
+  "id": "library.ip_nonresident.common.contacts_any",
+  "type": "rule",
+  "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "IP_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+  "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+  "fields": [
+    "beneficiary.contacts.phone",
+    "beneficiary.contacts.email"
+  ],
+  "meta": {
+    "legacyCode": "BEN.CONTACTS.MIN_ONE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

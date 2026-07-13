@@ -1,7 +1,7 @@
 {
   "projectId": "nominal-beneficiaries-rules",
-  "rulesetVersion": "0.3.0",
-  "artifactCount": 288,
-  "sourceHash": "dcd993d55037ca6ad39389e482ac21ba13dcd6e62bd553e4e9b6ad95e55a55c3",
-  "builtAt": "2026-07-13T16:45:26.065Z"
+  "rulesetVersion": "0.4.0",
+  "artifactCount": 334,
+  "sourceHash": "3574201a886b7183cf6ea3f6d65aa397ac61e75a6c7bfc6d7091d16be77ab4b6",
+  "builtAt": "2026-07-13T17:00:24.909Z"
 }

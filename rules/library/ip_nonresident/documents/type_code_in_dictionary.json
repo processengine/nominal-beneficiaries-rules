@@ -1,0 +1,23 @@
+{
+  "id": "library.ip_nonresident.documents.type_code_in_dictionary",
+  "type": "rule",
+  "description": "Код типа документа должен входить в допустимый справочник",
+  "role": "check",
+  "operator": "in_dictionary",
+  "level": "ERROR",
+  "code": "IP_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+  "message": "Код типа документа должен входить в допустимый классификатор",
+  "field": "beneficiary.idDoc.typeCode",
+  "dictionary": {
+    "type": "static",
+    "id": "dictionaries.ip_nonresident.document_type_codes_fl",
+    "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
+    "entries": [
+      "004"
+    ]
+  },
+  "meta": {
+    "legacyCode": "BEN.IDDOC.TYPE_CODE.DICT",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

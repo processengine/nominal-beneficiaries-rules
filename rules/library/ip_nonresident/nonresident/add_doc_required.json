@@ -1,0 +1,19 @@
+{
+  "id": "library.ip_nonresident.nonresident.add_doc_required",
+  "type": "rule",
+  "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.REQUIRED",
+  "message": "Для ИП-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+  "fields": [
+    "beneficiary.addDoc.number",
+    "beneficiary.addDoc.issueDate",
+    "beneficiary.addDoc.issueDateEnd"
+  ],
+  "meta": {
+    "legacyCode": "FL_NONRES.ADD_DOC.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

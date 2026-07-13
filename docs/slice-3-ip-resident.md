@@ -68,10 +68,10 @@ npm test
 - 4 samples для `FL_NONRESIDENT`;
 - 5 samples для `IP_RESIDENT`.
 
-## Not Done In This Slice
+## Follow-up Status
 
-- Processor artifact `ip_resident.validate_application` переключается отдельным
-  processor slice после публикации пакета.
+- Processor artifact `ip_resident.validate_application` был переключен на
+  `rulesetRef` в processor slice после публикации пакета `0.3.0`.
 - Общие resident FL/IP блоки пока не переписаны вручную в новые library
   pipelines. Этот слайс доказывает parity и фиксирует корректные границы
   package layout.

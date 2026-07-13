@@ -4,12 +4,13 @@
 
 ## Статус
 
-Третий слайс миграции: пакет отделен от процессора и содержит три контура
+Четвертый слайс миграции: пакет отделен от процессора и содержит четыре контура
 валидации заявки:
 
 - `FL_RESIDENT`;
-- `FL_NONRESIDENT`.
-- `IP_RESIDENT`.
+- `FL_NONRESIDENT`;
+- `IP_RESIDENT`;
+- `IP_NONRESIDENT`.
 
 Цель текущего состояния - доказать parity между старым исполнением через
 `@processengine/rules` и новым `jsonspecs-snapshot`, не меняя бизнес-поведение
@@ -22,6 +23,7 @@
 | `entrypoints.fl_resident.full_validation` | Валидация заявки ФЛ-резидента |
 | `entrypoints.fl_nonresident.full_validation` | Валидация заявки ФЛ-нерезидента |
 | `entrypoints.ip_resident.full_validation` | Валидация ФЛ-данных владельца ИП-резидента |
+| `entrypoints.ip_nonresident.full_validation` | Валидация заявки ИП-нерезидента |
 
 ## Runtime Context
 
@@ -68,7 +70,8 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 Одинаковые artifacts между контурами остаются общими `library.*`.
 
 Если id совпадает, но тело правила отличается, контурный вариант генерируется
-как `library.fl_nonresident.*`, `library.ip_resident.*` или
+как `library.fl_nonresident.*`, `library.ip_resident.*`,
+`library.ip_nonresident.*` или
 `internal.<contour>.*`. Это не новый payload namespace, а техническая область
 пакета правил: она нужна, чтобы не смешивать разные проверки под одним
 `library.*` / `internal.*` id.
@@ -76,10 +79,11 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 `jsonspecs` требует уникальные `code` для всех check-правил внутри snapshot.
 Если старые processor snapshots используют одинаковый код в разных контурах,
 пакет namespace-ит код контурного правила префиксом `FL_NONRESIDENT.*` или
-`IP_RESIDENT.*` и сохраняет старое значение в `meta.legacyCode`. Parity harness
-сравнивает с legacy по `legacyCode`. Processor при подключении package-backed
-rules возвращает наружу `legacyCode`, чтобы merchant-facing коды ошибок не
-менялись из-за технического ограничения jsonspecs snapshot.
+`IP_RESIDENT.*` / `IP_NONRESIDENT.*` и сохраняет старое значение в
+`meta.legacyCode`. Parity harness сравнивает с legacy по `legacyCode`.
+Processor при подключении package-backed rules возвращает наружу `legacyCode`,
+чтобы merchant-facing коды ошибок не менялись из-за технического ограничения
+jsonspecs snapshot.
 
 ## Релизный цикл
 
@@ -126,7 +130,8 @@ docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 
 ## Следующие слайсы
 
-1. Переключить `ip_resident.validate_application` в processor на `rulesetRef`.
+1. Переключить `ip_nonresident.validate_application` в processor на
+   `rulesetRef`.
 2. Перенести следующий validate-application contour отдельным slice.
 3. После parity вынести общие проверки в library pipelines и убрать
    физическое дублирование между FL/IP/UL.

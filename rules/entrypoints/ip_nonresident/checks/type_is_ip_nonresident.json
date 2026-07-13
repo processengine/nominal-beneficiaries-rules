@@ -1,0 +1,16 @@
+{
+  "id": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident",
+  "type": "rule",
+  "description": "Тип бенефициара должен быть ИП-нерезидент",
+  "role": "check",
+  "operator": "equals",
+  "level": "EXCEPTION",
+  "code": "IP_NONRESIDENT.IP.TYPE.MISMATCH",
+  "message": "Бенефициар должен быть индивидуальным предпринимателем, нерезидентом РФ",
+  "field": "beneficiary.type",
+  "value": "IP_NONRESIDENT",
+  "meta": {
+    "legacyCode": "IP.TYPE.MISMATCH",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

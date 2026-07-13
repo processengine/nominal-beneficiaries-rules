@@ -32,6 +32,7 @@ Samples с `legacyParity: false` не сравниваются с legacy snapsho
 BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
 FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
 IP_RESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
+IP_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
 ```
 
 Старый код сохраняется в `rule.meta.legacyCode`. При сравнении с

@@ -1,0 +1,11 @@
+{
+  "id": "internal.ip_nonresident.blocks.ip_registration.registration_agency_required",
+  "type": "rule",
+  "description": "Регистрирующий орган ИП обязателен",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "IP.REGISTRATION_AGENCY.REQUIRED",
+  "message": "Не указан регистрирующий орган индивидуального предпринимателя",
+  "field": "beneficiary.ip.registration.agency"
+}

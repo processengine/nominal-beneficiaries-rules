@@ -1,0 +1,16 @@
+{
+  "id": "library.ip_nonresident.documents.issuer_no_extra_spaces",
+  "type": "rule",
+  "description": "Орган выдачи не должен содержать лишние пробелы",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "WARNING",
+  "code": "IP_NONRESIDENT.BEN.IDDOC.ISSUER.SPACES",
+  "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит лишние пробелы",
+  "field": "beneficiary.idDoc.issuer",
+  "value": "^(?!\\s)(?!.*\\s$)(?!.*\\s{2,}).+$",
+  "meta": {
+    "legacyCode": "BEN.IDDOC.ISSUER.SPACES",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

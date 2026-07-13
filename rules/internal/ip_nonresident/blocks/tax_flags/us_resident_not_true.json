@@ -1,0 +1,16 @@
+{
+  "id": "internal.ip_nonresident.blocks.tax_flags.us_resident_not_true",
+  "type": "rule",
+  "description": "Признак резидентства США не должен иметь значение true",
+  "role": "check",
+  "operator": "not_equals",
+  "level": "EXCEPTION",
+  "code": "IP_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+  "message": "Признак резидентства США не допускается для ИП-нерезидента РФ",
+  "field": "beneficiary.tax.usResident",
+  "value": true,
+  "meta": {
+    "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

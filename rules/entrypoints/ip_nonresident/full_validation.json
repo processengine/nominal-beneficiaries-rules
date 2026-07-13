@@ -1,0 +1,42 @@
+{
+  "id": "entrypoints.ip_nonresident.full_validation",
+  "type": "pipeline",
+  "description": "Валидация заявки ИП-нерезидента РФ",
+  "strict": false,
+  "flow": [
+    {
+      "rule": "library.common.beneficiary_type_required"
+    },
+    {
+      "rule": "library.common.beneficiary_type_supported"
+    },
+    {
+      "rule": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.ip_registration"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.contacts_and_status"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.identity_core"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.identity_document"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.add_doc"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.address"
+    },
+    {
+      "pipeline": "internal.ip_nonresident.blocks.tax_flags"
+    }
+  ],
+  "entrypoint": true,
+  "required_context": [
+    "currentDate"
+  ]
+}

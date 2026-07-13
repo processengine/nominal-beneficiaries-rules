@@ -1,0 +1,19 @@
+{
+  "id": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc",
+  "type": "condition",
+  "description": "Если указан документ права пребывания/проживания, проверяем обязательность серии и органа выдачи",
+  "when": {
+    "all": [
+      "library.nonresident.pred_add_doc_typeCode_present",
+      "library.nonresident.pred_add_doc_typeCode_not_migr"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.ip_nonresident.nonresident.add_doc_series_required"
+    },
+    {
+      "rule": "library.ip_nonresident.nonresident.add_doc_issuer_required"
+    }
+  ]
+}

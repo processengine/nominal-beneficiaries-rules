@@ -1,0 +1,16 @@
+{
+  "id": "internal.ip_nonresident.blocks.address.registration_country_not_us",
+  "type": "rule",
+  "description": "Страна адреса регистрации не должна быть US",
+  "role": "check",
+  "operator": "not_equals",
+  "level": "EXCEPTION",
+  "code": "IP_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+  "message": "Адрес США не допускается для ИП-нерезидента",
+  "field": "beneficiary.address.registration.countryCode",
+  "value": "US",
+  "meta": {
+    "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

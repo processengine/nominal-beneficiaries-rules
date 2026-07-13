@@ -1,0 +1,11 @@
+{
+  "id": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported",
+  "type": "condition",
+  "description": "Если указан тип дополнительного документа, проверяем справочник.",
+  "when": "library.nonresident.pred_add_doc_typeCode_present",
+  "steps": [
+    {
+      "rule": "library.ip_nonresident.nonresident.add_doc_type_code_supported"
+    }
+  ]
+}

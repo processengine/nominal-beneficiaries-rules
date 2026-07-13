@@ -1,0 +1,16 @@
+{
+  "id": "library.ip_nonresident.documents.issuer_no_garbage_symbols",
+  "type": "rule",
+  "description": "Орган выдачи не должен содержать мусорные символы",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "WARNING",
+  "code": "IP_NONRESIDENT.BEN.IDDOC.ISSUER.SYMBOLS",
+  "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит недопустимые символы",
+  "field": "beneficiary.idDoc.issuer",
+  "value": "^[A-Za-zА-Яа-яЁё0-9№.\\/\\- ]+$",
+  "meta": {
+    "legacyCode": "BEN.IDDOC.ISSUER.SYMBOLS",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

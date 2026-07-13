@@ -1,0 +1,11 @@
+{
+  "id": "internal.ip_nonresident.blocks.ip_registration.registration_number_required",
+  "type": "rule",
+  "description": "ОГРНИП обязателен для ИП-нерезидента",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "IP.REGISTRATION_NUMBER.REQUIRED",
+  "message": "Не указан ОГРНИП индивидуального предпринимателя",
+  "field": "beneficiary.ip.registration.number"
+}
