@@ -147,7 +147,7 @@ function notTrue(rule, ctx) {
       got.value === undefined ||
       got.value === ""
     )
-      return { status: "UNDEFINED" };
+      return { status: "OK" };
     return got.value === true ? { status: "FAIL" } : { status: "OK" };
   } catch (error) {
     return { status: "EXCEPTION", error };
