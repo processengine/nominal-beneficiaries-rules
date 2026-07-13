@@ -60,7 +60,6 @@
     "issues": [
       {
         "code": "UL_NONRESIDENT.UL.CONTACTS.MIN_ONE",
-        "field": null,
         "level": "ERROR"
       }
     ]

@@ -11,10 +11,10 @@
 entrypoints.fl_resident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/fl-resident.validate-application.rules.snapshot.json
 ```
 
 ## Intentional Deltas
@@ -49,7 +49,7 @@ npm test
 node /Users/vladimirtitskiy/Dev/jsonspecs-rule-author/scripts/validate-package.mjs .
 ```
 
-`npm test` сравнивает legacy snapshot и jsonspecs snapshot по:
+`npm test` сравнивает frozen parity fixture и jsonspecs snapshot по:
 
 - `status`;
 - `control`;
@@ -61,5 +61,6 @@ node /Users/vladimirtitskiy/Dev/jsonspecs-rule-author/scripts/validate-package.m
    [slice-2-fl-nonresident.md](./slice-2-fl-nonresident.md).
 2. После второго потребителя выделять общие pipelines вместо физического
    копирования блоков.
-3. Подключить package в `processor-preprod` через `rulesEngine` как внешний
-   rules package без удаления local fallback.
+3. Подключение package в `processor-preprod` через `rulesEngine` выполнено
+   последующими слайсами; локальные processor snapshot artifacts больше не являются
+   source of truth.

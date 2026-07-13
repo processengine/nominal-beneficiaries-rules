@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.inn_format",
   "type": "rule",
-  "description": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
+  "description": "ИНН бенефициара должен состоять из 10 или 12 цифр",
   "role": "check",
   "operator": "matches_regex",
   "level": "ERROR",

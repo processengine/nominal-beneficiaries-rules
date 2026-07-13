@@ -1,12 +1,12 @@
 {
   "id": "library.common.email_format",
   "type": "rule",
-  "description": "Email должен быть валидным",
+  "description": "Эл. почта должна быть корректной",
   "role": "check",
   "operator": "matches_regex",
   "level": "ERROR",
   "code": "BEN.CONTACTS.EMAIL.FORMAT",
-  "message": "Некорректный email",
+  "message": "Некорректная эл. почта",
   "field": "beneficiary.contacts.email",
   "value": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
 }

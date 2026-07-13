@@ -28,5 +28,7 @@
         "level": "ERROR"
       }
     ]
-  }
+  },
+  "legacyParity": false,
+  "note": "Текст ошибки в jsonspecs-пакете очищен от legacy-формулировки"
 }

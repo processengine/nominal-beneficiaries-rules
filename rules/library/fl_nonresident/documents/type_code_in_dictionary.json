@@ -1,17 +1,17 @@
 {
   "id": "library.fl_nonresident.documents.type_code_in_dictionary",
   "type": "rule",
-  "description": "Код типа документа должен входить в допустимый справочник",
+  "description": "Код типа документа должен поддерживаться",
   "role": "check",
   "operator": "in_dictionary",
   "level": "ERROR",
   "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
-  "message": "Код типа документа должен входить в допустимый классификатор",
+  "message": "Код типа документа должен поддерживаться",
   "field": "beneficiary.idDoc.typeCode",
   "dictionary": {
     "type": "static",
     "id": "dictionaries.fl_nonresident.document_type_codes_fl",
-    "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+    "description": "Коды документов ФЛ-нерезидента для ближайшего релиза: 004",
     "entries": [
       "004"
     ]

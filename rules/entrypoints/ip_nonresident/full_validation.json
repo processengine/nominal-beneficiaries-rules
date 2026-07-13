@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.ip_nonresident.full_validation",
   "type": "pipeline",
-  "description": "Валидация заявки ИП-нерезидента РФ",
+  "description": "Проверка ИП-нерезидента РФ",
   "strict": false,
   "flow": [
     {

@@ -1,7 +1,7 @@
 {
   "id": "library.common.pred_email_present",
   "type": "rule",
-  "description": "Email указан",
+  "description": "Эл. почта указана",
   "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.contacts.email"

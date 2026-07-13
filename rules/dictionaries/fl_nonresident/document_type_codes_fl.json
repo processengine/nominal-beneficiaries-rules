@@ -1,7 +1,7 @@
 {
   "id": "dictionaries.fl_nonresident.document_type_codes_fl",
   "type": "dictionary",
-  "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+  "description": "Коды документов ФЛ-нерезидента для ближайшего релиза: 004",
   "entries": [
     "004"
   ]

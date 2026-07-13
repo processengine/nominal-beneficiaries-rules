@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import * as legacyRules from "@processengine/rules";
@@ -8,48 +8,21 @@ const require = createRequire(import.meta.url);
 const jsonspecs = require("jsonspecs");
 const customOperators = require("../operators/node/index.js");
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
-const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
 const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
 
-function legacySnapshotPath(processorRelativePath, fixtureFileName) {
-  const processorPath = path.join(processorDir, processorRelativePath);
-  if (process.env.PROCESSOR_REPO && existsSync(processorPath)) return processorPath;
+function legacySnapshotPath(fixtureFileName) {
   return path.join(legacyFixtureDir, fixtureFileName);
 }
 
 const legacySnapshotPaths = {
-  "entrypoints.fl_resident.full_validation": legacySnapshotPath(
-    "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "fl-resident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.fl_nonresident.full_validation": legacySnapshotPath(
-    "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "fl-nonresident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.ip_resident.full_validation": legacySnapshotPath(
-    "artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "ip-resident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.ip_nonresident.full_validation": legacySnapshotPath(
-    "artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "ip-nonresident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.ul_resident.full_validation": legacySnapshotPath(
-    "artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "ul-resident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.ul_nonresident.full_validation": legacySnapshotPath(
-    "artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
-    "ul-nonresident.validate-application.rules.snapshot.json",
-  ),
-  "entrypoints.beneficiary.unbind.type_supported": legacySnapshotPath(
-    "artifacts/beneficiary.unbind/rules.snapshot.json",
-    "beneficiary-unbind.rules.snapshot.json",
-  ),
-  "entrypoints.beneficiary.unbind.field_validation": legacySnapshotPath(
-    "artifacts/beneficiary.unbind/rules.snapshot.json",
-    "beneficiary-unbind.rules.snapshot.json",
-  ),
+  "entrypoints.fl_resident.full_validation": legacySnapshotPath("fl-resident.validate-application.rules.snapshot.json"),
+  "entrypoints.fl_nonresident.full_validation": legacySnapshotPath("fl-nonresident.validate-application.rules.snapshot.json"),
+  "entrypoints.ip_resident.full_validation": legacySnapshotPath("ip-resident.validate-application.rules.snapshot.json"),
+  "entrypoints.ip_nonresident.full_validation": legacySnapshotPath("ip-nonresident.validate-application.rules.snapshot.json"),
+  "entrypoints.ul_resident.full_validation": legacySnapshotPath("ul-resident.validate-application.rules.snapshot.json"),
+  "entrypoints.ul_nonresident.full_validation": legacySnapshotPath("ul-nonresident.validate-application.rules.snapshot.json"),
+  "entrypoints.beneficiary.unbind.type_supported": legacySnapshotPath("beneficiary-unbind.rules.snapshot.json"),
+  "entrypoints.beneficiary.unbind.field_validation": legacySnapshotPath("beneficiary-unbind.rules.snapshot.json"),
 };
 
 function readSamples(dir) {

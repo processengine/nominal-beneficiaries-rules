@@ -1,7 +1,7 @@
 {
   "id": "library.common.cond_email_if_present",
   "type": "condition",
-  "description": "Если email указан, проверяем формат и длину",
+  "description": "Если эл. почта указан, проверяем формат и длину",
   "when": {
     "all": [
       "library.common.pred_email_present"

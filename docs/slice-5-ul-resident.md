@@ -10,10 +10,10 @@
 entrypoints.ul_resident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/ul-resident.validate-application.rules.snapshot.json
 ```
 
 Слайс переносит только RULES-контур валидации заявки. Root-flow,
@@ -59,7 +59,6 @@ processor runtime используют `legacyCode` для публичного 
 Обязательный локальный прогон:
 
 ```bash
-npm run sync
 npm test
 npm pack --dry-run
 ```

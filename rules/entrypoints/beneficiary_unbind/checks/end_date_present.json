@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.end_date_present",
   "type": "rule",
-  "description": "Не указана дата выбытия (status.endDate).",
+  "description": "Не указана дата выбытия (status.endDate)",
   "role": "check",
   "operator": "not_empty",
   "level": "ERROR",

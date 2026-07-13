@@ -1,7 +1,7 @@
 {
   "id": "internal.ul_resident.blocks.core",
   "type": "pipeline",
-  "description": "Основные сведения заявки ЮЛ-резидента",
+  "description": "Основные сведения ЮЛ-резидента",
   "strict": false,
   "flow": [
     {

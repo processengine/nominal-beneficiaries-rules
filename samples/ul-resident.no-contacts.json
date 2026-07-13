@@ -40,7 +40,6 @@
     "issues": [
       {
         "code": "UL.CONTACTS.MIN_ONE",
-        "field": null,
         "level": "ERROR"
       }
     ]

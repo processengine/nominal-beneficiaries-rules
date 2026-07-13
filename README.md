@@ -4,8 +4,8 @@
 
 ## Статус
 
-Седьмой слайс миграции: пакет отделен от процессора и содержит все активные
-RULES-контуры процессора:
+Пакет отделен от процессора и является source of truth для всех активных
+RULES-контуров процессора:
 
 - `FL_RESIDENT`;
 - `FL_NONRESIDENT`;
@@ -15,22 +15,23 @@ RULES-контуры процессора:
 - `UL_NONRESIDENT`;
 - `beneficiary.unbind`.
 
-Цель текущего состояния - доказать parity между старым исполнением через
-`@processengine/rules` и новым `jsonspecs-snapshot`, не меняя бизнес-поведение
-за исключением явно помеченных guard-улучшений.
+Цель текущего состояния - поддерживать самостоятельный `jsonspecs-snapshot`
+для процессора без локальных `rules.snapshot.json` в `processor-preprod`.
+Замороженные parity fixtures остаются только внутри этого пакета как
+регрессионная база миграции.
 
 ## Точки входа
 
 | Entrypoint | Сценарий |
 |---|---|
-| `entrypoints.fl_resident.full_validation` | Валидация заявки ФЛ-резидента |
-| `entrypoints.fl_nonresident.full_validation` | Валидация заявки ФЛ-нерезидента |
-| `entrypoints.ip_resident.full_validation` | Валидация ФЛ-данных владельца ИП-резидента |
-| `entrypoints.ip_nonresident.full_validation` | Валидация заявки ИП-нерезидента |
-| `entrypoints.ul_resident.full_validation` | Валидация заявки ЮЛ-резидента |
-| `entrypoints.ul_nonresident.full_validation` | Валидация заявки ЮЛ-нерезидента |
-| `entrypoints.beneficiary.unbind.type_supported` | Проверка категории бенефициара для отвязки |
-| `entrypoints.beneficiary.unbind.field_validation` | Валидация заявки на отвязку |
+| `entrypoints.fl_resident.full_validation` | Проверка ФЛ-резидента |
+| `entrypoints.fl_nonresident.full_validation` | Проверка ФЛ-нерезидента |
+| `entrypoints.ip_resident.full_validation` | Проверка ФЛ-данных владельца ИП-резидента |
+| `entrypoints.ip_nonresident.full_validation` | Проверка ИП-нерезидента |
+| `entrypoints.ul_resident.full_validation` | Проверка ЮЛ-резидента |
+| `entrypoints.ul_nonresident.full_validation` | Проверка ЮЛ-нерезидента |
+| `entrypoints.beneficiary.unbind.type_supported` | Проверка типа бенефициара для отвязки |
+| `entrypoints.beneficiary.unbind.field_validation` | Проверка данных для отвязки |
 
 ## Runtime Context
 
@@ -44,14 +45,12 @@ Entrypoint требует контекст:
 
 ```bash
 npm install
-npm run sync
 npm test
 ```
 
-`sync` раскладывает текущие processor snapshots по каталогу `rules/`,
-пересобирает samples и применяет только нейтральную нормализацию известных
-legacy-дублей. Ручные правки в сгенерированных rules-файлах до отдельного
-design slice не делать: сначала нужно пройти parity.
+`npm test` собирает `dist/snapshot.json` из файлов `rules/` и сравнивает
+результаты с замороженными parity fixtures из `test-fixtures/legacy-snapshots`.
+Процессор не является источником правил и не нужен для сборки пакета.
 
 Samples лежат прямо в `samples/*.json` в Studio-совместимом формате:
 `context.pipelineId`, `payload`, `expect.status` и `expect.issues`.
@@ -85,7 +84,7 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 `library.*` / `internal.*` id.
 
 `jsonspecs` требует уникальные `code` для всех check-правил внутри snapshot.
-Если старые processor snapshots используют одинаковый код в разных контурах,
+Если frozen parity fixtures используют одинаковый код в разных контурах,
 пакет namespace-ит код контурного правила префиксом `FL_NONRESIDENT.*` или
 `IP_RESIDENT.*` / `IP_NONRESIDENT.*` / `UL_RESIDENT.*` /
 `UL_NONRESIDENT.*` и сохраняет старое значение в
@@ -132,21 +131,21 @@ NPM_TOKEN
 
 ```text
 manifest.json             метаданные пакета и catalog для Studio/UI
-field-contracts/          контракты полей Rules UI для processor compatibility
+field-contracts/          контракты полей Rules UI
 rules/                    jsonspecs artifacts, один artifact на файл
-rules/internal/           внутренние блоки legacy snapshot с id internal.*
+rules/internal/           внутренние блоки правил с id internal.*
 operators/node/           доменные операторы бенефициаров
 samples/                  parity samples для entrypoint
 scripts/build.mjs         сборка dist/snapshot.json
-scripts/parity.mjs        сравнение legacy vs jsonspecs
+scripts/parity.mjs        сравнение frozen parity fixtures vs jsonspecs
 dist/snapshot.json        собранный jsonspecs snapshot
-docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
+test-fixtures/            замороженная регрессионная база миграции
 ```
 
 ## Текущее состояние миграции
 
 Все active RULES contours processor-preprod перенесены в package snapshot
-`@processengine/nominal-beneficiaries-rules@0.7.0`:
+`@processengine/nominal-beneficiaries-rules@0.7.2`:
 
 - `fl_resident.validate_application`;
 - `fl_nonresident.validate_application`;
@@ -158,8 +157,9 @@ docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
   - `entrypoints.beneficiary.unbind.type_supported`;
   - `entrypoints.beneficiary.unbind.field_validation`.
 
-Processor switch для `beneficiary.unbind` выполнен в `processor-preprod` после
-публикации версии `0.7.0`.
+Processor switch для всех активных RULES-контуров выполнен в `processor-preprod`.
+Локальные `rules.snapshot.json` и `rules-field-contract.json` в processor repo
+не являются source of truth и удалены из активного рабочего дерева.
 
 Первый design slice FL/IP-дедупликации выполнен: конфликты, вызванные только
 описаниями artifacts или одинаковыми nonresident add-doc checks, схлопнуты без

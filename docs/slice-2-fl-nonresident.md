@@ -11,35 +11,24 @@ validate-application рядом с уже перенесенным `FL_RESIDENT`
 entrypoints.fl_nonresident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/fl-nonresident.validate-application.rules.snapshot.json
 ```
 
 ## Merge Model
 
-Пакет собирается из двух processor snapshots.
+Пакет собирается из собственных `rules/` artifacts. Frozen fixtures
+используются только для регрессионного сравнения результата.
 
 - Идентичные artifacts переиспользуются как общие `library.*`.
 - Разные artifacts с одинаковым legacy-id не склеиваются молча.
 - Вариант ФЛ-нерезидента получает scoped-id `library.fl_nonresident.*`.
 
-Текущий отчет генерации лежит в:
-
-```text
-docs/sync-report.json
-```
-
-Он фиксирует:
-
-- сколько artifacts переиспользовано;
-- какие legacy-id стали scoped;
-- какие check-коды получили namespace.
-
 ## Code Namespace
 
-Legacy processor snapshots допускают одинаковые `code` в разных контурах.
+Frozen parity fixtures допускают одинаковые `code` в разных контурах.
 `jsonspecs` требует уникальный `code` внутри одного compiled snapshot.
 
 Поэтому только для физически разных нерезидентских check-правил с
@@ -68,7 +57,6 @@ Runtime-подключение processor маппит такие коды обр
 Обязательный локальный прогон:
 
 ```bash
-npm run sync
 npm test
 ```
 

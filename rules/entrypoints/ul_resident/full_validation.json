@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.ul_resident.full_validation",
   "type": "pipeline",
-  "description": "Полная проверка заявки ЮЛ-резидента",
+  "description": "Проверка ЮЛ-резидента",
   "strict": false,
   "entrypoint": true,
   "required_context": [

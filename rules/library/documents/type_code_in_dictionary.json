@@ -1,17 +1,17 @@
 {
   "id": "library.documents.type_code_in_dictionary",
   "type": "rule",
-  "description": "Код типа документа должен входить в допустимый справочник",
+  "description": "Код типа документа должен поддерживаться",
   "role": "check",
   "operator": "in_dictionary",
   "level": "ERROR",
   "code": "BEN.IDDOC.TYPE_CODE.DICT",
-  "message": "Код типа документа должен входить в допустимый классификатор",
+  "message": "Код типа документа должен поддерживаться",
   "field": "beneficiary.idDoc.typeCode",
   "dictionary": {
     "type": "static",
     "id": "document_type_codes_fl",
-    "description": "Merchant-коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003.",
+    "description": "Коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003",
     "entries": [
       "001",
       "002",

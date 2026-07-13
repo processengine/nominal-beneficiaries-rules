@@ -11,10 +11,10 @@ validate-application.
 entrypoints.ul_nonresident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/ul-nonresident.validate-application.rules.snapshot.json
 ```
 
 Слайс переносит только RULES-контур валидации заявки. Root-flow, CFT
@@ -62,7 +62,6 @@ processor runtime используют `legacyCode` для публичного 
 Обязательный локальный прогон:
 
 ```bash
-npm run sync
 npm test
 npm pack --dry-run
 ```
@@ -85,8 +84,7 @@ npm pack --dry-run
 
 ## Not Done In This Slice
 
-- `beneficiary.unbind` остается local RULES/FUNC contour и не переносится этим
-  изменением.
+- `beneficiary.unbind` перенесен в package-backed rules отдельным слайсом.
 - Физическая дедупликация общих FL/IP/UL library pipelines остается отдельным
   design slice после завершения package-backed миграции активных validation
   contours.

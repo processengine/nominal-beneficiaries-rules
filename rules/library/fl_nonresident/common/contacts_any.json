@@ -1,12 +1,12 @@
 {
   "id": "library.fl_nonresident.common.contacts_any",
   "type": "rule",
-  "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+  "description": "Должен быть указан хотя бы один контакт: телефон РФ или эл. почта",
   "role": "check",
   "operator": "any_filled",
   "level": "ERROR",
   "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
-  "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+  "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или эл. почта",
   "fields": [
     "beneficiary.contacts.phone",
     "beneficiary.contacts.email"

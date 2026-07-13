@@ -1,7 +1,7 @@
 {
   "id": "library.common.beneficiary_type_supported",
   "type": "rule",
-  "description": "Тип бенефициара должен входить в поддерживаемый enum",
+  "description": "Тип бенефициара должен поддерживаться",
   "role": "check",
   "operator": "in_dictionary",
   "level": "EXCEPTION",

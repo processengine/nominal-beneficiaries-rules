@@ -11,10 +11,10 @@ validate-application.
 entrypoints.ip_nonresident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/ip-nonresident.validate-application.rules.snapshot.json
 ```
 
 Root-процесс `ip-nonresident.registration` в processor остается временно
@@ -60,7 +60,6 @@ processor runtime используют `legacyCode` для публичного 
 Обязательный локальный прогон:
 
 ```bash
-npm run sync
 npm test
 ```
 

@@ -1,7 +1,7 @@
 {
   "id": "library.tax.tin_absence_reason_dict",
   "type": "rule",
-  "description": "Код причины отсутствия иностранного ИНН должен входить в справочник",
+  "description": "Код причины отсутствия иностранного ИНН должен поддерживаться",
   "role": "check",
   "operator": "in_dictionary",
   "level": "EXCEPTION",

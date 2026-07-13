@@ -1,7 +1,7 @@
 {
   "id": "library.tax.foreign_address_required",
   "type": "rule",
-  "description": "При foreign-tax trigger требуется адрес в иностранном государстве",
+  "description": "Адрес иностранного налогового резидентства должен быть указан",
   "role": "check",
   "operator": "not_empty",
   "level": "ERROR",

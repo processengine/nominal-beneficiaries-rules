@@ -3,7 +3,7 @@
   "type": "pipeline",
   "entrypoint": true,
   "strict": false,
-  "description": "Валидация полей заявки.",
+  "description": "Проверка данных для отвязки бенефициара",
   "flow": [
     {
       "rule": "entrypoints.beneficiary.unbind.field_validation.participation_id_present"

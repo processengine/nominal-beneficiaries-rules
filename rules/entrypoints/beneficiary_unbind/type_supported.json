@@ -3,7 +3,7 @@
   "type": "pipeline",
   "entrypoint": true,
   "strict": false,
-  "description": "Поддержка типа бенефициара.",
+  "description": "Проверка типа бенефициара для отвязки",
   "flow": [
     {
       "rule": "entrypoints.beneficiary.unbind.type_supported.type_supported"

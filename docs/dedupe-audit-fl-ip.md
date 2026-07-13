@@ -3,14 +3,14 @@
 Status date: 2026-07-13.
 
 This document records the semantic audit of the remaining FL/IP scoped
-conflicts in the rules package. It is intentionally separate from
-`sync-report.json`: the report shows what is scoped, while this file explains
-whether each scope is a real business difference, a public issue wrapper, or a
-future dedupe candidate.
+conflicts in the rules package. It explains whether each scope is a real
+business difference, a public issue wrapper, or a future dedupe candidate.
 
 ## Current policy
 
-Rules package migration still preserves parity with processor snapshots.
+Rules package migration still preserves parity with frozen fixtures captured
+from the original processor snapshots. The processor repo is no longer the
+source of truth for rules.
 
 Executable equality ignores only `description` text. The following properties
 remain behavior-defining and must not be collapsed silently:

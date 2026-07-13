@@ -1,7 +1,7 @@
 {
   "id": "library.tax.pred_postal_country_non_ru",
   "type": "rule",
-  "description": "Страна почтового адреса указана и не равна RU",
+  "description": "Страна почтового адреса указана и не Россия",
   "role": "predicate",
   "operator": "matches_regex",
   "field": "beneficiary.contacts.postalAddressCountryCode",

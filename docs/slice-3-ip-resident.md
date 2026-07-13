@@ -10,10 +10,10 @@
 entrypoints.ip_resident.full_validation
 ```
 
-Источник синхронизации:
+Исходная parity-база миграционного слайса:
 
 ```text
-../processor-preprod/artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json
+test-fixtures/legacy-snapshots/ip-resident.validate-application.rules.snapshot.json
 ```
 
 ## Merge Model
@@ -49,7 +49,7 @@ IP_RESIDENT.<legacy-code>
 }
 ```
 
-Parity harness сравнивает с legacy snapshot по `legacyCode`. Processor runtime
+Parity harness сравнивает с frozen parity fixture по `legacyCode`. Processor runtime
 также возвращает наружу `legacyCode`, чтобы пакетизация не меняла коды ошибок
 мерчантского контракта.
 
@@ -58,7 +58,6 @@ Parity harness сравнивает с legacy snapshot по `legacyCode`. Proces
 Обязательный локальный прогон:
 
 ```bash
-npm run sync
 npm test
 ```
 

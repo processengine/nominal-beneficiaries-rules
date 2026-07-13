@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.inn_present",
   "type": "rule",
-  "description": "Не указан ИНН бенефициара.",
+  "description": "Не указан ИНН бенефициара",
   "role": "check",
   "operator": "not_empty",
   "level": "ERROR",

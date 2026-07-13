@@ -8,7 +8,7 @@
   "dictionary": {
     "type": "static",
     "id": "domestic_document_type_codes_fl",
-    "description": "Merchant-коды документов граждан РФ для ближайшего релиза: 001, 002, 003.",
+    "description": "Коды документов граждан РФ для ближайшего релиза: 001, 002, 003",
     "entries": [
       "001",
       "002",

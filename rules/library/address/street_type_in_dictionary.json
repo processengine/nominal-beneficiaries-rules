@@ -1,12 +1,12 @@
 {
   "id": "library.address.street_type_in_dictionary",
   "type": "rule",
-  "description": "Тип улицы адреса регистрации должен входить в допустимый справочник",
+  "description": "Тип улицы адреса регистрации должен поддерживаться",
   "role": "check",
   "operator": "in_dictionary",
   "level": "ERROR",
   "code": "BEN.ADDR.REG.STREET_TYPE.DICT",
-  "message": "Тип улицы адреса регистрации должен входить в допустимый справочник ФИАС/ГАР",
+  "message": "Тип улицы адреса регистрации должен поддерживаться в ФИАС/ГАР",
   "field": "beneficiary.address.registration.streetType",
   "dictionary": {
     "type": "static",

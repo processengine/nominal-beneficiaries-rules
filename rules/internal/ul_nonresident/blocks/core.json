@@ -1,7 +1,7 @@
 {
   "id": "internal.ul_nonresident.blocks.core",
   "type": "pipeline",
-  "description": "Основные сведения заявки ЮЛ-нерезидента",
+  "description": "Основные сведения ЮЛ-нерезидента",
   "strict": false,
   "flow": [
     {

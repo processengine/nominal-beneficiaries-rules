@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.fl_resident.full_validation",
   "type": "pipeline",
-  "description": "Валидация заявки ФЛ-резидента РФ",
+  "description": "Проверка ФЛ-резидента РФ",
   "strict": false,
   "flow": [
     {

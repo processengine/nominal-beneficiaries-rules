@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.fl_nonresident.full_validation",
   "type": "pipeline",
-  "description": "Валидация заявки ФЛ-нерезидента РФ",
+  "description": "Проверка ФЛ-нерезидента РФ",
   "strict": false,
   "flow": [
     {

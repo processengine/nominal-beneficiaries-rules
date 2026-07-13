@@ -1,7 +1,7 @@
 {
   "id": "entrypoints.ul_nonresident.full_validation",
   "type": "pipeline",
-  "description": "Полная проверка заявки ЮЛ-нерезидента",
+  "description": "Проверка ЮЛ-нерезидента",
   "strict": false,
   "flow": [
     {

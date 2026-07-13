@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "1da51e6cdf289367789cb85f86f1492f1d097e23528f519eb1205e152ad7fd2b",
+  "sourceHash": "c4f47545f0246e9656e14e801b6d06bc94d5fe8e1367cbd5ec19cee071542d7c",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -9,7 +9,7 @@
     {
       "id": "add_doc_type_codes",
       "type": "dictionary",
-      "description": "Merchant-коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+      "description": "Коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
       "entries": [
         "007",
         "005",
@@ -32,7 +32,7 @@
     {
       "id": "dictionaries.fl_nonresident.document_type_codes_fl",
       "type": "dictionary",
-      "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+      "description": "Коды документов ФЛ-нерезидента для ближайшего релиза: 004",
       "entries": [
         "004"
       ]
@@ -40,7 +40,7 @@
     {
       "id": "dictionaries.ip_nonresident.document_type_codes_fl",
       "type": "dictionary",
-      "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
+      "description": "Коды документов ИП-нерезидента для ближайшего релиза: 004",
       "entries": [
         "004"
       ]
@@ -48,7 +48,7 @@
     {
       "id": "document_type_codes_fl",
       "type": "dictionary",
-      "description": "Merchant-коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003.",
+      "description": "Коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003",
       "entries": [
         "001",
         "002",
@@ -58,7 +58,7 @@
     {
       "id": "domestic_document_type_codes_fl",
       "type": "dictionary",
-      "description": "Merchant-коды документов граждан РФ для ближайшего релиза: 001, 002, 003.",
+      "description": "Коды документов граждан РФ для ближайшего релиза: 001, 002, 003",
       "entries": [
         "001",
         "002",
@@ -70,7 +70,7 @@
       "type": "pipeline",
       "entrypoint": true,
       "strict": false,
-      "description": "Валидация полей заявки.",
+      "description": "Проверка данных для отвязки бенефициара",
       "flow": [
         {
           "rule": "entrypoints.beneficiary.unbind.field_validation.participation_id_present"
@@ -104,7 +104,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.account_present",
       "type": "rule",
-      "description": "Не указан номер номинального счёта.",
+      "description": "Не указан номер номинального счёта",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -115,7 +115,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.end_date_format",
       "type": "rule",
-      "description": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+      "description": "Дата выбытия должна быть в формате YYYY-MM-DD",
       "role": "check",
       "operator": "matches_regex",
       "level": "ERROR",
@@ -127,7 +127,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.end_date_present",
       "type": "rule",
-      "description": "Не указана дата выбытия (status.endDate).",
+      "description": "Не указана дата выбытия (status.endDate)",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -138,7 +138,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.inn_format",
       "type": "rule",
-      "description": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
+      "description": "ИНН бенефициара должен состоять из 10 или 12 цифр",
       "role": "check",
       "operator": "matches_regex",
       "level": "ERROR",
@@ -150,7 +150,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.inn_present",
       "type": "rule",
-      "description": "Не указан ИНН бенефициара.",
+      "description": "Не указан ИНН бенефициара",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -161,7 +161,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.inn_valid",
       "type": "rule",
-      "description": "ИНН не прошёл проверку контрольных разрядов.",
+      "description": "ИНН не прошёл проверку контрольных разрядов",
       "role": "check",
       "operator": "valid_inn",
       "level": "ERROR",
@@ -172,7 +172,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.participation_id_present",
       "type": "rule",
-      "description": "Не указан идентификатор участия (participationId).",
+      "description": "Не указан идентификатор участия (participationId)",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -183,7 +183,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.start_date_format",
       "type": "rule",
-      "description": "Дата присоединения должна быть в формате YYYY-MM-DD.",
+      "description": "Дата присоединения должна быть в формате YYYY-MM-DD",
       "role": "check",
       "operator": "matches_regex",
       "level": "ERROR",
@@ -195,7 +195,7 @@
     {
       "id": "entrypoints.beneficiary.unbind.field_validation.start_date_present",
       "type": "rule",
-      "description": "Не указана дата присоединения (status.startDate).",
+      "description": "Не указана дата присоединения (status.startDate)",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -208,7 +208,7 @@
       "type": "pipeline",
       "entrypoint": true,
       "strict": false,
-      "description": "Поддержка типа бенефициара.",
+      "description": "Проверка типа бенефициара для отвязки",
       "flow": [
         {
           "rule": "entrypoints.beneficiary.unbind.type_supported.type_supported"
@@ -218,19 +218,19 @@
     {
       "id": "entrypoints.beneficiary.unbind.type_supported.type_supported",
       "type": "rule",
-      "description": "Тип бенефициара поддержан для отвязки.",
+      "description": "Тип бенефициара должен поддерживаться для отвязки",
       "role": "check",
       "operator": "matches_regex",
       "level": "ERROR",
       "field": "beneficiary.type",
       "code": "BENEFICIARY_UNBIND_TYPE_SUPPORTED",
-      "message": "Тип бенефициара поддержан для отвязки.",
+      "message": "Тип бенефициара должен поддерживаться для отвязки.",
       "value": "^(FL_RESIDENT|FL_NONRESIDENT|IP_RESIDENT|UL_RESIDENT|UL_NONRESIDENT)$"
     },
     {
       "id": "entrypoints.fl_nonresident.full_validation",
       "type": "pipeline",
-      "description": "Валидация заявки ФЛ-нерезидента РФ",
+      "description": "Проверка ФЛ-нерезидента РФ",
       "strict": false,
       "flow": [
         {
@@ -285,7 +285,7 @@
     {
       "id": "entrypoints.fl_resident.full_validation",
       "type": "pipeline",
-      "description": "Валидация заявки ФЛ-резидента РФ",
+      "description": "Проверка ФЛ-резидента РФ",
       "strict": false,
       "flow": [
         {
@@ -333,7 +333,7 @@
     {
       "id": "entrypoints.ip_nonresident.full_validation",
       "type": "pipeline",
-      "description": "Валидация заявки ИП-нерезидента РФ",
+      "description": "Проверка ИП-нерезидента РФ",
       "strict": false,
       "flow": [
         {
@@ -391,7 +391,7 @@
     {
       "id": "entrypoints.ip_resident.full_validation",
       "type": "pipeline",
-      "description": "Валидация заявки ИП-резидента РФ",
+      "description": "Проверка ИП-резидента РФ",
       "strict": false,
       "flow": [
         {
@@ -439,7 +439,7 @@
     {
       "id": "entrypoints.ul_nonresident.full_validation",
       "type": "pipeline",
-      "description": "Полная проверка заявки ЮЛ-нерезидента",
+      "description": "Проверка ЮЛ-нерезидента",
       "strict": false,
       "flow": [
         {
@@ -475,7 +475,7 @@
     {
       "id": "entrypoints.ul_resident.full_validation",
       "type": "pipeline",
-      "description": "Полная проверка заявки ЮЛ-резидента",
+      "description": "Проверка ЮЛ-резидента",
       "strict": false,
       "entrypoint": true,
       "required_context": [
@@ -508,7 +508,7 @@
     {
       "id": "internal.fl_nonresident.blocks.add_doc",
       "type": "pipeline",
-      "description": "Проверка дополнительного документа ФЛ-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "description": "Проверка дополнительного документа ФЛ-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
       "strict": false,
       "flow": [
         {
@@ -1257,7 +1257,7 @@
     {
       "id": "internal.ip_nonresident.blocks.add_doc",
       "type": "pipeline",
-      "description": "Проверка дополнительного документа ИП-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "description": "Проверка дополнительного документа ИП-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
       "strict": false,
       "flow": [
         {
@@ -2143,7 +2143,7 @@
     {
       "id": "internal.ul_nonresident.blocks.core",
       "type": "pipeline",
-      "description": "Основные сведения заявки ЮЛ-нерезидента",
+      "description": "Основные сведения ЮЛ-нерезидента",
       "strict": false,
       "flow": [
         {
@@ -2296,7 +2296,7 @@
     {
       "id": "internal.ul_resident.blocks.core",
       "type": "pipeline",
-      "description": "Основные сведения заявки ЮЛ-резидента",
+      "description": "Основные сведения ЮЛ-резидента",
       "strict": false,
       "flow": [
         {
@@ -2970,12 +2970,12 @@
     {
       "id": "library.address.street_type_in_dictionary",
       "type": "rule",
-      "description": "Тип улицы адреса регистрации должен входить в допустимый справочник",
+      "description": "Тип улицы адреса регистрации должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "ERROR",
       "code": "BEN.ADDR.REG.STREET_TYPE.DICT",
-      "message": "Тип улицы адреса регистрации должен входить в допустимый справочник ФИАС/ГАР",
+      "message": "Тип улицы адреса регистрации должен поддерживаться в ФИАС/ГАР",
       "field": "beneficiary.address.registration.streetType",
       "dictionary": {
         "type": "static",
@@ -3019,7 +3019,7 @@
     {
       "id": "library.common.beneficiary_type_supported",
       "type": "rule",
-      "description": "Тип бенефициара должен входить в поддерживаемый enum",
+      "description": "Тип бенефициара должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "EXCEPTION",
@@ -3049,7 +3049,7 @@
     {
       "id": "library.common.cond_email_if_present",
       "type": "condition",
-      "description": "Если email указан, проверяем формат и длину",
+      "description": "Если эл. почта указан, проверяем формат и длину",
       "when": {
         "all": [
           "library.common.pred_email_present"
@@ -3160,12 +3160,12 @@
     {
       "id": "library.common.contacts_any",
       "type": "rule",
-      "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+      "description": "Должен быть указан хотя бы один контакт: телефон РФ или эл. почта",
       "role": "check",
       "operator": "any_filled",
       "level": "ERROR",
       "code": "BEN.CONTACTS.MIN_ONE",
-      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или эл. почта",
       "fields": [
         "beneficiary.contacts.phone",
         "beneficiary.contacts.email"
@@ -3178,24 +3178,24 @@
     {
       "id": "library.common.email_format",
       "type": "rule",
-      "description": "Email должен быть валидным",
+      "description": "Эл. почта должна быть корректной",
       "role": "check",
       "operator": "matches_regex",
       "level": "ERROR",
       "code": "BEN.CONTACTS.EMAIL.FORMAT",
-      "message": "Некорректный email",
+      "message": "Некорректная эл. почта",
       "field": "beneficiary.contacts.email",
       "value": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
     },
     {
       "id": "library.common.email_length",
       "type": "rule",
-      "description": "Email не должен быть длиннее 320 символов",
+      "description": "Эл. почта не должна быть длиннее 320 символов",
       "role": "check",
       "operator": "length_max",
       "level": "ERROR",
       "code": "BEN.CONTACTS.EMAIL.LENGTH",
-      "message": "Email превышает 320 символов",
+      "message": "Эл. почта не должна быть длиннее 320 символов",
       "field": "beneficiary.contacts.email",
       "value": 320
     },
@@ -3269,7 +3269,7 @@
     {
       "id": "library.common.pred_email_present",
       "type": "rule",
-      "description": "Email указан",
+      "description": "Эл. почта указана",
       "role": "predicate",
       "operator": "not_empty",
       "field": "beneficiary.contacts.email"
@@ -3824,17 +3824,17 @@
     {
       "id": "library.documents.type_code_in_dictionary",
       "type": "rule",
-      "description": "Код типа документа должен входить в допустимый справочник",
+      "description": "Код типа документа должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "ERROR",
       "code": "BEN.IDDOC.TYPE_CODE.DICT",
-      "message": "Код типа документа должен входить в допустимый классификатор",
+      "message": "Код типа документа должен поддерживаться",
       "field": "beneficiary.idDoc.typeCode",
       "dictionary": {
         "type": "static",
         "id": "document_type_codes_fl",
-        "description": "Merchant-коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003.",
+        "description": "Коды документов ФЛ-резидента для ближайшего релиза: 001, 002, 003",
         "entries": [
           "001",
           "002",
@@ -3899,12 +3899,12 @@
     {
       "id": "library.fl_nonresident.common.contacts_any",
       "type": "rule",
-      "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+      "description": "Должен быть указан хотя бы один контакт: телефон РФ или эл. почта",
       "role": "check",
       "operator": "any_filled",
       "level": "ERROR",
       "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
-      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или эл. почта",
       "fields": [
         "beneficiary.contacts.phone",
         "beneficiary.contacts.email"
@@ -3990,17 +3990,17 @@
     {
       "id": "library.fl_nonresident.documents.type_code_in_dictionary",
       "type": "rule",
-      "description": "Код типа документа должен входить в допустимый справочник",
+      "description": "Код типа документа должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "ERROR",
       "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
-      "message": "Код типа документа должен входить в допустимый классификатор",
+      "message": "Код типа документа должен поддерживаться",
       "field": "beneficiary.idDoc.typeCode",
       "dictionary": {
         "type": "static",
         "id": "dictionaries.fl_nonresident.document_type_codes_fl",
-        "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+        "description": "Коды документов ФЛ-нерезидента для ближайшего релиза: 004",
         "entries": [
           "004"
         ]
@@ -4432,12 +4432,12 @@
     {
       "id": "library.ip_nonresident.common.contacts_any",
       "type": "rule",
-      "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+      "description": "Должен быть указан хотя бы один контакт: телефон РФ или эл. почта",
       "role": "check",
       "operator": "any_filled",
       "level": "ERROR",
       "code": "IP_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
-      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или эл. почта",
       "fields": [
         "beneficiary.contacts.phone",
         "beneficiary.contacts.email"
@@ -4523,17 +4523,17 @@
     {
       "id": "library.ip_nonresident.documents.type_code_in_dictionary",
       "type": "rule",
-      "description": "Код типа документа должен входить в допустимый справочник",
+      "description": "Код типа документа должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "ERROR",
       "code": "IP_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
-      "message": "Код типа документа должен входить в допустимый классификатор",
+      "message": "Код типа документа должен поддерживаться",
       "field": "beneficiary.idDoc.typeCode",
       "dictionary": {
         "type": "static",
         "id": "dictionaries.ip_nonresident.document_type_codes_fl",
-        "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
+        "description": "Коды документов ИП-нерезидента для ближайшего релиза: 004",
         "entries": [
           "004"
         ]
@@ -4564,7 +4564,7 @@
     {
       "id": "library.ip_nonresident.nonresident.add_doc_required",
       "type": "rule",
-      "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
       "role": "check",
       "operator": "any_filled",
       "level": "ERROR",
@@ -4583,7 +4583,7 @@
     {
       "id": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus",
       "type": "condition",
-      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются.",
+      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются",
       "when": "library.nonresident.pred_citizenship_not_belarus",
       "steps": [
         {
@@ -4731,7 +4731,7 @@
     {
       "id": "library.nonresident.add_doc_required",
       "type": "rule",
-      "description": "Для ФЛ-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "description": "Для ФЛ-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
       "role": "check",
       "operator": "any_filled",
       "level": "ERROR",
@@ -4746,7 +4746,7 @@
     {
       "id": "library.nonresident.add_doc_series_required",
       "type": "rule",
-      "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ФЛ-нерезидента.",
+      "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ФЛ-нерезидента",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -4757,7 +4757,7 @@
     {
       "id": "library.nonresident.add_doc_type_code_supported",
       "type": "rule",
-      "description": "Код типа дополнительного документа должен входить в справочник: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
+      "description": "Код документа на пребывание должен поддерживаться: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
       "role": "check",
       "operator": "in_dictionary",
       "level": "ERROR",
@@ -4767,7 +4767,7 @@
       "dictionary": {
         "type": "static",
         "id": "add_doc_type_codes",
-        "description": "Merchant-коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+        "description": "Коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
         "entries": [
           "007",
           "005",
@@ -4830,7 +4830,7 @@
     {
       "id": "library.nonresident.cond_add_doc_required_unless_belarus",
       "type": "condition",
-      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются.",
+      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются",
       "when": "library.nonresident.pred_citizenship_not_belarus",
       "steps": [
         {
@@ -4860,7 +4860,7 @@
     {
       "id": "library.nonresident.cond_add_doc_type_code_supported",
       "type": "condition",
-      "description": "Если указан тип дополнительного документа, проверяем справочник.",
+      "description": "Если указан тип дополнительного документа, проверяем справочник",
       "when": "library.nonresident.pred_add_doc_typeCode_present",
       "steps": [
         {
@@ -4945,7 +4945,7 @@
     {
       "id": "library.nonresident.pred_citizenship_not_belarus",
       "type": "rule",
-      "description": "Код гражданства не равен BY.",
+      "description": "Код гражданства не равен BY",
       "role": "predicate",
       "operator": "not_equals",
       "field": "beneficiary.fl.citizenshipCode",
@@ -4984,7 +4984,7 @@
     {
       "id": "library.tax.cond_foreign_tax_trigger_block",
       "type": "condition",
-      "description": "Если указан иностранный документ или адрес не РФ, то проверяем данные иностранного налогового резидентства",
+      "description": "Если указан иностранный документ или адрес не в России, то проверяем данные иностранного налогового резидентства",
       "when": {
         "any": [
           "library.tax.pred_is_foreign_id_doc_true",
@@ -5022,7 +5022,7 @@
     {
       "id": "library.tax.cond_phone_foreign_required_if_triggered_and_rf_phone_missing",
       "type": "condition",
-      "description": "Если телефон РФ не указан и при этом указан иностранный документ или адрес не РФ, то требуем иностранный телефон",
+      "description": "Если телефон РФ не указан и при этом указан иностранный документ или адрес не в России, то требуем иностранный телефон",
       "when": {
         "all": [
           "library.tax.pred_phone_missing",
@@ -5116,7 +5116,7 @@
     {
       "id": "library.tax.foreign_address_or_postal_required",
       "type": "rule",
-      "description": "При foreign-tax trigger должен быть указан адрес в иностранном государстве для каждого иностранного налогового резидентства",
+      "description": "Адрес иностранного налогового резидентства должен быть указан",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -5127,7 +5127,7 @@
     {
       "id": "library.tax.foreign_address_required",
       "type": "rule",
-      "description": "При foreign-tax trigger требуется адрес в иностранном государстве",
+      "description": "Адрес иностранного налогового резидентства должен быть указан",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
@@ -5221,12 +5221,12 @@
     {
       "id": "library.tax.phone_foreign_required",
       "type": "rule",
-      "description": "При foreign-trigger и отсутствии телефона РФ требуется иностранный телефон",
+      "description": "Если есть иностранное налоговое резидентство и нет телефона РФ, нужен иностранный телефон",
       "role": "check",
       "operator": "not_empty",
       "level": "ERROR",
       "code": "BEN.CONTACTS.PHONE_FOREIGN.REQUIRED",
-      "message": "Не указан иностранный телефон. Он обязателен при отсутствии телефона РФ и наличии foreign-trigger",
+      "message": "Иностранный телефон обязателен при иностранном налоговом резидентстве, если телефон РФ не указан",
       "field": "beneficiary.contacts.foreignPhone"
     },
     {
@@ -5272,7 +5272,7 @@
       "dictionary": {
         "type": "static",
         "id": "domestic_document_type_codes_fl",
-        "description": "Merchant-коды документов граждан РФ для ближайшего релиза: 001, 002, 003.",
+        "description": "Коды документов граждан РФ для ближайшего релиза: 001, 002, 003",
         "entries": [
           "001",
           "002",
@@ -5291,7 +5291,7 @@
     {
       "id": "library.tax.pred_postal_country_non_ru",
       "type": "rule",
-      "description": "Страна почтового адреса указана и не равна RU",
+      "description": "Страна почтового адреса указана и не Россия",
       "role": "predicate",
       "operator": "matches_regex",
       "field": "beneficiary.contacts.postalAddressCountryCode",
@@ -5308,7 +5308,7 @@
     {
       "id": "library.tax.pred_registration_country_non_ru",
       "type": "rule",
-      "description": "Страна адреса регистрации указана и не равна RU",
+      "description": "Страна адреса регистрации указана и не Россия",
       "role": "predicate",
       "operator": "matches_regex",
       "field": "beneficiary.address.registration.countryCode",
@@ -5357,7 +5357,7 @@
     {
       "id": "library.tax.tin_absence_reason_dict",
       "type": "rule",
-      "description": "Код причины отсутствия иностранного ИНН должен входить в справочник",
+      "description": "Код причины отсутствия иностранного ИНН должен поддерживаться",
       "role": "check",
       "operator": "in_dictionary",
       "level": "EXCEPTION",
@@ -6429,7 +6429,7 @@
   "meta": {
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT, UL_NONRESIDENT validate-application и beneficiary.unbind в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.7.1"
+    "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
+    "rulesetVersion": "0.7.2"
   }
 }

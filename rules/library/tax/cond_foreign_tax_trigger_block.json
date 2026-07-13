@@ -1,7 +1,7 @@
 {
   "id": "library.tax.cond_foreign_tax_trigger_block",
   "type": "condition",
-  "description": "Если указан иностранный документ или адрес не РФ, то проверяем данные иностранного налогового резидентства",
+  "description": "Если указан иностранный документ или адрес не в России, то проверяем данные иностранного налогового резидентства",
   "when": {
     "any": [
       "library.tax.pred_is_foreign_id_doc_true",

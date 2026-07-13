@@ -2,11 +2,12 @@
 
 Package slice не меняет бизнес-смысл правил.
 
-Текущий parity-набор: 35 samples.
+Текущий parity-набор: 41 sample.
 
 Для каждого sample выполняется два запуска:
 
-1. legacy snapshot через `@processengine/rules`;
+1. frozen parity fixture из `test-fixtures/legacy-snapshots` через
+   `@processengine/rules`;
 2. `dist/snapshot.json` через `jsonspecs`.
 
 Сравниваются:
@@ -22,10 +23,10 @@ Trace не сравнивается и не должен быть частью p
 snapshot выполнял одно и то же правило два раза и возвращал два одинаковых
 сообщения. Новый пакет сохраняет бизнес-результат, но не сохраняет повтор.
 
-Samples с `legacyParity: false` не сравниваются с legacy snapshot. Это
-допускается только для явно описанных guard-улучшений, когда новый пакет
-разделяет отсутствие поля, неверный тип и бизнес-запрет значения. Такие samples
-обязательно проверяются по собственному `expect`.
+Samples с `legacyParity: false` не сравниваются с frozen parity fixture. Это
+допускается только для явно описанных guard-улучшений или language-only
+исправлений текста ошибки без изменения `level`, `code`, `field`, `status` и
+`control`. Такие samples обязательно проверяются по собственному `expect`.
 
 Для физически разных правил с одинаковым legacy-кодом применяется namespace
 кода внутри jsonspecs snapshot. Пример:
@@ -46,8 +47,8 @@ UL_NONRESIDENT.UL.CONTACTS.MIN_ONE
 
 В `processor-preprod` package-backed execution также маппит такие коды обратно
 в `legacyCode` перед возвратом результата RULES наружу. Это сохраняет
-merchant-facing контракт при переходе на общий package snapshot.
+merchant-facing контракт при работе через общий package snapshot.
 
 Если parity падает, нельзя исправлять sample под новый результат. Сначала нужно
-понять, где drift: в envelope, custom operator, jsonspecs runtime или в самих
-артефактах.
+понять, где drift: в frozen fixture, envelope, custom operator, jsonspecs
+runtime или в самих артефактах.
