@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.status_start_required",
+  "type": "rule",
+  "description": "Не указана дата начала участия бенефициара",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.STATUS.START_DATE.REQUIRED",
+  "message": "Не указана дата начала участия бенефициара",
+  "field": "beneficiary.status.startDate"
+}

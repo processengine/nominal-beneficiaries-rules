@@ -1,0 +1,640 @@
+{
+  "version": "1",
+  "createdAt": "2026-06-16T00:00:00.000Z",
+  "createdBy": "codex",
+  "description": "Rules snapshot для валидации заявки ЮЛ-резидента.",
+  "manifest": {
+    "project": {
+      "id": "nominal-beneficiaries-rules-ul-resident",
+      "title": "Бенефициары номинальных счетов: ЮЛ-резидент",
+      "description": "Пакет правил проверки заявки на регистрацию бенефициара ЮЛ-резидента РФ.",
+      "language": "ru"
+    },
+    "catalog": {
+      "fields": {
+        "beneficiary.type": {
+          "title": "Категория бенефициара",
+          "btName": "Категория бенефициара",
+          "description": "Категория бенефициара в заявке",
+          "businessDescription": "Категория бенефициара"
+        },
+        "beneficiary.inn": {
+          "title": "ИНН юридического лица",
+          "btName": "ИНН",
+          "description": "ИНН юридического лица-резидента",
+          "businessDescription": "ИНН юридического лица"
+        },
+        "beneficiary.participationId": {
+          "title": "Идентификатор основания участия",
+          "btName": "Идентификатор основания участия",
+          "description": "Идентификатор основания участия бенефициара в номинальном счете",
+          "businessDescription": "Идентификатор основания участия"
+        },
+        "beneficiary.account.number": {
+          "title": "Номер номинального счета",
+          "btName": "Номер номинального счета",
+          "description": "Номер номинального счета для привязки бенефициара",
+          "businessDescription": "Номер номинального счета"
+        },
+        "beneficiary.contacts.phone": {
+          "title": "Контактный телефон",
+          "btName": "Телефон",
+          "description": "Контактный телефон юридического лица",
+          "businessDescription": "Контактный телефон"
+        },
+        "beneficiary.contacts.email": {
+          "title": "Эл. почта",
+          "btName": "эл. почта",
+          "description": "Эл. почта юридического лица",
+          "businessDescription": "эл. почта"
+        },
+        "beneficiary.status.startDate": {
+          "title": "Дата начала участия",
+          "btName": "Дата начала участия",
+          "description": "Дата начала участия бенефициара по номинальному счету",
+          "businessDescription": "Дата начала участия"
+        },
+        "beneficiary.status.endDate": {
+          "title": "Дата окончания участия",
+          "btName": "Дата окончания участия",
+          "description": "Дата окончания участия бенефициара по номинальному счету",
+          "businessDescription": "Дата окончания участия"
+        },
+        "beneficiary.address.legal.countryCode": {
+          "title": "Страна юридического адреса",
+          "btName": "Страна юридического адреса",
+          "description": "Страна юридического адреса юридического лица",
+          "businessDescription": "Страна юридического адреса"
+        },
+        "beneficiary.address.legal.fullAddress": {
+          "title": "Юридический адрес",
+          "btName": "Юридический адрес",
+          "description": "Полный юридический адрес юридического лица",
+          "businessDescription": "Юридический адрес"
+        },
+        "beneficiary.tax.foreignTaxResident": {
+          "title": "Иностранное налоговое резидентство",
+          "btName": "Иностранное налоговое резидентство",
+          "description": "Указание, является ли юридическое лицо налоговым резидентом за пределами РФ",
+          "businessDescription": "Иностранное налоговое резидентство"
+        },
+        "beneficiary.tax.passiveNfe": {
+          "title": "Пассивная нефинансовая организация",
+          "btName": "Пассивная НФО",
+          "description": "Указание, является ли юридическое лицо пассивной нефинансовой организацией",
+          "businessDescription": "Пассивная нефинансовая организация"
+        },
+        "beneficiary.tax.controllingPersonsForeignTaxResident": {
+          "title": "Иностранное налоговое резидентство контролирующих лиц",
+          "btName": "Контролирующие лица - иностранные налоговые резиденты",
+          "description": "Указание, есть ли у юридического лица контролирующие лица с иностранным налоговым резидентством",
+          "businessDescription": "Иностранное налоговое резидентство контролирующих лиц"
+        },
+        "beneficiary.tax.usTaxResident": {
+          "title": "Налоговое резидентство США у организации",
+          "btName": "Налоговое резидентство США у организации",
+          "description": "Указание, является ли юридическое лицо налоговым резидентом США",
+          "businessDescription": "Налоговое резидентство США у организации"
+        },
+        "beneficiary.tax.controllingPersonsUsTaxResident": {
+          "title": "Налоговое резидентство США у контролирующих лиц",
+          "btName": "Налоговое резидентство США у контролирующих лиц",
+          "description": "Указание, есть ли у юридического лица контролирующие лица с налоговым резидентством США",
+          "businessDescription": "Налоговое резидентство США у контролирующих лиц"
+        }
+      },
+      "artifacts": {
+        "entrypoints.ul_resident.full_validation": {
+          "title": "Валидация заявки ЮЛ-резидента",
+          "description": "Полная проверка заявки ЮЛ-резидента"
+        }
+      },
+      "entrypoints": {
+        "entrypoints.ul_resident.full_validation": {
+          "title": "Валидация заявки ЮЛ-резидента",
+          "description": "Полная проверка заявки ЮЛ-резидента"
+        }
+      }
+    }
+  },
+  "artifactCount": 37,
+  "artifacts": [
+    {
+      "id": "beneficiary_types",
+      "type": "dictionary",
+      "description": "Допустимые категории бенефициаров для версии 1",
+      "entries": [
+        "UL_RESIDENT",
+        "UL_NONRESIDENT",
+        "IP_RESIDENT",
+        "IP_NONRESIDENT",
+        "FL_RESIDENT",
+        "FL_NONRESIDENT"
+      ]
+    },
+    {
+      "id": "entrypoints.ul_resident.full_validation",
+      "type": "pipeline",
+      "description": "Полная проверка заявки ЮЛ-резидента",
+      "strict": false,
+      "entrypoint": true,
+      "required_context": [
+        "currentDate"
+      ],
+      "flow": [
+        {
+          "rule": "library.ul.type_required"
+        },
+        {
+          "rule": "library.ul.type_supported"
+        },
+        {
+          "rule": "library.ul.type_is_ul_resident"
+        },
+        {
+          "pipeline": "internal.ul_resident.blocks.core"
+        },
+        {
+          "pipeline": "internal.ul_resident.blocks.contacts"
+        },
+        {
+          "pipeline": "internal.ul_resident.blocks.address"
+        },
+        {
+          "pipeline": "internal.ul_resident.blocks.tax_flags"
+        }
+      ]
+    },
+    {
+      "id": "internal.ul_resident.blocks.core",
+      "type": "pipeline",
+      "description": "Основные сведения заявки ЮЛ-резидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul.inn_required"
+        },
+        {
+          "rule": "library.ul.inn_format_10"
+        },
+        {
+          "rule": "library.ul.inn_valid"
+        },
+        {
+          "rule": "library.ul.participation_id_required"
+        },
+        {
+          "rule": "library.ul.account_number_required"
+        },
+        {
+          "rule": "library.ul.account_number_format"
+        },
+        {
+          "rule": "library.ul.status_start_required"
+        },
+        {
+          "rule": "library.ul.status_start_format"
+        },
+        {
+          "condition": "library.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_resident.blocks.contacts",
+      "type": "pipeline",
+      "description": "Контакты ЮЛ-резидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul.contacts_any"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_resident.blocks.address",
+      "type": "pipeline",
+      "description": "Юридический адрес ЮЛ-резидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul.legal_address_required"
+        },
+        {
+          "rule": "library.ul.legal_address_country_required"
+        },
+        {
+          "rule": "library.ul.legal_address_country_ru"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_resident.blocks.tax_flags",
+      "type": "pipeline",
+      "description": "Налоговые и регуляторные сведения ЮЛ-резидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul.tax.foreign_required"
+        },
+        {
+          "rule": "library.ul.tax.foreign_not_true"
+        },
+        {
+          "rule": "library.ul.tax.passive_nfe_required"
+        },
+        {
+          "rule": "library.ul.tax.passive_nfe_not_true"
+        },
+        {
+          "rule": "library.ul.tax.cp_foreign_required"
+        },
+        {
+          "rule": "library.ul.tax.cp_foreign_not_true"
+        },
+        {
+          "rule": "library.ul.tax.us_required"
+        },
+        {
+          "rule": "library.ul.tax.us_not_true"
+        },
+        {
+          "rule": "library.ul.tax.cp_us_required"
+        },
+        {
+          "rule": "library.ul.tax.cp_us_not_true"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "library.ul.type_required",
+      "type": "rule",
+      "description": "Не указана категория бенефициара",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TYPE.REQUIRED",
+      "message": "Не указана категория бенефициара",
+      "field": "beneficiary.type"
+    },
+    {
+      "id": "library.ul.type_supported",
+      "type": "rule",
+      "description": "Категория бенефициара должна быть поддерживаемой",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "EXCEPTION",
+      "code": "BEN.TYPE.UNSUPPORTED",
+      "message": "Категория бенефициара должна быть поддерживаемой",
+      "field": "beneficiary.type",
+      "dictionary": {
+        "type": "static",
+        "id": "beneficiary_types"
+      }
+    },
+    {
+      "id": "library.ul.type_is_ul_resident",
+      "type": "rule",
+      "description": "Заявка должна быть на ЮЛ-резидента",
+      "role": "check",
+      "operator": "equals",
+      "level": "EXCEPTION",
+      "code": "UL.TYPE.MISMATCH",
+      "message": "Заявка должна быть на ЮЛ-резидента",
+      "field": "beneficiary.type",
+      "value": "UL_RESIDENT"
+    },
+    {
+      "id": "library.ul.inn_required",
+      "type": "rule",
+      "description": "Не указан ИНН юридического лица",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.INN.REQUIRED",
+      "message": "Не указан ИНН юридического лица",
+      "field": "beneficiary.inn"
+    },
+    {
+      "id": "library.ul.inn_format_10",
+      "type": "rule",
+      "description": "ИНН юридического лица должен содержать 10 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.INN.LENGTH_10",
+      "message": "ИНН юридического лица должен содержать 10 цифр",
+      "field": "beneficiary.inn",
+      "value": "^\\d{10}$"
+    },
+    {
+      "id": "library.ul.inn_valid",
+      "type": "rule",
+      "description": "ИНН юридического лица указан некорректно",
+      "role": "check",
+      "operator": "valid_inn",
+      "level": "ERROR",
+      "code": "UL.INN.INVALID",
+      "message": "ИНН юридического лица указан некорректно",
+      "field": "beneficiary.inn"
+    },
+    {
+      "id": "library.ul.participation_id_required",
+      "type": "rule",
+      "description": "Не указан идентификатор основания участия",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.PARTICIPATION_ID.REQUIRED",
+      "message": "Не указан идентификатор основания участия",
+      "field": "beneficiary.participationId"
+    },
+    {
+      "id": "library.ul.account_number_required",
+      "type": "rule",
+      "description": "Не указан номер номинального счёта",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.ACCOUNT.NUMBER.REQUIRED",
+      "message": "Не указан номер номинального счёта",
+      "field": "beneficiary.account.number"
+    },
+    {
+      "id": "library.ul.account_number_format",
+      "type": "rule",
+      "description": "Номер номинального счёта должен содержать 20 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.ACCOUNT.NUMBER.FORMAT",
+      "message": "Номер номинального счёта должен содержать 20 цифр",
+      "field": "beneficiary.account.number",
+      "value": "^\\d{20}$"
+    },
+    {
+      "id": "library.ul.status_start_required",
+      "type": "rule",
+      "description": "Не указана дата начала участия бенефициара",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.STATUS.START_DATE.REQUIRED",
+      "message": "Не указана дата начала участия бенефициара",
+      "field": "beneficiary.status.startDate"
+    },
+    {
+      "id": "library.ul.status_start_format",
+      "type": "rule",
+      "description": "Дата начала участия бенефициара должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.STATUS.START_DATE.FORMAT",
+      "message": "Дата начала участия бенефициара должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.status.startDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "library.common.cond_status_end_if_present",
+      "type": "condition",
+      "description": "Если дата окончания статуса указана, то проверяем формат, затем порядок",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.common.status_end_format"
+        },
+        {
+          "condition": "library.common.cond_status_end_order_if_format_ok"
+        }
+      ]
+    },
+    {
+      "id": "library.common.cond_status_end_order_if_format_ok",
+      "type": "condition",
+      "description": "Если формат endDate корректен, то проверяем порядок дат",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_format_valid"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.common.status_end_gt_start"
+        }
+      ]
+    },
+    {
+      "id": "library.common.pred_status_end_format_valid",
+      "type": "rule",
+      "description": "Дата окончания статуса в формате YYYY-MM-DD",
+      "role": "predicate",
+      "operator": "matches_regex",
+      "field": "beneficiary.status.endDate",
+      "value": "^\\\\d{4}-\\\\d{2}-\\\\d{2}$"
+    },
+    {
+      "id": "library.common.pred_status_end_present",
+      "type": "rule",
+      "description": "Дата окончания статуса указана",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.status.endDate"
+    },
+    {
+      "id": "library.common.status_end_format",
+      "type": "rule",
+      "description": "Дата окончания статуса должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "BEN.STATUS.END.FORMAT",
+      "message": "Дата окончания участия должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.status.endDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "library.common.status_end_gt_start",
+      "type": "rule",
+      "description": "Дата окончания статуса должна быть позже даты начала",
+      "role": "check",
+      "operator": "field_greater_than_field",
+      "level": "ERROR",
+      "code": "BEN.STATUS.END.ORDER",
+      "message": "Дата окончания участия должна быть позже даты начала участия",
+      "field": "beneficiary.status.endDate",
+      "value_field": "beneficiary.status.startDate"
+    },
+    {
+      "id": "library.ul.contacts_any",
+      "type": "rule",
+      "description": "Не указан контактный телефон или эл. почта",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "UL.CONTACTS.MIN_ONE",
+      "message": "Не указан контактный телефон или эл. почта",
+      "fields": [
+        "beneficiary.contacts.phone",
+        "beneficiary.contacts.email"
+      ],
+      "paths": [
+        "beneficiary.contacts.phone",
+        "beneficiary.contacts.email"
+      ]
+    },
+    {
+      "id": "library.ul.legal_address_required",
+      "type": "rule",
+      "description": "Не указан юридический адрес ЮЛ-резидента",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.ADDRESS.LEGAL.REQUIRED",
+      "message": "Не указан юридический адрес ЮЛ-резидента",
+      "field": "beneficiary.address.legal.fullAddress"
+    },
+    {
+      "id": "library.ul.legal_address_country_required",
+      "type": "rule",
+      "description": "Не указана страна юридического адреса ЮЛ-резидента",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+      "message": "Не указана страна юридического адреса ЮЛ-резидента",
+      "field": "beneficiary.address.legal.countryCode"
+    },
+    {
+      "id": "library.ul.legal_address_country_ru",
+      "type": "rule",
+      "description": "Юридический адрес ЮЛ-резидента должен быть в России",
+      "role": "check",
+      "operator": "equals",
+      "level": "ERROR",
+      "code": "UL.ADDRESS.LEGAL.COUNTRY_RU",
+      "message": "Юридический адрес ЮЛ-резидента должен быть в России",
+      "field": "beneficiary.address.legal.countryCode",
+      "value": "RU"
+    },
+    {
+      "id": "library.ul.tax.foreign_required",
+      "type": "rule",
+      "description": "Не указано, является ли ЮЛ-резидент иностранным налоговым резидентом",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, является ли ЮЛ-резидент иностранным налоговым резидентом",
+      "field": "beneficiary.tax.foreignTaxResident"
+    },
+    {
+      "id": "library.ul.tax.foreign_not_true",
+      "type": "rule",
+      "description": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "message": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
+      "field": "beneficiary.tax.foreignTaxResident"
+    },
+    {
+      "id": "library.ul.tax.passive_nfe_required",
+      "type": "rule",
+      "description": "Не указано, является ли ЮЛ-резидент пассивной нефинансовой организацией",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.PASSIVE_NFE.REQUIRED",
+      "message": "Не указано, является ли ЮЛ-резидент пассивной нефинансовой организацией",
+      "field": "beneficiary.tax.passiveNfe"
+    },
+    {
+      "id": "library.ul.tax.passive_nfe_not_true",
+      "type": "rule",
+      "description": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+      "message": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
+      "field": "beneficiary.tax.passiveNfe"
+    },
+    {
+      "id": "library.ul.tax.cp_foreign_required",
+      "type": "rule",
+      "description": "Не указано, есть ли у ЮЛ-резидента контролирующие лица с иностранным налоговым резидентством",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, есть ли у ЮЛ-резидента контролирующие лица с иностранным налоговым резидентством",
+      "field": "beneficiary.tax.controllingPersonsForeignTaxResident"
+    },
+    {
+      "id": "library.ul.tax.cp_foreign_not_true",
+      "type": "rule",
+      "description": "У ЮЛ-резидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "message": "У ЮЛ-резидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
+      "field": "beneficiary.tax.controllingPersonsForeignTaxResident"
+    },
+    {
+      "id": "library.ul.tax.us_required",
+      "type": "rule",
+      "description": "Не указано, является ли ЮЛ-резидент налоговым резидентом США",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, является ли ЮЛ-резидент налоговым резидентом США",
+      "field": "beneficiary.tax.usTaxResident"
+    },
+    {
+      "id": "library.ul.tax.us_not_true",
+      "type": "rule",
+      "description": "ЮЛ-резидент не должен быть налоговым резидентом США",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "message": "ЮЛ-резидент не должен быть налоговым резидентом США",
+      "field": "beneficiary.tax.usTaxResident"
+    },
+    {
+      "id": "library.ul.tax.cp_us_required",
+      "type": "rule",
+      "description": "Не указано, есть ли у ЮЛ-резидента контролирующие лица с налоговым резидентством США",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, есть ли у ЮЛ-резидента контролирующие лица с налоговым резидентством США",
+      "field": "beneficiary.tax.controllingPersonsUsTaxResident"
+    },
+    {
+      "id": "library.ul.tax.cp_us_not_true",
+      "type": "rule",
+      "description": "У ЮЛ-резидента не должно быть контролирующих лиц с налоговым резидентством США",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+      "message": "У ЮЛ-резидента не должно быть контролирующих лиц с налоговым резидентством США",
+      "field": "beneficiary.tax.controllingPersonsUsTaxResident"
+    }
+  ],
+  "name": "UL resident validation rules"
+}

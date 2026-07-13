@@ -1,9 +1,9 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "title": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT и IP_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT и UL_RESIDENT validate-application в режиме parity с processor-preprod.",
     "language": "ru"
   },
   "paths": {
@@ -28,29 +28,34 @@
   "catalog": {
     "fields": {
       "beneficiary.type": {
-        "title": "Тип бенефициара",
-        "description": "Тип бенефициара",
-        "businessDescription": "Тип бенефициара"
+        "title": "Категория бенефициара",
+        "btName": "Категория бенефициара",
+        "description": "Категория бенефициара в заявке",
+        "businessDescription": "Категория бенефициара"
       },
       "beneficiary.inn": {
-        "title": "ИНН бенефициара",
-        "description": "ИНН бенефициара",
-        "businessDescription": "ИНН бенефициара"
+        "title": "ИНН юридического лица",
+        "btName": "ИНН",
+        "description": "ИНН юридического лица-резидента",
+        "businessDescription": "ИНН юридического лица"
       },
       "beneficiary.participationId": {
         "title": "Идентификатор основания участия",
-        "description": "Идентификатор основания участия",
+        "btName": "Идентификатор основания участия",
+        "description": "Идентификатор основания участия бенефициара в номинальном счете",
         "businessDescription": "Идентификатор основания участия"
       },
       "beneficiary.contacts.phone": {
-        "title": "Телефон",
-        "description": "Телефон",
-        "businessDescription": "Телефон"
+        "title": "Контактный телефон",
+        "btName": "Телефон",
+        "description": "Контактный телефон юридического лица",
+        "businessDescription": "Контактный телефон"
       },
       "beneficiary.contacts.email": {
-        "title": "Email",
-        "description": "Email",
-        "businessDescription": "Email"
+        "title": "Эл. почта",
+        "btName": "эл. почта",
+        "description": "Эл. почта юридического лица",
+        "businessDescription": "эл. почта"
       },
       "beneficiary.contacts.foreignPhone": {
         "title": "Иностранный телефон",
@@ -58,14 +63,16 @@
         "businessDescription": "Иностранный телефон"
       },
       "beneficiary.status.startDate": {
-        "title": "Дата начала статуса",
-        "description": "Дата начала статуса",
-        "businessDescription": "Дата начала статуса"
+        "title": "Дата начала участия",
+        "btName": "Дата начала участия",
+        "description": "Дата начала участия бенефициара по номинальному счету",
+        "businessDescription": "Дата начала участия"
       },
       "beneficiary.status.endDate": {
-        "title": "Дата окончания статуса",
-        "description": "Дата окончания статуса",
-        "businessDescription": "Дата окончания статуса"
+        "title": "Дата окончания участия",
+        "btName": "Дата окончания участия",
+        "description": "Дата окончания участия бенефициара по номинальному счету",
+        "businessDescription": "Дата окончания участия"
       },
       "beneficiary.fl.lastName": {
         "title": "Фамилия",
@@ -183,9 +190,10 @@
         "businessDescription": "Кем выдан документ"
       },
       "beneficiary.tax.usTaxResident": {
-        "title": "Признак налогового резидентства США",
-        "description": "Признак налогового резидентства США",
-        "businessDescription": "Признак налогового резидентства США"
+        "title": "Налоговое резидентство США у организации",
+        "btName": "Налоговое резидентство США у организации",
+        "description": "Указание, является ли юридическое лицо налоговым резидентом США",
+        "businessDescription": "Налоговое резидентство США у организации"
       },
       "beneficiary.tax.usResident": {
         "title": "Признак резидентства США",
@@ -193,9 +201,10 @@
         "businessDescription": "Признак резидентства США"
       },
       "beneficiary.tax.foreignTaxResident": {
-        "title": "Признак иностранного налогового резидентства",
-        "description": "Признак иностранного налогового резидентства",
-        "businessDescription": "Признак иностранного налогового резидентства"
+        "title": "Иностранное налоговое резидентство",
+        "btName": "Иностранное налоговое резидентство",
+        "description": "Указание, является ли юридическое лицо налоговым резидентом за пределами РФ",
+        "businessDescription": "Иностранное налоговое резидентство"
       },
       "beneficiary.idDoc.issuerCode": {
         "title": "Код подразделения документа",
@@ -247,8 +256,9 @@
       },
       "beneficiary.account.number": {
         "title": "Номер номинального счета",
+        "btName": "Номер номинального счета",
         "description": "Номер номинального счета для привязки бенефициара",
-        "businessDescription": "Номер номинального счета для привязки бенефициара"
+        "businessDescription": "Номер номинального счета"
       },
       "beneficiary.address.registration.streetType": {
         "title": "Тип улицы адреса регистрации",
@@ -309,6 +319,36 @@
         "description": "Орган, выдавший документ, подтверждающий право пребывания/проживания в РФ. Для миграционной карты не передается.",
         "businessDescription": "Кем выдан дополнительный документ"
       },
+      "beneficiary.address.legal.countryCode": {
+        "title": "Страна юридического адреса",
+        "btName": "Страна юридического адреса",
+        "description": "Страна юридического адреса юридического лица",
+        "businessDescription": "Страна юридического адреса"
+      },
+      "beneficiary.address.legal.fullAddress": {
+        "title": "Юридический адрес",
+        "btName": "Юридический адрес",
+        "description": "Полный юридический адрес юридического лица",
+        "businessDescription": "Юридический адрес"
+      },
+      "beneficiary.tax.passiveNfe": {
+        "title": "Пассивная нефинансовая организация",
+        "btName": "Пассивная НФО",
+        "description": "Указание, является ли юридическое лицо пассивной нефинансовой организацией",
+        "businessDescription": "Пассивная нефинансовая организация"
+      },
+      "beneficiary.tax.controllingPersonsForeignTaxResident": {
+        "title": "Иностранное налоговое резидентство контролирующих лиц",
+        "btName": "Контролирующие лица - иностранные налоговые резиденты",
+        "description": "Указание, есть ли у юридического лица контролирующие лица с иностранным налоговым резидентством",
+        "businessDescription": "Иностранное налоговое резидентство контролирующих лиц"
+      },
+      "beneficiary.tax.controllingPersonsUsTaxResident": {
+        "title": "Налоговое резидентство США у контролирующих лиц",
+        "btName": "Налоговое резидентство США у контролирующих лиц",
+        "description": "Указание, есть ли у юридического лица контролирующие лица с налоговым резидентством США",
+        "businessDescription": "Налоговое резидентство США у контролирующих лиц"
+      },
       "beneficiary.ip.fullName": {
         "title": "Полное наименование ИП",
         "description": "Полное наименование индивидуального предпринимателя"
@@ -354,6 +394,10 @@
       "entrypoints.ip_nonresident.full_validation": {
         "title": "Валидация заявки ИП-нерезидента РФ",
         "description": "Бизнес-правила первичной проверки заявки ИП-нерезидента РФ до обращения в ЦФТ"
+      },
+      "entrypoints.ul_resident.full_validation": {
+        "title": "Валидация заявки ЮЛ-резидента",
+        "description": "Полная проверка заявки ЮЛ-резидента"
       }
     },
     "artifacts": {
@@ -1329,6 +1373,10 @@
         "title": "Проверка дополнительного документа ИП-нерезидента",
         "description": "Проверка дополнительного документа ИП-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен."
       },
+      "entrypoints.ul_resident.full_validation": {
+        "title": "Валидация заявки ЮЛ-резидента",
+        "description": "Полная проверка заявки ЮЛ-резидента"
+      },
       "dictionaries.fl_nonresident.document_type_codes_fl": {
         "title": "Допустимые коды документов для ФЛ по классификатору: 21–35, 36, 37 и 99",
         "description": "Допустимые коды документов для ФЛ по классификатору: 21–35, 36, 37 и 99. Версия правила для ФЛ-нерезидент."
@@ -1500,6 +1548,26 @@
       "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported": {
         "title": "Проверка справочника типа дополнительного документа",
         "description": "Если указан тип дополнительного документа, он должен входить в справочник.. Версия правила для ИП-нерезидент."
+      },
+      "dictionaries.ul_resident.beneficiary_types": {
+        "title": "Допустимые типы бенефициаров для версии 1",
+        "description": "Допустимые типы бенефициаров для версии 1. Версия правила для ЮЛ-резидент."
+      },
+      "library.ul_resident.common.status_end_format": {
+        "title": "Дата окончания участия в формате YYYY-MM-DD",
+        "description": "Проверяет формат даты окончания участия бенефициара"
+      },
+      "library.ul_resident.common.status_end_gt_start": {
+        "title": "Дата окончания участия позже даты начала",
+        "description": "Проверяет, что дата окончания участия позже даты начала участия"
+      },
+      "library.ul_resident.common.cond_status_end_if_present": {
+        "title": "Если дата окончания участия указана, проверяем ее формат",
+        "description": "Проверяет дату окончания участия только когда она заполнена в заявке"
+      },
+      "library.ul_resident.common.cond_status_end_order_if_format_ok": {
+        "title": "Если даты участия указаны корректно, проверяем их порядок",
+        "description": "Проверяет порядок дат участия только после проверки формата даты окончания"
       },
       "library.tax.foreign_tax_resident_required": {
         "title": "Признак иностранного налогового резидентства указан",
@@ -1692,6 +1760,122 @@
       "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc": {
         "title": "Если указан документ на право пребывания, проверяем его поля",
         "description": "Проверяет обязательные поля документа на право пребывания или проживания"
+      },
+      "internal.ul_resident.blocks.core": {
+        "title": "Основные сведения заявки ЮЛ-резидента",
+        "description": "Проверяет ИНН, основание участия, номер счета и даты участия"
+      },
+      "internal.ul_resident.blocks.contacts": {
+        "title": "Контакты ЮЛ-резидента",
+        "description": "Проверяет, что в заявке указан телефон или эл. почта"
+      },
+      "internal.ul_resident.blocks.address": {
+        "title": "Юридический адрес ЮЛ-резидента",
+        "description": "Проверяет наличие юридического адреса и страну адреса"
+      },
+      "internal.ul_resident.blocks.tax_flags": {
+        "title": "Налоговые и регуляторные признаки ЮЛ-резидента",
+        "description": "Проверяет обязательные признаки и запрет положительных значений"
+      },
+      "library.ul.type_required": {
+        "title": "Категория бенефициара указана",
+        "description": "Проверяет, что в заявке указана категория бенефициара"
+      },
+      "library.ul.type_supported": {
+        "title": "Категория бенефициара поддерживается",
+        "description": "Проверяет, что категория бенефициара входит в поддерживаемый справочник"
+      },
+      "library.ul.type_is_ul_resident": {
+        "title": "Заявка на ЮЛ-резидента",
+        "description": "Проверяет, что заявка относится к ЮЛ-резиденту"
+      },
+      "library.ul.inn_required": {
+        "title": "ИНН юридического лица указан",
+        "description": "Проверяет, что ИНН юридического лица заполнен"
+      },
+      "library.ul.inn_format_10": {
+        "title": "ИНН юридического лица содержит 10 цифр",
+        "description": "Проверяет длину и цифровой формат ИНН юридического лица"
+      },
+      "library.ul.inn_valid": {
+        "title": "ИНН юридического лица корректен",
+        "description": "Проверяет контрольный разряд ИНН юридического лица"
+      },
+      "library.ul.participation_id_required": {
+        "title": "Основание участия указано",
+        "description": "Проверяет, что идентификатор основания участия заполнен"
+      },
+      "library.ul.account_number_required": {
+        "title": "Номер номинального счета указан",
+        "description": "Проверяет, что номер номинального счета заполнен"
+      },
+      "library.ul.account_number_format": {
+        "title": "Номер номинального счета содержит 20 цифр",
+        "description": "Проверяет формат номера номинального счета"
+      },
+      "library.ul.status_start_required": {
+        "title": "Дата начала участия указана",
+        "description": "Проверяет, что дата начала участия бенефициара заполнена"
+      },
+      "library.ul.status_start_format": {
+        "title": "Дата начала участия в формате YYYY-MM-DD",
+        "description": "Проверяет формат даты начала участия бенефициара"
+      },
+      "library.ul.contacts_any": {
+        "title": "Телефон или эл. почта указаны",
+        "description": "Проверяет, что указан хотя бы один контакт ЮЛ-резидента"
+      },
+      "library.ul.legal_address_required": {
+        "title": "Юридический адрес указан",
+        "description": "Проверяет, что юридический адрес ЮЛ-резидента заполнен"
+      },
+      "library.ul.legal_address_country_required": {
+        "title": "Страна юридического адреса указана",
+        "description": "Проверяет, что страна юридического адреса заполнена"
+      },
+      "library.ul.legal_address_country_ru": {
+        "title": "Юридический адрес находится в России",
+        "description": "Проверяет, что страна юридического адреса ЮЛ-резидента — Россия"
+      },
+      "library.ul.tax.foreign_required": {
+        "title": "Признак иностранного налогового резидентства указан",
+        "description": "Проверяет, что признак иностранного налогового резидентства заполнен"
+      },
+      "library.ul.tax.foreign_not_true": {
+        "title": "ЮЛ-резидент не является иностранным налоговым резидентом",
+        "description": "Проверяет, что признак иностранного налогового резидентства не имеет значение true"
+      },
+      "library.ul.tax.passive_nfe_required": {
+        "title": "Признак пассивной нефинансовой организации указан",
+        "description": "Проверяет, что признак пассивной нефинансовой организации заполнен"
+      },
+      "library.ul.tax.passive_nfe_not_true": {
+        "title": "ЮЛ-резидент не является пассивной нефинансовой организацией",
+        "description": "Проверяет, что признак пассивной нефинансовой организации не имеет значение true"
+      },
+      "library.ul.tax.cp_foreign_required": {
+        "title": "Признак контролирующих лиц с иностранным налоговым резидентством указан",
+        "description": "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством заполнен"
+      },
+      "library.ul.tax.cp_foreign_not_true": {
+        "title": "Нет контролирующих лиц с иностранным налоговым резидентством",
+        "description": "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством не имеет значение true"
+      },
+      "library.ul.tax.us_required": {
+        "title": "Признак налогового резидентства США указан",
+        "description": "Проверяет, что признак налогового резидентства США заполнен"
+      },
+      "library.ul.tax.us_not_true": {
+        "title": "ЮЛ-резидент не является налоговым резидентом США",
+        "description": "Проверяет, что признак налогового резидентства США не имеет значение true"
+      },
+      "library.ul.tax.cp_us_required": {
+        "title": "Признак контролирующих лиц с налоговым резидентством США указан",
+        "description": "Проверяет, что признак контролирующих лиц с налоговым резидентством США заполнен"
+      },
+      "library.ul.tax.cp_us_not_true": {
+        "title": "Нет контролирующих лиц с налоговым резидентством США",
+        "description": "Проверяет, что признак контролирующих лиц с налоговым резидентством США не имеет значение true"
       }
     },
     "operators": {

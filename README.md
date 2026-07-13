@@ -4,13 +4,14 @@
 
 ## Статус
 
-Четвертый слайс миграции: пакет отделен от процессора и содержит четыре контура
+Пятый слайс миграции: пакет отделен от процессора и содержит пять контуров
 валидации заявки:
 
 - `FL_RESIDENT`;
 - `FL_NONRESIDENT`;
 - `IP_RESIDENT`;
-- `IP_NONRESIDENT`.
+- `IP_NONRESIDENT`;
+- `UL_RESIDENT`.
 
 Цель текущего состояния - доказать parity между старым исполнением через
 `@processengine/rules` и новым `jsonspecs-snapshot`, не меняя бизнес-поведение
@@ -24,6 +25,7 @@
 | `entrypoints.fl_nonresident.full_validation` | Валидация заявки ФЛ-нерезидента |
 | `entrypoints.ip_resident.full_validation` | Валидация ФЛ-данных владельца ИП-резидента |
 | `entrypoints.ip_nonresident.full_validation` | Валидация заявки ИП-нерезидента |
+| `entrypoints.ul_resident.full_validation` | Валидация заявки ЮЛ-резидента |
 
 ## Runtime Context
 
@@ -71,7 +73,7 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 
 Если id совпадает, но тело правила отличается, контурный вариант генерируется
 как `library.fl_nonresident.*`, `library.ip_resident.*`,
-`library.ip_nonresident.*` или
+`library.ip_nonresident.*`, `library.ul_resident.*` или
 `internal.<contour>.*`. Это не новый payload namespace, а техническая область
 пакета правил: она нужна, чтобы не смешивать разные проверки под одним
 `library.*` / `internal.*` id.
@@ -79,7 +81,7 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 `jsonspecs` требует уникальные `code` для всех check-правил внутри snapshot.
 Если старые processor snapshots используют одинаковый код в разных контурах,
 пакет namespace-ит код контурного правила префиксом `FL_NONRESIDENT.*` или
-`IP_RESIDENT.*` / `IP_NONRESIDENT.*` и сохраняет старое значение в
+`IP_RESIDENT.*` / `IP_NONRESIDENT.*` / `UL_RESIDENT.*` и сохраняет старое значение в
 `meta.legacyCode`. Parity harness сравнивает с legacy по `legacyCode`.
 Processor при подключении package-backed rules возвращает наружу `legacyCode`,
 чтобы merchant-facing коды ошибок не менялись из-за технического ограничения
@@ -130,8 +132,7 @@ docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 
 ## Следующие слайсы
 
-1. Переключить `ip_nonresident.validate_application` в processor на
-   `rulesetRef`.
+1. Переключить `ul_resident.validate_application` в processor на `rulesetRef`.
 2. Перенести следующий validate-application contour отдельным slice.
 3. После parity вынести общие проверки в library pipelines и убрать
    физическое дублирование между FL/IP/UL.

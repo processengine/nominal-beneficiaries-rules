@@ -1,0 +1,12 @@
+{
+  "id": "library.ul.inn_format_10",
+  "type": "rule",
+  "description": "ИНН юридического лица должен содержать 10 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.INN.LENGTH_10",
+  "message": "ИНН юридического лица должен содержать 10 цифр",
+  "field": "beneficiary.inn",
+  "value": "^\\d{10}$"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "library.ul.contacts_any",
+  "type": "rule",
+  "description": "Не указан контактный телефон или эл. почта",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "UL.CONTACTS.MIN_ONE",
+  "message": "Не указан контактный телефон или эл. почта",
+  "fields": [
+    "beneficiary.contacts.phone",
+    "beneficiary.contacts.email"
+  ],
+  "paths": [
+    "beneficiary.contacts.phone",
+    "beneficiary.contacts.email"
+  ]
+}

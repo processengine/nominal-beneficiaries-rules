@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.legal_address_country_required",
+  "type": "rule",
+  "description": "Не указана страна юридического адреса ЮЛ-резидента",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+  "message": "Не указана страна юридического адреса ЮЛ-резидента",
+  "field": "beneficiary.address.legal.countryCode"
+}

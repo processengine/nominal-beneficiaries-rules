@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.inn_required",
+  "type": "rule",
+  "description": "Не указан ИНН юридического лица",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.INN.REQUIRED",
+  "message": "Не указан ИНН юридического лица",
+  "field": "beneficiary.inn"
+}

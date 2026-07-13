@@ -1,0 +1,33 @@
+{
+  "id": "entrypoints.ul_resident.full_validation",
+  "type": "pipeline",
+  "description": "Полная проверка заявки ЮЛ-резидента",
+  "strict": false,
+  "entrypoint": true,
+  "required_context": [
+    "currentDate"
+  ],
+  "flow": [
+    {
+      "rule": "library.ul.type_required"
+    },
+    {
+      "rule": "library.ul.type_supported"
+    },
+    {
+      "rule": "library.ul.type_is_ul_resident"
+    },
+    {
+      "pipeline": "internal.ul_resident.blocks.core"
+    },
+    {
+      "pipeline": "internal.ul_resident.blocks.contacts"
+    },
+    {
+      "pipeline": "internal.ul_resident.blocks.address"
+    },
+    {
+      "pipeline": "internal.ul_resident.blocks.tax_flags"
+    }
+  ]
+}

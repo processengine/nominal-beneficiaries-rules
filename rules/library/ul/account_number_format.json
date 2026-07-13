@@ -1,0 +1,12 @@
+{
+  "id": "library.ul.account_number_format",
+  "type": "rule",
+  "description": "Номер номинального счёта должен содержать 20 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.ACCOUNT.NUMBER.FORMAT",
+  "message": "Номер номинального счёта должен содержать 20 цифр",
+  "field": "beneficiary.account.number",
+  "value": "^\\d{20}$"
+}

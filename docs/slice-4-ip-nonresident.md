@@ -71,11 +71,11 @@ npm test
 - 5 samples для `IP_RESIDENT`;
 - 5 samples для `IP_NONRESIDENT`.
 
-## Not Done In This Slice
+## Processor Integration
 
-- Processor artifact `ip_nonresident.validate_application` переключается
-  отдельным processor slice после публикации пакета.
-- Root `ip-nonresident.registration` не размораживается этим изменением.
-- Общие nonresident FL/IP блоки пока не переписаны вручную в новые library
-  pipelines. Этот слайс доказывает parity и фиксирует корректные границы
-  package layout.
+Processor artifact `ip_nonresident.validate_application` переключен на
+package-backed `rulesetRef` после публикации `0.4.0`.
+
+Root `ip-nonresident.registration` не размораживается этим изменением. Общие
+nonresident FL/IP блоки пока не переписаны вручную в новые library pipelines:
+этот слайс доказывает parity и фиксирует корректные границы package layout.

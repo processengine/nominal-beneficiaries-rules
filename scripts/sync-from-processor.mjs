@@ -82,6 +82,23 @@ const contours = [
     entrypointId: "entrypoints.ip_nonresident.full_validation",
     currentDate: "2026-05-18",
   },
+  {
+    key: "ul_resident",
+    type: "UL_RESIDENT",
+    label: "ЮЛ-резидент",
+    sourcePath: path.join(
+      processorDir,
+      "artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    ),
+    legacyFixtureFile: "ul-resident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/ul-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "ul-resident.validate-application.rules-field-contract.json",
+    entrypointId: "entrypoints.ul_resident.full_validation",
+    currentDate: "2026-06-15",
+  },
 ];
 
 const residentTaxFlagConfigs = [
@@ -431,6 +448,143 @@ function addIpNonresidentCatalog(manifest) {
   });
 }
 
+function addUlResidentCatalog(manifest) {
+  Object.assign(manifest.catalog.artifacts, {
+    "internal.ul_resident.blocks.core": {
+      title: "Основные сведения заявки ЮЛ-резидента",
+      description: "Проверяет ИНН, основание участия, номер счета и даты участия",
+    },
+    "internal.ul_resident.blocks.contacts": {
+      title: "Контакты ЮЛ-резидента",
+      description: "Проверяет, что в заявке указан телефон или эл. почта",
+    },
+    "internal.ul_resident.blocks.address": {
+      title: "Юридический адрес ЮЛ-резидента",
+      description: "Проверяет наличие юридического адреса и страну адреса",
+    },
+    "internal.ul_resident.blocks.tax_flags": {
+      title: "Налоговые и регуляторные признаки ЮЛ-резидента",
+      description: "Проверяет обязательные признаки и запрет положительных значений",
+    },
+    "library.ul.type_required": {
+      title: "Категория бенефициара указана",
+      description: "Проверяет, что в заявке указана категория бенефициара",
+    },
+    "library.ul.type_supported": {
+      title: "Категория бенефициара поддерживается",
+      description: "Проверяет, что категория бенефициара входит в поддерживаемый справочник",
+    },
+    "library.ul.type_is_ul_resident": {
+      title: "Заявка на ЮЛ-резидента",
+      description: "Проверяет, что заявка относится к ЮЛ-резиденту",
+    },
+    "library.ul.inn_required": {
+      title: "ИНН юридического лица указан",
+      description: "Проверяет, что ИНН юридического лица заполнен",
+    },
+    "library.ul.inn_format_10": {
+      title: "ИНН юридического лица содержит 10 цифр",
+      description: "Проверяет длину и цифровой формат ИНН юридического лица",
+    },
+    "library.ul.inn_valid": {
+      title: "ИНН юридического лица корректен",
+      description: "Проверяет контрольный разряд ИНН юридического лица",
+    },
+    "library.ul.participation_id_required": {
+      title: "Основание участия указано",
+      description: "Проверяет, что идентификатор основания участия заполнен",
+    },
+    "library.ul.account_number_required": {
+      title: "Номер номинального счета указан",
+      description: "Проверяет, что номер номинального счета заполнен",
+    },
+    "library.ul.account_number_format": {
+      title: "Номер номинального счета содержит 20 цифр",
+      description: "Проверяет формат номера номинального счета",
+    },
+    "library.ul.status_start_required": {
+      title: "Дата начала участия указана",
+      description: "Проверяет, что дата начала участия бенефициара заполнена",
+    },
+    "library.ul.status_start_format": {
+      title: "Дата начала участия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты начала участия бенефициара",
+    },
+    "library.ul_resident.common.cond_status_end_if_present": {
+      title: "Если дата окончания участия указана, проверяем ее формат",
+      description: "Проверяет дату окончания участия только когда она заполнена в заявке",
+    },
+    "library.ul_resident.common.cond_status_end_order_if_format_ok": {
+      title: "Если даты участия указаны корректно, проверяем их порядок",
+      description: "Проверяет порядок дат участия только после проверки формата даты окончания",
+    },
+    "library.ul_resident.common.status_end_format": {
+      title: "Дата окончания участия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты окончания участия бенефициара",
+    },
+    "library.ul_resident.common.status_end_gt_start": {
+      title: "Дата окончания участия позже даты начала",
+      description: "Проверяет, что дата окончания участия позже даты начала участия",
+    },
+    "library.ul.contacts_any": {
+      title: "Телефон или эл. почта указаны",
+      description: "Проверяет, что указан хотя бы один контакт ЮЛ-резидента",
+    },
+    "library.ul.legal_address_required": {
+      title: "Юридический адрес указан",
+      description: "Проверяет, что юридический адрес ЮЛ-резидента заполнен",
+    },
+    "library.ul.legal_address_country_required": {
+      title: "Страна юридического адреса указана",
+      description: "Проверяет, что страна юридического адреса заполнена",
+    },
+    "library.ul.legal_address_country_ru": {
+      title: "Юридический адрес находится в России",
+      description: "Проверяет, что страна юридического адреса ЮЛ-резидента — Россия",
+    },
+    "library.ul.tax.foreign_required": {
+      title: "Признак иностранного налогового резидентства указан",
+      description: "Проверяет, что признак иностранного налогового резидентства заполнен",
+    },
+    "library.ul.tax.foreign_not_true": {
+      title: "ЮЛ-резидент не является иностранным налоговым резидентом",
+      description: "Проверяет, что признак иностранного налогового резидентства не имеет значение true",
+    },
+    "library.ul.tax.passive_nfe_required": {
+      title: "Признак пассивной нефинансовой организации указан",
+      description: "Проверяет, что признак пассивной нефинансовой организации заполнен",
+    },
+    "library.ul.tax.passive_nfe_not_true": {
+      title: "ЮЛ-резидент не является пассивной нефинансовой организацией",
+      description: "Проверяет, что признак пассивной нефинансовой организации не имеет значение true",
+    },
+    "library.ul.tax.cp_foreign_required": {
+      title: "Признак контролирующих лиц с иностранным налоговым резидентством указан",
+      description: "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством заполнен",
+    },
+    "library.ul.tax.cp_foreign_not_true": {
+      title: "Нет контролирующих лиц с иностранным налоговым резидентством",
+      description: "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством не имеет значение true",
+    },
+    "library.ul.tax.us_required": {
+      title: "Признак налогового резидентства США указан",
+      description: "Проверяет, что признак налогового резидентства США заполнен",
+    },
+    "library.ul.tax.us_not_true": {
+      title: "ЮЛ-резидент не является налоговым резидентом США",
+      description: "Проверяет, что признак налогового резидентства США не имеет значение true",
+    },
+    "library.ul.tax.cp_us_required": {
+      title: "Признак контролирующих лиц с налоговым резидентством США указан",
+      description: "Проверяет, что признак контролирующих лиц с налоговым резидентством США заполнен",
+    },
+    "library.ul.tax.cp_us_not_true": {
+      title: "Нет контролирующих лиц с налоговым резидентством США",
+      description: "Проверяет, что признак контролирующих лиц с налоговым резидентством США не имеет значение true",
+    },
+  });
+}
+
 function addScopedConflictCatalog(manifest, report) {
   const contour = contours.find((item) => item.key === report.contour);
   const suffix = contour?.label ? `Версия правила для ${contour.label}.` : "Контурная версия правила.";
@@ -593,7 +747,9 @@ function namespaceDuplicateCheckCodes(artifacts) {
         ? "IP_RESIDENT"
         : artifact.id.includes("ip_nonresident")
           ? "IP_NONRESIDENT"
-          : "RULESET";
+          : artifact.id.includes("ul_resident")
+            ? "UL_RESIDENT"
+            : "RULESET";
     let candidate = `${prefix}.${legacyCode}`;
     let index = 2;
     while (seen.has(candidate)) {
@@ -620,7 +776,7 @@ function mergeCatalogs(sources, reports) {
       id: "nominal-beneficiaries-rules",
       version: packageJson.version,
       title: "Бенефициары номинальных счетов",
-      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT и IP_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT и UL_RESIDENT validate-application в режиме parity с processor-preprod.",
       language: "ru",
     },
     paths: {
@@ -668,6 +824,7 @@ function mergeCatalogs(sources, reports) {
   addResidentTaxFlagCatalog(manifest);
   addStudioPolishCatalog(manifest);
   addIpNonresidentCatalog(manifest);
+  addUlResidentCatalog(manifest);
 
   return manifest;
 }
@@ -927,11 +1084,102 @@ function writeIpNonresidentSamples(contour) {
   );
 }
 
+function ulResidentApplication(overrides = {}) {
+  const beneficiaryOverrides = overrides.beneficiary || {};
+  const application = {
+    beneficiary: {
+      type: "UL_RESIDENT",
+      inn: "6454122829",
+      participationId: "UL-PARTICIPATION-0001",
+      account: { number: "40702810120028000006" },
+      contacts: { phone: "9801611004" },
+      status: { startDate: "2026-06-15" },
+      address: { legal: { countryCode: "RU", fullAddress: "410028, Саратов" } },
+      tax: {
+        foreignTaxResident: false,
+        passiveNfe: false,
+        controllingPersonsForeignTaxResident: false,
+        usTaxResident: false,
+        controllingPersonsUsTaxResident: false,
+      },
+    },
+  };
+
+  application.beneficiary = {
+    ...application.beneficiary,
+    ...beneficiaryOverrides,
+  };
+  return application;
+}
+
+function writeUlResidentSamples(contour) {
+  const ok = ulResidentApplication();
+  const noContacts = ulResidentApplication({
+    beneficiary: {
+      contacts: {
+        phone: "",
+        email: "",
+      },
+    },
+  });
+  const foreignLegalAddress = ulResidentApplication({
+    beneficiary: {
+      address: {
+        legal: {
+          countryCode: "KZ",
+          fullAddress: "Казахстан, Алматы",
+        },
+      },
+    },
+  });
+  const foreignTaxResident = ulResidentApplication({
+    beneficiary: {
+      tax: {
+        foreignTaxResident: true,
+        passiveNfe: false,
+        controllingPersonsForeignTaxResident: false,
+        usTaxResident: false,
+        controllingPersonsUsTaxResident: false,
+      },
+    },
+  });
+
+  writeJson(
+    path.join(rootDir, "samples/ul-resident.ok.json"),
+    sample(contour, "UL resident valid merchant application", ok, { status: "OK", exact: true, issues: [] }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-resident.no-contacts.json"),
+    sample(contour, "UL resident missing contacts", noContacts, {
+      status: "ERROR",
+      exact: true,
+      issues: [{ code: "UL.CONTACTS.MIN_ONE", field: null, level: "ERROR" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-resident.foreign-legal-address.json"),
+    sample(contour, "UL resident foreign legal address reject", foreignLegalAddress, {
+      status: "ERROR",
+      exact: true,
+      issues: [{ code: "UL.ADDRESS.LEGAL.COUNTRY_RU", field: "beneficiary.address.legal.countryCode", level: "ERROR" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-resident.foreign-tax-resident.json"),
+    sample(contour, "UL resident foreign tax resident reject", foreignTaxResident, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE", field: "beneficiary.tax.foreignTaxResident", level: "EXCEPTION" }],
+    }),
+  );
+}
+
 function writeSamples() {
   writeResidentSamples(contours[0]);
   writeNonresidentSamples(contours[1]);
   writeIpResidentSamples(contours[2]);
   writeIpNonresidentSamples(contours[3]);
+  writeUlResidentSamples(contours[4]);
 }
 
 const sources = contours.map((contour) => ({ contour, source: readSource(contour) }));

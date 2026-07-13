@@ -1,0 +1,12 @@
+{
+  "id": "library.ul.legal_address_country_ru",
+  "type": "rule",
+  "description": "Юридический адрес ЮЛ-резидента должен быть в России",
+  "role": "check",
+  "operator": "equals",
+  "level": "ERROR",
+  "code": "UL.ADDRESS.LEGAL.COUNTRY_RU",
+  "message": "Юридический адрес ЮЛ-резидента должен быть в России",
+  "field": "beneficiary.address.legal.countryCode",
+  "value": "RU"
+}

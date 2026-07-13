@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.account_number_required",
+  "type": "rule",
+  "description": "Не указан номер номинального счёта",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.ACCOUNT.NUMBER.REQUIRED",
+  "message": "Не указан номер номинального счёта",
+  "field": "beneficiary.account.number"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.tax.passive_nfe_not_true",
+  "type": "rule",
+  "description": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
+  "role": "check",
+  "operator": "not_true",
+  "level": "EXCEPTION",
+  "code": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+  "message": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
+  "field": "beneficiary.tax.passiveNfe"
+}

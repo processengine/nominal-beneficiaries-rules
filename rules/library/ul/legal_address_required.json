@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.legal_address_required",
+  "type": "rule",
+  "description": "Не указан юридический адрес ЮЛ-резидента",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.ADDRESS.LEGAL.REQUIRED",
+  "message": "Не указан юридический адрес ЮЛ-резидента",
+  "field": "beneficiary.address.legal.fullAddress"
+}

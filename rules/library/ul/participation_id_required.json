@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.participation_id_required",
+  "type": "rule",
+  "description": "Не указан идентификатор основания участия",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.PARTICIPATION_ID.REQUIRED",
+  "message": "Не указан идентификатор основания участия",
+  "field": "beneficiary.participationId"
+}

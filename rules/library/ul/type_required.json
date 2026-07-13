@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.type_required",
+  "type": "rule",
+  "description": "Не указана категория бенефициара",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.TYPE.REQUIRED",
+  "message": "Не указана категория бенефициара",
+  "field": "beneficiary.type"
+}

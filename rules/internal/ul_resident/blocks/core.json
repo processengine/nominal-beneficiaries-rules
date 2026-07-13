@@ -1,0 +1,36 @@
+{
+  "id": "internal.ul_resident.blocks.core",
+  "type": "pipeline",
+  "description": "Основные сведения заявки ЮЛ-резидента",
+  "strict": false,
+  "flow": [
+    {
+      "rule": "library.ul.inn_required"
+    },
+    {
+      "rule": "library.ul.inn_format_10"
+    },
+    {
+      "rule": "library.ul.inn_valid"
+    },
+    {
+      "rule": "library.ul.participation_id_required"
+    },
+    {
+      "rule": "library.ul.account_number_required"
+    },
+    {
+      "rule": "library.ul.account_number_format"
+    },
+    {
+      "rule": "library.ul.status_start_required"
+    },
+    {
+      "rule": "library.ul.status_start_format"
+    },
+    {
+      "condition": "library.ul_resident.common.cond_status_end_if_present"
+    }
+  ],
+  "entrypoint": false
+}

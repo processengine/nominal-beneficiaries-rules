@@ -1,0 +1,19 @@
+{
+  "id": "library.ul.type_supported",
+  "type": "rule",
+  "description": "Категория бенефициара должна быть поддерживаемой",
+  "role": "check",
+  "operator": "in_dictionary",
+  "level": "EXCEPTION",
+  "code": "RULESET.BEN.TYPE.UNSUPPORTED",
+  "message": "Категория бенефициара должна быть поддерживаемой",
+  "field": "beneficiary.type",
+  "dictionary": {
+    "type": "static",
+    "id": "dictionaries.ul_resident.beneficiary_types"
+  },
+  "meta": {
+    "legacyCode": "BEN.TYPE.UNSUPPORTED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.tax.foreign_not_true",
+  "type": "rule",
+  "description": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
+  "role": "check",
+  "operator": "not_true",
+  "level": "EXCEPTION",
+  "code": "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+  "message": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
+  "field": "beneficiary.tax.foreignTaxResident"
+}

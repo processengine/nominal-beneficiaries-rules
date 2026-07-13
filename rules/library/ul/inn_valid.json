@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.inn_valid",
+  "type": "rule",
+  "description": "ИНН юридического лица указан некорректно",
+  "role": "check",
+  "operator": "valid_inn",
+  "level": "ERROR",
+  "code": "UL.INN.INVALID",
+  "message": "ИНН юридического лица указан некорректно",
+  "field": "beneficiary.inn"
+}

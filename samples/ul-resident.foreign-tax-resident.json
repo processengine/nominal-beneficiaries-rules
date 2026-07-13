@@ -1,0 +1,47 @@
+{
+  "name": "UL resident foreign tax resident reject",
+  "context": {
+    "pipelineId": "entrypoints.ul_resident.full_validation",
+    "currentDate": "2026-06-15"
+  },
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "6454122829",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": true,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.foreignTaxResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

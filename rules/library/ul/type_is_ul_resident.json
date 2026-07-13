@@ -1,0 +1,12 @@
+{
+  "id": "library.ul.type_is_ul_resident",
+  "type": "rule",
+  "description": "Заявка должна быть на ЮЛ-резидента",
+  "role": "check",
+  "operator": "equals",
+  "level": "EXCEPTION",
+  "code": "UL.TYPE.MISMATCH",
+  "message": "Заявка должна быть на ЮЛ-резидента",
+  "field": "beneficiary.type",
+  "value": "UL_RESIDENT"
+}

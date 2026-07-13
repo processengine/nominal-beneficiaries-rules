@@ -32,6 +32,14 @@
       "fieldContractPath": "../processor-preprod/artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 235,
       "entrypointId": "entrypoints.ip_nonresident.full_validation"
+    },
+    {
+      "key": "ul_resident",
+      "type": "UL_RESIDENT",
+      "sourcePath": "../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
+      "sourceArtifacts": 37,
+      "entrypointId": "entrypoints.ul_resident.full_validation"
     }
   ],
   "mergeReports": [
@@ -107,6 +115,20 @@
         "library.nonresident.cond_add_doc_required_unless_belarus": "library.ip_nonresident.nonresident.cond_add_doc_required_unless_belarus",
         "library.nonresident.cond_add_doc_type_code_supported": "library.ip_nonresident.nonresident.cond_add_doc_type_code_supported",
         "library.nonresident.cond_add_doc_right_to_stay_doc": "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc"
+      }
+    },
+    {
+      "contour": "ul_resident",
+      "sourceArtifacts": 37,
+      "shared": 2,
+      "added": 35,
+      "scopedConflicts": 5,
+      "conflictMap": {
+        "beneficiary_types": "dictionaries.ul_resident.beneficiary_types",
+        "library.common.status_end_format": "library.ul_resident.common.status_end_format",
+        "library.common.status_end_gt_start": "library.ul_resident.common.status_end_gt_start",
+        "library.common.cond_status_end_if_present": "library.ul_resident.common.cond_status_end_if_present",
+        "library.common.cond_status_end_order_if_format_ok": "library.ul_resident.common.cond_status_end_order_if_format_ok"
       }
     }
   ],
@@ -320,7 +342,25 @@
       "legacyCode": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
       "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.SERIES.REQUIRED",
       "firstArtifactId": "library.nonresident.add_doc_series_required"
+    },
+    {
+      "artifactId": "library.ul.type_supported",
+      "legacyCode": "BEN.TYPE.UNSUPPORTED",
+      "code": "RULESET.BEN.TYPE.UNSUPPORTED",
+      "firstArtifactId": "library.common.beneficiary_type_supported"
+    },
+    {
+      "artifactId": "library.ul_resident.common.status_end_format",
+      "legacyCode": "BEN.STATUS.END.FORMAT",
+      "code": "UL_RESIDENT.BEN.STATUS.END.FORMAT",
+      "firstArtifactId": "library.common.status_end_format"
+    },
+    {
+      "artifactId": "library.ul_resident.common.status_end_gt_start",
+      "legacyCode": "BEN.STATUS.END.ORDER",
+      "code": "UL_RESIDENT.BEN.STATUS.END.ORDER",
+      "firstArtifactId": "library.common.status_end_gt_start"
     }
   ],
-  "artifactCount": 334
+  "artifactCount": 369
 }
