@@ -1,0 +1,32 @@
+{
+  "name": "Beneficiary unbind unsupported type",
+  "context": {
+    "pipelineId": "entrypoints.beneficiary.unbind.type_supported",
+    "currentDate": "2026-06-15"
+  },
+  "payload": {
+    "beneficiary": {
+      "type": "UNSUPPORTED_TYPE",
+      "participationId": "UNBIND-PARTICIPATION-0001",
+      "inn": "7707083893",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "status": {
+        "startDate": "2026-05-18",
+        "endDate": "2026-06-03"
+      }
+    }
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BENEFICIARY_UNBIND_TYPE_SUPPORTED",
+        "field": "beneficiary.type",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "entrypoints.beneficiary.unbind.type_supported",
+  "type": "pipeline",
+  "entrypoint": true,
+  "strict": false,
+  "description": "Поддержка типа бенефициара.",
+  "flow": [
+    {
+      "rule": "entrypoints.beneficiary.unbind.type_supported.type_supported"
+    }
+  ]
+}

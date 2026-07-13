@@ -2,6 +2,8 @@
 
 Package slice не меняет бизнес-смысл правил.
 
+Текущий parity-набор: 35 samples.
+
 Для каждого sample выполняется два запуска:
 
 1. legacy snapshot через `@processengine/rules`;

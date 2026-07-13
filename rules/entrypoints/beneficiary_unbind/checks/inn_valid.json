@@ -1,0 +1,11 @@
+{
+  "id": "entrypoints.beneficiary.unbind.field_validation.inn_valid",
+  "type": "rule",
+  "description": "ИНН не прошёл проверку контрольных разрядов.",
+  "role": "check",
+  "operator": "valid_inn",
+  "level": "ERROR",
+  "field": "beneficiary.inn",
+  "code": "BENEFICIARY_UNBIND_INN_VALID",
+  "message": "ИНН не прошёл проверку контрольных разрядов."
+}

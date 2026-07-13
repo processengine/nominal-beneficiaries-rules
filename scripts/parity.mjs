@@ -42,6 +42,14 @@ const legacySnapshotPaths = {
     "artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
     "ul-nonresident.validate-application.rules.snapshot.json",
   ),
+  "entrypoints.beneficiary.unbind.type_supported": legacySnapshotPath(
+    "artifacts/beneficiary.unbind/rules.snapshot.json",
+    "beneficiary-unbind.rules.snapshot.json",
+  ),
+  "entrypoints.beneficiary.unbind.field_validation": legacySnapshotPath(
+    "artifacts/beneficiary.unbind/rules.snapshot.json",
+    "beneficiary-unbind.rules.snapshot.json",
+  ),
 };
 
 function readSamples(dir) {

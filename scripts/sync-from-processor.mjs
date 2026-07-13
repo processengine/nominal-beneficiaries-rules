@@ -116,6 +116,21 @@ const contours = [
     entrypointId: "entrypoints.ul_nonresident.full_validation",
     currentDate: "2026-06-15",
   },
+  {
+    key: "beneficiary_unbind",
+    type: "BENEFICIARY_UNBIND",
+    label: "отвязка бенефициара",
+    sourcePath: path.join(processorDir, "artifacts/beneficiary.unbind/rules.snapshot.json"),
+    legacyFixtureFile: "beneficiary-unbind.rules.snapshot.json",
+    fieldContractPath: path.join(processorDir, "artifacts/beneficiary.unbind/rules-field-contract.json"),
+    fieldContractFile: "beneficiary-unbind.rules-field-contract.json",
+    entrypointId: "entrypoints.beneficiary.unbind.field_validation",
+    entrypointIds: [
+      "entrypoints.beneficiary.unbind.type_supported",
+      "entrypoints.beneficiary.unbind.field_validation",
+    ],
+    currentDate: "2026-06-15",
+  },
 ];
 
 const residentTaxFlagConfigs = [
@@ -151,6 +166,9 @@ const ulCommonStatusIdMap = {
   "library.common.cond_status_end_if_present": "library.ul.common.cond_status_end_if_present",
   "library.common.cond_status_end_order_if_format_ok": "library.ul.common.cond_status_end_order_if_format_ok",
 };
+
+const unbindFieldPipelineId = "entrypoints.beneficiary.unbind.field_validation";
+const unbindTypePipelineId = "entrypoints.beneficiary.unbind.type_supported";
 
 function writeJson(filePath, value) {
   mkdirSync(path.dirname(filePath), { recursive: true });
@@ -222,6 +240,20 @@ function refactorUlCommonStatus(artifacts, contour) {
     }
     return rewritten;
   });
+}
+
+function refactorBeneficiaryUnbindScope(artifacts, contour) {
+  if (contour.key !== "beneficiary_unbind") return artifacts;
+
+  const idMap = {};
+  for (const artifact of artifacts) {
+    if (!artifact.id.startsWith("beneficiary.unbind.")) continue;
+    const localName = artifact.id.replace("beneficiary.unbind.", "");
+    const pipelineId = localName === "type_supported" ? unbindTypePipelineId : unbindFieldPipelineId;
+    idMap[artifact.id] = `${pipelineId}.${localName}`;
+  }
+
+  return artifacts.map((artifact) => rewriteIds(artifact, idMap));
 }
 
 function upsertArtifact(artifacts, artifact) {
@@ -852,6 +884,115 @@ function addUlNonresidentCatalog(manifest) {
   });
 }
 
+function addUnbindCatalog(manifest) {
+  Object.assign(manifest.catalog.fields, {
+    "beneficiary.type": {
+      ...(manifest.catalog.fields["beneficiary.type"] || {}),
+      title: "Категория бенефициара",
+      btName: "Категория бенефициара",
+      description: "Категория бенефициара в заявке",
+      businessDescription: "Категория бенефициара",
+    },
+    "beneficiary.participationId": {
+      ...(manifest.catalog.fields["beneficiary.participationId"] || {}),
+      title: "Идентификатор участия",
+      btName: "Идентификатор участия",
+      description: "Идентификатор участия бенефициара в номинальном счете",
+      businessDescription: "Идентификатор участия",
+    },
+    "beneficiary.inn": {
+      ...(manifest.catalog.fields["beneficiary.inn"] || {}),
+      title: "ИНН бенефициара",
+      btName: "ИНН бенефициара",
+      description: "ИНН бенефициара",
+      businessDescription: "ИНН бенефициара",
+    },
+    "beneficiary.account.number": {
+      ...(manifest.catalog.fields["beneficiary.account.number"] || {}),
+      title: "Номер номинального счета",
+      btName: "Номер номинального счета",
+      description: "Номер номинального счета",
+      businessDescription: "Номер номинального счета",
+    },
+    "beneficiary.status.startDate": {
+      ...(manifest.catalog.fields["beneficiary.status.startDate"] || {}),
+      title: "Дата присоединения",
+      btName: "Дата присоединения",
+      description: "Дата присоединения бенефициара к номинальному счету",
+      businessDescription: "Дата присоединения",
+    },
+    "beneficiary.status.endDate": {
+      ...(manifest.catalog.fields["beneficiary.status.endDate"] || {}),
+      title: "Дата выбытия",
+      btName: "Дата выбытия",
+      description: "Дата выбытия бенефициара из номинального счета",
+      businessDescription: "Дата выбытия",
+    },
+  });
+
+  Object.assign(manifest.catalog.entrypoints, {
+    "entrypoints.beneficiary.unbind.type_supported": {
+      title: "Проверка категории бенефициара для отвязки",
+      description: "Проверяет, что заявка на отвязку относится к поддерживаемой категории бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation": {
+      title: "Валидация заявки на отвязку",
+      description: "Проверяет обязательные данные заявки на отвязку бенефициара от номинального счета",
+    },
+  });
+
+  Object.assign(manifest.catalog.artifacts, {
+    "entrypoints.beneficiary.unbind.type_supported": {
+      title: "Проверка категории бенефициара для отвязки",
+      description: "Проверяет, что заявка на отвязку относится к поддерживаемой категории бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation": {
+      title: "Валидация заявки на отвязку",
+      description: "Проверяет обязательные данные заявки на отвязку бенефициара от номинального счета",
+    },
+    "entrypoints.beneficiary.unbind.type_supported.type_supported": {
+      title: "Категория бенефициара поддерживается для отвязки",
+      description: "Проверяет, что категория бенефициара допускает отвязку от номинального счета",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.participation_id_present": {
+      title: "Идентификатор участия указан",
+      description: "Проверяет, что в заявке указан идентификатор участия бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.inn_present": {
+      title: "ИНН бенефициара указан",
+      description: "Проверяет, что в заявке указан ИНН бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.inn_format": {
+      title: "ИНН бенефициара содержит 10 или 12 цифр",
+      description: "Проверяет формат ИНН бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.inn_valid": {
+      title: "ИНН бенефициара корректен",
+      description: "Проверяет контрольные разряды ИНН бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.account_present": {
+      title: "Номер номинального счета указан",
+      description: "Проверяет, что в заявке указан номер номинального счета",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.start_date_present": {
+      title: "Дата присоединения указана",
+      description: "Проверяет, что в заявке указана дата присоединения бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.start_date_format": {
+      title: "Дата присоединения в формате YYYY-MM-DD",
+      description: "Проверяет формат даты присоединения бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.end_date_present": {
+      title: "Дата выбытия указана",
+      description: "Проверяет, что в заявке указана дата выбытия бенефициара",
+    },
+    "entrypoints.beneficiary.unbind.field_validation.end_date_format": {
+      title: "Дата выбытия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты выбытия бенефициара",
+    },
+  });
+}
+
 function addScopedConflictCatalog(manifest, report) {
   const contour = contours.find((item) => item.key === report.contour);
   const suffix = contour?.label ? `Версия правила для ${contour.label}.` : "Контурная версия правила.";
@@ -883,6 +1024,7 @@ function prepareArtifacts(source, contour) {
   normalizeBeneficiaryTypesDictionary(artifacts);
   artifacts = replaceBooleanDictionaryWithOperator(artifacts);
   artifacts = refactorUlCommonStatus(artifacts, contour);
+  artifacts = refactorBeneficiaryUnbindScope(artifacts, contour);
   if (contour.key === "fl_resident") {
     refactorResidentTaxFlagPipeline(artifacts);
   }
@@ -1049,7 +1191,7 @@ function mergeCatalogs(sources, reports) {
       id: "nominal-beneficiaries-rules",
       version: packageJson.version,
       title: "Бенефициары номинальных счетов",
-      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+      description: "Пакет правил проверок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT, UL_NONRESIDENT validate-application и beneficiary.unbind в режиме parity с processor-preprod.",
       language: "ru",
     },
     paths: {
@@ -1100,6 +1242,7 @@ function mergeCatalogs(sources, reports) {
   addUlCommonCatalog(manifest);
   addUlResidentCatalog(manifest);
   addUlNonresidentCatalog(manifest);
+  addUnbindCatalog(manifest);
 
   return manifest;
 }
@@ -1115,15 +1258,20 @@ function fileForArtifact(artifact) {
   }
 
   for (const contour of contours) {
-    if (artifact.id === contour.entrypointId) {
+    if ((contour.entrypointIds || [contour.entrypointId]).includes(artifact.id)) {
+      if (contour.key === "beneficiary_unbind") {
+        return path.join(rootDir, "rules/entrypoints", contour.key, `${parts.at(-1)}.json`);
+      }
       return path.join(rootDir, "rules/entrypoints", contour.key, "full_validation.json");
     }
-    if (artifact.id.startsWith(`${contour.entrypointId}.library.`)) {
-      const scopedParts = artifact.id.slice(`${contour.entrypointId}.library.`.length).split(".");
-      return path.join(rootDir, "rules/entrypoints", contour.key, "library", ...scopedParts.slice(0, -1), `${scopedParts.at(-1)}.json`);
-    }
-    if (artifact.id.startsWith(`${contour.entrypointId}.`)) {
-      return path.join(rootDir, "rules/entrypoints", contour.key, "checks", `${parts.at(-1)}.json`);
+    for (const entrypointId of contour.entrypointIds || [contour.entrypointId]) {
+      if (artifact.id.startsWith(`${entrypointId}.library.`)) {
+        const scopedParts = artifact.id.slice(`${entrypointId}.library.`.length).split(".");
+        return path.join(rootDir, "rules/entrypoints", contour.key, "library", ...scopedParts.slice(0, -1), `${scopedParts.at(-1)}.json`);
+      }
+      if (artifact.id.startsWith(`${entrypointId}.`)) {
+        return path.join(rootDir, "rules/entrypoints", contour.key, "checks", `${parts.at(-1)}.json`);
+      }
     }
     if (artifact.id.startsWith(`internal.${contour.key}.`)) {
       return path.join(rootDir, "rules/internal", contour.key, ...parts.slice(2, -1), `${parts.at(-1)}.json`);
@@ -1146,6 +1294,19 @@ function sample(contour, name, payload, expected, extra = {}) {
     name,
     context: {
       pipelineId: contour.entrypointId,
+      currentDate: contour.currentDate,
+    },
+    payload,
+    expect: expected,
+    ...extra,
+  };
+}
+
+function sampleWithPipeline(contour, pipelineId, name, payload, expected, extra = {}) {
+  return {
+    name,
+    context: {
+      pipelineId,
       currentDate: contour.currentDate,
     },
     payload,
@@ -1619,6 +1780,113 @@ function writeUlNonresidentSamples(contour) {
   );
 }
 
+function unbindApplication(overrides = {}) {
+  const beneficiaryOverrides = overrides.beneficiary || {};
+  const application = {
+    beneficiary: {
+      type: "UL_NONRESIDENT",
+      participationId: "UNBIND-PARTICIPATION-0001",
+      inn: "9909890614",
+      account: { number: "40702810120028000006" },
+      status: {
+        startDate: "2026-05-18",
+        endDate: "2026-06-03",
+      },
+    },
+  };
+
+  application.beneficiary = {
+    ...application.beneficiary,
+    ...beneficiaryOverrides,
+  };
+  return application;
+}
+
+function writeUnbindSamples(contour) {
+  const [typeSupportedPipelineId, fieldValidationPipelineId] = contour.entrypointIds;
+  const ok = unbindApplication();
+  const unsupportedType = unbindApplication({
+    beneficiary: {
+      type: "UNSUPPORTED_TYPE",
+      inn: "7707083893",
+    },
+  });
+  const invalidInn = unbindApplication({
+    beneficiary: { inn: "1234567890" },
+  });
+  const invalidEndDate = unbindApplication({
+    beneficiary: {
+      status: {
+        ...ok.beneficiary.status,
+        endDate: "2026/06/03",
+      },
+    },
+  });
+
+  writeJson(
+    path.join(rootDir, "samples/beneficiary-unbind.type-ok.json"),
+    sampleWithPipeline(
+      contour,
+      typeSupportedPipelineId,
+      "Beneficiary unbind supported type",
+      ok,
+      { status: "OK", exact: true, issues: [] },
+    ),
+  );
+  writeJson(
+    path.join(rootDir, "samples/beneficiary-unbind.unsupported-type.json"),
+    sampleWithPipeline(
+      contour,
+      typeSupportedPipelineId,
+      "Beneficiary unbind unsupported type",
+      unsupportedType,
+      {
+        status: "ERROR",
+        exact: true,
+        issues: [{ code: "BENEFICIARY_UNBIND_TYPE_SUPPORTED", field: "beneficiary.type", level: "ERROR" }],
+      },
+    ),
+  );
+  writeJson(
+    path.join(rootDir, "samples/beneficiary-unbind.fields-ok.json"),
+    sampleWithPipeline(
+      contour,
+      fieldValidationPipelineId,
+      "Beneficiary unbind valid fields",
+      ok,
+      { status: "OK", exact: true, issues: [] },
+    ),
+  );
+  writeJson(
+    path.join(rootDir, "samples/beneficiary-unbind.invalid-inn.json"),
+    sampleWithPipeline(
+      contour,
+      fieldValidationPipelineId,
+      "Beneficiary unbind invalid INN",
+      invalidInn,
+      {
+        status: "ERROR",
+        exact: true,
+        issues: [{ code: "BENEFICIARY_UNBIND_INN_VALID", field: "beneficiary.inn", level: "ERROR" }],
+      },
+    ),
+  );
+  writeJson(
+    path.join(rootDir, "samples/beneficiary-unbind.invalid-end-date.json"),
+    sampleWithPipeline(
+      contour,
+      fieldValidationPipelineId,
+      "Beneficiary unbind invalid end date",
+      invalidEndDate,
+      {
+        status: "ERROR",
+        exact: true,
+        issues: [{ code: "BENEFICIARY_UNBIND_END_DATE_FORMAT", field: "beneficiary.status.endDate", level: "ERROR" }],
+      },
+    ),
+  );
+}
+
 function writeSamples() {
   writeResidentSamples(contours[0]);
   writeNonresidentSamples(contours[1]);
@@ -1626,6 +1894,7 @@ function writeSamples() {
   writeIpNonresidentSamples(contours[3]);
   writeUlResidentSamples(contours[4]);
   writeUlNonresidentSamples(contours[5]);
+  writeUnbindSamples(contours[6]);
 }
 
 const sources = contours.map((contour) => ({ contour, source: readSource(contour) }));
@@ -1658,6 +1927,7 @@ writeJson(path.join(rootDir, "docs/sync-report.json"), {
     fieldContractPath: repoRelative(contour.fieldContractPath),
     sourceArtifacts: contour.artifacts.length,
     entrypointId: contour.entrypointId,
+    entrypointIds: contour.entrypointIds || [contour.entrypointId],
   })),
   mergeReports: reports,
   codeAliases,

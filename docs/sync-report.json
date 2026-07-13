@@ -7,7 +7,10 @@
       "sourcePath": "../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 191,
-      "entrypointId": "entrypoints.fl_resident.full_validation"
+      "entrypointId": "entrypoints.fl_resident.full_validation",
+      "entrypointIds": [
+        "entrypoints.fl_resident.full_validation"
+      ]
     },
     {
       "key": "fl_nonresident",
@@ -15,7 +18,10 @@
       "sourcePath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 225,
-      "entrypointId": "entrypoints.fl_nonresident.full_validation"
+      "entrypointId": "entrypoints.fl_nonresident.full_validation",
+      "entrypointIds": [
+        "entrypoints.fl_nonresident.full_validation"
+      ]
     },
     {
       "key": "ip_resident",
@@ -23,7 +29,10 @@
       "sourcePath": "../processor-preprod/artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/ip-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 176,
-      "entrypointId": "entrypoints.ip_resident.full_validation"
+      "entrypointId": "entrypoints.ip_resident.full_validation",
+      "entrypointIds": [
+        "entrypoints.ip_resident.full_validation"
+      ]
     },
     {
       "key": "ip_nonresident",
@@ -31,7 +40,10 @@
       "sourcePath": "../processor-preprod/artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/ip-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 235,
-      "entrypointId": "entrypoints.ip_nonresident.full_validation"
+      "entrypointId": "entrypoints.ip_nonresident.full_validation",
+      "entrypointIds": [
+        "entrypoints.ip_nonresident.full_validation"
+      ]
     },
     {
       "key": "ul_resident",
@@ -39,7 +51,10 @@
       "sourcePath": "../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 37,
-      "entrypointId": "entrypoints.ul_resident.full_validation"
+      "entrypointId": "entrypoints.ul_resident.full_validation",
+      "entrypointIds": [
+        "entrypoints.ul_resident.full_validation"
+      ]
     },
     {
       "key": "ul_nonresident",
@@ -47,7 +62,22 @@
       "sourcePath": "../processor-preprod/artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
       "fieldContractPath": "../processor-preprod/artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 57,
-      "entrypointId": "entrypoints.ul_nonresident.full_validation"
+      "entrypointId": "entrypoints.ul_nonresident.full_validation",
+      "entrypointIds": [
+        "entrypoints.ul_nonresident.full_validation"
+      ]
+    },
+    {
+      "key": "beneficiary_unbind",
+      "type": "BENEFICIARY_UNBIND",
+      "sourcePath": "../processor-preprod/artifacts/beneficiary.unbind/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/beneficiary.unbind/rules-field-contract.json",
+      "sourceArtifacts": 12,
+      "entrypointId": "entrypoints.beneficiary.unbind.field_validation",
+      "entrypointIds": [
+        "entrypoints.beneficiary.unbind.type_supported",
+        "entrypoints.beneficiary.unbind.field_validation"
+      ]
     }
   ],
   "mergeReports": [
@@ -138,6 +168,14 @@
       "sourceArtifacts": 57,
       "shared": 7,
       "added": 50,
+      "scopedConflicts": 0,
+      "conflictMap": {}
+    },
+    {
+      "contour": "beneficiary_unbind",
+      "sourceArtifacts": 12,
+      "shared": 0,
+      "added": 12,
       "scopedConflicts": 0,
       "conflictMap": {}
     }
@@ -504,5 +542,5 @@
       "firstArtifactId": "library.ul.tax.cp_us_not_true"
     }
   ],
-  "artifactCount": 418
+  "artifactCount": 430
 }

@@ -1,0 +1,12 @@
+{
+  "id": "entrypoints.beneficiary.unbind.field_validation.end_date_format",
+  "type": "rule",
+  "description": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "field": "beneficiary.status.endDate",
+  "code": "BENEFICIARY_UNBIND_END_DATE_FORMAT",
+  "message": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+  "value": "^\\d{4}-\\d{2}-\\d{2}$"
+}

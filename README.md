@@ -4,15 +4,16 @@
 
 ## Статус
 
-Шестой слайс миграции: пакет отделен от процессора и содержит шесть контуров
-валидации заявки:
+Седьмой слайс миграции: пакет отделен от процессора и содержит все активные
+RULES-контуры процессора:
 
 - `FL_RESIDENT`;
 - `FL_NONRESIDENT`;
 - `IP_RESIDENT`;
 - `IP_NONRESIDENT`;
 - `UL_RESIDENT`;
-- `UL_NONRESIDENT`.
+- `UL_NONRESIDENT`;
+- `beneficiary.unbind`.
 
 Цель текущего состояния - доказать parity между старым исполнением через
 `@processengine/rules` и новым `jsonspecs-snapshot`, не меняя бизнес-поведение
@@ -28,6 +29,8 @@
 | `entrypoints.ip_nonresident.full_validation` | Валидация заявки ИП-нерезидента |
 | `entrypoints.ul_resident.full_validation` | Валидация заявки ЮЛ-резидента |
 | `entrypoints.ul_nonresident.full_validation` | Валидация заявки ЮЛ-нерезидента |
+| `entrypoints.beneficiary.unbind.type_supported` | Проверка категории бенефициара для отвязки |
+| `entrypoints.beneficiary.unbind.field_validation` | Валидация заявки на отвязку |
 
 ## Runtime Context
 
@@ -136,20 +139,21 @@ docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 
 ## Текущее состояние миграции
 
-Все active `validate_application` contours в processor переключены на
-package-backed `rulesetRef` и используют
-`@processengine/nominal-beneficiaries-rules@0.6.1`:
+Все active RULES contours processor-preprod перенесены в package snapshot
+`@processengine/nominal-beneficiaries-rules@0.7.0`:
 
 - `fl_resident.validate_application`;
 - `fl_nonresident.validate_application`;
 - `ip_resident.validate_application`;
 - `ip_nonresident.validate_application`;
 - `ul_resident.validate_application`;
-- `ul_nonresident.validate_application`.
+- `ul_nonresident.validate_application`;
+- `beneficiary.unbind`:
+  - `entrypoints.beneficiary.unbind.type_supported`;
+  - `entrypoints.beneficiary.unbind.field_validation`.
 
-`beneficiary.unbind` остается отдельным локальным RULES/FUNC решением и не
-входит в этот package migration.
+Processor switch для `beneficiary.unbind` должен быть выполнен отдельным
+изменением processor-preprod после публикации версии `0.7.0`.
 
-Следующий design slice: после parity вынести общие проверки в library
-pipelines и убрать физическое дублирование между FL/IP/UL без изменения
-публичных `legacyCode`.
+Следующий design slice: вынести общие проверки в library pipelines и убрать
+физическое дублирование между FL/IP/UL без изменения публичных `legacyCode`.

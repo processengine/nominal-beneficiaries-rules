@@ -1,9 +1,9 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "title": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+    "description": "Пакет правил проверок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT, UL_NONRESIDENT validate-application и beneficiary.unbind в режиме parity с processor-preprod.",
     "language": "ru"
   },
   "paths": {
@@ -34,16 +34,16 @@
         "businessDescription": "Категория бенефициара"
       },
       "beneficiary.inn": {
-        "title": "ИНН иностранной организации",
-        "btName": "ИНН",
-        "description": "Российский ИНН, присвоенный иностранной организации при постановке на учет",
-        "businessDescription": "ИНН иностранной организации"
+        "title": "ИНН бенефициара",
+        "btName": "ИНН бенефициара",
+        "description": "ИНН бенефициара",
+        "businessDescription": "ИНН бенефициара"
       },
       "beneficiary.participationId": {
-        "title": "Идентификатор основания участия",
-        "btName": "Идентификатор основания участия",
-        "description": "Идентификатор основания участия бенефициара в номинальном счете",
-        "businessDescription": "Идентификатор основания участия"
+        "title": "Идентификатор участия",
+        "btName": "Идентификатор участия",
+        "description": "Идентификатор участия бенефициара в номинальном счете",
+        "businessDescription": "Идентификатор участия"
       },
       "beneficiary.contacts.phone": {
         "title": "Контактный телефон",
@@ -64,16 +64,16 @@
         "businessDescription": "Иностранный контактный телефон"
       },
       "beneficiary.status.startDate": {
-        "title": "Дата начала участия",
-        "btName": "Дата начала участия",
-        "description": "Дата начала участия бенефициара по номинальному счету",
-        "businessDescription": "Дата начала участия"
+        "title": "Дата присоединения",
+        "btName": "Дата присоединения",
+        "description": "Дата присоединения бенефициара к номинальному счету",
+        "businessDescription": "Дата присоединения"
       },
       "beneficiary.status.endDate": {
-        "title": "Дата окончания участия",
-        "btName": "Дата окончания участия",
-        "description": "Дата окончания участия бенефициара по номинальному счету",
-        "businessDescription": "Дата окончания участия"
+        "title": "Дата выбытия",
+        "btName": "Дата выбытия",
+        "description": "Дата выбытия бенефициара из номинального счета",
+        "businessDescription": "Дата выбытия"
       },
       "beneficiary.fl.lastName": {
         "title": "Фамилия",
@@ -258,7 +258,7 @@
       "beneficiary.account.number": {
         "title": "Номер номинального счета",
         "btName": "Номер номинального счета",
-        "description": "Номер номинального счета для привязки бенефициара",
+        "description": "Номер номинального счета",
         "businessDescription": "Номер номинального счета"
       },
       "beneficiary.address.registration.streetType": {
@@ -471,6 +471,14 @@
       "entrypoints.ul_nonresident.full_validation": {
         "title": "Валидация заявки ЮЛ-нерезидента",
         "description": "Полная проверка заявки ЮЛ-нерезидента"
+      },
+      "entrypoints.beneficiary.unbind.type_supported": {
+        "title": "Проверка категории бенефициара для отвязки",
+        "description": "Проверяет, что заявка на отвязку относится к поддерживаемой категории бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation": {
+        "title": "Валидация заявки на отвязку",
+        "description": "Проверяет обязательные данные заявки на отвязку бенефициара от номинального счета"
       }
     },
     "artifacts": {
@@ -2145,6 +2153,54 @@
       "library.ul_nonresident.tax.cp_us_not_true": {
         "title": "Нет контролирующих лиц с налоговым резидентством США",
         "description": "Проверяет, что признак контролирующих лиц с налоговым резидентством США не имеет значение true"
+      },
+      "entrypoints.beneficiary.unbind.type_supported": {
+        "title": "Проверка категории бенефициара для отвязки",
+        "description": "Проверяет, что заявка на отвязку относится к поддерживаемой категории бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation": {
+        "title": "Валидация заявки на отвязку",
+        "description": "Проверяет обязательные данные заявки на отвязку бенефициара от номинального счета"
+      },
+      "entrypoints.beneficiary.unbind.type_supported.type_supported": {
+        "title": "Категория бенефициара поддерживается для отвязки",
+        "description": "Проверяет, что категория бенефициара допускает отвязку от номинального счета"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.participation_id_present": {
+        "title": "Идентификатор участия указан",
+        "description": "Проверяет, что в заявке указан идентификатор участия бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.inn_present": {
+        "title": "ИНН бенефициара указан",
+        "description": "Проверяет, что в заявке указан ИНН бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.inn_format": {
+        "title": "ИНН бенефициара содержит 10 или 12 цифр",
+        "description": "Проверяет формат ИНН бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.inn_valid": {
+        "title": "ИНН бенефициара корректен",
+        "description": "Проверяет контрольные разряды ИНН бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.account_present": {
+        "title": "Номер номинального счета указан",
+        "description": "Проверяет, что в заявке указан номер номинального счета"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.start_date_present": {
+        "title": "Дата присоединения указана",
+        "description": "Проверяет, что в заявке указана дата присоединения бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.start_date_format": {
+        "title": "Дата присоединения в формате YYYY-MM-DD",
+        "description": "Проверяет формат даты присоединения бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.end_date_present": {
+        "title": "Дата выбытия указана",
+        "description": "Проверяет, что в заявке указана дата выбытия бенефициара"
+      },
+      "entrypoints.beneficiary.unbind.field_validation.end_date_format": {
+        "title": "Дата выбытия в формате YYYY-MM-DD",
+        "description": "Проверяет формат даты выбытия бенефициара"
       }
     },
     "operators": {

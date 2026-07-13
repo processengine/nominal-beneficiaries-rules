@@ -1,0 +1,12 @@
+{
+  "id": "entrypoints.beneficiary.unbind.type_supported.type_supported",
+  "type": "rule",
+  "description": "Тип бенефициара поддержан для отвязки.",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "field": "beneficiary.type",
+  "code": "BENEFICIARY_UNBIND_TYPE_SUPPORTED",
+  "message": "Тип бенефициара поддержан для отвязки.",
+  "value": "^(FL_RESIDENT|FL_NONRESIDENT|IP_RESIDENT|UL_RESIDENT|UL_NONRESIDENT)$"
+}

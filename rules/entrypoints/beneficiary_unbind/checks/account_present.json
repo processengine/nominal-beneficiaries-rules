@@ -1,0 +1,11 @@
+{
+  "id": "entrypoints.beneficiary.unbind.field_validation.account_present",
+  "type": "rule",
+  "description": "Не указан номер номинального счёта.",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "field": "beneficiary.account.number",
+  "code": "BENEFICIARY_UNBIND_ACCOUNT_PRESENT",
+  "message": "Не указан номер номинального счёта."
+}

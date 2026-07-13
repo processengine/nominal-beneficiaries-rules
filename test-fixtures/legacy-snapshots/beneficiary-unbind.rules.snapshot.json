@@ -1,0 +1,182 @@
+{
+  "version": "1",
+  "description": "Правила процесса отвязки бенефициара (валидация заявки, поддержка типа, сверка договора и даты выбытия).",
+  "manifest": {
+    "catalog": {
+      "entrypoints": {
+        "entrypoints.beneficiary.unbind.type_supported": {
+          "title": "Поддержка типа бенефициара для отвязки",
+          "description": "Отвязка поддержана для ФЛ, ИП-резидента и ЮЛ."
+        },
+        "entrypoints.beneficiary.unbind.field_validation": {
+          "title": "Валидация полей заявки на отвязку",
+          "description": "Проверка обязательных полей, формата ИНН и дат."
+        }
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "id": "entrypoints.beneficiary.unbind.type_supported",
+      "type": "pipeline",
+      "entrypoint": true,
+      "strict": false,
+      "description": "Поддержка типа бенефициара.",
+      "flow": [
+        {
+          "rule": "beneficiary.unbind.type_supported"
+        }
+      ]
+    },
+    {
+      "id": "entrypoints.beneficiary.unbind.field_validation",
+      "type": "pipeline",
+      "entrypoint": true,
+      "strict": false,
+      "description": "Валидация полей заявки.",
+      "flow": [
+        {
+          "rule": "beneficiary.unbind.participation_id_present"
+        },
+        {
+          "rule": "beneficiary.unbind.inn_present"
+        },
+        {
+          "rule": "beneficiary.unbind.inn_format"
+        },
+        {
+          "rule": "beneficiary.unbind.inn_valid"
+        },
+        {
+          "rule": "beneficiary.unbind.account_present"
+        },
+        {
+          "rule": "beneficiary.unbind.start_date_present"
+        },
+        {
+          "rule": "beneficiary.unbind.start_date_format"
+        },
+        {
+          "rule": "beneficiary.unbind.end_date_present"
+        },
+        {
+          "rule": "beneficiary.unbind.end_date_format"
+        }
+      ]
+    },
+    {
+      "id": "beneficiary.unbind.type_supported",
+      "type": "rule",
+      "description": "Тип бенефициара поддержан для отвязки.",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "field": "beneficiary.type",
+      "code": "BENEFICIARY_UNBIND_TYPE_SUPPORTED",
+      "message": "Тип бенефициара поддержан для отвязки.",
+      "value": "^(FL_RESIDENT|FL_NONRESIDENT|IP_RESIDENT|UL_RESIDENT|UL_NONRESIDENT)$"
+    },
+    {
+      "id": "beneficiary.unbind.participation_id_present",
+      "type": "rule",
+      "description": "Не указан идентификатор участия (participationId).",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "field": "beneficiary.participationId",
+      "code": "BENEFICIARY_UNBIND_PARTICIPATION_ID_PRESENT",
+      "message": "Не указан идентификатор участия (participationId)."
+    },
+    {
+      "id": "beneficiary.unbind.inn_present",
+      "type": "rule",
+      "description": "Не указан ИНН бенефициара.",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "field": "beneficiary.inn",
+      "code": "BENEFICIARY_UNBIND_INN_PRESENT",
+      "message": "Не указан ИНН бенефициара."
+    },
+    {
+      "id": "beneficiary.unbind.inn_format",
+      "type": "rule",
+      "description": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "field": "beneficiary.inn",
+      "code": "BENEFICIARY_UNBIND_INN_FORMAT",
+      "message": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
+      "value": "^(\\d{10}|\\d{12})$"
+    },
+    {
+      "id": "beneficiary.unbind.inn_valid",
+      "type": "rule",
+      "description": "ИНН не прошёл проверку контрольных разрядов.",
+      "role": "check",
+      "operator": "valid_inn",
+      "level": "ERROR",
+      "field": "beneficiary.inn",
+      "code": "BENEFICIARY_UNBIND_INN_VALID",
+      "message": "ИНН не прошёл проверку контрольных разрядов."
+    },
+    {
+      "id": "beneficiary.unbind.account_present",
+      "type": "rule",
+      "description": "Не указан номер номинального счёта.",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "field": "beneficiary.account.number",
+      "code": "BENEFICIARY_UNBIND_ACCOUNT_PRESENT",
+      "message": "Не указан номер номинального счёта."
+    },
+    {
+      "id": "beneficiary.unbind.start_date_present",
+      "type": "rule",
+      "description": "Не указана дата присоединения (status.startDate).",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "field": "beneficiary.status.startDate",
+      "code": "BENEFICIARY_UNBIND_START_DATE_PRESENT",
+      "message": "Не указана дата присоединения (status.startDate)."
+    },
+    {
+      "id": "beneficiary.unbind.start_date_format",
+      "type": "rule",
+      "description": "Дата присоединения должна быть в формате YYYY-MM-DD.",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "field": "beneficiary.status.startDate",
+      "code": "BENEFICIARY_UNBIND_START_DATE_FORMAT",
+      "message": "Дата присоединения должна быть в формате YYYY-MM-DD.",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "beneficiary.unbind.end_date_present",
+      "type": "rule",
+      "description": "Не указана дата выбытия (status.endDate).",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "field": "beneficiary.status.endDate",
+      "code": "BENEFICIARY_UNBIND_END_DATE_PRESENT",
+      "message": "Не указана дата выбытия (status.endDate)."
+    },
+    {
+      "id": "beneficiary.unbind.end_date_format",
+      "type": "rule",
+      "description": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "field": "beneficiary.status.endDate",
+      "code": "BENEFICIARY_UNBIND_END_DATE_FORMAT",
+      "message": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  ]
+}

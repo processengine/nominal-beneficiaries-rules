@@ -1,0 +1,26 @@
+{
+  "name": "Beneficiary unbind valid fields",
+  "context": {
+    "pipelineId": "entrypoints.beneficiary.unbind.field_validation",
+    "currentDate": "2026-06-15"
+  },
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "participationId": "UNBIND-PARTICIPATION-0001",
+      "inn": "9909890614",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "status": {
+        "startDate": "2026-05-18",
+        "endDate": "2026-06-03"
+      }
+    }
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

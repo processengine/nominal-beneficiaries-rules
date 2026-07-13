@@ -1,0 +1,11 @@
+{
+  "id": "entrypoints.beneficiary.unbind.field_validation.participation_id_present",
+  "type": "rule",
+  "description": "Не указан идентификатор участия (participationId).",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "field": "beneficiary.participationId",
+  "code": "BENEFICIARY_UNBIND_PARTICIPATION_ID_PRESENT",
+  "message": "Не указан идентификатор участия (participationId)."
+}
