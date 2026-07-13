@@ -1,0 +1,12 @@
+{
+  "id": "library.address.full_address",
+  "type": "rule",
+  "description": "Если полный адрес регистрации передан, проверяем длину",
+  "role": "check",
+  "operator": "length_max",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+  "message": "Полный адрес регистрации превышает 500 символов",
+  "field": "beneficiary.address.registration.fullAddress",
+  "value": 500
+}

@@ -1,0 +1,11 @@
+{
+  "id": "library.tax.us_tax_resident_required",
+  "type": "rule",
+  "description": "Признак налогового резидентства США должен быть указан",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "EXCEPTION",
+  "code": "BEN.TAX.US_TAX_RESIDENT.REQUIRED",
+  "message": "Не указан признак налогового резидентства США",
+  "field": "beneficiary.tax.usTaxResident"
+}

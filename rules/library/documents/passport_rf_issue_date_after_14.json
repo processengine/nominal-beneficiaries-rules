@@ -1,0 +1,13 @@
+{
+  "id": "library.documents.passport_rf_issue_date_after_14",
+  "type": "rule",
+  "description": "Паспорт РФ выдан не раньше 14 лет",
+  "role": "check",
+  "operator": "passport_rf_issued_at_or_after_age",
+  "level": "ERROR",
+  "code": "BEN.IDDOC.PASSPORT_RF.ISSUE_DATE.BEFORE_14",
+  "message": "Дата выдачи паспорта РФ не может быть раньше даты 14-летия",
+  "field": "beneficiary.idDoc.issueDate",
+  "birthDateField": "beneficiary.fl.birthDate",
+  "ageYears": 14
+}

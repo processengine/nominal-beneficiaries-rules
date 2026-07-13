@@ -1,0 +1,15 @@
+{
+  "id": "internal.fl_resident.blocks.tax_flags.cond_us_tax_resident_not_true_if_boolean",
+  "type": "condition",
+  "description": "Если признак налогового резидентства США передан как true или false, проверяем допустимое значение",
+  "when": {
+    "all": [
+      "library.tax.pred_us_tax_resident_boolean"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "internal.fl_resident.blocks.tax_flags.us_tax_resident_not_true"
+    }
+  ]
+}

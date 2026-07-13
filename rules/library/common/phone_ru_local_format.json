@@ -1,0 +1,12 @@
+{
+  "id": "library.common.phone_ru_local_format",
+  "type": "rule",
+  "description": "Телефон РФ должен быть в локальном формате: 10 цифр, начинается с 9, без +7 и 8",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "BEN.CONTACTS.PHONE.RU_LOCAL_FORMAT",
+  "message": "Телефон должен содержать 10 цифр и начинаться с 9 (без +7 и без 8)",
+  "field": "beneficiary.contacts.phone",
+  "value": "^9\\d{9}$"
+}

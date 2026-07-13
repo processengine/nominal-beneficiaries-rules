@@ -1,0 +1,11 @@
+{
+  "id": "library.common.account_number_required",
+  "type": "rule",
+  "description": "Номер счета должен быть указан",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ACCOUNT.NUMBER.REQUIRED",
+  "message": "Не указан beneficiary.account.number",
+  "field": "beneficiary.account.number"
+}

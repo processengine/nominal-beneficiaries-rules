@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_street_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется улица",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
+  "message": "Для адреса РФ должна быть указана улица в ФИАС-структуре",
+  "field": "beneficiary.address.registration.street"
+}

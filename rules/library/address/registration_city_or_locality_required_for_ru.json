@@ -1,0 +1,14 @@
+{
+  "id": "library.address.registration_city_or_locality_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется город или населенный пункт",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.CITY_OR_LOCALITY.REQUIRED",
+  "message": "Для адреса РФ должен быть указан город или населённый пункт в ФИАС-структуре",
+  "fields": [
+    "beneficiary.address.registration.city",
+    "beneficiary.address.registration.locality"
+  ]
+}

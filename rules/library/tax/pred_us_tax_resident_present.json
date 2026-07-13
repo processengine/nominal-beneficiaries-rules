@@ -1,0 +1,8 @@
+{
+  "id": "library.tax.pred_us_tax_resident_present",
+  "type": "rule",
+  "description": "Проверяет, что признак налогового резидентства США указан",
+  "role": "predicate",
+  "operator": "not_empty",
+  "field": "beneficiary.tax.usTaxResident"
+}

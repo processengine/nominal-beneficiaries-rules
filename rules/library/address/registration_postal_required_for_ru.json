@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_postal_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется почтовый индекс",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
+  "message": "Для адреса РФ должен быть указан почтовый индекс в ФИАС-структуре",
+  "field": "beneficiary.address.registration.postalCode"
+}

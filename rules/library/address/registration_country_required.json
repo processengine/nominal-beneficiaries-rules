@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_country_required",
+  "type": "rule",
+  "description": "Страна адреса регистрации обязательна",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.COUNTRY.REQUIRED",
+  "message": "Должна быть указана страна адреса регистрации",
+  "field": "beneficiary.address.registration.countryCode"
+}

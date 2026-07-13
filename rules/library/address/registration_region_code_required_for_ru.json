@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_region_code_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется код региона",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.REGION_CODE.REQUIRED",
+  "message": "Для адреса РФ должен быть указан код региона в ФИАС-структуре",
+  "field": "beneficiary.address.registration.regionCode"
+}

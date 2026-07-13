@@ -1,0 +1,10 @@
+{
+  "id": "domestic_document_type_codes_fl",
+  "type": "dictionary",
+  "description": "Merchant-коды документов граждан РФ для ближайшего релиза: 001, 002, 003.",
+  "entries": [
+    "001",
+    "002",
+    "003"
+  ]
+}

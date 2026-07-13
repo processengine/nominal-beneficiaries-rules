@@ -1,0 +1,16 @@
+{
+  "id": "library.documents.passport_rf_valid_after_20",
+  "type": "rule",
+  "description": "Паспорт РФ действителен после 20 лет",
+  "role": "check",
+  "operator": "passport_rf_valid_after_replacement_age",
+  "level": "ERROR",
+  "code": "BEN.IDDOC.PASSPORT_RF.REPLACEMENT_20.EXPIRED",
+  "message": "Паспорт РФ должен быть заменён после достижения 20 лет; допустимый период после дня рождения составляет 90 дней",
+  "field": "beneficiary.idDoc.issueDate",
+  "birthDateField": "beneficiary.fl.birthDate",
+  "issueDateField": "beneficiary.idDoc.issueDate",
+  "currentDateField": "$context.currentDate",
+  "ageYears": 20,
+  "graceDays": 90
+}

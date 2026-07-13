@@ -1,0 +1,30 @@
+{
+  "name": "@processengine/nominal-beneficiaries-rules",
+  "version": "0.1.0",
+  "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/processengine/nominal-beneficiaries-rules.git"
+  },
+  "scripts": {
+    "sync:fl-resident": "node scripts/sync-from-processor.mjs",
+    "build": "node scripts/build.mjs",
+    "test:parity": "node scripts/parity.mjs",
+    "test": "npm run build && npm run test:parity"
+  },
+  "dependencies": {
+    "jsonspecs": "^2.1.0"
+  },
+  "devDependencies": {
+    "@processengine/rules": "2.1.0"
+  },
+  "files": [
+    "dist/",
+    "docs/",
+    "manifest.json",
+    "operators/",
+    "rules/",
+    "samples/"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "library.address.pred_registration_country_ru",
+  "type": "rule",
+  "description": "Страна адреса регистрации указана и равна RU",
+  "role": "predicate",
+  "operator": "matches_regex",
+  "field": "beneficiary.address.registration.countryCode",
+  "value": "^RU$"
+}

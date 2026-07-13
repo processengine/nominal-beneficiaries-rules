@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_house_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется дом",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
+  "message": "Для адреса РФ должен быть указан дом в ФИАС-структуре",
+  "field": "beneficiary.address.registration.house"
+}

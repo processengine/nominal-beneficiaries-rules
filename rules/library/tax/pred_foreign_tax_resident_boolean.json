@@ -1,0 +1,8 @@
+{
+  "id": "library.tax.pred_foreign_tax_resident_boolean",
+  "type": "rule",
+  "description": "Проверяет, что признак иностранного налогового резидентства передан как true или false",
+  "role": "predicate",
+  "operator": "is_boolean",
+  "field": "beneficiary.tax.foreignTaxResident"
+}

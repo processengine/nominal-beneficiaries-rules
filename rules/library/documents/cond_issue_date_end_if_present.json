@@ -1,0 +1,18 @@
+{
+  "id": "library.documents.cond_issue_date_end_if_present",
+  "type": "condition",
+  "description": "Если дата окончания документа указана, то проверяем формат, затем порядок",
+  "when": {
+    "all": [
+      "library.documents.pred_issue_date_end_present"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.documents.issue_date_end_format"
+    },
+    {
+      "condition": "library.documents.cond_issue_date_end_order_if_format_ok"
+    }
+  ]
+}

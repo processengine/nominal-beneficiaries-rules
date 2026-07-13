@@ -1,0 +1,12 @@
+{
+  "id": "library.common.account_number_format",
+  "type": "rule",
+  "description": "Номер счета должен состоять из 20 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "BEN.ACCOUNT.NUMBER.FORMAT",
+  "message": "beneficiary.account.number должен состоять из 20 цифр",
+  "field": "beneficiary.account.number",
+  "value": "^\\d{20}$"
+}

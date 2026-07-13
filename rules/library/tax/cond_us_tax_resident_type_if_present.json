@@ -1,0 +1,15 @@
+{
+  "id": "library.tax.cond_us_tax_resident_type_if_present",
+  "type": "condition",
+  "description": "Если признак налогового резидентства США указан, проверяем, что он передан как true или false",
+  "when": {
+    "all": [
+      "library.tax.pred_us_tax_resident_present"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.tax.us_tax_resident_bool"
+    }
+  ]
+}

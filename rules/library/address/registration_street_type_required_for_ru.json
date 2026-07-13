@@ -1,0 +1,11 @@
+{
+  "id": "library.address.registration_street_type_required_for_ru",
+  "type": "rule",
+  "description": "Для адреса РФ требуется тип улицы",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
+  "message": "Для адреса РФ должен быть указан тип улицы в ФИАС-структуре",
+  "field": "beneficiary.address.registration.streetType"
+}
