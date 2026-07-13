@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.account_number_required",
+  "type": "rule",
+  "description": "Не указан номер номинального счета",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.REQUIRED",
+  "message": "Не указан номер номинального счета",
+  "field": "beneficiary.account.number",
+  "meta": {
+    "legacyCode": "UL.ACCOUNT.NUMBER.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

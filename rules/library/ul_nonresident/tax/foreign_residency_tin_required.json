@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.tax.foreign_residency_tin_required",
+  "type": "rule",
+  "description": "Не указан иностранный налоговый номер ЮЛ-нерезидента",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.TAX.FOREIGN_RESIDENCY.TIN.REQUIRED",
+  "message": "Не указан иностранный налоговый номер ЮЛ-нерезидента",
+  "field": "beneficiary.tax.foreignTaxResidency.tin"
+}

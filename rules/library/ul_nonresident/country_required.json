@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.country_required",
+  "type": "rule",
+  "description": "Не указана страна регистрации иностранной организации",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.COUNTRY.REQUIRED",
+  "message": "Не указана страна регистрации иностранной организации",
+  "field": "beneficiary.ul.countryCode"
+}

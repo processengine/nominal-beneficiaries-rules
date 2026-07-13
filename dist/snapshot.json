@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "7fcce47d193043231d6d9fa88dd0fc6fc81283ec845ed94b100f087d01391cbf",
+  "sourceHash": "e01de7312cac9d1bf073b5a9dd32ca181a7101f85d9fbf10626c831e06739dcc",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -53,6 +53,19 @@
       "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
       "entries": [
         "004"
+      ]
+    },
+    {
+      "id": "dictionaries.ul_nonresident.beneficiary_types",
+      "type": "dictionary",
+      "description": "Допустимые категории бенефициаров для версии 1",
+      "entries": [
+        "UL_RESIDENT",
+        "UL_NONRESIDENT",
+        "IP_RESIDENT",
+        "IP_NONRESIDENT",
+        "FL_RESIDENT",
+        "FL_NONRESIDENT"
       ]
     },
     {
@@ -296,6 +309,42 @@
       "message": "Бенефициар должен быть индивидуальным предпринимателем, резидентом РФ",
       "field": "beneficiary.type",
       "value": "IP_RESIDENT"
+    },
+    {
+      "id": "entrypoints.ul_nonresident.full_validation",
+      "type": "pipeline",
+      "description": "Полная проверка заявки ЮЛ-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.type_required"
+        },
+        {
+          "rule": "library.ul_nonresident.type_supported"
+        },
+        {
+          "rule": "library.ul_nonresident.type_is_ul_nonresident"
+        },
+        {
+          "pipeline": "internal.ul_nonresident.blocks.core"
+        },
+        {
+          "pipeline": "internal.ul_nonresident.blocks.ul"
+        },
+        {
+          "pipeline": "internal.ul_nonresident.blocks.contacts"
+        },
+        {
+          "pipeline": "internal.ul_nonresident.blocks.address"
+        },
+        {
+          "pipeline": "internal.ul_nonresident.blocks.tax"
+        }
+      ],
+      "entrypoint": true,
+      "required_context": [
+        "currentDate"
+      ]
     },
     {
       "id": "entrypoints.ul_resident.full_validation",
@@ -1934,6 +1983,159 @@
         "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
         "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
       }
+    },
+    {
+      "id": "internal.ul_nonresident.blocks.address",
+      "type": "pipeline",
+      "description": "Юридический адрес ЮЛ-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.legal_address_required"
+        },
+        {
+          "rule": "library.ul_nonresident.legal_address_country_required"
+        },
+        {
+          "rule": "library.ul_nonresident.legal_address_country_format_non_ru"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_nonresident.blocks.contacts",
+      "type": "pipeline",
+      "description": "Контакты ЮЛ-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.contacts_any"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_nonresident.blocks.core",
+      "type": "pipeline",
+      "description": "Основные сведения заявки ЮЛ-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.inn_or_kio_any"
+        },
+        {
+          "condition": "library.ul_nonresident.cond_inn_if_present"
+        },
+        {
+          "rule": "library.ul_nonresident.participation_id_required"
+        },
+        {
+          "rule": "library.ul_nonresident.account_number_required"
+        },
+        {
+          "rule": "library.ul_nonresident.account_number_format"
+        },
+        {
+          "rule": "library.ul_nonresident.status_start_required"
+        },
+        {
+          "rule": "library.ul_nonresident.status_start_format"
+        },
+        {
+          "condition": "library.ul_nonresident.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_nonresident.blocks.tax",
+      "type": "pipeline",
+      "description": "Налоговые и регуляторные сведения ЮЛ-нерезидента",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.tax.foreign_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.foreign_true"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.foreign_residency_country_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.foreign_residency_tin_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.passive_nfe_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.passive_nfe_not_true"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.cp_foreign_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.cp_foreign_not_true"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.us_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.us_not_true"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.cp_us_required"
+        },
+        {
+          "rule": "library.ul_nonresident.tax.cp_us_not_true"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ul_nonresident.blocks.ul",
+      "type": "pipeline",
+      "description": "Сведения об иностранной организации",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.ul_nonresident.kpp_required"
+        },
+        {
+          "rule": "library.ul_nonresident.kpp_format"
+        },
+        {
+          "condition": "library.ul_nonresident.cond_kio_if_present"
+        },
+        {
+          "rule": "library.ul_nonresident.full_name_required"
+        },
+        {
+          "rule": "library.ul_nonresident.foreign_full_name_required"
+        },
+        {
+          "rule": "library.ul_nonresident.country_required"
+        },
+        {
+          "rule": "library.ul_nonresident.country_format_non_ru"
+        },
+        {
+          "rule": "library.ul_nonresident.registration_number_required"
+        },
+        {
+          "rule": "library.ul_nonresident.registration_date_required"
+        },
+        {
+          "rule": "library.ul_nonresident.registration_date_format"
+        },
+        {
+          "rule": "library.ul_nonresident.registration_agency_required"
+        },
+        {
+          "rule": "library.ul_nonresident.registration_place_required"
+        }
+      ],
+      "entrypoint": false
     },
     {
       "id": "internal.ul_resident.blocks.address",
@@ -5247,6 +5449,680 @@
       "field": "beneficiary.tax.usTaxResident"
     },
     {
+      "id": "library.ul_nonresident.account_number_format",
+      "type": "rule",
+      "description": "Номер номинального счета должен содержать 20 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.FORMAT",
+      "message": "Номер номинального счета должен содержать 20 цифр",
+      "field": "beneficiary.account.number",
+      "value": "^\\d{20}$",
+      "meta": {
+        "legacyCode": "UL.ACCOUNT.NUMBER.FORMAT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.account_number_required",
+      "type": "rule",
+      "description": "Не указан номер номинального счета",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.REQUIRED",
+      "message": "Не указан номер номинального счета",
+      "field": "beneficiary.account.number",
+      "meta": {
+        "legacyCode": "UL.ACCOUNT.NUMBER.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.common.cond_status_end_if_present",
+      "type": "condition",
+      "description": "Если дата окончания статуса указана, то проверяем формат, затем порядок",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul_nonresident.common.status_end_format"
+        },
+        {
+          "condition": "library.ul_nonresident.common.cond_status_end_order_if_format_ok"
+        }
+      ]
+    },
+    {
+      "id": "library.ul_nonresident.common.cond_status_end_order_if_format_ok",
+      "type": "condition",
+      "description": "Если формат endDate корректен, то проверяем порядок дат",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_format_valid"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul_nonresident.common.status_end_gt_start"
+        }
+      ]
+    },
+    {
+      "id": "library.ul_nonresident.common.status_end_format",
+      "type": "rule",
+      "description": "Дата окончания статуса должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.BEN.STATUS.END.FORMAT",
+      "message": "Дата окончания участия должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.status.endDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$",
+      "meta": {
+        "legacyCode": "BEN.STATUS.END.FORMAT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.common.status_end_gt_start",
+      "type": "rule",
+      "description": "Дата окончания статуса должна быть позже даты начала",
+      "role": "check",
+      "operator": "field_greater_than_field",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.BEN.STATUS.END.ORDER",
+      "message": "Дата окончания участия должна быть позже даты начала участия",
+      "field": "beneficiary.status.endDate",
+      "value_field": "beneficiary.status.startDate",
+      "meta": {
+        "legacyCode": "BEN.STATUS.END.ORDER",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.cond_inn_if_present",
+      "type": "condition",
+      "description": "Если ИНН указан, то проверяем длину, маску и контрольный разряд",
+      "when": {
+        "all": [
+          "library.ul_nonresident.pred_inn_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul_nonresident.inn_format_10"
+        },
+        {
+          "rule": "library.ul_nonresident.inn_mask_9909"
+        },
+        {
+          "rule": "library.ul_nonresident.inn_valid"
+        }
+      ]
+    },
+    {
+      "id": "library.ul_nonresident.cond_kio_if_present",
+      "type": "condition",
+      "description": "Если КИО указан, то проверяем его формат",
+      "when": {
+        "all": [
+          "library.ul_nonresident.pred_kio_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul_nonresident.kio_format"
+        }
+      ]
+    },
+    {
+      "id": "library.ul_nonresident.contacts_any",
+      "type": "rule",
+      "description": "Не указан контактный телефон или эл. почта",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.CONTACTS.MIN_ONE",
+      "message": "Не указан контактный телефон или эл. почта",
+      "fields": [
+        "beneficiary.contacts.foreignPhone",
+        "beneficiary.contacts.email"
+      ],
+      "paths": [
+        "beneficiary.contacts.foreignPhone",
+        "beneficiary.contacts.email"
+      ],
+      "meta": {
+        "legacyCode": "UL.CONTACTS.MIN_ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.country_format_non_ru",
+      "type": "rule",
+      "description": "Страна регистрации иностранной организации указана некорректно или указана Россия",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.COUNTRY.FORMAT_NON_RU",
+      "message": "Страна регистрации иностранной организации указана некорректно или указана Россия",
+      "field": "beneficiary.ul.countryCode",
+      "value": "^(?!RU$)[A-Z]{2}$"
+    },
+    {
+      "id": "library.ul_nonresident.country_required",
+      "type": "rule",
+      "description": "Не указана страна регистрации иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.COUNTRY.REQUIRED",
+      "message": "Не указана страна регистрации иностранной организации",
+      "field": "beneficiary.ul.countryCode"
+    },
+    {
+      "id": "library.ul_nonresident.foreign_full_name_required",
+      "type": "rule",
+      "description": "Не указано полное наименование иностранной организации на иностранном языке",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.FOREIGN_FULL_NAME.REQUIRED",
+      "message": "Не указано полное наименование иностранной организации на иностранном языке",
+      "field": "beneficiary.ul.foreignFullName"
+    },
+    {
+      "id": "library.ul_nonresident.full_name_required",
+      "type": "rule",
+      "description": "Не указано полное наименование иностранной организации на русском языке",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.FULL_NAME.REQUIRED",
+      "message": "Не указано полное наименование иностранной организации на русском языке",
+      "field": "beneficiary.ul.fullName"
+    },
+    {
+      "id": "library.ul_nonresident.inn_format_10",
+      "type": "rule",
+      "description": "ИНН иностранной организации должен содержать 10 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.INN.LENGTH_10",
+      "message": "ИНН иностранной организации должен содержать 10 цифр",
+      "field": "beneficiary.inn",
+      "value": "^\\d{10}$",
+      "meta": {
+        "legacyCode": "UL.INN.LENGTH_10",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.inn_mask_9909",
+      "type": "rule",
+      "description": "ИНН ЮЛ-нерезидента требует уточнения",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.INN.NONRESIDENT_MASK",
+      "message": "ИНН ЮЛ-нерезидента требует уточнения",
+      "field": "beneficiary.inn",
+      "value": "^9909\\d{6}$"
+    },
+    {
+      "id": "library.ul_nonresident.inn_or_kio_any",
+      "type": "rule",
+      "description": "Должен быть указан ИНН или КИО иностранной организации",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "UL.IDENTITY.INN_OR_KIO.MIN_ONE",
+      "message": "Должен быть указан ИНН или КИО иностранной организации",
+      "fields": [
+        "beneficiary.inn",
+        "beneficiary.ul.kio"
+      ],
+      "paths": [
+        "beneficiary.inn",
+        "beneficiary.ul.kio"
+      ]
+    },
+    {
+      "id": "library.ul_nonresident.inn_valid",
+      "type": "rule",
+      "description": "ИНН иностранной организации указан некорректно",
+      "role": "check",
+      "operator": "valid_inn",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.INN.INVALID",
+      "message": "ИНН иностранной организации указан некорректно",
+      "field": "beneficiary.inn",
+      "meta": {
+        "legacyCode": "UL.INN.INVALID",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.kio_format",
+      "type": "rule",
+      "description": "КИО иностранной организации должен содержать 5 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.KIO.FORMAT",
+      "message": "КИО иностранной организации должен содержать 5 цифр",
+      "field": "beneficiary.ul.kio",
+      "value": "^\\d{5}$"
+    },
+    {
+      "id": "library.ul_nonresident.kpp_format",
+      "type": "rule",
+      "description": "КПП иностранной организации должен содержать 9 цифр",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.KPP.FORMAT",
+      "message": "КПП иностранной организации должен содержать 9 цифр",
+      "field": "beneficiary.ul.kpp",
+      "value": "^\\d{9}$"
+    },
+    {
+      "id": "library.ul_nonresident.kpp_required",
+      "type": "rule",
+      "description": "Не указан КПП иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.KPP.REQUIRED",
+      "message": "Не указан КПП иностранной организации",
+      "field": "beneficiary.ul.kpp"
+    },
+    {
+      "id": "library.ul_nonresident.legal_address_country_format_non_ru",
+      "type": "rule",
+      "description": "Страна юридического адреса иностранной организации указана некорректно или указана Россия",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.ADDRESS.LEGAL.COUNTRY_FORMAT_NON_RU",
+      "message": "Страна юридического адреса иностранной организации указана некорректно или указана Россия",
+      "field": "beneficiary.address.legal.countryCode",
+      "value": "^(?!RU$)[A-Z]{2}$"
+    },
+    {
+      "id": "library.ul_nonresident.legal_address_country_required",
+      "type": "rule",
+      "description": "Не указана страна юридического адреса иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+      "message": "Не указана страна юридического адреса иностранной организации",
+      "field": "beneficiary.address.legal.countryCode",
+      "meta": {
+        "legacyCode": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.legal_address_required",
+      "type": "rule",
+      "description": "Не указан юридический адрес иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.REQUIRED",
+      "message": "Не указан юридический адрес иностранной организации",
+      "field": "beneficiary.address.legal.fullAddress",
+      "meta": {
+        "legacyCode": "UL.ADDRESS.LEGAL.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.participation_id_required",
+      "type": "rule",
+      "description": "Не указан идентификатор основания участия",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.PARTICIPATION_ID.REQUIRED",
+      "message": "Не указан идентификатор основания участия",
+      "field": "beneficiary.participationId",
+      "meta": {
+        "legacyCode": "UL.PARTICIPATION_ID.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.pred_inn_present",
+      "type": "rule",
+      "description": "ИНН иностранной организации указан",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.inn"
+    },
+    {
+      "id": "library.ul_nonresident.pred_kio_present",
+      "type": "rule",
+      "description": "КИО иностранной организации указан",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.ul.kio"
+    },
+    {
+      "id": "library.ul_nonresident.registration_agency_required",
+      "type": "rule",
+      "description": "Не указан орган регистрации иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.REGISTRATION.AGENCY.REQUIRED",
+      "message": "Не указан орган регистрации иностранной организации",
+      "field": "beneficiary.ul.registration.agency"
+    },
+    {
+      "id": "library.ul_nonresident.registration_date_format",
+      "type": "rule",
+      "description": "Дата регистрации иностранной организации должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.REGISTRATION.DATE.FORMAT",
+      "message": "Дата регистрации иностранной организации должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.ul.registration.date",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "library.ul_nonresident.registration_date_required",
+      "type": "rule",
+      "description": "Не указана дата регистрации иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.REGISTRATION.DATE.REQUIRED",
+      "message": "Не указана дата регистрации иностранной организации",
+      "field": "beneficiary.ul.registration.date"
+    },
+    {
+      "id": "library.ul_nonresident.registration_number_required",
+      "type": "rule",
+      "description": "Не указан регистрационный номер иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.REGISTRATION.NUMBER.REQUIRED",
+      "message": "Не указан регистрационный номер иностранной организации",
+      "field": "beneficiary.ul.registration.number"
+    },
+    {
+      "id": "library.ul_nonresident.registration_place_required",
+      "type": "rule",
+      "description": "Не указано место регистрации иностранной организации",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.REGISTRATION.PLACE.REQUIRED",
+      "message": "Не указано место регистрации иностранной организации",
+      "field": "beneficiary.ul.registration.place"
+    },
+    {
+      "id": "library.ul_nonresident.status_start_format",
+      "type": "rule",
+      "description": "Дата начала участия бенефициара должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.FORMAT",
+      "message": "Дата начала участия бенефициара должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.status.startDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$",
+      "meta": {
+        "legacyCode": "UL.STATUS.START_DATE.FORMAT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.status_start_required",
+      "type": "rule",
+      "description": "Не указана дата начала участия бенефициара",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.REQUIRED",
+      "message": "Не указана дата начала участия бенефициара",
+      "field": "beneficiary.status.startDate",
+      "meta": {
+        "legacyCode": "UL.STATUS.START_DATE.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.cp_foreign_not_true",
+      "type": "rule",
+      "description": "У ЮЛ-нерезидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "message": "У ЮЛ-нерезидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
+      "field": "beneficiary.tax.controllingPersonsForeignTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.cp_foreign_required",
+      "type": "rule",
+      "description": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с иностранным налоговым резидентством",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с иностранным налоговым резидентством",
+      "field": "beneficiary.tax.controllingPersonsForeignTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.cp_us_not_true",
+      "type": "rule",
+      "description": "У ЮЛ-нерезидента не должно быть контролирующих лиц с налоговым резидентством США",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+      "message": "У ЮЛ-нерезидента не должно быть контролирующих лиц с налоговым резидентством США",
+      "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.cp_us_required",
+      "type": "rule",
+      "description": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с налоговым резидентством США",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с налоговым резидентством США",
+      "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.foreign_required",
+      "type": "rule",
+      "description": "Не указано, является ли ЮЛ-нерезидент иностранным налоговым резидентом",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, является ли ЮЛ-нерезидент иностранным налоговым резидентом",
+      "field": "beneficiary.tax.foreignTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.foreign_residency_country_required",
+      "type": "rule",
+      "description": "Не указана страна налогового резидентства ЮЛ-нерезидента",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.FOREIGN_RESIDENCY.COUNTRY.REQUIRED",
+      "message": "Не указана страна налогового резидентства ЮЛ-нерезидента",
+      "field": "beneficiary.tax.foreignTaxResidency.countryCode"
+    },
+    {
+      "id": "library.ul_nonresident.tax.foreign_residency_tin_required",
+      "type": "rule",
+      "description": "Не указан иностранный налоговый номер ЮЛ-нерезидента",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL.TAX.FOREIGN_RESIDENCY.TIN.REQUIRED",
+      "message": "Не указан иностранный налоговый номер ЮЛ-нерезидента",
+      "field": "beneficiary.tax.foreignTaxResidency.tin"
+    },
+    {
+      "id": "library.ul_nonresident.tax.foreign_true",
+      "type": "rule",
+      "description": "ЮЛ-нерезидент должен быть иностранным налоговым резидентом",
+      "role": "check",
+      "operator": "equals",
+      "level": "ERROR",
+      "code": "UL.TAX.FOREIGN_TAX_RESIDENT.MUST_BE_TRUE",
+      "message": "ЮЛ-нерезидент должен быть иностранным налоговым резидентом",
+      "field": "beneficiary.tax.foreignTaxResident",
+      "value": true
+    },
+    {
+      "id": "library.ul_nonresident.tax.passive_nfe_not_true",
+      "type": "rule",
+      "description": "ЮЛ-нерезидент не должен относиться к Passive NFE",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.NOT_TRUE",
+      "message": "ЮЛ-нерезидент не должен относиться к Passive NFE",
+      "field": "beneficiary.tax.passiveNfe",
+      "meta": {
+        "legacyCode": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.passive_nfe_required",
+      "type": "rule",
+      "description": "Не указано, относится ли ЮЛ-нерезидент к Passive NFE",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.REQUIRED",
+      "message": "Не указано, относится ли ЮЛ-нерезидент к Passive NFE",
+      "field": "beneficiary.tax.passiveNfe",
+      "meta": {
+        "legacyCode": "UL.TAX.PASSIVE_NFE.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.us_not_true",
+      "type": "rule",
+      "description": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
+      "role": "check",
+      "operator": "not_true",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "message": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
+      "field": "beneficiary.tax.usTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.tax.us_required",
+      "type": "rule",
+      "description": "Не указано, является ли ЮЛ-нерезидент налоговым резидентом США",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.REQUIRED",
+      "message": "Не указано, является ли ЮЛ-нерезидент налоговым резидентом США",
+      "field": "beneficiary.tax.usTaxResident",
+      "meta": {
+        "legacyCode": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.type_is_ul_nonresident",
+      "type": "rule",
+      "description": "Заявка должна быть на ЮЛ-нерезидента",
+      "role": "check",
+      "operator": "equals",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.UL.TYPE.MISMATCH",
+      "message": "Заявка должна быть на ЮЛ-нерезидента",
+      "field": "beneficiary.type",
+      "value": "UL_NONRESIDENT",
+      "meta": {
+        "legacyCode": "UL.TYPE.MISMATCH",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.type_required",
+      "type": "rule",
+      "description": "Не указана категория бенефициара",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "UL_NONRESIDENT.UL.TYPE.REQUIRED",
+      "message": "Не указана категория бенефициара",
+      "field": "beneficiary.type",
+      "meta": {
+        "legacyCode": "UL.TYPE.REQUIRED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul_nonresident.type_supported",
+      "type": "rule",
+      "description": "Категория бенефициара должна быть поддерживаемой",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "EXCEPTION",
+      "code": "UL_NONRESIDENT.BEN.TYPE.UNSUPPORTED",
+      "message": "Категория бенефициара должна быть поддерживаемой",
+      "field": "beneficiary.type",
+      "dictionary": {
+        "type": "static",
+        "id": "dictionaries.ul_nonresident.beneficiary_types"
+      },
+      "meta": {
+        "legacyCode": "BEN.TYPE.UNSUPPORTED",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
       "id": "library.ul_resident.common.cond_status_end_if_present",
       "type": "condition",
       "description": "Если дата окончания статуса указана, то проверяем формат, затем порядок",
@@ -5653,7 +6529,7 @@
   "meta": {
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT и UL_RESIDENT validate-application в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.5.0"
+    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+    "rulesetVersion": "0.6.0"
   }
 }

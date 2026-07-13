@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.inn_mask_9909",
+  "type": "rule",
+  "description": "ИНН ЮЛ-нерезидента требует уточнения",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.INN.NONRESIDENT_MASK",
+  "message": "ИНН ЮЛ-нерезидента требует уточнения",
+  "field": "beneficiary.inn",
+  "value": "^9909\\d{6}$"
+}

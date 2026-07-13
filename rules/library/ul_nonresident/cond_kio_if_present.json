@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.cond_kio_if_present",
+  "type": "condition",
+  "description": "Если КИО указан, то проверяем его формат",
+  "when": {
+    "all": [
+      "library.ul_nonresident.pred_kio_present"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.ul_nonresident.kio_format"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.country_format_non_ru",
+  "type": "rule",
+  "description": "Страна регистрации иностранной организации указана некорректно или указана Россия",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.COUNTRY.FORMAT_NON_RU",
+  "message": "Страна регистрации иностранной организации указана некорректно или указана Россия",
+  "field": "beneficiary.ul.countryCode",
+  "value": "^(?!RU$)[A-Z]{2}$"
+}

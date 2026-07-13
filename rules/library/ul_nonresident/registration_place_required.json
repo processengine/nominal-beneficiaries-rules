@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.registration_place_required",
+  "type": "rule",
+  "description": "Не указано место регистрации иностранной организации",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.REGISTRATION.PLACE.REQUIRED",
+  "message": "Не указано место регистрации иностранной организации",
+  "field": "beneficiary.ul.registration.place"
+}

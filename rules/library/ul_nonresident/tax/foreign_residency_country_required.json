@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.tax.foreign_residency_country_required",
+  "type": "rule",
+  "description": "Не указана страна налогового резидентства ЮЛ-нерезидента",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.TAX.FOREIGN_RESIDENCY.COUNTRY.REQUIRED",
+  "message": "Не указана страна налогового резидентства ЮЛ-нерезидента",
+  "field": "beneficiary.tax.foreignTaxResidency.countryCode"
+}

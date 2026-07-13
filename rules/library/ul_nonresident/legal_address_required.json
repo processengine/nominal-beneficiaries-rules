@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.legal_address_required",
+  "type": "rule",
+  "description": "Не указан юридический адрес иностранной организации",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.REQUIRED",
+  "message": "Не указан юридический адрес иностранной организации",
+  "field": "beneficiary.address.legal.fullAddress",
+  "meta": {
+    "legacyCode": "UL.ADDRESS.LEGAL.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

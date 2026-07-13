@@ -1,0 +1,18 @@
+{
+  "id": "library.ul_nonresident.inn_or_kio_any",
+  "type": "rule",
+  "description": "Должен быть указан ИНН или КИО иностранной организации",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "UL.IDENTITY.INN_OR_KIO.MIN_ONE",
+  "message": "Должен быть указан ИНН или КИО иностранной организации",
+  "fields": [
+    "beneficiary.inn",
+    "beneficiary.ul.kio"
+  ],
+  "paths": [
+    "beneficiary.inn",
+    "beneficiary.ul.kio"
+  ]
+}

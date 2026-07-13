@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.tax.cp_foreign_required",
+  "type": "rule",
+  "description": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с иностранным налоговым резидентством",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+  "message": "Не указано, есть ли у ЮЛ-нерезидента контролирующие лица с иностранным налоговым резидентством",
+  "field": "beneficiary.tax.controllingPersonsForeignTaxResident",
+  "meta": {
+    "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

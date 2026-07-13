@@ -1,0 +1,16 @@
+{
+  "id": "library.ul_nonresident.common.status_end_gt_start",
+  "type": "rule",
+  "description": "Дата окончания статуса должна быть позже даты начала",
+  "role": "check",
+  "operator": "field_greater_than_field",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.BEN.STATUS.END.ORDER",
+  "message": "Дата окончания участия должна быть позже даты начала участия",
+  "field": "beneficiary.status.endDate",
+  "value_field": "beneficiary.status.startDate",
+  "meta": {
+    "legacyCode": "BEN.STATUS.END.ORDER",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

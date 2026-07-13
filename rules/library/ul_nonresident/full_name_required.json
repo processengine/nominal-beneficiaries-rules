@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.full_name_required",
+  "type": "rule",
+  "description": "Не указано полное наименование иностранной организации на русском языке",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.FULL_NAME.REQUIRED",
+  "message": "Не указано полное наименование иностранной организации на русском языке",
+  "field": "beneficiary.ul.fullName"
+}

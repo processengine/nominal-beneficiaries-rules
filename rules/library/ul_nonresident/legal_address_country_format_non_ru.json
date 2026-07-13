@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.legal_address_country_format_non_ru",
+  "type": "rule",
+  "description": "Страна юридического адреса иностранной организации указана некорректно или указана Россия",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.ADDRESS.LEGAL.COUNTRY_FORMAT_NON_RU",
+  "message": "Страна юридического адреса иностранной организации указана некорректно или указана Россия",
+  "field": "beneficiary.address.legal.countryCode",
+  "value": "^(?!RU$)[A-Z]{2}$"
+}

@@ -1,0 +1,73 @@
+{
+  "name": "UL nonresident INN mask reject",
+  "context": {
+    "pipelineId": "entrypoints.ul_nonresident.full_validation",
+    "currentDate": "2026-06-15"
+  },
+  "payload": {
+    "requestExtId": "ul-nonresident-test-request-0001",
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "inn": "7712345678",
+      "participationId": "UL-NRES-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "email": "beneficiary@example.kz",
+        "foreignPhone": "+7 7182 44-28-91"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "ul": {
+        "kpp": "990901001",
+        "kio": "99096",
+        "fullName": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"KAZAKHSTAN TEST COMPANY\"",
+        "shortName": "АО \"KAZAKHSTAN TEST COMPANY\"",
+        "foreignFullName": "KAZAKHSTAN TEST COMPANY JSC",
+        "foreignShortName": "KTC JSC",
+        "countryCode": "KZ",
+        "registration": {
+          "number": "231240027226",
+          "date": "2023-12-27",
+          "agency": "Управление регистрации юридических лиц филиала НАО \"Государственная корпорация\"",
+          "place": "Республика Казахстан"
+        }
+      },
+      "address": {
+        "legal": {
+          "countryCode": "KZ",
+          "fullAddress": "Казахстан, город Астана, район Есиль, Проспект Кабанбай Батыр, дом 38/2, кв. 264, почтовый индекс 010000"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": true,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "foreignTaxResidency": {
+          "countryCode": "KZ",
+          "tin": "9909668680"
+        },
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.INN.NONRESIDENT_MASK",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.INN.INVALID",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

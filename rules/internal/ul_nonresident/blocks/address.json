@@ -1,0 +1,18 @@
+{
+  "id": "internal.ul_nonresident.blocks.address",
+  "type": "pipeline",
+  "description": "Юридический адрес ЮЛ-нерезидента",
+  "strict": false,
+  "flow": [
+    {
+      "rule": "library.ul_nonresident.legal_address_required"
+    },
+    {
+      "rule": "library.ul_nonresident.legal_address_country_required"
+    },
+    {
+      "rule": "library.ul_nonresident.legal_address_country_format_non_ru"
+    }
+  ],
+  "entrypoint": false
+}

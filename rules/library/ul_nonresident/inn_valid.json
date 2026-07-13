@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.inn_valid",
+  "type": "rule",
+  "description": "ИНН иностранной организации указан некорректно",
+  "role": "check",
+  "operator": "valid_inn",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.INN.INVALID",
+  "message": "ИНН иностранной организации указан некорректно",
+  "field": "beneficiary.inn",
+  "meta": {
+    "legacyCode": "UL.INN.INVALID",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

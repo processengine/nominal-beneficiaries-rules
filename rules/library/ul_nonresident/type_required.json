@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.type_required",
+  "type": "rule",
+  "description": "Не указана категория бенефициара",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.TYPE.REQUIRED",
+  "message": "Не указана категория бенефициара",
+  "field": "beneficiary.type",
+  "meta": {
+    "legacyCode": "UL.TYPE.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

@@ -40,6 +40,14 @@
       "fieldContractPath": "../processor-preprod/artifacts/ul-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 37,
       "entrypointId": "entrypoints.ul_resident.full_validation"
+    },
+    {
+      "key": "ul_nonresident",
+      "type": "UL_NONRESIDENT",
+      "sourcePath": "../processor-preprod/artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
+      "sourceArtifacts": 57,
+      "entrypointId": "entrypoints.ul_nonresident.full_validation"
     }
   ],
   "mergeReports": [
@@ -129,6 +137,20 @@
         "library.common.status_end_gt_start": "library.ul_resident.common.status_end_gt_start",
         "library.common.cond_status_end_if_present": "library.ul_resident.common.cond_status_end_if_present",
         "library.common.cond_status_end_order_if_format_ok": "library.ul_resident.common.cond_status_end_order_if_format_ok"
+      }
+    },
+    {
+      "contour": "ul_nonresident",
+      "sourceArtifacts": 57,
+      "shared": 2,
+      "added": 55,
+      "scopedConflicts": 5,
+      "conflictMap": {
+        "beneficiary_types": "dictionaries.ul_nonresident.beneficiary_types",
+        "library.common.status_end_format": "library.ul_nonresident.common.status_end_format",
+        "library.common.status_end_gt_start": "library.ul_nonresident.common.status_end_gt_start",
+        "library.common.cond_status_end_if_present": "library.ul_nonresident.common.cond_status_end_if_present",
+        "library.common.cond_status_end_order_if_format_ok": "library.ul_nonresident.common.cond_status_end_order_if_format_ok"
       }
     }
   ],
@@ -360,7 +382,151 @@
       "legacyCode": "BEN.STATUS.END.ORDER",
       "code": "UL_RESIDENT.BEN.STATUS.END.ORDER",
       "firstArtifactId": "library.common.status_end_gt_start"
+    },
+    {
+      "artifactId": "library.ul_nonresident.type_required",
+      "legacyCode": "UL.TYPE.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TYPE.REQUIRED",
+      "firstArtifactId": "library.ul.type_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.type_supported",
+      "legacyCode": "BEN.TYPE.UNSUPPORTED",
+      "code": "UL_NONRESIDENT.BEN.TYPE.UNSUPPORTED",
+      "firstArtifactId": "library.common.beneficiary_type_supported"
+    },
+    {
+      "artifactId": "library.ul_nonresident.type_is_ul_nonresident",
+      "legacyCode": "UL.TYPE.MISMATCH",
+      "code": "UL_NONRESIDENT.UL.TYPE.MISMATCH",
+      "firstArtifactId": "library.ul.type_is_ul_resident"
+    },
+    {
+      "artifactId": "library.ul_nonresident.inn_format_10",
+      "legacyCode": "UL.INN.LENGTH_10",
+      "code": "UL_NONRESIDENT.UL.INN.LENGTH_10",
+      "firstArtifactId": "library.ul.inn_format_10"
+    },
+    {
+      "artifactId": "library.ul_nonresident.inn_valid",
+      "legacyCode": "UL.INN.INVALID",
+      "code": "UL_NONRESIDENT.UL.INN.INVALID",
+      "firstArtifactId": "library.ul.inn_valid"
+    },
+    {
+      "artifactId": "library.ul_nonresident.participation_id_required",
+      "legacyCode": "UL.PARTICIPATION_ID.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.PARTICIPATION_ID.REQUIRED",
+      "firstArtifactId": "library.ul.participation_id_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.account_number_required",
+      "legacyCode": "UL.ACCOUNT.NUMBER.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.REQUIRED",
+      "firstArtifactId": "library.ul.account_number_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.account_number_format",
+      "legacyCode": "UL.ACCOUNT.NUMBER.FORMAT",
+      "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.FORMAT",
+      "firstArtifactId": "library.ul.account_number_format"
+    },
+    {
+      "artifactId": "library.ul_nonresident.status_start_required",
+      "legacyCode": "UL.STATUS.START_DATE.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.REQUIRED",
+      "firstArtifactId": "library.ul.status_start_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.status_start_format",
+      "legacyCode": "UL.STATUS.START_DATE.FORMAT",
+      "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.FORMAT",
+      "firstArtifactId": "library.ul.status_start_format"
+    },
+    {
+      "artifactId": "library.ul_nonresident.common.status_end_format",
+      "legacyCode": "BEN.STATUS.END.FORMAT",
+      "code": "UL_NONRESIDENT.BEN.STATUS.END.FORMAT",
+      "firstArtifactId": "library.common.status_end_format"
+    },
+    {
+      "artifactId": "library.ul_nonresident.common.status_end_gt_start",
+      "legacyCode": "BEN.STATUS.END.ORDER",
+      "code": "UL_NONRESIDENT.BEN.STATUS.END.ORDER",
+      "firstArtifactId": "library.common.status_end_gt_start"
+    },
+    {
+      "artifactId": "library.ul_nonresident.contacts_any",
+      "legacyCode": "UL.CONTACTS.MIN_ONE",
+      "code": "UL_NONRESIDENT.UL.CONTACTS.MIN_ONE",
+      "firstArtifactId": "library.ul.contacts_any"
+    },
+    {
+      "artifactId": "library.ul_nonresident.legal_address_required",
+      "legacyCode": "UL.ADDRESS.LEGAL.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.REQUIRED",
+      "firstArtifactId": "library.ul.legal_address_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.legal_address_country_required",
+      "legacyCode": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+      "firstArtifactId": "library.ul.legal_address_country_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.foreign_required",
+      "legacyCode": "UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+      "firstArtifactId": "library.ul.tax.foreign_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.passive_nfe_required",
+      "legacyCode": "UL.TAX.PASSIVE_NFE.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.REQUIRED",
+      "firstArtifactId": "library.ul.tax.passive_nfe_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.passive_nfe_not_true",
+      "legacyCode": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+      "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.NOT_TRUE",
+      "firstArtifactId": "library.ul.tax.passive_nfe_not_true"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.cp_foreign_required",
+      "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+      "firstArtifactId": "library.ul.tax.cp_foreign_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.cp_foreign_not_true",
+      "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "library.ul.tax.cp_foreign_not_true"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.us_required",
+      "legacyCode": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.REQUIRED",
+      "firstArtifactId": "library.ul.tax.us_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.us_not_true",
+      "legacyCode": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "library.ul.tax.us_not_true"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.cp_us_required",
+      "legacyCode": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+      "firstArtifactId": "library.ul.tax.cp_us_required"
+    },
+    {
+      "artifactId": "library.ul_nonresident.tax.cp_us_not_true",
+      "legacyCode": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+      "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "library.ul.tax.cp_us_not_true"
     }
   ],
-  "artifactCount": 369
+  "artifactCount": 424
 }

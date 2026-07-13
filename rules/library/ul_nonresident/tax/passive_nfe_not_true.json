@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.tax.passive_nfe_not_true",
+  "type": "rule",
+  "description": "ЮЛ-нерезидент не должен относиться к Passive NFE",
+  "role": "check",
+  "operator": "not_true",
+  "level": "EXCEPTION",
+  "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.NOT_TRUE",
+  "message": "ЮЛ-нерезидент не должен относиться к Passive NFE",
+  "field": "beneficiary.tax.passiveNfe",
+  "meta": {
+    "legacyCode": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

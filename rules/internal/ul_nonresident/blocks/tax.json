@@ -1,0 +1,45 @@
+{
+  "id": "internal.ul_nonresident.blocks.tax",
+  "type": "pipeline",
+  "description": "Налоговые и регуляторные сведения ЮЛ-нерезидента",
+  "strict": false,
+  "flow": [
+    {
+      "rule": "library.ul_nonresident.tax.foreign_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.foreign_true"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.foreign_residency_country_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.foreign_residency_tin_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.passive_nfe_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.passive_nfe_not_true"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.cp_foreign_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.cp_foreign_not_true"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.us_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.us_not_true"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.cp_us_required"
+    },
+    {
+      "rule": "library.ul_nonresident.tax.cp_us_not_true"
+    }
+  ],
+  "entrypoint": false
+}

@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.tax.us_not_true",
+  "type": "rule",
+  "description": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
+  "role": "check",
+  "operator": "not_true",
+  "level": "EXCEPTION",
+  "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+  "message": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
+  "field": "beneficiary.tax.usTaxResident",
+  "meta": {
+    "legacyCode": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

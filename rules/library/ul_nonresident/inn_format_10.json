@@ -1,0 +1,16 @@
+{
+  "id": "library.ul_nonresident.inn_format_10",
+  "type": "rule",
+  "description": "ИНН иностранной организации должен содержать 10 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.INN.LENGTH_10",
+  "message": "ИНН иностранной организации должен содержать 10 цифр",
+  "field": "beneficiary.inn",
+  "value": "^\\d{10}$",
+  "meta": {
+    "legacyCode": "UL.INN.LENGTH_10",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "entrypoints.ul_nonresident.full_validation",
+  "type": "pipeline",
+  "description": "Полная проверка заявки ЮЛ-нерезидента",
+  "strict": false,
+  "flow": [
+    {
+      "rule": "library.ul_nonresident.type_required"
+    },
+    {
+      "rule": "library.ul_nonresident.type_supported"
+    },
+    {
+      "rule": "library.ul_nonresident.type_is_ul_nonresident"
+    },
+    {
+      "pipeline": "internal.ul_nonresident.blocks.core"
+    },
+    {
+      "pipeline": "internal.ul_nonresident.blocks.ul"
+    },
+    {
+      "pipeline": "internal.ul_nonresident.blocks.contacts"
+    },
+    {
+      "pipeline": "internal.ul_nonresident.blocks.address"
+    },
+    {
+      "pipeline": "internal.ul_nonresident.blocks.tax"
+    }
+  ],
+  "entrypoint": true,
+  "required_context": [
+    "currentDate"
+  ]
+}

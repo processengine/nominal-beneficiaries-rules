@@ -38,6 +38,10 @@ const legacySnapshotPaths = {
     "artifacts/ul-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
     "ul-resident.validate-application.rules.snapshot.json",
   ),
+  "entrypoints.ul_nonresident.full_validation": legacySnapshotPath(
+    "artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    "ul-nonresident.validate-application.rules.snapshot.json",
+  ),
 };
 
 function readSamples(dir) {

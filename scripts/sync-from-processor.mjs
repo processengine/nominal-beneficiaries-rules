@@ -99,6 +99,23 @@ const contours = [
     entrypointId: "entrypoints.ul_resident.full_validation",
     currentDate: "2026-06-15",
   },
+  {
+    key: "ul_nonresident",
+    type: "UL_NONRESIDENT",
+    label: "ЮЛ-нерезидент",
+    sourcePath: path.join(
+      processorDir,
+      "artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    ),
+    legacyFixtureFile: "ul-nonresident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/ul-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "ul-nonresident.validate-application.rules-field-contract.json",
+    entrypointId: "entrypoints.ul_nonresident.full_validation",
+    currentDate: "2026-06-15",
+  },
 ];
 
 const residentTaxFlagConfigs = [
@@ -585,6 +602,227 @@ function addUlResidentCatalog(manifest) {
   });
 }
 
+function addUlNonresidentCatalog(manifest) {
+  Object.assign(manifest.catalog.artifacts, {
+    "entrypoints.ul_nonresident.full_validation": {
+      title: "Валидация заявки ЮЛ-нерезидента",
+      description: "Проверяет первичную заявку на регистрацию и привязку ЮЛ-нерезидента",
+    },
+    "internal.ul_nonresident.blocks.core": {
+      title: "Основные сведения заявки ЮЛ-нерезидента",
+      description: "Проверяет основание участия, номер счета и даты участия",
+    },
+    "internal.ul_nonresident.blocks.contacts": {
+      title: "Контакты ЮЛ-нерезидента",
+      description: "Проверяет, что в заявке указан телефон или эл. почта",
+    },
+    "internal.ul_nonresident.blocks.ul": {
+      title: "Сведения о юридическом лице-нерезиденте",
+      description: "Проверяет наименование, страну регистрации, ИНН или КИО, КПП и регистрационные данные",
+    },
+    "internal.ul_nonresident.blocks.address": {
+      title: "Юридический адрес ЮЛ-нерезидента",
+      description: "Проверяет наличие юридического адреса и иностранную страну адреса",
+    },
+    "internal.ul_nonresident.blocks.tax": {
+      title: "Налоговые и регуляторные признаки ЮЛ-нерезидента",
+      description: "Проверяет иностранное налоговое резидентство, FATCA/CRS признаки и данные налогового резидентства",
+    },
+    "library.ul_nonresident.type_required": {
+      title: "Категория бенефициара указана",
+      description: "Проверяет, что в заявке указана категория бенефициара",
+    },
+    "library.ul_nonresident.type_supported": {
+      title: "Категория бенефициара поддерживается",
+      description: "Проверяет, что категория бенефициара входит в поддерживаемый справочник",
+    },
+    "library.ul_nonresident.type_is_ul_nonresident": {
+      title: "Заявка на ЮЛ-нерезидента",
+      description: "Проверяет, что заявка относится к ЮЛ-нерезиденту",
+    },
+    "library.ul_nonresident.participation_id_required": {
+      title: "Основание участия указано",
+      description: "Проверяет, что основание участия бенефициара заполнено",
+    },
+    "library.ul_nonresident.account_number_required": {
+      title: "Номер номинального счета указан",
+      description: "Проверяет, что номер номинального счета заполнен",
+    },
+    "library.ul_nonresident.account_number_format": {
+      title: "Номер номинального счета содержит 20 цифр",
+      description: "Проверяет формат номера номинального счета",
+    },
+    "library.ul_nonresident.status_start_required": {
+      title: "Дата начала участия указана",
+      description: "Проверяет, что дата начала участия бенефициара заполнена",
+    },
+    "library.ul_nonresident.status_start_format": {
+      title: "Дата начала участия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты начала участия бенефициара",
+    },
+    "library.ul_nonresident.common.cond_status_end_if_present": {
+      title: "Если дата окончания участия указана, проверяем ее формат",
+      description: "Проверяет дату окончания участия только когда она заполнена в заявке",
+    },
+    "library.ul_nonresident.common.cond_status_end_order_if_format_ok": {
+      title: "Если даты участия указаны корректно, проверяем их порядок",
+      description: "Проверяет порядок дат участия только после проверки формата даты окончания",
+    },
+    "library.ul_nonresident.common.status_end_format": {
+      title: "Дата окончания участия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты окончания участия бенефициара",
+    },
+    "library.ul_nonresident.common.status_end_gt_start": {
+      title: "Дата окончания участия позже даты начала",
+      description: "Проверяет, что дата окончания участия позже даты начала участия",
+    },
+    "library.ul_nonresident.contacts_any": {
+      title: "Телефон или эл. почта указаны",
+      description: "Проверяет, что указан хотя бы один контакт ЮЛ-нерезидента",
+    },
+    "library.ul_nonresident.inn_or_kio_any": {
+      title: "ИНН или КИО указаны",
+      description: "Проверяет, что для ЮЛ-нерезидента указан российский ИНН или КИО",
+    },
+    "library.ul_nonresident.pred_inn_present": {
+      title: "ИНН указан",
+      description: "Проверяет наличие ИНН перед зависимыми проверками",
+    },
+    "library.ul_nonresident.cond_inn_if_present": {
+      title: "Если ИНН указан, проверяем его",
+      description: "Запускает проверки ИНН только когда ИНН заполнен",
+    },
+    "library.ul_nonresident.inn_format_10": {
+      title: "ИНН юридического лица содержит 10 цифр",
+      description: "Проверяет длину и цифровой формат ИНН юридического лица",
+    },
+    "library.ul_nonresident.inn_mask_9909": {
+      title: "ИНН ЮЛ-нерезидента начинается с 9909",
+      description: "Проверяет специальную маску ИНН для ЮЛ-нерезидента",
+    },
+    "library.ul_nonresident.inn_valid": {
+      title: "ИНН юридического лица корректен",
+      description: "Проверяет контрольный разряд ИНН юридического лица",
+    },
+    "library.ul_nonresident.pred_kio_present": {
+      title: "КИО указан",
+      description: "Проверяет наличие КИО перед зависимой проверкой",
+    },
+    "library.ul_nonresident.cond_kio_if_present": {
+      title: "Если КИО указан, проверяем его",
+      description: "Запускает проверку КИО только когда КИО заполнен",
+    },
+    "library.ul_nonresident.kio_format": {
+      title: "КИО содержит 5 цифр",
+      description: "Проверяет формат КИО ЮЛ-нерезидента",
+    },
+    "library.ul_nonresident.kpp_required": {
+      title: "КПП указан",
+      description: "Проверяет, что КПП ЮЛ-нерезидента заполнен",
+    },
+    "library.ul_nonresident.kpp_format": {
+      title: "КПП содержит 9 цифр",
+      description: "Проверяет формат КПП ЮЛ-нерезидента",
+    },
+    "library.ul_nonresident.full_name_required": {
+      title: "Полное наименование указано",
+      description: "Проверяет, что полное наименование юридического лица заполнено",
+    },
+    "library.ul_nonresident.foreign_full_name_required": {
+      title: "Иностранное полное наименование указано",
+      description: "Проверяет, что иностранное полное наименование юридического лица заполнено",
+    },
+    "library.ul_nonresident.country_required": {
+      title: "Страна регистрации указана",
+      description: "Проверяет, что страна регистрации юридического лица заполнена",
+    },
+    "library.ul_nonresident.country_format_non_ru": {
+      title: "Страна регистрации не Россия",
+      description: "Проверяет, что страна регистрации ЮЛ-нерезидента не равна RU",
+    },
+    "library.ul_nonresident.registration_number_required": {
+      title: "Регистрационный номер указан",
+      description: "Проверяет, что регистрационный номер юридического лица заполнен",
+    },
+    "library.ul_nonresident.registration_date_required": {
+      title: "Дата регистрации указана",
+      description: "Проверяет, что дата регистрации юридического лица заполнена",
+    },
+    "library.ul_nonresident.registration_date_format": {
+      title: "Дата регистрации в формате YYYY-MM-DD",
+      description: "Проверяет формат даты регистрации юридического лица",
+    },
+    "library.ul_nonresident.registration_agency_required": {
+      title: "Регистрирующий орган указан",
+      description: "Проверяет, что регистрирующий орган юридического лица заполнен",
+    },
+    "library.ul_nonresident.registration_place_required": {
+      title: "Место регистрации указано",
+      description: "Проверяет, что место регистрации юридического лица заполнено",
+    },
+    "library.ul_nonresident.legal_address_required": {
+      title: "Юридический адрес указан",
+      description: "Проверяет, что юридический адрес ЮЛ-нерезидента заполнен",
+    },
+    "library.ul_nonresident.legal_address_country_required": {
+      title: "Страна юридического адреса указана",
+      description: "Проверяет, что страна юридического адреса заполнена",
+    },
+    "library.ul_nonresident.legal_address_country_format_non_ru": {
+      title: "Юридический адрес находится не в России",
+      description: "Проверяет, что страна юридического адреса ЮЛ-нерезидента не равна RU",
+    },
+    "library.ul_nonresident.tax.foreign_required": {
+      title: "Признак иностранного налогового резидентства указан",
+      description: "Проверяет, что признак иностранного налогового резидентства заполнен",
+    },
+    "library.ul_nonresident.tax.foreign_true": {
+      title: "ЮЛ-нерезидент является иностранным налоговым резидентом",
+      description: "Проверяет, что признак иностранного налогового резидентства имеет значение true",
+    },
+    "library.ul_nonresident.tax.foreign_residency_country_required": {
+      title: "Страна налогового резидентства указана",
+      description: "Проверяет, что страна иностранного налогового резидентства заполнена",
+    },
+    "library.ul_nonresident.tax.foreign_residency_tin_required": {
+      title: "Иностранный налоговый номер указан",
+      description: "Проверяет, что иностранный налоговый номер заполнен",
+    },
+    "library.ul_nonresident.tax.passive_nfe_required": {
+      title: "Признак пассивной нефинансовой организации указан",
+      description: "Проверяет, что признак пассивной нефинансовой организации заполнен",
+    },
+    "library.ul_nonresident.tax.passive_nfe_not_true": {
+      title: "ЮЛ-нерезидент не является пассивной нефинансовой организацией",
+      description: "Проверяет, что признак пассивной нефинансовой организации не имеет значение true",
+    },
+    "library.ul_nonresident.tax.cp_foreign_required": {
+      title: "Признак контролирующих лиц с иностранным налоговым резидентством указан",
+      description: "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством заполнен",
+    },
+    "library.ul_nonresident.tax.cp_foreign_not_true": {
+      title: "Нет контролирующих лиц с иностранным налоговым резидентством",
+      description: "Проверяет, что признак контролирующих лиц с иностранным налоговым резидентством не имеет значение true",
+    },
+    "library.ul_nonresident.tax.us_required": {
+      title: "Признак налогового резидентства США указан",
+      description: "Проверяет, что признак налогового резидентства США заполнен",
+    },
+    "library.ul_nonresident.tax.us_not_true": {
+      title: "ЮЛ-нерезидент не является налоговым резидентом США",
+      description: "Проверяет, что признак налогового резидентства США не имеет значение true",
+    },
+    "library.ul_nonresident.tax.cp_us_required": {
+      title: "Признак контролирующих лиц с налоговым резидентством США указан",
+      description: "Проверяет, что признак контролирующих лиц с налоговым резидентством США заполнен",
+    },
+    "library.ul_nonresident.tax.cp_us_not_true": {
+      title: "Нет контролирующих лиц с налоговым резидентством США",
+      description: "Проверяет, что признак контролирующих лиц с налоговым резидентством США не имеет значение true",
+    },
+  });
+}
+
 function addScopedConflictCatalog(manifest, report) {
   const contour = contours.find((item) => item.key === report.contour);
   const suffix = contour?.label ? `Версия правила для ${contour.label}.` : "Контурная версия правила.";
@@ -749,7 +987,9 @@ function namespaceDuplicateCheckCodes(artifacts) {
           ? "IP_NONRESIDENT"
           : artifact.id.includes("ul_resident")
             ? "UL_RESIDENT"
-            : "RULESET";
+            : artifact.id.includes("ul_nonresident")
+              ? "UL_NONRESIDENT"
+              : "RULESET";
     let candidate = `${prefix}.${legacyCode}`;
     let index = 2;
     while (seen.has(candidate)) {
@@ -776,7 +1016,7 @@ function mergeCatalogs(sources, reports) {
       id: "nominal-beneficiaries-rules",
       version: packageJson.version,
       title: "Бенефициары номинальных счетов",
-      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT и UL_RESIDENT validate-application в режиме parity с processor-preprod.",
+      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
       language: "ru",
     },
     paths: {
@@ -825,6 +1065,7 @@ function mergeCatalogs(sources, reports) {
   addStudioPolishCatalog(manifest);
   addIpNonresidentCatalog(manifest);
   addUlResidentCatalog(manifest);
+  addUlNonresidentCatalog(manifest);
 
   return manifest;
 }
@@ -1174,12 +1415,183 @@ function writeUlResidentSamples(contour) {
   );
 }
 
+function ulNonresidentApplication(overrides = {}) {
+  const beneficiaryOverrides = overrides.beneficiary || {};
+  const application = {
+    requestExtId: "ul-nonresident-test-request-0001",
+    beneficiary: {
+      type: "UL_NONRESIDENT",
+      inn: "9909668680",
+      participationId: "UL-NRES-PARTICIPATION-0001",
+      account: { number: "40702810120028000006" },
+      contacts: {
+        email: "beneficiary@example.kz",
+        foreignPhone: "+7 7182 44-28-91",
+      },
+      status: { startDate: "2026-06-15" },
+      ul: {
+        kpp: "990901001",
+        kio: "99096",
+        fullName: "АКЦИОНЕРНОЕ ОБЩЕСТВО \"KAZAKHSTAN TEST COMPANY\"",
+        shortName: "АО \"KAZAKHSTAN TEST COMPANY\"",
+        foreignFullName: "KAZAKHSTAN TEST COMPANY JSC",
+        foreignShortName: "KTC JSC",
+        countryCode: "KZ",
+        registration: {
+          number: "231240027226",
+          date: "2023-12-27",
+          agency: "Управление регистрации юридических лиц филиала НАО \"Государственная корпорация\"",
+          place: "Республика Казахстан",
+        },
+      },
+      address: {
+        legal: {
+          countryCode: "KZ",
+          fullAddress: "Казахстан, город Астана, район Есиль, Проспект Кабанбай Батыр, дом 38/2, кв. 264, почтовый индекс 010000",
+        },
+      },
+      tax: {
+        foreignTaxResident: true,
+        passiveNfe: false,
+        controllingPersonsForeignTaxResident: false,
+        foreignTaxResidency: {
+          countryCode: "KZ",
+          tin: "9909668680",
+        },
+        usTaxResident: false,
+        controllingPersonsUsTaxResident: false,
+      },
+    },
+  };
+
+  application.beneficiary = {
+    ...application.beneficiary,
+    ...beneficiaryOverrides,
+  };
+  return application;
+}
+
+function writeUlNonresidentSamples(contour) {
+  const ok = ulNonresidentApplication();
+  const noContacts = ulNonresidentApplication({
+    beneficiary: {
+      contacts: {
+        email: "",
+        foreignPhone: "",
+      },
+    },
+  });
+  const invalidInnMask = ulNonresidentApplication({
+    beneficiary: { inn: "7712345678" },
+  });
+  const missingForeignResidency = ulNonresidentApplication({
+    beneficiary: {
+      tax: {
+        foreignTaxResident: false,
+        passiveNfe: false,
+        controllingPersonsForeignTaxResident: false,
+        foreignTaxResidency: {
+          countryCode: "",
+          tin: "",
+        },
+        usTaxResident: false,
+        controllingPersonsUsTaxResident: false,
+      },
+    },
+  });
+  const passiveNfe = ulNonresidentApplication({
+    beneficiary: {
+      tax: {
+        foreignTaxResident: true,
+        passiveNfe: true,
+        controllingPersonsForeignTaxResident: false,
+        foreignTaxResidency: {
+          countryCode: "KZ",
+          tin: "9909668680",
+        },
+        usTaxResident: false,
+        controllingPersonsUsTaxResident: false,
+      },
+    },
+  });
+  const ruCountry = ulNonresidentApplication({
+    beneficiary: {
+      ul: {
+        ...ok.beneficiary.ul,
+        countryCode: "RU",
+      },
+      address: {
+        legal: {
+          countryCode: "RU",
+          fullAddress: "Российская Федерация, Москва",
+        },
+      },
+    },
+  });
+
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.ok.json"),
+    sample(contour, "UL nonresident valid merchant application", ok, { status: "OK", exact: true, issues: [] }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.no-contacts.json"),
+    sample(contour, "UL nonresident missing contacts", noContacts, {
+      status: "ERROR",
+      exact: true,
+      issues: [{ code: "UL_NONRESIDENT.UL.CONTACTS.MIN_ONE", field: null, level: "ERROR" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.invalid-inn-mask.json"),
+    sample(contour, "UL nonresident INN mask reject", invalidInnMask, {
+      status: "ERROR",
+      exact: true,
+      issues: [
+        { code: "UL.INN.NONRESIDENT_MASK", field: "beneficiary.inn", level: "ERROR" },
+        { code: "UL_NONRESIDENT.UL.INN.INVALID", field: "beneficiary.inn", level: "ERROR" },
+      ],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.missing-foreign-tax-residency.json"),
+    sample(contour, "UL nonresident missing foreign tax residency", missingForeignResidency, {
+      status: "ERROR",
+      exact: true,
+      issues: [
+        { code: "UL.TAX.FOREIGN_TAX_RESIDENT.MUST_BE_TRUE", field: "beneficiary.tax.foreignTaxResident", level: "ERROR" },
+        { code: "UL.TAX.FOREIGN_RESIDENCY.COUNTRY.REQUIRED", field: "beneficiary.tax.foreignTaxResidency.countryCode", level: "ERROR" },
+        { code: "UL.TAX.FOREIGN_RESIDENCY.TIN.REQUIRED", field: "beneficiary.tax.foreignTaxResidency.tin", level: "ERROR" },
+      ],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.passive-nfe.json"),
+    sample(contour, "UL nonresident passive NFE reject", passiveNfe, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.NOT_TRUE", field: "beneficiary.tax.passiveNfe", level: "EXCEPTION" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ul-nonresident.ru-country.json"),
+    sample(contour, "UL nonresident Russian country reject", ruCountry, {
+      status: "ERROR",
+      exact: true,
+      issues: [
+        { code: "UL.COUNTRY.FORMAT_NON_RU", field: "beneficiary.ul.countryCode", level: "ERROR" },
+        { code: "UL.ADDRESS.LEGAL.COUNTRY_FORMAT_NON_RU", field: "beneficiary.address.legal.countryCode", level: "ERROR" },
+      ],
+    }),
+  );
+}
+
 function writeSamples() {
   writeResidentSamples(contours[0]);
   writeNonresidentSamples(contours[1]);
   writeIpResidentSamples(contours[2]);
   writeIpNonresidentSamples(contours[3]);
   writeUlResidentSamples(contours[4]);
+  writeUlNonresidentSamples(contours[5]);
 }
 
 const sources = contours.map((contour) => ({ contour, source: readSource(contour) }));

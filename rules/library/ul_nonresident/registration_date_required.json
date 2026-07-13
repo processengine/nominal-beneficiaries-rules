@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.registration_date_required",
+  "type": "rule",
+  "description": "Не указана дата регистрации иностранной организации",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL.REGISTRATION.DATE.REQUIRED",
+  "message": "Не указана дата регистрации иностранной организации",
+  "field": "beneficiary.ul.registration.date"
+}

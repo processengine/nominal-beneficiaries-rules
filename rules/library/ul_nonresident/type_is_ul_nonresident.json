@@ -1,0 +1,16 @@
+{
+  "id": "library.ul_nonresident.type_is_ul_nonresident",
+  "type": "rule",
+  "description": "Заявка должна быть на ЮЛ-нерезидента",
+  "role": "check",
+  "operator": "equals",
+  "level": "EXCEPTION",
+  "code": "UL_NONRESIDENT.UL.TYPE.MISMATCH",
+  "message": "Заявка должна быть на ЮЛ-нерезидента",
+  "field": "beneficiary.type",
+  "value": "UL_NONRESIDENT",
+  "meta": {
+    "legacyCode": "UL.TYPE.MISMATCH",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

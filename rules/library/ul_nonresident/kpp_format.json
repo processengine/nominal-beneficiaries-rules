@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.kpp_format",
+  "type": "rule",
+  "description": "КПП иностранной организации должен содержать 9 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.KPP.FORMAT",
+  "message": "КПП иностранной организации должен содержать 9 цифр",
+  "field": "beneficiary.ul.kpp",
+  "value": "^\\d{9}$"
+}

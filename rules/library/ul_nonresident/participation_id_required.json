@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.participation_id_required",
+  "type": "rule",
+  "description": "Не указан идентификатор основания участия",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.PARTICIPATION_ID.REQUIRED",
+  "message": "Не указан идентификатор основания участия",
+  "field": "beneficiary.participationId",
+  "meta": {
+    "legacyCode": "UL.PARTICIPATION_ID.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

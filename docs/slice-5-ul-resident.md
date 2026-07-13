@@ -72,10 +72,10 @@ npm pack --dry-run
 - 5 samples для `IP_NONRESIDENT`;
 - 4 samples для `UL_RESIDENT`.
 
-## Not Done In This Slice
+## Processor Integration
 
-- Processor artifact `ul_resident.validate_application` переключается
-  отдельным processor slice после публикации пакета.
-- `UL_NONRESIDENT` не переносится этим изменением.
-- Общие UL resident/nonresident проверки не выделяются вручную до parity
-  `UL_NONRESIDENT`.
+Processor artifact `ul_resident.validate_application` переключен на
+package-backed `rulesetRef` после публикации `0.5.0`.
+
+`UL_NONRESIDENT` переносится отдельным slice. Общие UL resident/nonresident
+проверки не выделяются вручную до parity `UL_NONRESIDENT`.

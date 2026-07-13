@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.tax.foreign_true",
+  "type": "rule",
+  "description": "ЮЛ-нерезидент должен быть иностранным налоговым резидентом",
+  "role": "check",
+  "operator": "equals",
+  "level": "ERROR",
+  "code": "UL.TAX.FOREIGN_TAX_RESIDENT.MUST_BE_TRUE",
+  "message": "ЮЛ-нерезидент должен быть иностранным налоговым резидентом",
+  "field": "beneficiary.tax.foreignTaxResident",
+  "value": true
+}

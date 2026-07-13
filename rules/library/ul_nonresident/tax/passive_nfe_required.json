@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.tax.passive_nfe_required",
+  "type": "rule",
+  "description": "Не указано, относится ли ЮЛ-нерезидент к Passive NFE",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.TAX.PASSIVE_NFE.REQUIRED",
+  "message": "Не указано, относится ли ЮЛ-нерезидент к Passive NFE",
+  "field": "beneficiary.tax.passiveNfe",
+  "meta": {
+    "legacyCode": "UL.TAX.PASSIVE_NFE.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

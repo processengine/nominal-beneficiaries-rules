@@ -1,0 +1,8 @@
+{
+  "id": "library.ul_nonresident.pred_kio_present",
+  "type": "rule",
+  "description": "КИО иностранной организации указан",
+  "role": "predicate",
+  "operator": "not_empty",
+  "field": "beneficiary.ul.kio"
+}

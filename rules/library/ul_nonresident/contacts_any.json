@@ -1,0 +1,22 @@
+{
+  "id": "library.ul_nonresident.contacts_any",
+  "type": "rule",
+  "description": "Не указан контактный телефон или эл. почта",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.CONTACTS.MIN_ONE",
+  "message": "Не указан контактный телефон или эл. почта",
+  "fields": [
+    "beneficiary.contacts.foreignPhone",
+    "beneficiary.contacts.email"
+  ],
+  "paths": [
+    "beneficiary.contacts.foreignPhone",
+    "beneficiary.contacts.email"
+  ],
+  "meta": {
+    "legacyCode": "UL.CONTACTS.MIN_ONE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "library.ul_nonresident.pred_inn_present",
+  "type": "rule",
+  "description": "ИНН иностранной организации указан",
+  "role": "predicate",
+  "operator": "not_empty",
+  "field": "beneficiary.inn"
+}

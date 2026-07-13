@@ -1,0 +1,16 @@
+{
+  "id": "library.ul_nonresident.account_number_format",
+  "type": "rule",
+  "description": "Номер номинального счета должен содержать 20 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.FORMAT",
+  "message": "Номер номинального счета должен содержать 20 цифр",
+  "field": "beneficiary.account.number",
+  "value": "^\\d{20}$",
+  "meta": {
+    "legacyCode": "UL.ACCOUNT.NUMBER.FORMAT",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "library.ul_nonresident.kio_format",
+  "type": "rule",
+  "description": "КИО иностранной организации должен содержать 5 цифр",
+  "role": "check",
+  "operator": "matches_regex",
+  "level": "ERROR",
+  "code": "UL.KIO.FORMAT",
+  "message": "КИО иностранной организации должен содержать 5 цифр",
+  "field": "beneficiary.ul.kio",
+  "value": "^\\d{5}$"
+}

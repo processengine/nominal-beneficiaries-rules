@@ -1,0 +1,15 @@
+{
+  "id": "library.ul_nonresident.tax.foreign_required",
+  "type": "rule",
+  "description": "Не указано, является ли ЮЛ-нерезидент иностранным налоговым резидентом",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "UL_NONRESIDENT.UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+  "message": "Не указано, является ли ЮЛ-нерезидент иностранным налоговым резидентом",
+  "field": "beneficiary.tax.foreignTaxResident",
+  "meta": {
+    "legacyCode": "UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}
