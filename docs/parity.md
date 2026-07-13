@@ -31,12 +31,17 @@ Samples с `legacyParity: false` не сравниваются с legacy snapsho
 ```text
 BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
 FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
+IP_RESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
 ```
 
 Старый код сохраняется в `rule.meta.legacyCode`. При сравнении с
 `@processengine/rules` parity harness подставляет `legacyCode`, чтобы
 проверять бизнес-эквивалентность, а не требовать невозможный для jsonspecs
 дубль `code` внутри одного snapshot.
+
+В `processor-preprod` package-backed execution также маппит такие коды обратно
+в `legacyCode` перед возвратом результата RULES наружу. Это сохраняет
+merchant-facing контракт при переходе на общий package snapshot.
 
 Если parity падает, нельзя исправлять sample под новый результат. Сначала нужно
 понять, где drift: в envelope, custom operator, jsonspecs runtime или в самих

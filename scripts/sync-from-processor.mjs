@@ -6,6 +6,7 @@ const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
 const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
 const fieldContractDir = path.join(rootDir, "field-contracts");
+const packageJson = JSON.parse(readFileSync(path.join(rootDir, "package.json"), "utf8"));
 
 const contours = [
   {
@@ -44,6 +45,24 @@ const contours = [
     belarusFixturePath: path.join(processorDir, "fixtures/BEN-FL-NONRES-BELARUS-NO-ADDDOC-VALID.json"),
     entrypointId: "entrypoints.fl_nonresident.full_validation",
     currentDate: "2026-05-18",
+  },
+  {
+    key: "ip_resident",
+    type: "IP_RESIDENT",
+    label: "ИП-резидент",
+    sourcePath: path.join(
+      processorDir,
+      "artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    ),
+    legacyFixtureFile: "ip-resident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/ip-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "ip-resident.validate-application.rules-field-contract.json",
+    fixturePath: path.join(processorDir, "fixtures/TC-009-valid-fl-resident-fias-no-addressline.json"),
+    entrypointId: "entrypoints.ip_resident.full_validation",
+    currentDate: "2026-06-03",
   },
 ];
 
@@ -343,6 +362,11 @@ function buildConflictMap(baseArtifacts, nextArtifacts, contour) {
   const byId = new Map(baseArtifacts.map((artifact) => [artifact.id, artifact]));
 
   for (const artifact of nextArtifacts) {
+    if (artifact.id.startsWith("internal.") && !artifact.id.startsWith(`internal.${contour.key}.`)) {
+      result[artifact.id] = scopedArtifactId(artifact, contour);
+      continue;
+    }
+
     const existing = byId.get(artifact.id);
     if (!existing || stableJson(existing) === stableJson(artifact)) continue;
 
@@ -358,6 +382,9 @@ function scopedArtifactId(artifact, contour) {
   }
   if (artifact.id.startsWith("library.")) {
     return `library.${contour.key}.${artifact.id.replace(/^library\./, "")}`;
+  }
+  if (artifact.id.startsWith("internal.")) {
+    return `internal.${contour.key}.${artifact.id.replace(/^internal\.[^.]+\./, "")}`;
   }
   return `${contour.entrypointId}.scoped.${artifact.id.replaceAll(".", "_")}`;
 }
@@ -451,7 +478,11 @@ function namespaceDuplicateCheckCodes(artifacts) {
     }
 
     const legacyCode = artifact.code;
-    const prefix = artifact.id.includes("fl_nonresident") ? "FL_NONRESIDENT" : "RULESET";
+    const prefix = artifact.id.includes("fl_nonresident")
+      ? "FL_NONRESIDENT"
+      : artifact.id.includes("ip_resident")
+        ? "IP_RESIDENT"
+        : "RULESET";
     let candidate = `${prefix}.${legacyCode}`;
     let index = 2;
     while (seen.has(candidate)) {
@@ -476,9 +507,9 @@ function mergeCatalogs(sources, reports) {
   const manifest = {
     project: {
       id: "nominal-beneficiaries-rules",
-      version: "0.2.0",
+      version: packageJson.version,
       title: "Бенефициары номинальных счетов",
-      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT и FL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+      description: "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT и IP_RESIDENT validate-application в режиме parity с processor-preprod.",
       language: "ru",
     },
     paths: {
@@ -682,9 +713,60 @@ function writeNonresidentSamples(contour) {
   );
 }
 
+function writeIpResidentSamples(contour) {
+  const ok = readApplicationFixture(contour.fixturePath);
+  ok.beneficiary.type = "IP_RESIDENT";
+  const missingInn = cloneJson(ok);
+  delete missingInn.beneficiary.inn;
+  const usResident = cloneJson(ok);
+  usResident.beneficiary.tax.usResident = true;
+  const foreignTaxResident = cloneJson(ok);
+  foreignTaxResident.beneficiary.tax.foreignTaxResident = true;
+  const invalidBoolean = cloneJson(ok);
+  invalidBoolean.beneficiary.tax.usTaxResident = "false";
+
+  writeJson(
+    path.join(rootDir, "samples/ip-resident.ok.json"),
+    sample(contour, "IP resident valid owner application", ok, { status: "OK", exact: true, issues: [] }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-resident.missing-inn.json"),
+    sample(contour, "IP resident missing INN", missingInn, {
+      status: "ERROR",
+      exact: true,
+      issues: [{ code: "FL.INN.REQUIRED", field: "beneficiary.inn", level: "ERROR" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-resident.us-resident.json"),
+    sample(contour, "IP resident US resident reject", usResident, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "IP_RESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE", field: "beneficiary.tax.usResident", level: "EXCEPTION" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-resident.foreign-tax-resident.json"),
+    sample(contour, "IP resident foreign tax resident reject", foreignTaxResident, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "IP_RESIDENT.BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE", field: "beneficiary.tax.foreignTaxResident", level: "EXCEPTION" }],
+    }),
+  );
+  writeJson(
+    path.join(rootDir, "samples/ip-resident.invalid-boolean.json"),
+    sample(contour, "IP resident invalid boolean tax flag", invalidBoolean, {
+      status: "EXCEPTION",
+      exact: true,
+      issues: [{ code: "BEN.TAX.US_TAX_RESIDENT.BOOL", field: "beneficiary.tax.usTaxResident", level: "EXCEPTION" }],
+    }),
+  );
+}
+
 function writeSamples() {
   writeResidentSamples(contours[0]);
   writeNonresidentSamples(contours[1]);
+  writeIpResidentSamples(contours[2]);
 }
 
 const sources = contours.map((contour) => ({ contour, source: readSource(contour) }));

@@ -1,0 +1,68 @@
+{
+  "name": "IP resident US resident reject",
+  "context": {
+    "pipelineId": "entrypoints.ip_resident.full_validation",
+    "currentDate": "2026-06-03"
+  },
+  "payload": {
+    "beneficiary": {
+      "type": "IP_RESIDENT",
+      "inn": "744404355804",
+      "participationId": "TEST-POC-009",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004",
+        "email": "test@example.com"
+      },
+      "status": {
+        "startDate": "2024-01-26"
+      },
+      "fl": {
+        "lastName": "Петров",
+        "firstName": "Алексей",
+        "birthDate": "1979-12-01",
+        "birthPlace": "гор. Магнитогорск",
+        "citizenshipCode": "RU"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issueDate": "2024-12-15",
+        "issuer": "ОВД",
+        "issuerCode": "123-456"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "630091",
+          "regionCode": "54",
+          "regionName": "Новосибирская область",
+          "city": "Новосибирск",
+          "streetType": "пр-кт",
+          "street": "Красный",
+          "house": "18",
+          "flat": "45"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": true,
+        "foreignTaxResident": false
+      }
+    }
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "IP_RESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.usResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

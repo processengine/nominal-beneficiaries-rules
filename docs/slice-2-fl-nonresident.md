@@ -60,8 +60,8 @@ FL_NONRESIDENT.<legacy-code>
 ```
 
 Parity harness сравнивает результат с legacy snapshot по `legacyCode`.
-Runtime-подключение processor должно явно решить, отдавать наружу новый
-уникальный code или маппить его обратно в legacy-code.
+Runtime-подключение processor маппит такие коды обратно в `legacyCode` перед
+возвратом результата RULES наружу, чтобы не менять merchant-facing контракт.
 
 ## Verification
 
@@ -79,7 +79,8 @@ npm test
 
 ## Not Done In This Slice
 
-- Processor runtime не переключен на внешний пакет.
-- NPM package не опубликован.
+- Processor runtime был переключен отдельными processor slices после подготовки
+  пакета.
+- NPM package был опубликован отдельным release slice.
 - Общие FL-блоки пока не переписаны вручную в новые library pipelines.
   Слайс только отделяет реально разные legacy-варианты и доказывает parity.

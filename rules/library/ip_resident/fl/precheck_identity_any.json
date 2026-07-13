@@ -1,0 +1,22 @@
+{
+  "id": "library.ip_resident.fl.precheck_identity_any",
+  "type": "rule",
+  "description": "Для владельца ИП-резидента должен быть указан ИНН или номер документа",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "EXCEPTION",
+  "code": "IP_RESIDENT.FL.IDENTITY.MIN.ONE",
+  "message": "Для владельца ИП-резидента должен быть указан ИНН или номер документа",
+  "fields": [
+    "beneficiary.inn",
+    "beneficiary.idDoc.number"
+  ],
+  "paths": [
+    "beneficiary.inn",
+    "beneficiary.idDoc.number"
+  ],
+  "meta": {
+    "legacyCode": "FL.IDENTITY.MIN.ONE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

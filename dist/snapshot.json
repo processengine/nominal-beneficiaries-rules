@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "d2950e88774f41325a09d05595fcd2e2f157600f3f843133e330a2322e67dc3d",
+  "sourceHash": "dcd993d55037ca6ad39389e482ac21ba13dcd6e62bd553e4e9b6ad95e55a55c3",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -159,6 +159,54 @@
       "message": "Бенефициар должен быть физическим лицом, резидентом РФ",
       "field": "beneficiary.type",
       "value": "FL_RESIDENT"
+    },
+    {
+      "id": "entrypoints.ip_resident.full_validation",
+      "type": "pipeline",
+      "description": "Валидация заявки ИП-резидента РФ",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.beneficiary_type_required"
+        },
+        {
+          "rule": "library.common.beneficiary_type_supported"
+        },
+        {
+          "rule": "entrypoints.ip_resident.full_validation.type_is_ip_resident"
+        },
+        {
+          "pipeline": "internal.ip_resident.blocks.contacts_and_status"
+        },
+        {
+          "pipeline": "internal.ip_resident.blocks.identity_core"
+        },
+        {
+          "pipeline": "internal.ip_resident.blocks.identity_document"
+        },
+        {
+          "pipeline": "internal.ip_resident.blocks.address"
+        },
+        {
+          "pipeline": "internal.ip_resident.blocks.tax_flags"
+        }
+      ],
+      "entrypoint": true,
+      "required_context": [
+        "currentDate"
+      ]
+    },
+    {
+      "id": "entrypoints.ip_resident.full_validation.type_is_ip_resident",
+      "type": "rule",
+      "description": "Тип бенефициара должен быть ИП-резидент",
+      "role": "check",
+      "operator": "equals",
+      "level": "EXCEPTION",
+      "code": "IP.TYPE.MISMATCH",
+      "message": "Бенефициар должен быть индивидуальным предпринимателем, резидентом РФ",
+      "field": "beneficiary.type",
+      "value": "IP_RESIDENT"
     },
     {
       "id": "internal.fl_nonresident.blocks.add_doc",
@@ -908,6 +956,360 @@
       "message": "Признак налогового резидентства США не допускается для ФЛ-резидента РФ",
       "field": "beneficiary.tax.usTaxResident",
       "value": true
+    },
+    {
+      "id": "internal.ip_resident.blocks.address",
+      "type": "pipeline",
+      "description": "Проверки адреса регистрации и почтового адреса",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.address.registration_country_required"
+        },
+        {
+          "condition": "internal.ip_resident.blocks.address.registration_country_if_present"
+        },
+        {
+          "condition": "library.address.cond_registration_fias_structure_for_ru"
+        },
+        {
+          "condition": "library.address.cond_postal_address_if_present"
+        },
+        {
+          "condition": "library.address.cond_postal_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_code_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_name_if_present"
+        },
+        {
+          "condition": "library.address.cond_city_if_present"
+        },
+        {
+          "condition": "library.address.cond_locality_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_type_if_present"
+        },
+        {
+          "condition": "library.address.cond_house_if_present"
+        },
+        {
+          "condition": "library.address.cond_building_if_present"
+        },
+        {
+          "condition": "library.address.cond_flat_if_present"
+        },
+        {
+          "condition": "library.address.cond_address_line_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_resident.blocks.address.registration_country_if_present",
+      "type": "condition",
+      "description": "Если страна адреса регистрации заполнена, проверяем формат и запрет США",
+      "when": {
+        "all": [
+          "library.address.pred_country_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.address.country"
+        },
+        {
+          "rule": "internal.ip_resident.blocks.address.registration_country_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_resident.blocks.address.registration_country_not_us",
+      "type": "rule",
+      "description": "Страна адреса регистрации не должна быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+      "message": "Адрес США не допускается для IP_RESIDENT",
+      "field": "beneficiary.address.registration.countryCode",
+      "value": "US",
+      "meta": {
+        "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_resident.blocks.contacts_and_status",
+      "type": "pipeline",
+      "description": "Общие проверки контактов и статуса связи",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.participation_required"
+        },
+        {
+          "condition": "library.common.cond_participation_if_present"
+        },
+        {
+          "rule": "library.common.account_number_required"
+        },
+        {
+          "condition": "library.common.cond_account_number_if_present"
+        },
+        {
+          "rule": "library.common.contacts_any"
+        },
+        {
+          "condition": "library.common.cond_phone_if_present"
+        },
+        {
+          "condition": "library.common.cond_email_if_present"
+        },
+        {
+          "rule": "library.common.status_start_required"
+        },
+        {
+          "condition": "library.common.cond_status_start_if_present"
+        },
+        {
+          "condition": "library.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_core",
+      "type": "pipeline",
+      "description": "Основные персональные данные",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.fl.inn_required"
+        },
+        {
+          "condition": "library.fl.cond_inn_if_present"
+        },
+        {
+          "rule": "library.fl.last_name_required"
+        },
+        {
+          "condition": "library.fl.cond_last_name_if_present"
+        },
+        {
+          "rule": "library.fl.first_name_required"
+        },
+        {
+          "condition": "library.fl.cond_first_name_if_present"
+        },
+        {
+          "condition": "library.fl.cond_middle_name_if_present"
+        },
+        {
+          "rule": "library.fl.birth_date_required"
+        },
+        {
+          "condition": "library.fl.cond_birth_date_if_present"
+        },
+        {
+          "rule": "library.fl.birth_place_required"
+        },
+        {
+          "condition": "internal.ip_resident.blocks.identity_core.birth_place_if_present"
+        },
+        {
+          "rule": "library.fl.citizenship_required"
+        },
+        {
+          "condition": "internal.ip_resident.blocks.identity_core.citizenship_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_core.birth_place_if_present",
+      "type": "condition",
+      "description": "Если место рождения указано, то проверяем ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_birth_place_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "internal.ip_resident.blocks.identity_core.birth_place_not_usa"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_core.birth_place_not_usa",
+      "type": "rule",
+      "description": "Место рождения не должно содержать указание на США",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.FL.BIRTH_PLACE.NOT_USA",
+      "message": "Место рождения не должно указывать на США",
+      "field": "beneficiary.fl.birthPlace",
+      "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$",
+      "meta": {
+        "legacyCode": "FL.BIRTH_PLACE.NOT_USA",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_core.citizenship_if_present",
+      "type": "condition",
+      "description": "Если гражданство указано, то проверяем формат и ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_citizenship_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.fl.citizenship_code_format"
+        },
+        {
+          "rule": "internal.ip_resident.blocks.identity_core.citizenship_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_core.citizenship_not_us",
+      "type": "rule",
+      "description": "Код гражданства не должен быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.FL.CITIZENSHIP.NOT_US",
+      "message": "Гражданство США не допускается для IP_RESIDENT",
+      "field": "beneficiary.fl.citizenshipCode",
+      "value": "US",
+      "meta": {
+        "legacyCode": "FL.CITIZENSHIP.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_resident.blocks.identity_document",
+      "type": "pipeline",
+      "description": "Проверка документа удостоверяющего личность",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.documents.type_code_required"
+        },
+        {
+          "rule": "library.documents.type_code_in_dictionary"
+        },
+        {
+          "rule": "library.documents.type_code_not_35"
+        },
+        {
+          "rule": "library.documents.number_required"
+        },
+        {
+          "rule": "library.documents.issuer_required"
+        },
+        {
+          "condition": "library.documents.cond_issuer_if_present"
+        },
+        {
+          "rule": "library.documents.issue_date_required"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_if_present"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_end_if_present"
+        },
+        {
+          "condition": "library.documents.cond_passport_rf_fields"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_resident.blocks.tax_flags",
+      "type": "pipeline",
+      "description": "Регуляторные флаги и иностранное налоговое резидентство",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.tax.foreign_tax_resident_bool"
+        },
+        {
+          "rule": "internal.ip_resident.blocks.tax_flags.foreign_tax_resident_not_true"
+        },
+        {
+          "rule": "library.tax.us_tax_resident_bool"
+        },
+        {
+          "rule": "internal.ip_resident.blocks.tax_flags.us_tax_resident_not_true"
+        },
+        {
+          "rule": "library.tax.us_resident_bool"
+        },
+        {
+          "rule": "internal.ip_resident.blocks.tax_flags.us_resident_not_true"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.ip_resident.blocks.tax_flags.foreign_tax_resident_not_true",
+      "type": "rule",
+      "description": "Признак иностранного налогового резидентства не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "message": "Признак иностранного налогового резидентства не допускается для ФЛ-резидента РФ",
+      "field": "beneficiary.tax.foreignTaxResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_resident.blocks.tax_flags.us_resident_not_true",
+      "type": "rule",
+      "description": "Признак резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "message": "Признак резидентства США не допускается для ФЛ-резидента РФ",
+      "field": "beneficiary.tax.usResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.ip_resident.blocks.tax_flags.us_tax_resident_not_true",
+      "type": "rule",
+      "description": "Признак налогового резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "message": "Признак налогового резидентства США не допускается для ФЛ-резидента РФ",
+      "field": "beneficiary.tax.usTaxResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "library.address.building",
@@ -2978,6 +3380,28 @@
       "field": "beneficiary.fl.middleName"
     },
     {
+      "id": "library.ip_resident.fl.precheck_identity_any",
+      "type": "rule",
+      "description": "Для владельца ИП-резидента должен быть указан ИНН или номер документа",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "EXCEPTION",
+      "code": "IP_RESIDENT.FL.IDENTITY.MIN.ONE",
+      "message": "Для владельца ИП-резидента должен быть указан ИНН или номер документа",
+      "fields": [
+        "beneficiary.inn",
+        "beneficiary.idDoc.number"
+      ],
+      "paths": [
+        "beneficiary.inn",
+        "beneficiary.idDoc.number"
+      ],
+      "meta": {
+        "legacyCode": "FL.IDENTITY.MIN.ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
       "id": "library.nonresident.add_doc_issue_date_end_after_start",
       "type": "rule",
       "description": "Дата окончания действия дополнительного документа позже даты начала",
@@ -3824,7 +4248,7 @@
   "meta": {
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT и FL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.2.0"
+    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT и IP_RESIDENT validate-application в режиме parity с processor-preprod.",
+    "rulesetVersion": "0.3.0"
   }
 }

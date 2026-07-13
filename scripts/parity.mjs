@@ -26,6 +26,10 @@ const legacySnapshotPaths = {
     "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
     "fl-nonresident.validate-application.rules.snapshot.json",
   ),
+  "entrypoints.ip_resident.full_validation": legacySnapshotPath(
+    "artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    "ip-resident.validate-application.rules.snapshot.json",
+  ),
 };
 
 function readSamples(dir) {

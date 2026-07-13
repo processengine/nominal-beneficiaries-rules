@@ -1,0 +1,12 @@
+{
+  "id": "entrypoints.ip_resident.full_validation.type_is_ip_resident",
+  "type": "rule",
+  "description": "Тип бенефициара должен быть ИП-резидент",
+  "role": "check",
+  "operator": "equals",
+  "level": "EXCEPTION",
+  "code": "IP.TYPE.MISMATCH",
+  "message": "Бенефициар должен быть индивидуальным предпринимателем, резидентом РФ",
+  "field": "beneficiary.type",
+  "value": "IP_RESIDENT"
+}

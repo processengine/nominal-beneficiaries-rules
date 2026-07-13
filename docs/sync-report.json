@@ -16,6 +16,14 @@
       "fieldContractPath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 225,
       "entrypointId": "entrypoints.fl_nonresident.full_validation"
+    },
+    {
+      "key": "ip_resident",
+      "type": "IP_RESIDENT",
+      "sourcePath": "../processor-preprod/artifacts/ip-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/ip-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
+      "sourceArtifacts": 176,
+      "entrypointId": "entrypoints.ip_resident.full_validation"
     }
   ],
   "mergeReports": [
@@ -38,6 +46,30 @@
         "library.fl.precheck_identity_any": "library.fl_nonresident.fl.precheck_identity_any",
         "library.address.cond_registration_fias_structure_for_ru": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru",
         "library.documents.cond_issuer_if_present": "library.fl_nonresident.documents.cond_issuer_if_present"
+      }
+    },
+    {
+      "contour": "ip_resident",
+      "sourceArtifacts": 176,
+      "shared": 159,
+      "added": 17,
+      "scopedConflicts": 15,
+      "conflictMap": {
+        "library.fl.precheck_identity_any": "library.ip_resident.fl.precheck_identity_any",
+        "internal.fl_resident.blocks.address": "internal.ip_resident.blocks.address",
+        "internal.fl_resident.blocks.address.registration_country_if_present": "internal.ip_resident.blocks.address.registration_country_if_present",
+        "internal.fl_resident.blocks.address.registration_country_not_us": "internal.ip_resident.blocks.address.registration_country_not_us",
+        "internal.fl_resident.blocks.contacts_and_status": "internal.ip_resident.blocks.contacts_and_status",
+        "internal.fl_resident.blocks.identity_core.birth_place_if_present": "internal.ip_resident.blocks.identity_core.birth_place_if_present",
+        "internal.fl_resident.blocks.identity_core.birth_place_not_usa": "internal.ip_resident.blocks.identity_core.birth_place_not_usa",
+        "internal.fl_resident.blocks.identity_core.citizenship_if_present": "internal.ip_resident.blocks.identity_core.citizenship_if_present",
+        "internal.fl_resident.blocks.identity_core.citizenship_not_us": "internal.ip_resident.blocks.identity_core.citizenship_not_us",
+        "internal.fl_resident.blocks.identity_core": "internal.ip_resident.blocks.identity_core",
+        "internal.fl_resident.blocks.identity_document": "internal.ip_resident.blocks.identity_document",
+        "internal.fl_resident.blocks.tax_flags": "internal.ip_resident.blocks.tax_flags",
+        "internal.fl_resident.blocks.tax_flags.us_resident_not_true": "internal.ip_resident.blocks.tax_flags.us_resident_not_true",
+        "internal.fl_resident.blocks.tax_flags.us_tax_resident_not_true": "internal.ip_resident.blocks.tax_flags.us_tax_resident_not_true",
+        "internal.fl_resident.blocks.tax_flags.foreign_tax_resident_not_true": "internal.ip_resident.blocks.tax_flags.foreign_tax_resident_not_true"
       }
     }
   ],
@@ -113,7 +145,49 @@
       "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
       "code": "FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
       "firstArtifactId": "internal.fl_resident.blocks.tax_flags.us_tax_resident_not_true"
+    },
+    {
+      "artifactId": "library.ip_resident.fl.precheck_identity_any",
+      "legacyCode": "FL.IDENTITY.MIN.ONE",
+      "code": "IP_RESIDENT.FL.IDENTITY.MIN.ONE",
+      "firstArtifactId": "library.fl.precheck_identity_any"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.address.registration_country_not_us",
+      "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+      "code": "IP_RESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+      "firstArtifactId": "internal.fl_resident.blocks.address.registration_country_not_us"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.identity_core.birth_place_not_usa",
+      "legacyCode": "FL.BIRTH_PLACE.NOT_USA",
+      "code": "IP_RESIDENT.FL.BIRTH_PLACE.NOT_USA",
+      "firstArtifactId": "internal.fl_resident.blocks.identity_core.birth_place_not_usa"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.identity_core.citizenship_not_us",
+      "legacyCode": "FL.CITIZENSHIP.NOT_US",
+      "code": "IP_RESIDENT.FL.CITIZENSHIP.NOT_US",
+      "firstArtifactId": "internal.fl_resident.blocks.identity_core.citizenship_not_us"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.tax_flags.us_resident_not_true",
+      "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "code": "IP_RESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "internal.fl_resident.blocks.tax_flags.us_resident_not_true"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.tax_flags.us_tax_resident_not_true",
+      "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "code": "IP_RESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "internal.fl_resident.blocks.tax_flags.us_tax_resident_not_true"
+    },
+    {
+      "artifactId": "internal.ip_resident.blocks.tax_flags.foreign_tax_resident_not_true",
+      "legacyCode": "BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "code": "IP_RESIDENT.BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "internal.fl_resident.blocks.tax_flags.foreign_tax_resident_not_true"
     }
   ],
-  "artifactCount": 271
+  "artifactCount": 288
 }
