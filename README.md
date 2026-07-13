@@ -76,6 +76,34 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 сохраняет старое значение в `meta.legacyCode`. Parity harness сравнивает с
 legacy по `legacyCode`.
 
+## Релизный цикл
+
+Пакет публикуется в npm как
+`@processengine/nominal-beneficiaries-rules`.
+
+Обычный порядок релиза:
+
+```bash
+npm version patch   # или minor / major
+git push origin main --follow-tags
+```
+
+GitHub Actions запускает `Release` на tag вида `vX.Y.Z`, проверяет совпадение
+tag с `package.json`, прогоняет `npm test`, проверяет, что такая версия еще не
+опубликована, и выполняет `npm publish --access public`.
+
+Для ручного запуска есть `workflow_dispatch` в workflow `Release`; он публикует
+текущую версию из `package.json`.
+
+Секрет публикации:
+
+```text
+NPM_TOKEN
+```
+
+Он хранится в GitHub Actions secrets репозитория и не должен попадать в
+исходники, README, issue или логи.
+
 ## Структура
 
 ```text
@@ -92,7 +120,7 @@ docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 
 ## Следующие слайсы
 
-1. Подключить package к processor через `rulesetRef` без удаления local fallback.
+1. Переключить первый processor artifact на `rulesetRef` без удаления local fallback.
 2. Перенести следующий маленький validate-application contour.
 3. После parity вынести общие проверки в library pipelines и убрать
    физическое дублирование между FL/IP/UL.
