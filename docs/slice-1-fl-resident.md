@@ -57,8 +57,8 @@ node /Users/vladimirtitskiy/Dev/jsonspecs-rule-author/scripts/validate-package.m
 
 ## Next Slices
 
-1. Перенести второй validate-application contour и подтвердить повторное
-   использование `library.*`.
+1. Второй validate-application contour перенесен в
+   [slice-2-fl-nonresident.md](./slice-2-fl-nonresident.md).
 2. После второго потребителя выделять общие pipelines вместо физического
    копирования блоков.
 3. Подключить package в `processor-preprod` через `rulesEngine` как внешний

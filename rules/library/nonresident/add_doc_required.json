@@ -1,0 +1,15 @@
+{
+  "id": "library.nonresident.add_doc_required",
+  "type": "rule",
+  "description": "Для ФЛ-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+  "role": "check",
+  "operator": "any_filled",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.REQUIRED",
+  "message": "Для ФЛ-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+  "fields": [
+    "beneficiary.addDoc.number",
+    "beneficiary.addDoc.issueDate",
+    "beneficiary.addDoc.issueDateEnd"
+  ]
+}

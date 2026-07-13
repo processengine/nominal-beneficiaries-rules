@@ -1,0 +1,12 @@
+{
+  "id": "library.nonresident.add_doc_issue_date_end_after_start",
+  "type": "rule",
+  "description": "Дата окончания действия дополнительного документа позже даты начала",
+  "role": "check",
+  "operator": "field_greater_than_field",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.DATE.ORDER",
+  "message": "Дата окончания действия дополнительного документа должна быть позже даты начала",
+  "field": "beneficiary.addDoc.issueDateEnd",
+  "value_field": "beneficiary.addDoc.issueDate"
+}

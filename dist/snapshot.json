@@ -1,11 +1,21 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "aa113f5b853c56642382bca65ffe7acb5fc6b82eb73ae910217f508d2b441f47",
+  "sourceHash": "d2950e88774f41325a09d05595fcd2e2f157600f3f843133e330a2322e67dc3d",
   "engine": {
-    "minVersion": "2.1.1"
+    "minVersion": "2.0.0"
   },
   "artifacts": [
+    {
+      "id": "add_doc_type_codes",
+      "type": "dictionary",
+      "description": "Merchant-коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+      "entries": [
+        "007",
+        "005",
+        "006"
+      ]
+    },
     {
       "id": "beneficiary_types",
       "type": "dictionary",
@@ -17,6 +27,14 @@
         "IP_NONRESIDENT",
         "FL_RESIDENT",
         "FL_NONRESIDENT"
+      ]
+    },
+    {
+      "id": "dictionaries.fl_nonresident.document_type_codes_fl",
+      "type": "dictionary",
+      "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+      "entries": [
+        "004"
       ]
     },
     {
@@ -40,59 +58,59 @@
       ]
     },
     {
-      "id": "street_types_fias_basic",
-      "type": "dictionary",
-      "description": "Допустимые сокращённые типы элементов улично-дорожной сети для проверки адреса; варианты с точкой и без точки",
-      "entries": [
-        "ал",
-        "ал.",
-        "б-р",
-        "б-р.",
-        "дор",
-        "дор.",
-        "км",
-        "км.",
-        "лн",
-        "лн.",
-        "наб",
-        "наб.",
-        "пер",
-        "пер.",
-        "пл",
-        "пл.",
-        "пр-д",
-        "пр-д.",
-        "пр-кт",
-        "пр-кт.",
-        "туп",
-        "туп.",
-        "ул",
-        "ул.",
-        "ш",
-        "ш."
+      "id": "entrypoints.fl_nonresident.full_validation",
+      "type": "pipeline",
+      "description": "Валидация заявки ФЛ-нерезидента РФ",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.beneficiary_type_required"
+        },
+        {
+          "rule": "library.common.beneficiary_type_supported"
+        },
+        {
+          "rule": "entrypoints.fl_nonresident.full_validation.type_is_fl_nonresident"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.contacts_and_status"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.identity_core"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.identity_document"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.add_doc"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.address"
+        },
+        {
+          "pipeline": "internal.fl_nonresident.blocks.tax_flags"
+        }
+      ],
+      "entrypoint": true,
+      "required_context": [
+        "currentDate"
       ]
     },
     {
-      "id": "tin_absence_reasons",
-      "type": "dictionary",
-      "description": "Причины отсутствия иностранного ИНН",
-      "entries": [
-        "A",
-        "B",
-        "C"
-      ]
-    },
-    {
-      "id": "entrypoints.fl_resident.full_validation.type_is_fl_resident",
+      "id": "entrypoints.fl_nonresident.full_validation.type_is_fl_nonresident",
       "type": "rule",
-      "description": "Тип бенефициара должен быть ФЛ-резидент",
+      "description": "Тип бенефициара должен быть ФЛ-нерезидент",
       "role": "check",
       "operator": "equals",
       "level": "EXCEPTION",
-      "code": "FL.TYPE.MISMATCH",
-      "message": "Бенефициар должен быть физическим лицом, резидентом РФ",
+      "code": "FL_NONRESIDENT.FL.TYPE.MISMATCH",
+      "message": "Бенефициар должен быть физическим лицом, нерезидентом РФ",
       "field": "beneficiary.type",
-      "value": "FL_RESIDENT"
+      "value": "FL_NONRESIDENT",
+      "meta": {
+        "legacyCode": "FL.TYPE.MISMATCH",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "entrypoints.fl_resident.full_validation",
@@ -131,7 +149,97 @@
       ]
     },
     {
-      "id": "internal.fl_resident.blocks.address.registration_country_if_present",
+      "id": "entrypoints.fl_resident.full_validation.type_is_fl_resident",
+      "type": "rule",
+      "description": "Тип бенефициара должен быть ФЛ-резидент",
+      "role": "check",
+      "operator": "equals",
+      "level": "EXCEPTION",
+      "code": "FL.TYPE.MISMATCH",
+      "message": "Бенефициар должен быть физическим лицом, резидентом РФ",
+      "field": "beneficiary.type",
+      "value": "FL_RESIDENT"
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.add_doc",
+      "type": "pipeline",
+      "description": "Проверка дополнительного документа ФЛ-нерезидента: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "strict": false,
+      "flow": [
+        {
+          "condition": "library.nonresident.cond_add_doc_required_unless_belarus"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_if_present"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_type_code_supported"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_right_to_stay_doc"
+        },
+        {
+          "condition": "library.nonresident.cond_add_doc_migration_card"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.address",
+      "type": "pipeline",
+      "description": "Проверки адреса регистрации и почтового адреса",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.address.registration_country_required"
+        },
+        {
+          "condition": "internal.fl_nonresident.blocks.address.registration_country_if_present"
+        },
+        {
+          "condition": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru"
+        },
+        {
+          "condition": "library.address.cond_postal_address_if_present"
+        },
+        {
+          "condition": "library.address.cond_postal_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_code_if_present"
+        },
+        {
+          "condition": "library.address.cond_region_name_if_present"
+        },
+        {
+          "condition": "library.address.cond_city_if_present"
+        },
+        {
+          "condition": "library.address.cond_locality_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_if_present"
+        },
+        {
+          "condition": "library.address.cond_street_type_if_present"
+        },
+        {
+          "condition": "library.address.cond_house_if_present"
+        },
+        {
+          "condition": "library.address.cond_building_if_present"
+        },
+        {
+          "condition": "library.address.cond_flat_if_present"
+        },
+        {
+          "condition": "library.fl_nonresident.address.cond_address_line_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.address.registration_country_if_present",
       "type": "condition",
       "description": "Если страна адреса регистрации заполнена, проверяем формат и запрет США",
       "when": {
@@ -144,21 +252,278 @@
           "rule": "library.address.country"
         },
         {
-          "rule": "internal.fl_resident.blocks.address.registration_country_not_us"
+          "rule": "internal.fl_nonresident.blocks.address.registration_country_not_us"
         }
       ]
     },
     {
-      "id": "internal.fl_resident.blocks.address.registration_country_not_us",
+      "id": "internal.fl_nonresident.blocks.address.registration_country_not_us",
       "type": "rule",
       "description": "Страна адреса регистрации не должна быть US",
       "role": "check",
       "operator": "not_equals",
       "level": "EXCEPTION",
-      "code": "BEN.ADDRESS.COUNTRY.NOT_US",
-      "message": "Адрес США не допускается для FL_RESIDENT",
+      "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+      "message": "Адрес США не допускается для ФЛ-нерезидента",
       "field": "beneficiary.address.registration.countryCode",
-      "value": "US"
+      "value": "US",
+      "meta": {
+        "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.contacts_and_status",
+      "type": "pipeline",
+      "description": "Общие проверки контактов и статуса связи",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.common.participation_required"
+        },
+        {
+          "condition": "library.common.cond_participation_if_present"
+        },
+        {
+          "rule": "library.common.account_number_required"
+        },
+        {
+          "condition": "library.common.cond_account_number_if_present"
+        },
+        {
+          "rule": "library.fl_nonresident.common.contacts_any"
+        },
+        {
+          "condition": "library.common.cond_phone_if_present"
+        },
+        {
+          "condition": "library.common.cond_email_if_present"
+        },
+        {
+          "rule": "library.common.status_start_required"
+        },
+        {
+          "condition": "library.common.cond_status_start_if_present"
+        },
+        {
+          "condition": "library.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_core",
+      "type": "pipeline",
+      "description": "Основные персональные данные",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.fl.inn_required"
+        },
+        {
+          "condition": "library.fl.cond_inn_if_present"
+        },
+        {
+          "rule": "library.fl.last_name_required"
+        },
+        {
+          "condition": "library.fl.cond_last_name_if_present"
+        },
+        {
+          "rule": "library.fl.first_name_required"
+        },
+        {
+          "condition": "library.fl.cond_first_name_if_present"
+        },
+        {
+          "condition": "library.fl.cond_middle_name_if_present"
+        },
+        {
+          "rule": "library.fl.birth_date_required"
+        },
+        {
+          "condition": "library.fl.cond_birth_date_if_present"
+        },
+        {
+          "rule": "library.fl.birth_place_required"
+        },
+        {
+          "condition": "internal.fl_nonresident.blocks.identity_core.birth_place_if_present"
+        },
+        {
+          "rule": "library.fl.citizenship_required"
+        },
+        {
+          "condition": "internal.fl_nonresident.blocks.identity_core.citizenship_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_core.birth_place_if_present",
+      "type": "condition",
+      "description": "Если место рождения указано, то проверяем ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_birth_place_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "internal.fl_nonresident.blocks.identity_core.birth_place_not_usa"
+        }
+      ]
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_core.birth_place_not_usa",
+      "type": "rule",
+      "description": "Место рождения не должно содержать указание на США",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "EXCEPTION",
+      "code": "FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+      "message": "Место рождения не должно указывать на США",
+      "field": "beneficiary.fl.birthPlace",
+      "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$",
+      "meta": {
+        "legacyCode": "FL.BIRTH_PLACE.NOT_USA",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_core.citizenship_if_present",
+      "type": "condition",
+      "description": "Если гражданство указано, то проверяем формат и ограничения",
+      "when": {
+        "all": [
+          "library.fl.pred_citizenship_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.fl.citizenship_code_format"
+        },
+        {
+          "rule": "internal.fl_nonresident.blocks.identity_core.citizenship_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_core.citizenship_not_us",
+      "type": "rule",
+      "description": "Код гражданства не должен быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "FL_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
+      "message": "Гражданство США не допускается для ФЛ-нерезидента",
+      "field": "beneficiary.fl.citizenshipCode",
+      "value": "US",
+      "meta": {
+        "legacyCode": "FL.CITIZENSHIP.NOT_US",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.identity_document",
+      "type": "pipeline",
+      "description": "Проверка документа удостоверяющего личность",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.documents.type_code_required"
+        },
+        {
+          "rule": "library.fl_nonresident.documents.type_code_in_dictionary"
+        },
+        {
+          "rule": "library.documents.type_code_not_35"
+        },
+        {
+          "rule": "library.documents.number_required"
+        },
+        {
+          "rule": "library.documents.issuer_required"
+        },
+        {
+          "condition": "library.fl_nonresident.documents.cond_issuer_if_present"
+        },
+        {
+          "rule": "library.documents.issue_date_required"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_if_present"
+        },
+        {
+          "condition": "library.documents.cond_issue_date_end_if_present"
+        },
+        {
+          "condition": "library.fl_nonresident.documents.cond_passport_rf_fields"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.tax_flags",
+      "type": "pipeline",
+      "description": "Проверка налоговых признаков ФЛ-нерезидента, FATCA/US и условных иностранных налоговых сведений",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.tax.us_tax_resident_bool"
+        },
+        {
+          "rule": "internal.fl_nonresident.blocks.tax_flags.us_tax_resident_not_true"
+        },
+        {
+          "rule": "library.tax.us_resident_bool"
+        },
+        {
+          "rule": "internal.fl_nonresident.blocks.tax_flags.us_resident_not_true"
+        },
+        {
+          "condition": "library.tax.cond_foreign_tax_trigger_block"
+        },
+        {
+          "condition": "library.tax.cond_phone_foreign_required_if_triggered_and_rf_phone_missing"
+        },
+        {
+          "condition": "library.common.cond_phone_foreign_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.tax_flags.us_resident_not_true",
+      "type": "rule",
+      "description": "Признак резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "FL_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "message": "Признак резидентства США не допускается для ФЛ-нерезидента РФ",
+      "field": "beneficiary.tax.usResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "internal.fl_nonresident.blocks.tax_flags.us_tax_resident_not_true",
+      "type": "rule",
+      "description": "Признак налогового резидентства США не должен иметь значение true",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "message": "Признак налогового резидентства США не допускается для ФЛ-нерезидента РФ",
+      "field": "beneficiary.tax.usTaxResident",
+      "value": true,
+      "meta": {
+        "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "internal.fl_resident.blocks.address",
@@ -215,6 +580,36 @@
       "entrypoint": false
     },
     {
+      "id": "internal.fl_resident.blocks.address.registration_country_if_present",
+      "type": "condition",
+      "description": "Если страна адреса регистрации заполнена, проверяем формат и запрет США",
+      "when": {
+        "all": [
+          "library.address.pred_country_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.address.country"
+        },
+        {
+          "rule": "internal.fl_resident.blocks.address.registration_country_not_us"
+        }
+      ]
+    },
+    {
+      "id": "internal.fl_resident.blocks.address.registration_country_not_us",
+      "type": "rule",
+      "description": "Страна адреса регистрации не должна быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "BEN.ADDRESS.COUNTRY.NOT_US",
+      "message": "Адрес США не допускается для FL_RESIDENT",
+      "field": "beneficiary.address.registration.countryCode",
+      "value": "US"
+    },
+    {
       "id": "internal.fl_resident.blocks.contacts_and_status",
       "type": "pipeline",
       "description": "Общие проверки контактов и статуса связи",
@@ -249,6 +644,54 @@
         },
         {
           "condition": "library.common.cond_status_end_if_present"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_resident.blocks.identity_core",
+      "type": "pipeline",
+      "description": "Основные персональные данные",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.fl.inn_required"
+        },
+        {
+          "condition": "library.fl.cond_inn_if_present"
+        },
+        {
+          "rule": "library.fl.last_name_required"
+        },
+        {
+          "condition": "library.fl.cond_last_name_if_present"
+        },
+        {
+          "rule": "library.fl.first_name_required"
+        },
+        {
+          "condition": "library.fl.cond_first_name_if_present"
+        },
+        {
+          "condition": "library.fl.cond_middle_name_if_present"
+        },
+        {
+          "rule": "library.fl.birth_date_required"
+        },
+        {
+          "condition": "library.fl.cond_birth_date_if_present"
+        },
+        {
+          "rule": "library.fl.birth_place_required"
+        },
+        {
+          "condition": "internal.fl_resident.blocks.identity_core.birth_place_if_present"
+        },
+        {
+          "rule": "library.fl.citizenship_required"
+        },
+        {
+          "condition": "internal.fl_resident.blocks.identity_core.citizenship_if_present"
         }
       ],
       "entrypoint": false
@@ -311,54 +754,6 @@
       "value": "US"
     },
     {
-      "id": "internal.fl_resident.blocks.identity_core",
-      "type": "pipeline",
-      "description": "Основные персональные данные",
-      "strict": false,
-      "flow": [
-        {
-          "rule": "library.fl.inn_required"
-        },
-        {
-          "condition": "library.fl.cond_inn_if_present"
-        },
-        {
-          "rule": "library.fl.last_name_required"
-        },
-        {
-          "condition": "library.fl.cond_last_name_if_present"
-        },
-        {
-          "rule": "library.fl.first_name_required"
-        },
-        {
-          "condition": "library.fl.cond_first_name_if_present"
-        },
-        {
-          "condition": "library.fl.cond_middle_name_if_present"
-        },
-        {
-          "rule": "library.fl.birth_date_required"
-        },
-        {
-          "condition": "library.fl.cond_birth_date_if_present"
-        },
-        {
-          "rule": "library.fl.birth_place_required"
-        },
-        {
-          "condition": "internal.fl_resident.blocks.identity_core.birth_place_if_present"
-        },
-        {
-          "rule": "library.fl.citizenship_required"
-        },
-        {
-          "condition": "internal.fl_resident.blocks.identity_core.citizenship_if_present"
-        }
-      ],
-      "entrypoint": false
-    },
-    {
       "id": "internal.fl_resident.blocks.identity_document",
       "type": "pipeline",
       "description": "Проверка документа удостоверяющего личность",
@@ -393,6 +788,42 @@
         },
         {
           "condition": "library.documents.cond_passport_rf_fields"
+        }
+      ],
+      "entrypoint": false
+    },
+    {
+      "id": "internal.fl_resident.blocks.tax_flags",
+      "type": "pipeline",
+      "description": "Регуляторные флаги: обязательность, тип и допустимое значение",
+      "strict": false,
+      "flow": [
+        {
+          "rule": "library.tax.foreign_tax_resident_required"
+        },
+        {
+          "condition": "library.tax.cond_foreign_tax_resident_type_if_present"
+        },
+        {
+          "condition": "internal.fl_resident.blocks.tax_flags.cond_foreign_tax_resident_not_true_if_boolean"
+        },
+        {
+          "rule": "library.tax.us_tax_resident_required"
+        },
+        {
+          "condition": "library.tax.cond_us_tax_resident_type_if_present"
+        },
+        {
+          "condition": "internal.fl_resident.blocks.tax_flags.cond_us_tax_resident_not_true_if_boolean"
+        },
+        {
+          "rule": "library.tax.us_resident_required"
+        },
+        {
+          "condition": "library.tax.cond_us_resident_type_if_present"
+        },
+        {
+          "condition": "internal.fl_resident.blocks.tax_flags.cond_us_resident_not_true_if_boolean"
         }
       ],
       "entrypoint": false
@@ -477,42 +908,6 @@
       "message": "Признак налогового резидентства США не допускается для ФЛ-резидента РФ",
       "field": "beneficiary.tax.usTaxResident",
       "value": true
-    },
-    {
-      "id": "internal.fl_resident.blocks.tax_flags",
-      "type": "pipeline",
-      "description": "Регуляторные флаги: обязательность, тип и допустимое значение",
-      "strict": false,
-      "flow": [
-        {
-          "rule": "library.tax.foreign_tax_resident_required"
-        },
-        {
-          "condition": "library.tax.cond_foreign_tax_resident_type_if_present"
-        },
-        {
-          "condition": "internal.fl_resident.blocks.tax_flags.cond_foreign_tax_resident_not_true_if_boolean"
-        },
-        {
-          "rule": "library.tax.us_tax_resident_required"
-        },
-        {
-          "condition": "library.tax.cond_us_tax_resident_type_if_present"
-        },
-        {
-          "condition": "internal.fl_resident.blocks.tax_flags.cond_us_tax_resident_not_true_if_boolean"
-        },
-        {
-          "rule": "library.tax.us_resident_required"
-        },
-        {
-          "condition": "library.tax.cond_us_resident_type_if_present"
-        },
-        {
-          "condition": "internal.fl_resident.blocks.tax_flags.cond_us_resident_not_true_if_boolean"
-        }
-      ],
-      "entrypoint": false
     },
     {
       "id": "library.address.building",
@@ -830,6 +1225,18 @@
       "value": 255
     },
     {
+      "id": "library.address.postal",
+      "type": "rule",
+      "description": "Проверка почтового индекса адреса регистрации",
+      "role": "check",
+      "operator": "length_max",
+      "level": "ERROR",
+      "code": "BEN.ADDR.REG.POSTAL.LENGTH",
+      "message": "Почтовый индекс адреса регистрации слишком длинный",
+      "field": "beneficiary.address.registration.postalCode",
+      "value": 32
+    },
+    {
       "id": "library.address.postal_address_country_format",
       "type": "rule",
       "description": "Код страны почтового адреса должен быть в формате ISO 3166-1 alpha-2",
@@ -863,18 +1270,6 @@
       "message": "Почтовый адрес не должен указывать на США",
       "field": "beneficiary.contacts.postalAddress",
       "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$"
-    },
-    {
-      "id": "library.address.postal",
-      "type": "rule",
-      "description": "Проверка почтового индекса адреса регистрации",
-      "role": "check",
-      "operator": "length_max",
-      "level": "ERROR",
-      "code": "BEN.ADDR.REG.POSTAL.LENGTH",
-      "message": "Почтовый индекс адреса регистрации слишком длинный",
-      "field": "beneficiary.address.registration.postalCode",
-      "value": 32
     },
     {
       "id": "library.address.pred_building_present",
@@ -1102,6 +1497,18 @@
       "field": "beneficiary.address.registration.streetType"
     },
     {
+      "id": "library.address.street",
+      "type": "rule",
+      "description": "Проверка улицы адреса регистрации",
+      "role": "check",
+      "operator": "length_max",
+      "level": "ERROR",
+      "code": "BEN.ADDR.REG.STREET.LENGTH",
+      "message": "Улица адреса регистрации > 255 символов",
+      "field": "beneficiary.address.registration.street",
+      "value": 255
+    },
+    {
       "id": "library.address.street_type_in_dictionary",
       "type": "rule",
       "description": "Тип улицы адреса регистрации должен входить в допустимый справочник",
@@ -1115,18 +1522,6 @@
         "type": "static",
         "id": "street_types_fias_basic"
       }
-    },
-    {
-      "id": "library.address.street",
-      "type": "rule",
-      "description": "Проверка улицы адреса регистрации",
-      "role": "check",
-      "operator": "length_max",
-      "level": "ERROR",
-      "code": "BEN.ADDR.REG.STREET.LENGTH",
-      "message": "Улица адреса регистрации > 255 символов",
-      "field": "beneficiary.address.registration.street",
-      "value": 255
     },
     {
       "id": "library.common.account_number_format",
@@ -2012,6 +2407,207 @@
       "field": "beneficiary.idDoc.typeCode"
     },
     {
+      "id": "library.fl_nonresident.address.cond_address_line_if_present",
+      "type": "condition",
+      "description": "Если полный адрес места жительства / регистрации / пребывания заполнен, проверяем формат и длину",
+      "when": {
+        "all": [
+          "library.fl_nonresident.address.pred_full_address_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.fl_nonresident.address.full_address"
+        }
+      ]
+    },
+    {
+      "id": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru",
+      "type": "condition",
+      "description": "Если адрес места жительства / регистрации / пребывания относится к РФ, требуем ФИАС-структуру адреса",
+      "when": {
+        "all": [
+          "library.address.pred_registration_country_ru"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.address.registration_region_code_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_city_or_locality_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_street_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_street_type_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_house_required_for_ru"
+        },
+        {
+          "rule": "library.address.registration_postal_required_for_ru"
+        }
+      ]
+    },
+    {
+      "id": "library.fl_nonresident.address.full_address",
+      "type": "rule",
+      "description": "Если полный адрес места жительства / регистрации / пребывания передан, проверяем длину",
+      "role": "check",
+      "operator": "length_max",
+      "level": "ERROR",
+      "code": "FL_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+      "message": "Полный адрес места жительства / регистрации / пребывания превышает 500 символов",
+      "field": "beneficiary.address.registration.fullAddress",
+      "value": 500,
+      "meta": {
+        "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.fl_nonresident.address.pred_full_address_present",
+      "type": "rule",
+      "description": "Заполнен полный адрес места жительства / регистрации / пребывания",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.address.registration.fullAddress"
+    },
+    {
+      "id": "library.fl_nonresident.common.contacts_any",
+      "type": "rule",
+      "description": "Должен быть указан хотя бы один контакт: телефон РФ или email",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+      "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или email",
+      "fields": [
+        "beneficiary.contacts.phone",
+        "beneficiary.contacts.email"
+      ],
+      "meta": {
+        "legacyCode": "BEN.CONTACTS.MIN_ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.fl_nonresident.documents.cond_issuer_if_present",
+      "type": "condition",
+      "description": "Если орган выдачи указан, выполняем мягкие проверки качества заполнения",
+      "when": "library.documents.pred_issuer_present",
+      "steps": [
+        {
+          "rule": "library.fl_nonresident.documents.issuer_no_extra_spaces"
+        },
+        {
+          "rule": "library.fl_nonresident.documents.issuer_no_garbage_symbols"
+        }
+      ]
+    },
+    {
+      "id": "library.fl_nonresident.documents.cond_passport_rf_fields",
+      "type": "condition",
+      "description": "Если тип документа = паспорт РФ, проверяем паспортные поля и код подразделения",
+      "when": {
+        "all": [
+          "library.documents.pred_type_code_passport_rf"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.documents.series_required"
+        },
+        {
+          "condition": "library.documents.cond_series_format_if_present"
+        },
+        {
+          "rule": "library.documents.number_passport_rf_format"
+        },
+        {
+          "rule": "library.documents.issuer_code_required"
+        },
+        {
+          "condition": "library.documents.cond_issuer_code_format_if_present"
+        }
+      ]
+    },
+    {
+      "id": "library.fl_nonresident.documents.issuer_no_extra_spaces",
+      "type": "rule",
+      "description": "Орган выдачи не должен содержать лишние пробелы",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "WARNING",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.ISSUER.SPACES",
+      "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит лишние пробелы",
+      "field": "beneficiary.idDoc.issuer",
+      "value": "^(?!\\s)(?!.*\\s$)(?!.*\\s{2,}).+$",
+      "meta": {
+        "legacyCode": "BEN.IDDOC.ISSUER.SPACES",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.fl_nonresident.documents.issuer_no_garbage_symbols",
+      "type": "rule",
+      "description": "Орган выдачи не должен содержать мусорные символы",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "WARNING",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.ISSUER.SYMBOLS",
+      "message": "Поле \"Кем выдан документ, удостоверяющий личность\" содержит недопустимые символы",
+      "field": "beneficiary.idDoc.issuer",
+      "value": "^[A-Za-zА-Яа-яЁё0-9№.\\/\\- ]+$",
+      "meta": {
+        "legacyCode": "BEN.IDDOC.ISSUER.SYMBOLS",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.fl_nonresident.documents.type_code_in_dictionary",
+      "type": "rule",
+      "description": "Код типа документа должен входить в допустимый справочник",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "ERROR",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+      "message": "Код типа документа должен входить в допустимый классификатор",
+      "field": "beneficiary.idDoc.typeCode",
+      "dictionary": {
+        "type": "static",
+        "id": "dictionaries.fl_nonresident.document_type_codes_fl",
+        "description": "Merchant-коды документов ФЛ-нерезидента для ближайшего релиза: 004.",
+        "entries": [
+          "004"
+        ]
+      },
+      "meta": {
+        "legacyCode": "BEN.IDDOC.TYPE_CODE.DICT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.fl_nonresident.fl.precheck_identity_any",
+      "type": "rule",
+      "description": "Для ФЛ-нерезидента должен быть указан ИНН или номер документа",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "EXCEPTION",
+      "code": "FL_NONRESIDENT.FL.IDENTITY.MIN.ONE",
+      "message": "Для ФЛ-нерезидента должен быть указан ИНН или номер документа",
+      "fields": [
+        "beneficiary.inn",
+        "beneficiary.idDoc.number"
+      ],
+      "meta": {
+        "legacyCode": "FL.IDENTITY.MIN.ONE",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
       "id": "library.fl.birth_date_format",
       "type": "rule",
       "description": "Дата рождения должна быть в формате YYYY-MM-DD",
@@ -2382,6 +2978,359 @@
       "field": "beneficiary.fl.middleName"
     },
     {
+      "id": "library.nonresident.add_doc_issue_date_end_after_start",
+      "type": "rule",
+      "description": "Дата окончания действия дополнительного документа позже даты начала",
+      "role": "check",
+      "operator": "field_greater_than_field",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.DATE.ORDER",
+      "message": "Дата окончания действия дополнительного документа должна быть позже даты начала",
+      "field": "beneficiary.addDoc.issueDateEnd",
+      "value_field": "beneficiary.addDoc.issueDate"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_end_format",
+      "type": "rule",
+      "description": "Поле \"Дата окончания действия дополнительного документа\" в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.FORMAT",
+      "message": "Дата окончания действия дополнительного документа должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.addDoc.issueDateEnd",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_end_not_expired",
+      "type": "rule",
+      "description": "Срок действия дополнительного документа не истёк",
+      "role": "check",
+      "operator": "field_greater_or_equal_than_field",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.EXPIRED",
+      "message": "Срок действия дополнительного документа истёк",
+      "field": "beneficiary.addDoc.issueDateEnd",
+      "value_field": "$context.currentDate"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_end_required",
+      "type": "rule",
+      "description": "Поле \"Дата окончания действия дополнительного документа\" заполнено",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.REQUIRED",
+      "message": "Не указана дата окончания действия дополнительного документа",
+      "field": "beneficiary.addDoc.issueDateEnd"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_format",
+      "type": "rule",
+      "description": "Поле \"Дата начала действия дополнительного документа\" в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.FORMAT",
+      "message": "Дата начала действия дополнительного документа должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.addDoc.issueDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_not_future",
+      "type": "rule",
+      "description": "Дата начала действия дополнительного документа не больше текущей даты",
+      "role": "check",
+      "operator": "field_less_or_equal_than_field",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.NOT_FUTURE",
+      "message": "Дата начала действия дополнительного документа не должна быть больше текущей даты",
+      "field": "beneficiary.addDoc.issueDate",
+      "value_field": "$context.currentDate"
+    },
+    {
+      "id": "library.nonresident.add_doc_issue_date_required",
+      "type": "rule",
+      "description": "Поле \"Дата начала действия дополнительного документа\" заполнено",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.REQUIRED",
+      "message": "Не указана дата начала действия дополнительного документа",
+      "field": "beneficiary.addDoc.issueDate"
+    },
+    {
+      "id": "library.nonresident.add_doc_issuer_required",
+      "type": "rule",
+      "description": "Кем выдан обязательно для документа права пребывания/проживания ФЛ-нерезидента, если указан тип дополнительного документа",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+      "message": "Не указан орган, выдавший дополнительный документ",
+      "field": "beneficiary.addDoc.issuer"
+    },
+    {
+      "id": "library.nonresident.add_doc_migration_series_required",
+      "type": "rule",
+      "description": "Для миграционной карты должна быть указана серия",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.MIGRATION_CARD.SERIES.REQUIRED",
+      "message": "Не указана серия миграционной карты",
+      "field": "beneficiary.addDoc.series"
+    },
+    {
+      "id": "library.nonresident.add_doc_number_required",
+      "type": "rule",
+      "description": "Поле \"Номер дополнительного документа\" заполнено",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.NUMBER.REQUIRED",
+      "message": "Не указан номер дополнительного документа",
+      "field": "beneficiary.addDoc.number"
+    },
+    {
+      "id": "library.nonresident.add_doc_required",
+      "type": "rule",
+      "description": "Для ФЛ-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен.",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.REQUIRED",
+      "message": "Для ФЛ-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+      "fields": [
+        "beneficiary.addDoc.number",
+        "beneficiary.addDoc.issueDate",
+        "beneficiary.addDoc.issueDateEnd"
+      ]
+    },
+    {
+      "id": "library.nonresident.add_doc_series_required",
+      "type": "rule",
+      "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ФЛ-нерезидента.",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+      "message": "Не указана серия дополнительного документа",
+      "field": "beneficiary.addDoc.series"
+    },
+    {
+      "id": "library.nonresident.add_doc_type_code_supported",
+      "type": "rule",
+      "description": "Код типа дополнительного документа должен входить в справочник: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "ERROR",
+      "code": "FL_NONRES.ADD_DOC.TYPE_CODE.UNSUPPORTED",
+      "message": "Код типа дополнительного документа не поддерживается",
+      "field": "beneficiary.addDoc.typeCode",
+      "dictionary": {
+        "type": "static",
+        "id": "add_doc_type_codes",
+        "description": "Merchant-коды дополнительных документов ФЛ-нерезидента: 007 для миграционной карты, 005 для ВНЖ, 006 для РВП.",
+        "entries": [
+          "007",
+          "005",
+          "006"
+        ]
+      }
+    },
+    {
+      "id": "library.nonresident.cond_add_doc_if_present",
+      "type": "condition",
+      "description": "Если указан дополнительный документ, проверяем его обязательные поля",
+      "when": {
+        "any": [
+          "library.nonresident.pred_add_doc_typeCode_present",
+          "library.nonresident.pred_add_doc_series_present",
+          "library.nonresident.pred_add_doc_number_present",
+          "library.nonresident.pred_add_doc_issueDate_present",
+          "library.nonresident.pred_add_doc_issueDateEnd_present",
+          "library.nonresident.pred_add_doc_issuer_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.nonresident.add_doc_number_required"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_required"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_format"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_not_future"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_end_required"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_end_format"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_end_after_start"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issue_date_end_not_expired"
+        }
+      ]
+    },
+    {
+      "id": "library.nonresident.cond_add_doc_migration_card",
+      "type": "condition",
+      "description": "Если дополнительный документ является миграционной картой, проверяем обязательные поля миграционной карты",
+      "when": "library.nonresident.pred_add_doc_typeCode_migr",
+      "steps": [
+        {
+          "rule": "library.nonresident.add_doc_migration_series_required"
+        }
+      ]
+    },
+    {
+      "id": "library.nonresident.cond_add_doc_required_unless_belarus",
+      "type": "condition",
+      "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются.",
+      "when": "library.nonresident.pred_citizenship_not_belarus",
+      "steps": [
+        {
+          "rule": "library.nonresident.add_doc_required"
+        }
+      ]
+    },
+    {
+      "id": "library.nonresident.cond_add_doc_right_to_stay_doc",
+      "type": "condition",
+      "description": "Если указан документ права пребывания/проживания, проверяем обязательность серии и органа выдачи",
+      "when": {
+        "all": [
+          "library.nonresident.pred_add_doc_typeCode_present",
+          "library.nonresident.pred_add_doc_typeCode_not_migr"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.nonresident.add_doc_series_required"
+        },
+        {
+          "rule": "library.nonresident.add_doc_issuer_required"
+        }
+      ]
+    },
+    {
+      "id": "library.nonresident.cond_add_doc_type_code_supported",
+      "type": "condition",
+      "description": "Если указан тип дополнительного документа, проверяем справочник.",
+      "when": "library.nonresident.pred_add_doc_typeCode_present",
+      "steps": [
+        {
+          "rule": "library.nonresident.add_doc_type_code_supported"
+        }
+      ]
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_issueDate_present",
+      "type": "rule",
+      "description": "Дата начала действия дополнительного документа заполнена",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.issueDate"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_issueDateEnd_present",
+      "type": "rule",
+      "description": "Дата окончания действия дополнительного документа заполнена",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.issueDateEnd"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_issuer_present",
+      "type": "rule",
+      "description": "Орган выдачи дополнительного документа заполнен",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.issuer"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_number_present",
+      "type": "rule",
+      "description": "Номер дополнительного документа заполнен",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.number"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_series_present",
+      "type": "rule",
+      "description": "Серия дополнительного документа заполнена",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.series"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_typeCode_empty",
+      "type": "rule",
+      "description": "Тип дополнительного документа не заполнен",
+      "role": "predicate",
+      "operator": "is_empty",
+      "field": "beneficiary.addDoc.typeCode"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_typeCode_migr",
+      "type": "rule",
+      "description": "Дополнительный документ является миграционной картой",
+      "role": "predicate",
+      "operator": "equals",
+      "field": "beneficiary.addDoc.typeCode",
+      "value": "007"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_typeCode_not_migr",
+      "type": "rule",
+      "description": "Дополнительный документ не является миграционной картой",
+      "role": "predicate",
+      "operator": "not_equals",
+      "field": "beneficiary.addDoc.typeCode",
+      "value": "007"
+    },
+    {
+      "id": "library.nonresident.pred_add_doc_typeCode_present",
+      "type": "rule",
+      "description": "Тип дополнительного документа заполнен",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.addDoc.typeCode"
+    },
+    {
+      "id": "library.nonresident.pred_citizenship_not_belarus",
+      "type": "rule",
+      "description": "Код гражданства не равен BY.",
+      "role": "predicate",
+      "operator": "not_equals",
+      "field": "beneficiary.fl.citizenshipCode",
+      "value": "BY"
+    },
+    {
+      "id": "library.tax.cond_foreign_address_if_present",
+      "type": "condition",
+      "description": "Если адрес в иностранном государстве указан, проверяем запрет США",
+      "when": {
+        "all": [
+          "library.tax.pred_foreign_address_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.tax.foreign_address_not_us"
+        }
+      ]
+    },
+    {
       "id": "library.tax.cond_foreign_tax_resident_type_if_present",
       "type": "condition",
       "description": "Если признак иностранного налогового резидентства указан, проверяем, что он передан как true или false",
@@ -2393,6 +3342,96 @@
       "steps": [
         {
           "rule": "library.tax.foreign_tax_resident_bool"
+        }
+      ]
+    },
+    {
+      "id": "library.tax.cond_foreign_tax_trigger_block",
+      "type": "condition",
+      "description": "Если указан иностранный документ или адрес не РФ, то проверяем данные иностранного налогового резидентства",
+      "when": {
+        "any": [
+          "library.tax.pred_is_foreign_id_doc_true",
+          "library.tax.pred_registration_country_non_ru",
+          "library.tax.pred_postal_country_non_ru"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.tax.foreign_country_required"
+        },
+        {
+          "rule": "library.tax.foreign_country_format"
+        },
+        {
+          "rule": "library.tax.foreign_country_not_us"
+        },
+        {
+          "rule": "library.tax.foreign_tin_or_reason"
+        },
+        {
+          "rule": "library.tax.foreign_address_or_postal_required"
+        },
+        {
+          "condition": "library.tax.cond_foreign_address_if_present"
+        },
+        {
+          "condition": "library.tax.cond_tin_if_present"
+        },
+        {
+          "condition": "library.tax.cond_reason_if_present"
+        }
+      ]
+    },
+    {
+      "id": "library.tax.cond_phone_foreign_required_if_triggered_and_rf_phone_missing",
+      "type": "condition",
+      "description": "Если телефон РФ не указан и при этом указан иностранный документ или адрес не РФ, то требуем иностранный телефон",
+      "when": {
+        "all": [
+          "library.tax.pred_phone_missing",
+          {
+            "any": [
+              "library.tax.pred_is_foreign_id_doc_true",
+              "library.tax.pred_registration_country_non_ru",
+              "library.tax.pred_postal_country_non_ru"
+            ]
+          }
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.tax.phone_foreign_required"
+        }
+      ]
+    },
+    {
+      "id": "library.tax.cond_reason_if_present",
+      "type": "condition",
+      "description": "Если указана причина отсутствия иностранного ИНН, проверяем справочник",
+      "when": {
+        "all": [
+          "library.tax.pred_reason_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.tax.tin_absence_reason_dict"
+        }
+      ]
+    },
+    {
+      "id": "library.tax.cond_tin_if_present",
+      "type": "condition",
+      "description": "Если иностранный ИНН указан, проверяем длину",
+      "when": {
+        "all": [
+          "library.tax.pred_tin_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.tax.foreign_tin_length"
         }
       ]
     },
@@ -2427,6 +3466,75 @@
       ]
     },
     {
+      "id": "library.tax.foreign_address_not_us",
+      "type": "rule",
+      "description": "Адрес в иностранном государстве не должен содержать указание на США",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "EXCEPTION",
+      "code": "BEN.TAX.FOREIGN_ADDRESS.NOT_US",
+      "message": "Адрес в иностранном государстве не должен указывать на США",
+      "field": "beneficiary.tax.foreignTaxResidency.address",
+      "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$"
+    },
+    {
+      "id": "library.tax.foreign_address_or_postal_required",
+      "type": "rule",
+      "description": "При foreign-tax trigger должен быть указан адрес в иностранном государстве для каждого иностранного налогового резидентства",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "BEN.TAX.FOREIGN_ADDRESS.OR_POSTAL_REQUIRED",
+      "message": "Не указан адрес в иностранном государстве",
+      "field": "beneficiary.tax.foreignTaxResidency.address"
+    },
+    {
+      "id": "library.tax.foreign_address_required",
+      "type": "rule",
+      "description": "При foreign-tax trigger требуется адрес в иностранном государстве",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "BEN.TAX.FOREIGN_ADDRESS.REQUIRED",
+      "message": "Не указан адрес в иностранном государстве",
+      "field": "beneficiary.tax.foreignTaxResidency.address"
+    },
+    {
+      "id": "library.tax.foreign_country_format",
+      "type": "rule",
+      "description": "Код страны иностранного налогового резидентства должен быть двухбуквенным",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "BEN.TAX.FOREIGN_COUNTRY.FORMAT",
+      "message": "Код страны иностранного налогового резидентства должен быть в формате ISO 3166-1 alpha-2",
+      "field": "beneficiary.tax.foreignTaxResidency.countryCode",
+      "value": "^[A-Z]{2}$"
+    },
+    {
+      "id": "library.tax.foreign_country_not_us",
+      "type": "rule",
+      "description": "Код страны иностранного налогового резидентства не должен быть US",
+      "role": "check",
+      "operator": "not_equals",
+      "level": "EXCEPTION",
+      "code": "BEN.TAX.FOREIGN_COUNTRY.NOT_US",
+      "message": "Иностранное налоговое резидентство США должно блокироваться отдельно и не допускается в этом блоке",
+      "field": "beneficiary.tax.foreignTaxResidency.countryCode",
+      "value": "US"
+    },
+    {
+      "id": "library.tax.foreign_country_required",
+      "type": "rule",
+      "description": "При иностранном налоговом резидентстве требуется страна для каждого налогового резидентства",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "EXCEPTION",
+      "code": "BEN.TAX.FOREIGN_COUNTRY.REQUIRED",
+      "message": "Не указана страна иностранного налогового резидентства",
+      "field": "beneficiary.tax.foreignTaxResidency.countryCode"
+    },
+    {
       "id": "library.tax.foreign_tax_resident_bool",
       "type": "rule",
       "description": "Признак иностранного налогового резидентства должен быть булевым (true/false)",
@@ -2449,6 +3557,51 @@
       "field": "beneficiary.tax.foreignTaxResident"
     },
     {
+      "id": "library.tax.foreign_tin_length",
+      "type": "rule",
+      "description": "Иностранный ИНН не должен быть длиннее 64 символов",
+      "role": "check",
+      "operator": "length_max",
+      "level": "ERROR",
+      "code": "BEN.TAX.FOREIGN_TIN.LENGTH",
+      "message": "Иностранный ИНН слишком длинный",
+      "field": "beneficiary.tax.foreignTaxResidency.tin",
+      "value": 64
+    },
+    {
+      "id": "library.tax.foreign_tin_or_reason",
+      "type": "rule",
+      "description": "Должен быть указан иностранный ИНН или причина его отсутствия",
+      "role": "check",
+      "operator": "any_filled",
+      "level": "EXCEPTION",
+      "code": "BEN.TAX.FOREIGN_TIN.OR_REASON",
+      "message": "Укажите иностранный ИНН или причину его отсутствия",
+      "fields": [
+        "beneficiary.tax.foreignTaxResidency.tin",
+        "beneficiary.tax.foreignTaxResidency.tinAbsenceReason"
+      ]
+    },
+    {
+      "id": "library.tax.phone_foreign_required",
+      "type": "rule",
+      "description": "При foreign-trigger и отсутствии телефона РФ требуется иностранный телефон",
+      "role": "check",
+      "operator": "not_empty",
+      "level": "ERROR",
+      "code": "BEN.CONTACTS.PHONE_FOREIGN.REQUIRED",
+      "message": "Не указан иностранный телефон. Он обязателен при отсутствии телефона РФ и наличии foreign-trigger",
+      "field": "beneficiary.contacts.foreignPhone"
+    },
+    {
+      "id": "library.tax.pred_foreign_address_present",
+      "type": "rule",
+      "description": "Адрес в иностранном государстве заполнен",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.tax.foreignTaxResidency.address"
+    },
+    {
       "id": "library.tax.pred_foreign_tax_resident_boolean",
       "type": "rule",
       "description": "Проверяет, что признак иностранного налогового резидентства передан как true или false",
@@ -2463,6 +3616,75 @@
       "role": "predicate",
       "operator": "not_empty",
       "field": "beneficiary.tax.foreignTaxResident"
+    },
+    {
+      "id": "library.tax.pred_foreign_tax_true",
+      "type": "rule",
+      "description": "Указано иностранное налоговое резидентство",
+      "role": "predicate",
+      "operator": "equals",
+      "field": "beneficiary.tax.foreignTaxResident",
+      "value": true
+    },
+    {
+      "id": "library.tax.pred_is_foreign_id_doc_true",
+      "type": "rule",
+      "description": "Код документа относится к иностранному документу",
+      "role": "predicate",
+      "operator": "not_in_dictionary",
+      "field": "beneficiary.idDoc.typeCode",
+      "dictionary": {
+        "type": "static",
+        "id": "domestic_document_type_codes_fl",
+        "description": "Merchant-коды документов граждан РФ для ближайшего релиза: 001, 002, 003.",
+        "entries": [
+          "001",
+          "002",
+          "003"
+        ]
+      }
+    },
+    {
+      "id": "library.tax.pred_phone_missing",
+      "type": "rule",
+      "description": "Телефон РФ отсутствует",
+      "role": "predicate",
+      "operator": "is_empty",
+      "field": "beneficiary.contacts.phone"
+    },
+    {
+      "id": "library.tax.pred_postal_country_non_ru",
+      "type": "rule",
+      "description": "Страна почтового адреса указана и не равна RU",
+      "role": "predicate",
+      "operator": "matches_regex",
+      "field": "beneficiary.contacts.postalAddressCountryCode",
+      "value": "^(?!RU$)[A-Z]{2}$"
+    },
+    {
+      "id": "library.tax.pred_reason_present",
+      "type": "rule",
+      "description": "Указана причина отсутствия иностранного ИНН",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason"
+    },
+    {
+      "id": "library.tax.pred_registration_country_non_ru",
+      "type": "rule",
+      "description": "Страна адреса регистрации указана и не равна RU",
+      "role": "predicate",
+      "operator": "matches_regex",
+      "field": "beneficiary.address.registration.countryCode",
+      "value": "^(?!RU$)[A-Z]{2}$"
+    },
+    {
+      "id": "library.tax.pred_tin_present",
+      "type": "rule",
+      "description": "Иностранный ИНН указан",
+      "role": "predicate",
+      "operator": "not_empty",
+      "field": "beneficiary.tax.foreignTaxResidency.tin"
     },
     {
       "id": "library.tax.pred_us_resident_boolean",
@@ -2495,6 +3717,21 @@
       "role": "predicate",
       "operator": "not_empty",
       "field": "beneficiary.tax.usTaxResident"
+    },
+    {
+      "id": "library.tax.tin_absence_reason_dict",
+      "type": "rule",
+      "description": "Код причины отсутствия иностранного ИНН должен входить в справочник",
+      "role": "check",
+      "operator": "in_dictionary",
+      "level": "EXCEPTION",
+      "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
+      "message": "Некорректный код причины отсутствия иностранного ИНН",
+      "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason",
+      "dictionary": {
+        "type": "static",
+        "id": "tin_absence_reasons"
+      }
     },
     {
       "id": "library.tax.us_resident_bool",
@@ -2539,12 +3776,55 @@
       "code": "BEN.TAX.US_TAX_RESIDENT.REQUIRED",
       "message": "Не указан признак налогового резидентства США",
       "field": "beneficiary.tax.usTaxResident"
+    },
+    {
+      "id": "street_types_fias_basic",
+      "type": "dictionary",
+      "description": "Допустимые сокращённые типы элементов улично-дорожной сети для проверки адреса; варианты с точкой и без точки",
+      "entries": [
+        "ал",
+        "ал.",
+        "б-р",
+        "б-р.",
+        "дор",
+        "дор.",
+        "км",
+        "км.",
+        "лн",
+        "лн.",
+        "наб",
+        "наб.",
+        "пер",
+        "пер.",
+        "пл",
+        "пл.",
+        "пр-д",
+        "пр-д.",
+        "пр-кт",
+        "пр-кт.",
+        "туп",
+        "туп.",
+        "ул",
+        "ул.",
+        "ш",
+        "ш."
+      ]
+    },
+    {
+      "id": "tin_absence_reasons",
+      "type": "dictionary",
+      "description": "Причины отсутствия иностранного ИНН",
+      "entries": [
+        "A",
+        "B",
+        "C"
+      ]
     }
   ],
   "meta": {
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
-    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Первый слайс содержит FL_RESIDENT validate-application в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.1.0"
+    "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT и FL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
+    "rulesetVersion": "0.2.0"
   }
 }

@@ -1,0 +1,11 @@
+{
+  "id": "library.nonresident.add_doc_migration_series_required",
+  "type": "rule",
+  "description": "Для миграционной карты должна быть указана серия",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.MIGRATION_CARD.SERIES.REQUIRED",
+  "message": "Не указана серия миграционной карты",
+  "field": "beneficiary.addDoc.series"
+}

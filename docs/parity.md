@@ -1,6 +1,6 @@
 # Parity contract
 
-Первый package slice не меняет бизнес-смысл правил.
+Package slice не меняет бизнес-смысл правил.
 
 Для каждого sample выполняется два запуска:
 
@@ -24,6 +24,19 @@ Samples с `legacyParity: false` не сравниваются с legacy snapsho
 допускается только для явно описанных guard-улучшений, когда новый пакет
 разделяет отсутствие поля, неверный тип и бизнес-запрет значения. Такие samples
 обязательно проверяются по собственному `expect`.
+
+Для физически разных правил с одинаковым legacy-кодом применяется namespace
+кода внутри jsonspecs snapshot. Пример:
+
+```text
+BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
+FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE
+```
+
+Старый код сохраняется в `rule.meta.legacyCode`. При сравнении с
+`@processengine/rules` parity harness подставляет `legacyCode`, чтобы
+проверять бизнес-эквивалентность, а не требовать невозможный для jsonspecs
+дубль `code` внутри одного snapshot.
 
 Если parity падает, нельзя исправлять sample под новый результат. Сначала нужно
 понять, где drift: в envelope, custom operator, jsonspecs runtime или в самих

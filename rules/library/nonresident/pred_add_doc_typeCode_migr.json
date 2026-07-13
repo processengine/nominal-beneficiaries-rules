@@ -1,0 +1,9 @@
+{
+  "id": "library.nonresident.pred_add_doc_typeCode_migr",
+  "type": "rule",
+  "description": "Дополнительный документ является миграционной картой",
+  "role": "predicate",
+  "operator": "equals",
+  "field": "beneficiary.addDoc.typeCode",
+  "value": "007"
+}

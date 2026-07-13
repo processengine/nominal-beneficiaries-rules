@@ -1,17 +1,7 @@
 {
   "projectId": "nominal-beneficiaries-rules",
-  "projectTitle": "Бенефициары номинальных счетов",
-  "rulesetVersion": "0.1.0",
-  "builtAt": "2026-07-13T15:18:50.534Z",
-  "jsonspecsVersion": "2.1.1",
-  "snapshotFormat": "jsonspecs-snapshot",
-  "snapshotFormatVersion": 1,
-  "sourceHash": "aa113f5b853c56642382bca65ffe7acb5fc6b82eb73ae910217f508d2b441f47",
-  "artifactCount": 191,
-  "entrypoints": [
-    "entrypoints.fl_resident.full_validation"
-  ],
-  "nodeOperatorPacks": [
-    "./operators/node"
-  ]
+  "rulesetVersion": "0.2.0",
+  "artifactCount": 271,
+  "sourceHash": "d2950e88774f41325a09d05595fcd2e2f157600f3f843133e330a2322e67dc3d",
+  "builtAt": "2026-07-13T15:33:34.775Z"
 }

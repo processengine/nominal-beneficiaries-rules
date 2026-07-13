@@ -1,0 +1,16 @@
+{
+  "id": "internal.fl_nonresident.blocks.tax_flags.us_tax_resident_not_true",
+  "type": "rule",
+  "description": "Признак налогового резидентства США не должен иметь значение true",
+  "role": "check",
+  "operator": "not_equals",
+  "level": "EXCEPTION",
+  "code": "FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+  "message": "Признак налогового резидентства США не допускается для ФЛ-нерезидента РФ",
+  "field": "beneficiary.tax.usTaxResident",
+  "value": true,
+  "meta": {
+    "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

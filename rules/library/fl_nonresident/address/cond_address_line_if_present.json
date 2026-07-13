@@ -1,0 +1,15 @@
+{
+  "id": "library.fl_nonresident.address.cond_address_line_if_present",
+  "type": "condition",
+  "description": "Если полный адрес места жительства / регистрации / пребывания заполнен, проверяем формат и длину",
+  "when": {
+    "all": [
+      "library.fl_nonresident.address.pred_full_address_present"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.fl_nonresident.address.full_address"
+    }
+  ]
+}

@@ -4,11 +4,13 @@
 
 ## Статус
 
-Первый слайс миграции: пакет отделен от процессора, но содержит только
-`FL_RESIDENT` validate-application и пока сохраняет смысл текущего
-`rules.snapshot.json` из `processor-preprod`.
+Второй слайс миграции: пакет отделен от процессора и содержит два контура
+валидации заявки:
 
-Цель слайса - доказать parity между старым исполнением через
+- `FL_RESIDENT`;
+- `FL_NONRESIDENT`.
+
+Цель текущего состояния - доказать parity между старым исполнением через
 `@processengine/rules` и новым `jsonspecs-snapshot`, не меняя бизнес-поведение
 за исключением явно помеченных guard-улучшений.
 
@@ -17,6 +19,7 @@
 | Entrypoint | Сценарий |
 |---|---|
 | `entrypoints.fl_resident.full_validation` | Валидация заявки ФЛ-резидента |
+| `entrypoints.fl_nonresident.full_validation` | Валидация заявки ФЛ-нерезидента |
 
 ## Runtime Context
 
@@ -30,14 +33,14 @@ Entrypoint требует контекст:
 
 ```bash
 npm install
-npm run sync:fl-resident
+npm run sync
 npm test
 ```
 
-`sync:fl-resident` раскладывает текущий processor snapshot по каталогу
-`rules/`, пересобирает samples и применяет только нейтральную нормализацию
-известных legacy-дублей. Ручные правки в сгенерированных rules-файлах до
-отдельного design slice не делать: сначала нужно пройти parity.
+`sync` раскладывает текущие processor snapshots по каталогу `rules/`,
+пересобирает samples и применяет только нейтральную нормализацию известных
+legacy-дублей. Ручные правки в сгенерированных rules-файлах до отдельного
+design slice не делать: сначала нужно пройти parity.
 
 Samples лежат прямо в `samples/*.json` в Studio-совместимом формате:
 `context.pipelineId`, `payload`, `expect.status` и `expect.issues`.
@@ -58,6 +61,21 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 2. если поле передано, проверяется тип `true/false`;
 3. если тип корректный, проверяется бизнес-запрет значения `true`.
 
+## Общие и scoped правила
+
+Одинаковые artifacts между контурами остаются общими `library.*`.
+
+Если id совпадает, но тело правила отличается, вариант ФЛ-нерезидента
+генерируется как `library.fl_nonresident.*`. Это не новый payload namespace, а
+техническая область пакета правил: она нужна, чтобы не смешивать разные
+проверки под одним `library.*` id.
+
+`jsonspecs` требует уникальные `code` для всех check-правил внутри snapshot.
+Если старые processor snapshots используют одинаковый код в разных контурах,
+пакет namespace-ит код нерезидентского правила префиксом `FL_NONRESIDENT.*` и
+сохраняет старое значение в `meta.legacyCode`. Parity harness сравнивает с
+legacy по `legacyCode`.
+
 ## Структура
 
 ```text
@@ -69,11 +87,12 @@ samples/                  parity samples для entrypoint
 scripts/build.mjs         сборка dist/snapshot.json
 scripts/parity.mjs        сравнение legacy vs jsonspecs
 dist/snapshot.json        собранный jsonspecs snapshot
+docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 ```
 
 ## Следующие слайсы
 
 1. Подключить package к processor через `rulesetRef` без удаления local fallback.
-2. Перенести следующий validate-application contour.
+2. Перенести следующий маленький validate-application contour.
 3. После parity вынести общие проверки в library pipelines и убрать
    физическое дублирование между FL/IP/UL.

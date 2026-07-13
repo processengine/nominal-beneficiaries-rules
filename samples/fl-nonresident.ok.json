@@ -1,0 +1,77 @@
+{
+  "name": "FL nonresident valid application",
+  "context": {
+    "pipelineId": "entrypoints.fl_nonresident.full_validation",
+    "currentDate": "2026-05-18"
+  },
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "NONRES-FOREIGN-PASSPORT-PE0512700",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9157382046",
+        "email": "nonresident@example.com"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "lastName": "Каримов",
+        "firstName": "Али",
+        "middleName": "Ахмедович",
+        "birthDate": "1990-04-12",
+        "birthPlace": "г. Душанбе",
+        "citizenshipCode": "TJ"
+      },
+      "idDoc": {
+        "typeCode": "004",
+        "series": "",
+        "number": "PE0512700",
+        "issuer": "Ministry of Internal Affairs of Tajikistan",
+        "issueDate": "2021-02-12",
+        "issueDateEnd": "2031-02-12"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "109559",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "city": "Москва",
+          "streetType": "ул",
+          "street": "Новороссийская",
+          "house": "30к1",
+          "flat": "254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "TJ",
+          "tin": "123456789",
+          "tinAbsenceReason": null,
+          "address": "Republic of Tajikistan, Dushanbe, Rudaki avenue, 1"
+        }
+      },
+      "addDoc": {
+        "typeCode": "005",
+        "series": "77",
+        "number": "123456789",
+        "issueDate": "2024-01-15",
+        "issueDateEnd": "2027-01-15",
+        "issuer": "ГУ МВД России"
+      }
+    }
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

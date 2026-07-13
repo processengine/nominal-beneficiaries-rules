@@ -1,0 +1,12 @@
+{
+  "id": "library.nonresident.add_doc_issue_date_end_not_expired",
+  "type": "rule",
+  "description": "Срок действия дополнительного документа не истёк",
+  "role": "check",
+  "operator": "field_greater_or_equal_than_field",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.EXPIRED",
+  "message": "Срок действия дополнительного документа истёк",
+  "field": "beneficiary.addDoc.issueDateEnd",
+  "value_field": "$context.currentDate"
+}

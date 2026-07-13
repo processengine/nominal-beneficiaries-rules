@@ -1,0 +1,16 @@
+{
+  "id": "entrypoints.fl_nonresident.full_validation.type_is_fl_nonresident",
+  "type": "rule",
+  "description": "Тип бенефициара должен быть ФЛ-нерезидент",
+  "role": "check",
+  "operator": "equals",
+  "level": "EXCEPTION",
+  "code": "FL_NONRESIDENT.FL.TYPE.MISMATCH",
+  "message": "Бенефициар должен быть физическим лицом, нерезидентом РФ",
+  "field": "beneficiary.type",
+  "value": "FL_NONRESIDENT",
+  "meta": {
+    "legacyCode": "FL.TYPE.MISMATCH",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

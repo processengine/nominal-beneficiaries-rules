@@ -1,0 +1,11 @@
+{
+  "id": "library.nonresident.add_doc_issue_date_end_required",
+  "type": "rule",
+  "description": "Поле \"Дата окончания действия дополнительного документа\" заполнено",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.REQUIRED",
+  "message": "Не указана дата окончания действия дополнительного документа",
+  "field": "beneficiary.addDoc.issueDateEnd"
+}

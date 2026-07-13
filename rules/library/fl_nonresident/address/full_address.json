@@ -1,0 +1,16 @@
+{
+  "id": "library.fl_nonresident.address.full_address",
+  "type": "rule",
+  "description": "Если полный адрес места жительства / регистрации / пребывания передан, проверяем длину",
+  "role": "check",
+  "operator": "length_max",
+  "level": "ERROR",
+  "code": "FL_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+  "message": "Полный адрес места жительства / регистрации / пребывания превышает 500 символов",
+  "field": "beneficiary.address.registration.fullAddress",
+  "value": 500,
+  "meta": {
+    "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

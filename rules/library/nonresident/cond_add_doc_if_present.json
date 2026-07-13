@@ -1,0 +1,41 @@
+{
+  "id": "library.nonresident.cond_add_doc_if_present",
+  "type": "condition",
+  "description": "Если указан дополнительный документ, проверяем его обязательные поля",
+  "when": {
+    "any": [
+      "library.nonresident.pred_add_doc_typeCode_present",
+      "library.nonresident.pred_add_doc_series_present",
+      "library.nonresident.pred_add_doc_number_present",
+      "library.nonresident.pred_add_doc_issueDate_present",
+      "library.nonresident.pred_add_doc_issueDateEnd_present",
+      "library.nonresident.pred_add_doc_issuer_present"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.nonresident.add_doc_number_required"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_required"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_format"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_not_future"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_end_required"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_end_format"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_end_after_start"
+    },
+    {
+      "rule": "library.nonresident.add_doc_issue_date_end_not_expired"
+    }
+  ]
+}

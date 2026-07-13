@@ -1,0 +1,22 @@
+{
+  "id": "library.tax.cond_phone_foreign_required_if_triggered_and_rf_phone_missing",
+  "type": "condition",
+  "description": "Если телефон РФ не указан и при этом указан иностранный документ или адрес не РФ, то требуем иностранный телефон",
+  "when": {
+    "all": [
+      "library.tax.pred_phone_missing",
+      {
+        "any": [
+          "library.tax.pred_is_foreign_id_doc_true",
+          "library.tax.pred_registration_country_non_ru",
+          "library.tax.pred_postal_country_non_ru"
+        ]
+      }
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.tax.phone_foreign_required"
+    }
+  ]
+}

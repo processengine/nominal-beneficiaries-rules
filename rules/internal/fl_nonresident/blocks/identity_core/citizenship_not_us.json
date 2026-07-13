@@ -1,0 +1,16 @@
+{
+  "id": "internal.fl_nonresident.blocks.identity_core.citizenship_not_us",
+  "type": "rule",
+  "description": "Код гражданства не должен быть US",
+  "role": "check",
+  "operator": "not_equals",
+  "level": "EXCEPTION",
+  "code": "FL_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
+  "message": "Гражданство США не допускается для ФЛ-нерезидента",
+  "field": "beneficiary.fl.citizenshipCode",
+  "value": "US",
+  "meta": {
+    "legacyCode": "FL.CITIZENSHIP.NOT_US",
+    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  }
+}

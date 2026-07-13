@@ -1,0 +1,11 @@
+{
+  "id": "library.nonresident.add_doc_number_required",
+  "type": "rule",
+  "description": "Поле \"Номер дополнительного документа\" заполнено",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.NUMBER.REQUIRED",
+  "message": "Не указан номер дополнительного документа",
+  "field": "beneficiary.addDoc.number"
+}

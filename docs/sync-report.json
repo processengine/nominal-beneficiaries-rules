@@ -1,0 +1,117 @@
+{
+  "processorDir": "../processor-preprod",
+  "contours": [
+    {
+      "key": "fl_resident",
+      "type": "FL_RESIDENT",
+      "sourcePath": "../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "sourceArtifacts": 191,
+      "entrypointId": "entrypoints.fl_resident.full_validation"
+    },
+    {
+      "key": "fl_nonresident",
+      "type": "FL_NONRESIDENT",
+      "sourcePath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "sourceArtifacts": 225,
+      "entrypointId": "entrypoints.fl_nonresident.full_validation"
+    }
+  ],
+  "mergeReports": [
+    {
+      "contour": "fl_nonresident",
+      "sourceArtifacts": 225,
+      "shared": 145,
+      "added": 80,
+      "scopedConflicts": 12,
+      "conflictMap": {
+        "document_type_codes_fl": "dictionaries.fl_nonresident.document_type_codes_fl",
+        "library.address.full_address": "library.fl_nonresident.address.full_address",
+        "library.address.cond_address_line_if_present": "library.fl_nonresident.address.cond_address_line_if_present",
+        "library.address.pred_full_address_present": "library.fl_nonresident.address.pred_full_address_present",
+        "library.common.contacts_any": "library.fl_nonresident.common.contacts_any",
+        "library.documents.cond_passport_rf_fields": "library.fl_nonresident.documents.cond_passport_rf_fields",
+        "library.documents.issuer_no_extra_spaces": "library.fl_nonresident.documents.issuer_no_extra_spaces",
+        "library.documents.issuer_no_garbage_symbols": "library.fl_nonresident.documents.issuer_no_garbage_symbols",
+        "library.documents.type_code_in_dictionary": "library.fl_nonresident.documents.type_code_in_dictionary",
+        "library.fl.precheck_identity_any": "library.fl_nonresident.fl.precheck_identity_any",
+        "library.address.cond_registration_fias_structure_for_ru": "library.fl_nonresident.address.cond_registration_fias_structure_for_ru",
+        "library.documents.cond_issuer_if_present": "library.fl_nonresident.documents.cond_issuer_if_present"
+      }
+    }
+  ],
+  "codeAliases": [
+    {
+      "artifactId": "library.fl_nonresident.address.full_address",
+      "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+      "code": "FL_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+      "firstArtifactId": "library.address.full_address"
+    },
+    {
+      "artifactId": "library.fl_nonresident.common.contacts_any",
+      "legacyCode": "BEN.CONTACTS.MIN_ONE",
+      "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+      "firstArtifactId": "library.common.contacts_any"
+    },
+    {
+      "artifactId": "library.fl_nonresident.documents.issuer_no_extra_spaces",
+      "legacyCode": "BEN.IDDOC.ISSUER.SPACES",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.ISSUER.SPACES",
+      "firstArtifactId": "library.documents.issuer_no_extra_spaces"
+    },
+    {
+      "artifactId": "library.fl_nonresident.documents.issuer_no_garbage_symbols",
+      "legacyCode": "BEN.IDDOC.ISSUER.SYMBOLS",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.ISSUER.SYMBOLS",
+      "firstArtifactId": "library.documents.issuer_no_garbage_symbols"
+    },
+    {
+      "artifactId": "library.fl_nonresident.documents.type_code_in_dictionary",
+      "legacyCode": "BEN.IDDOC.TYPE_CODE.DICT",
+      "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+      "firstArtifactId": "library.documents.type_code_in_dictionary"
+    },
+    {
+      "artifactId": "library.fl_nonresident.fl.precheck_identity_any",
+      "legacyCode": "FL.IDENTITY.MIN.ONE",
+      "code": "FL_NONRESIDENT.FL.IDENTITY.MIN.ONE",
+      "firstArtifactId": "library.fl.precheck_identity_any"
+    },
+    {
+      "artifactId": "entrypoints.fl_nonresident.full_validation.type_is_fl_nonresident",
+      "legacyCode": "FL.TYPE.MISMATCH",
+      "code": "FL_NONRESIDENT.FL.TYPE.MISMATCH",
+      "firstArtifactId": "entrypoints.fl_resident.full_validation.type_is_fl_resident"
+    },
+    {
+      "artifactId": "internal.fl_nonresident.blocks.address.registration_country_not_us",
+      "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
+      "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+      "firstArtifactId": "internal.fl_resident.blocks.address.registration_country_not_us"
+    },
+    {
+      "artifactId": "internal.fl_nonresident.blocks.identity_core.birth_place_not_usa",
+      "legacyCode": "FL.BIRTH_PLACE.NOT_USA",
+      "code": "FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+      "firstArtifactId": "internal.fl_resident.blocks.identity_core.birth_place_not_usa"
+    },
+    {
+      "artifactId": "internal.fl_nonresident.blocks.identity_core.citizenship_not_us",
+      "legacyCode": "FL.CITIZENSHIP.NOT_US",
+      "code": "FL_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
+      "firstArtifactId": "internal.fl_resident.blocks.identity_core.citizenship_not_us"
+    },
+    {
+      "artifactId": "internal.fl_nonresident.blocks.tax_flags.us_resident_not_true",
+      "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "code": "FL_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "internal.fl_resident.blocks.tax_flags.us_resident_not_true"
+    },
+    {
+      "artifactId": "internal.fl_nonresident.blocks.tax_flags.us_tax_resident_not_true",
+      "legacyCode": "BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "code": "FL_NONRESIDENT.BEN.TAX.US_TAX_RESIDENT.NOT_TRUE",
+      "firstArtifactId": "internal.fl_resident.blocks.tax_flags.us_tax_resident_not_true"
+    }
+  ],
+  "artifactCount": 271
+}

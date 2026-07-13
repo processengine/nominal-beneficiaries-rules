@@ -1,0 +1,11 @@
+{
+  "id": "library.nonresident.add_doc_issuer_required",
+  "type": "rule",
+  "description": "Кем выдан обязательно для документа права пребывания/проживания ФЛ-нерезидента, если указан тип дополнительного документа",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.ISSUER.REQUIRED",
+  "message": "Не указан орган, выдавший дополнительный документ",
+  "field": "beneficiary.addDoc.issuer"
+}

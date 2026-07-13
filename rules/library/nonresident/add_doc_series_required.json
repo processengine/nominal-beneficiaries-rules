@@ -1,0 +1,11 @@
+{
+  "id": "library.nonresident.add_doc_series_required",
+  "type": "rule",
+  "description": "Серия обязательна для миграционной карты и документа права пребывания/проживания ФЛ-нерезидента.",
+  "role": "check",
+  "operator": "not_empty",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+  "message": "Не указана серия дополнительного документа",
+  "field": "beneficiary.addDoc.series"
+}

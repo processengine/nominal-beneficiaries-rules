@@ -9,10 +9,16 @@ const jsonspecs = require("jsonspecs");
 const customOperators = require("../operators/node/index.js");
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
-const legacySnapshotPath = path.join(
-  processorDir,
-  "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
-);
+const legacySnapshotPaths = {
+  "entrypoints.fl_resident.full_validation": path.join(
+    processorDir,
+    "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+  ),
+  "entrypoints.fl_nonresident.full_validation": path.join(
+    processorDir,
+    "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+  ),
+};
 
 function readSamples(dir) {
   const result = [];
@@ -30,10 +36,10 @@ function readSamples(dir) {
   return result.sort((left, right) => left.file.localeCompare(right.file));
 }
 
-function normalizeIssue(issue) {
+function normalizeIssue(issue, codeAliases = new Map()) {
   return {
     level: issue.level,
-    code: issue.code,
+    code: codeAliases.get(issue.code) || issue.code,
     field: issue.field ?? null,
     message: issue.message,
   };
@@ -51,11 +57,11 @@ function uniqueIssues(issues) {
   return result;
 }
 
-function normalizeResult(result) {
+function normalizeResult(result, codeAliases = new Map()) {
   return {
     status: result.status,
     control: result.control,
-    issues: uniqueIssues((result.issues || []).map(normalizeIssue)),
+    issues: uniqueIssues((result.issues || []).map((issue) => normalizeIssue(issue, codeAliases))),
   };
 }
 
@@ -88,17 +94,30 @@ function assertEqual(actual, expected, label) {
   }
 }
 
-const legacySource = JSON.parse(readFileSync(legacySnapshotPath, "utf8"));
-const legacyPrepared = legacyRules.prepareRules(legacySource, { operators: customOperators });
+const legacyPreparedByPipeline = new Map(
+  Object.entries(legacySnapshotPaths).map(([pipelineId, snapshotPath]) => [
+    pipelineId,
+    legacyRules.prepareRules(JSON.parse(readFileSync(snapshotPath, "utf8")), { operators: customOperators }),
+  ]),
+);
 
 const engine = jsonspecs.createEngine({ operators: buildOperatorPack() });
 const jsonspecsSnapshot = JSON.parse(readFileSync(path.join(rootDir, "dist/snapshot.json"), "utf8"));
 const jsonspecsPrepared = engine.compileSnapshot(jsonspecsSnapshot);
+const jsonspecsCodeAliases = new Map(
+  (jsonspecsSnapshot.artifacts || [])
+    .filter((artifact) => artifact.type === "rule" && artifact.role === "check" && artifact.meta?.legacyCode)
+    .map((artifact) => [artifact.code, artifact.meta.legacyCode]),
+);
 
 let checked = 0;
 for (const { file, data } of readSamples(path.join(rootDir, "samples"))) {
   const pipelineId = samplePipelineId(data);
   const context = sampleContext(data);
+  const legacyPrepared = legacyPreparedByPipeline.get(pipelineId);
+  if (!legacyPrepared) {
+    throw new Error(`No legacy snapshot configured for ${pipelineId}`);
+  }
   const legacyResult = legacyRules.evaluateRules(legacyPrepared, {
     pipelineId,
     payload: data.payload,
@@ -112,9 +131,10 @@ for (const { file, data } of readSamples(path.join(rootDir, "samples"))) {
   );
 
   const normalizedLegacy = normalizeResult(legacyResult);
+  const normalizedJsonspecsForParity = normalizeResult(jsonspecsResult, jsonspecsCodeAliases);
   const normalizedJsonspecs = normalizeResult(jsonspecsResult);
   if (data.legacyParity !== false) {
-    assertEqual(normalizedJsonspecs, normalizedLegacy, path.relative(rootDir, file));
+    assertEqual(normalizedJsonspecsForParity, normalizedLegacy, path.relative(rootDir, file));
   }
 
   if (data.expect) {

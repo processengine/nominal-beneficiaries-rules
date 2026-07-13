@@ -1,0 +1,12 @@
+{
+  "id": "library.nonresident.add_doc_issue_date_not_future",
+  "type": "rule",
+  "description": "Дата начала действия дополнительного документа не больше текущей даты",
+  "role": "check",
+  "operator": "field_less_or_equal_than_field",
+  "level": "ERROR",
+  "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.NOT_FUTURE",
+  "message": "Дата начала действия дополнительного документа не должна быть больше текущей даты",
+  "field": "beneficiary.addDoc.issueDate",
+  "value_field": "$context.currentDate"
+}
