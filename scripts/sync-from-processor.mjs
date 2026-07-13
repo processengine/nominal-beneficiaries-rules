@@ -4,6 +4,7 @@ import { customOperatorMeta } from "./operators.mjs";
 
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
+const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
 
 const contours = [
   {
@@ -14,6 +15,7 @@ const contours = [
       processorDir,
       "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
     ),
+    legacyFixtureFile: "fl-resident.validate-application.rules.snapshot.json",
     fixturePath: path.join(processorDir, "fixtures/TC-009-valid-fl-resident-fias-no-addressline.json"),
     entrypointId: "entrypoints.fl_resident.full_validation",
     currentDate: "2026-04-12",
@@ -26,6 +28,7 @@ const contours = [
       processorDir,
       "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
     ),
+    legacyFixtureFile: "fl-nonresident.validate-application.rules.snapshot.json",
     fixturePath: path.join(processorDir, "fixtures/BEN-FL-NONRES-FOREIGN-PASSPORT-VALID.json"),
     belarusFixturePath: path.join(processorDir, "fixtures/BEN-FL-NONRES-BELARUS-NO-ADDDOC-VALID.json"),
     entrypointId: "entrypoints.fl_nonresident.full_validation",
@@ -305,7 +308,9 @@ function addScopedConflictCatalog(manifest, conflictMap) {
 }
 
 function readSource(contour) {
-  return JSON.parse(readFileSync(contour.sourcePath, "utf8"));
+  const source = JSON.parse(readFileSync(contour.sourcePath, "utf8"));
+  writeJson(path.join(legacyFixtureDir, contour.legacyFixtureFile), source);
+  return source;
 }
 
 function prepareArtifacts(source, contour) {

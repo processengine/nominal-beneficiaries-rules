@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import * as legacyRules from "@processengine/rules";
@@ -9,14 +9,22 @@ const jsonspecs = require("jsonspecs");
 const customOperators = require("../operators/node/index.js");
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
+const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
+
+function legacySnapshotPath(processorRelativePath, fixtureFileName) {
+  const processorPath = path.join(processorDir, processorRelativePath);
+  if (process.env.PROCESSOR_REPO && existsSync(processorPath)) return processorPath;
+  return path.join(legacyFixtureDir, fixtureFileName);
+}
+
 const legacySnapshotPaths = {
-  "entrypoints.fl_resident.full_validation": path.join(
-    processorDir,
+  "entrypoints.fl_resident.full_validation": legacySnapshotPath(
     "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    "fl-resident.validate-application.rules.snapshot.json",
   ),
-  "entrypoints.fl_nonresident.full_validation": path.join(
-    processorDir,
+  "entrypoints.fl_nonresident.full_validation": legacySnapshotPath(
     "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+    "fl-nonresident.validate-application.rules.snapshot.json",
   ),
 };
 
