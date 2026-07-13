@@ -1,7 +1,7 @@
 {
   "format": "jsonspecs-snapshot",
   "formatVersion": 1,
-  "sourceHash": "e01de7312cac9d1bf073b5a9dd32ca181a7101f85d9fbf10626c831e06739dcc",
+  "sourceHash": "b839fa4993f2000c8b436790deb2d66476d327cfbebd2afb086b045a66139b95",
   "engine": {
     "minVersion": "2.0.0"
   },
@@ -19,7 +19,7 @@
     {
       "id": "beneficiary_types",
       "type": "dictionary",
-      "description": "Допустимые типы бенефициаров для версии 1",
+      "description": "Допустимые категории бенефициаров для версии 1",
       "entries": [
         "UL_RESIDENT",
         "UL_NONRESIDENT",
@@ -53,32 +53,6 @@
       "description": "Merchant-коды документов ИП-нерезидента для ближайшего релиза: 004.",
       "entries": [
         "004"
-      ]
-    },
-    {
-      "id": "dictionaries.ul_nonresident.beneficiary_types",
-      "type": "dictionary",
-      "description": "Допустимые категории бенефициаров для версии 1",
-      "entries": [
-        "UL_RESIDENT",
-        "UL_NONRESIDENT",
-        "IP_RESIDENT",
-        "IP_NONRESIDENT",
-        "FL_RESIDENT",
-        "FL_NONRESIDENT"
-      ]
-    },
-    {
-      "id": "dictionaries.ul_resident.beneficiary_types",
-      "type": "dictionary",
-      "description": "Допустимые категории бенефициаров для версии 1",
-      "entries": [
-        "UL_RESIDENT",
-        "UL_NONRESIDENT",
-        "IP_RESIDENT",
-        "IP_NONRESIDENT",
-        "FL_RESIDENT",
-        "FL_NONRESIDENT"
       ]
     },
     {
@@ -2042,7 +2016,7 @@
           "rule": "library.ul_nonresident.status_start_format"
         },
         {
-          "condition": "library.ul_nonresident.common.cond_status_end_if_present"
+          "condition": "library.ul.common.cond_status_end_if_present"
         }
       ],
       "entrypoint": false
@@ -2198,7 +2172,7 @@
           "rule": "library.ul.status_start_format"
         },
         {
-          "condition": "library.ul_resident.common.cond_status_end_if_present"
+          "condition": "library.ul.common.cond_status_end_if_present"
         }
       ],
       "entrypoint": false
@@ -5480,71 +5454,6 @@
       }
     },
     {
-      "id": "library.ul_nonresident.common.cond_status_end_if_present",
-      "type": "condition",
-      "description": "Если дата окончания статуса указана, то проверяем формат, затем порядок",
-      "when": {
-        "all": [
-          "library.common.pred_status_end_present"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.ul_nonresident.common.status_end_format"
-        },
-        {
-          "condition": "library.ul_nonresident.common.cond_status_end_order_if_format_ok"
-        }
-      ]
-    },
-    {
-      "id": "library.ul_nonresident.common.cond_status_end_order_if_format_ok",
-      "type": "condition",
-      "description": "Если формат endDate корректен, то проверяем порядок дат",
-      "when": {
-        "all": [
-          "library.common.pred_status_end_format_valid"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.ul_nonresident.common.status_end_gt_start"
-        }
-      ]
-    },
-    {
-      "id": "library.ul_nonresident.common.status_end_format",
-      "type": "rule",
-      "description": "Дата окончания статуса должна быть в формате YYYY-MM-DD",
-      "role": "check",
-      "operator": "matches_regex",
-      "level": "ERROR",
-      "code": "UL_NONRESIDENT.BEN.STATUS.END.FORMAT",
-      "message": "Дата окончания участия должна быть в формате YYYY-MM-DD",
-      "field": "beneficiary.status.endDate",
-      "value": "^\\d{4}-\\d{2}-\\d{2}$",
-      "meta": {
-        "legacyCode": "BEN.STATUS.END.FORMAT",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
-      "id": "library.ul_nonresident.common.status_end_gt_start",
-      "type": "rule",
-      "description": "Дата окончания статуса должна быть позже даты начала",
-      "role": "check",
-      "operator": "field_greater_than_field",
-      "level": "ERROR",
-      "code": "UL_NONRESIDENT.BEN.STATUS.END.ORDER",
-      "message": "Дата окончания участия должна быть позже даты начала участия",
-      "field": "beneficiary.status.endDate",
-      "value_field": "beneficiary.status.startDate",
-      "meta": {
-        "legacyCode": "BEN.STATUS.END.ORDER",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
       "id": "library.ul_nonresident.cond_inn_if_present",
       "type": "condition",
       "description": "Если ИНН указан, то проверяем длину, маску и контрольный разряд",
@@ -6115,75 +6024,10 @@
       "field": "beneficiary.type",
       "dictionary": {
         "type": "static",
-        "id": "dictionaries.ul_nonresident.beneficiary_types"
+        "id": "beneficiary_types"
       },
       "meta": {
         "legacyCode": "BEN.TYPE.UNSUPPORTED",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
-      "id": "library.ul_resident.common.cond_status_end_if_present",
-      "type": "condition",
-      "description": "Если дата окончания статуса указана, то проверяем формат, затем порядок",
-      "when": {
-        "all": [
-          "library.common.pred_status_end_present"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.ul_resident.common.status_end_format"
-        },
-        {
-          "condition": "library.ul_resident.common.cond_status_end_order_if_format_ok"
-        }
-      ]
-    },
-    {
-      "id": "library.ul_resident.common.cond_status_end_order_if_format_ok",
-      "type": "condition",
-      "description": "Если формат endDate корректен, то проверяем порядок дат",
-      "when": {
-        "all": [
-          "library.common.pred_status_end_format_valid"
-        ]
-      },
-      "steps": [
-        {
-          "rule": "library.ul_resident.common.status_end_gt_start"
-        }
-      ]
-    },
-    {
-      "id": "library.ul_resident.common.status_end_format",
-      "type": "rule",
-      "description": "Дата окончания статуса должна быть в формате YYYY-MM-DD",
-      "role": "check",
-      "operator": "matches_regex",
-      "level": "ERROR",
-      "code": "UL_RESIDENT.BEN.STATUS.END.FORMAT",
-      "message": "Дата окончания участия должна быть в формате YYYY-MM-DD",
-      "field": "beneficiary.status.endDate",
-      "value": "^\\d{4}-\\d{2}-\\d{2}$",
-      "meta": {
-        "legacyCode": "BEN.STATUS.END.FORMAT",
-        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
-      }
-    },
-    {
-      "id": "library.ul_resident.common.status_end_gt_start",
-      "type": "rule",
-      "description": "Дата окончания статуса должна быть позже даты начала",
-      "role": "check",
-      "operator": "field_greater_than_field",
-      "level": "ERROR",
-      "code": "UL_RESIDENT.BEN.STATUS.END.ORDER",
-      "message": "Дата окончания участия должна быть позже даты начала участия",
-      "field": "beneficiary.status.endDate",
-      "value_field": "beneficiary.status.startDate",
-      "meta": {
-        "legacyCode": "BEN.STATUS.END.ORDER",
         "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
       }
     },
@@ -6209,6 +6053,71 @@
       "code": "UL.ACCOUNT.NUMBER.REQUIRED",
       "message": "Не указан номер номинального счёта",
       "field": "beneficiary.account.number"
+    },
+    {
+      "id": "library.ul.common.cond_status_end_if_present",
+      "type": "condition",
+      "description": "Если дата окончания участия указана, проверяем формат и порядок дат",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_present"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul.common.status_end_format"
+        },
+        {
+          "condition": "library.ul.common.cond_status_end_order_if_format_ok"
+        }
+      ]
+    },
+    {
+      "id": "library.ul.common.cond_status_end_order_if_format_ok",
+      "type": "condition",
+      "description": "Если формат даты окончания участия корректен, проверяем порядок дат",
+      "when": {
+        "all": [
+          "library.common.pred_status_end_format_valid"
+        ]
+      },
+      "steps": [
+        {
+          "rule": "library.ul.common.status_end_gt_start"
+        }
+      ]
+    },
+    {
+      "id": "library.ul.common.status_end_format",
+      "type": "rule",
+      "description": "Дата окончания участия должна быть в формате YYYY-MM-DD",
+      "role": "check",
+      "operator": "matches_regex",
+      "level": "ERROR",
+      "code": "UL.BEN.STATUS.END.FORMAT",
+      "message": "Дата окончания участия должна быть в формате YYYY-MM-DD",
+      "field": "beneficiary.status.endDate",
+      "value": "^\\d{4}-\\d{2}-\\d{2}$",
+      "meta": {
+        "legacyCode": "BEN.STATUS.END.FORMAT",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
+    },
+    {
+      "id": "library.ul.common.status_end_gt_start",
+      "type": "rule",
+      "description": "Дата окончания участия должна быть позже даты начала",
+      "role": "check",
+      "operator": "field_greater_than_field",
+      "level": "ERROR",
+      "code": "UL.BEN.STATUS.END.ORDER",
+      "message": "Дата окончания участия должна быть позже даты начала участия",
+      "field": "beneficiary.status.endDate",
+      "value_field": "beneficiary.status.startDate",
+      "meta": {
+        "legacyCode": "BEN.STATUS.END.ORDER",
+        "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+      }
     },
     {
       "id": "library.ul.contacts_any",
@@ -6470,12 +6379,12 @@
       "role": "check",
       "operator": "in_dictionary",
       "level": "EXCEPTION",
-      "code": "RULESET.BEN.TYPE.UNSUPPORTED",
+      "code": "UL.BEN.TYPE.UNSUPPORTED",
       "message": "Категория бенефициара должна быть поддерживаемой",
       "field": "beneficiary.type",
       "dictionary": {
         "type": "static",
-        "id": "dictionaries.ul_resident.beneficiary_types"
+        "id": "beneficiary_types"
       },
       "meta": {
         "legacyCode": "BEN.TYPE.UNSUPPORTED",
@@ -6530,6 +6439,6 @@
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
     "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
-    "rulesetVersion": "0.6.0"
+    "rulesetVersion": "0.6.1"
   }
 }

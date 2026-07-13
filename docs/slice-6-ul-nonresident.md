@@ -76,10 +76,15 @@ npm pack --dry-run
 - 4 samples для `UL_RESIDENT`;
 - 6 samples для `UL_NONRESIDENT`.
 
+## Processor Switch
+
+После публикации `0.6.0` processor artifact
+`ul_nonresident.validate_application` был переключен на package-backed
+`rulesetRef`. Тем самым package-backed миграция active
+`validate_application` contours закрыта для FL/IP/UL resident/nonresident.
+
 ## Not Done In This Slice
 
-- Processor artifact `ul_nonresident.validate_application` переключается
-  отдельным processor slice после публикации пакета.
 - `beneficiary.unbind` остается local RULES/FUNC contour и не переносится этим
   изменением.
 - Физическая дедупликация общих FL/IP/UL library pipelines остается отдельным

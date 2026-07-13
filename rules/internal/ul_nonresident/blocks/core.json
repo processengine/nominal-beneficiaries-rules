@@ -26,7 +26,7 @@
       "rule": "library.ul_nonresident.status_start_format"
     },
     {
-      "condition": "library.ul_nonresident.common.cond_status_end_if_present"
+      "condition": "library.ul.common.cond_status_end_if_present"
     }
   ],
   "entrypoint": false

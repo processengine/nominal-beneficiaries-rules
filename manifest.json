@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил проверок заявок бенефициаров номинальных счетов. Текущий slice содержит FL_RESIDENT, FL_NONRESIDENT, IP_RESIDENT, IP_NONRESIDENT, UL_RESIDENT и UL_NONRESIDENT validate-application в режиме parity с processor-preprod.",
     "language": "ru"
@@ -1626,46 +1626,6 @@
         "title": "Проверка справочника типа дополнительного документа",
         "description": "Если указан тип дополнительного документа, он должен входить в справочник.. Версия правила для ИП-нерезидент."
       },
-      "dictionaries.ul_resident.beneficiary_types": {
-        "title": "Допустимые типы бенефициаров для версии 1",
-        "description": "Допустимые типы бенефициаров для версии 1. Версия правила для ЮЛ-резидент."
-      },
-      "library.ul_resident.common.status_end_format": {
-        "title": "Дата окончания участия в формате YYYY-MM-DD",
-        "description": "Проверяет формат даты окончания участия бенефициара"
-      },
-      "library.ul_resident.common.status_end_gt_start": {
-        "title": "Дата окончания участия позже даты начала",
-        "description": "Проверяет, что дата окончания участия позже даты начала участия"
-      },
-      "library.ul_resident.common.cond_status_end_if_present": {
-        "title": "Если дата окончания участия указана, проверяем ее формат",
-        "description": "Проверяет дату окончания участия только когда она заполнена в заявке"
-      },
-      "library.ul_resident.common.cond_status_end_order_if_format_ok": {
-        "title": "Если даты участия указаны корректно, проверяем их порядок",
-        "description": "Проверяет порядок дат участия только после проверки формата даты окончания"
-      },
-      "dictionaries.ul_nonresident.beneficiary_types": {
-        "title": "Допустимые типы бенефициаров для версии 1",
-        "description": "Допустимые типы бенефициаров для версии 1. Версия правила для ЮЛ-нерезидент."
-      },
-      "library.ul_nonresident.common.status_end_format": {
-        "title": "Дата окончания участия в формате YYYY-MM-DD",
-        "description": "Проверяет формат даты окончания участия бенефициара"
-      },
-      "library.ul_nonresident.common.status_end_gt_start": {
-        "title": "Дата окончания участия позже даты начала",
-        "description": "Проверяет, что дата окончания участия позже даты начала участия"
-      },
-      "library.ul_nonresident.common.cond_status_end_if_present": {
-        "title": "Если дата окончания участия указана, проверяем ее формат",
-        "description": "Проверяет дату окончания участия только когда она заполнена в заявке"
-      },
-      "library.ul_nonresident.common.cond_status_end_order_if_format_ok": {
-        "title": "Если даты участия указаны корректно, проверяем их порядок",
-        "description": "Проверяет порядок дат участия только после проверки формата даты окончания"
-      },
       "library.tax.foreign_tax_resident_required": {
         "title": "Признак иностранного налогового резидентства указан",
         "description": "Проверяет, что признак иностранного налогового резидентства передан в заявке"
@@ -1857,6 +1817,22 @@
       "library.ip_nonresident.nonresident.cond_add_doc_right_to_stay_doc": {
         "title": "Если указан документ на право пребывания, проверяем его поля",
         "description": "Проверяет обязательные поля документа на право пребывания или проживания"
+      },
+      "library.ul.common.cond_status_end_if_present": {
+        "title": "Если дата окончания участия указана, проверяем ее формат",
+        "description": "Проверяет дату окончания участия только когда она заполнена в заявке"
+      },
+      "library.ul.common.cond_status_end_order_if_format_ok": {
+        "title": "Если даты участия указаны корректно, проверяем их порядок",
+        "description": "Проверяет порядок дат участия только после проверки формата даты окончания"
+      },
+      "library.ul.common.status_end_format": {
+        "title": "Дата окончания участия в формате YYYY-MM-DD",
+        "description": "Проверяет формат даты окончания участия бенефициара"
+      },
+      "library.ul.common.status_end_gt_start": {
+        "title": "Дата окончания участия позже даты начала",
+        "description": "Проверяет, что дата окончания участия позже даты начала участия"
       },
       "internal.ul_resident.blocks.core": {
         "title": "Основные сведения заявки ЮЛ-резидента",

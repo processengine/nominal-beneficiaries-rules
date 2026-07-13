@@ -128,30 +128,18 @@
     {
       "contour": "ul_resident",
       "sourceArtifacts": 37,
-      "shared": 2,
-      "added": 35,
-      "scopedConflicts": 5,
-      "conflictMap": {
-        "beneficiary_types": "dictionaries.ul_resident.beneficiary_types",
-        "library.common.status_end_format": "library.ul_resident.common.status_end_format",
-        "library.common.status_end_gt_start": "library.ul_resident.common.status_end_gt_start",
-        "library.common.cond_status_end_if_present": "library.ul_resident.common.cond_status_end_if_present",
-        "library.common.cond_status_end_order_if_format_ok": "library.ul_resident.common.cond_status_end_order_if_format_ok"
-      }
+      "shared": 3,
+      "added": 34,
+      "scopedConflicts": 0,
+      "conflictMap": {}
     },
     {
       "contour": "ul_nonresident",
       "sourceArtifacts": 57,
-      "shared": 2,
-      "added": 55,
-      "scopedConflicts": 5,
-      "conflictMap": {
-        "beneficiary_types": "dictionaries.ul_nonresident.beneficiary_types",
-        "library.common.status_end_format": "library.ul_nonresident.common.status_end_format",
-        "library.common.status_end_gt_start": "library.ul_nonresident.common.status_end_gt_start",
-        "library.common.cond_status_end_if_present": "library.ul_nonresident.common.cond_status_end_if_present",
-        "library.common.cond_status_end_order_if_format_ok": "library.ul_nonresident.common.cond_status_end_order_if_format_ok"
-      }
+      "shared": 7,
+      "added": 50,
+      "scopedConflicts": 0,
+      "conflictMap": {}
     }
   ],
   "codeAliases": [
@@ -368,19 +356,19 @@
     {
       "artifactId": "library.ul.type_supported",
       "legacyCode": "BEN.TYPE.UNSUPPORTED",
-      "code": "RULESET.BEN.TYPE.UNSUPPORTED",
+      "code": "UL.BEN.TYPE.UNSUPPORTED",
       "firstArtifactId": "library.common.beneficiary_type_supported"
     },
     {
-      "artifactId": "library.ul_resident.common.status_end_format",
+      "artifactId": "library.ul.common.status_end_format",
       "legacyCode": "BEN.STATUS.END.FORMAT",
-      "code": "UL_RESIDENT.BEN.STATUS.END.FORMAT",
+      "code": "UL.BEN.STATUS.END.FORMAT",
       "firstArtifactId": "library.common.status_end_format"
     },
     {
-      "artifactId": "library.ul_resident.common.status_end_gt_start",
+      "artifactId": "library.ul.common.status_end_gt_start",
       "legacyCode": "BEN.STATUS.END.ORDER",
-      "code": "UL_RESIDENT.BEN.STATUS.END.ORDER",
+      "code": "UL.BEN.STATUS.END.ORDER",
       "firstArtifactId": "library.common.status_end_gt_start"
     },
     {
@@ -442,18 +430,6 @@
       "legacyCode": "UL.STATUS.START_DATE.FORMAT",
       "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.FORMAT",
       "firstArtifactId": "library.ul.status_start_format"
-    },
-    {
-      "artifactId": "library.ul_nonresident.common.status_end_format",
-      "legacyCode": "BEN.STATUS.END.FORMAT",
-      "code": "UL_NONRESIDENT.BEN.STATUS.END.FORMAT",
-      "firstArtifactId": "library.common.status_end_format"
-    },
-    {
-      "artifactId": "library.ul_nonresident.common.status_end_gt_start",
-      "legacyCode": "BEN.STATUS.END.ORDER",
-      "code": "UL_NONRESIDENT.BEN.STATUS.END.ORDER",
-      "firstArtifactId": "library.common.status_end_gt_start"
     },
     {
       "artifactId": "library.ul_nonresident.contacts_any",
@@ -528,5 +504,5 @@
       "firstArtifactId": "library.ul.tax.cp_us_not_true"
     }
   ],
-  "artifactCount": 424
+  "artifactCount": 418
 }

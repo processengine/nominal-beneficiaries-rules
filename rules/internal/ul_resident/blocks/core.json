@@ -29,7 +29,7 @@
       "rule": "library.ul.status_start_format"
     },
     {
-      "condition": "library.ul_resident.common.cond_status_end_if_present"
+      "condition": "library.ul.common.cond_status_end_if_present"
     }
   ],
   "entrypoint": false

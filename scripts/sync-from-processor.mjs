@@ -145,6 +145,13 @@ const residentTaxFlagConfigs = [
   },
 ];
 
+const ulCommonStatusIdMap = {
+  "library.common.status_end_format": "library.ul.common.status_end_format",
+  "library.common.status_end_gt_start": "library.ul.common.status_end_gt_start",
+  "library.common.cond_status_end_if_present": "library.ul.common.cond_status_end_if_present",
+  "library.common.cond_status_end_order_if_format_ok": "library.ul.common.cond_status_end_order_if_format_ok",
+};
+
 function writeJson(filePath, value) {
   mkdirSync(path.dirname(filePath), { recursive: true });
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
@@ -182,6 +189,39 @@ function replaceBooleanDictionaryWithOperator(artifacts) {
   }
 
   return artifacts.filter((artifact) => artifact.id !== "true_false");
+}
+
+function normalizeBeneficiaryTypesDictionary(artifacts) {
+  for (const artifact of artifacts) {
+    if (artifact.id === "beneficiary_types" && artifact.type === "dictionary") {
+      artifact.description = "Допустимые категории бенефициаров для версии 1";
+    }
+  }
+}
+
+function refactorUlCommonStatus(artifacts, contour) {
+  if (!["ul_resident", "ul_nonresident"].includes(contour.key)) return artifacts;
+
+  return artifacts.map((artifact) => {
+    const rewritten = rewriteIds(artifact, ulCommonStatusIdMap);
+    switch (rewritten.id) {
+      case "library.ul.common.status_end_format":
+        rewritten.description = "Дата окончания участия должна быть в формате YYYY-MM-DD";
+        break;
+      case "library.ul.common.status_end_gt_start":
+        rewritten.description = "Дата окончания участия должна быть позже даты начала";
+        break;
+      case "library.ul.common.cond_status_end_if_present":
+        rewritten.description = "Если дата окончания участия указана, проверяем формат и порядок дат";
+        break;
+      case "library.ul.common.cond_status_end_order_if_format_ok":
+        rewritten.description = "Если формат даты окончания участия корректен, проверяем порядок дат";
+        break;
+      default:
+        break;
+    }
+    return rewritten;
+  });
 }
 
 function upsertArtifact(artifacts, artifact) {
@@ -527,22 +567,6 @@ function addUlResidentCatalog(manifest) {
       title: "Дата начала участия в формате YYYY-MM-DD",
       description: "Проверяет формат даты начала участия бенефициара",
     },
-    "library.ul_resident.common.cond_status_end_if_present": {
-      title: "Если дата окончания участия указана, проверяем ее формат",
-      description: "Проверяет дату окончания участия только когда она заполнена в заявке",
-    },
-    "library.ul_resident.common.cond_status_end_order_if_format_ok": {
-      title: "Если даты участия указаны корректно, проверяем их порядок",
-      description: "Проверяет порядок дат участия только после проверки формата даты окончания",
-    },
-    "library.ul_resident.common.status_end_format": {
-      title: "Дата окончания участия в формате YYYY-MM-DD",
-      description: "Проверяет формат даты окончания участия бенефициара",
-    },
-    "library.ul_resident.common.status_end_gt_start": {
-      title: "Дата окончания участия позже даты начала",
-      description: "Проверяет, что дата окончания участия позже даты начала участия",
-    },
     "library.ul.contacts_any": {
       title: "Телефон или эл. почта указаны",
       description: "Проверяет, что указан хотя бы один контакт ЮЛ-резидента",
@@ -598,6 +622,27 @@ function addUlResidentCatalog(manifest) {
     "library.ul.tax.cp_us_not_true": {
       title: "Нет контролирующих лиц с налоговым резидентством США",
       description: "Проверяет, что признак контролирующих лиц с налоговым резидентством США не имеет значение true",
+    },
+  });
+}
+
+function addUlCommonCatalog(manifest) {
+  Object.assign(manifest.catalog.artifacts, {
+    "library.ul.common.cond_status_end_if_present": {
+      title: "Если дата окончания участия указана, проверяем ее формат",
+      description: "Проверяет дату окончания участия только когда она заполнена в заявке",
+    },
+    "library.ul.common.cond_status_end_order_if_format_ok": {
+      title: "Если даты участия указаны корректно, проверяем их порядок",
+      description: "Проверяет порядок дат участия только после проверки формата даты окончания",
+    },
+    "library.ul.common.status_end_format": {
+      title: "Дата окончания участия в формате YYYY-MM-DD",
+      description: "Проверяет формат даты окончания участия бенефициара",
+    },
+    "library.ul.common.status_end_gt_start": {
+      title: "Дата окончания участия позже даты начала",
+      description: "Проверяет, что дата окончания участия позже даты начала участия",
     },
   });
 }
@@ -659,22 +704,6 @@ function addUlNonresidentCatalog(manifest) {
     "library.ul_nonresident.status_start_format": {
       title: "Дата начала участия в формате YYYY-MM-DD",
       description: "Проверяет формат даты начала участия бенефициара",
-    },
-    "library.ul_nonresident.common.cond_status_end_if_present": {
-      title: "Если дата окончания участия указана, проверяем ее формат",
-      description: "Проверяет дату окончания участия только когда она заполнена в заявке",
-    },
-    "library.ul_nonresident.common.cond_status_end_order_if_format_ok": {
-      title: "Если даты участия указаны корректно, проверяем их порядок",
-      description: "Проверяет порядок дат участия только после проверки формата даты окончания",
-    },
-    "library.ul_nonresident.common.status_end_format": {
-      title: "Дата окончания участия в формате YYYY-MM-DD",
-      description: "Проверяет формат даты окончания участия бенефициара",
-    },
-    "library.ul_nonresident.common.status_end_gt_start": {
-      title: "Дата окончания участия позже даты начала",
-      description: "Проверяет, что дата окончания участия позже даты начала участия",
     },
     "library.ul_nonresident.contacts_any": {
       title: "Телефон или эл. почта указаны",
@@ -851,7 +880,9 @@ function readSource(contour) {
 function prepareArtifacts(source, contour) {
   let artifacts = cloneJson(source.artifacts);
   normalizeKnownLegacyDuplicates(artifacts);
+  normalizeBeneficiaryTypesDictionary(artifacts);
   artifacts = replaceBooleanDictionaryWithOperator(artifacts);
+  artifacts = refactorUlCommonStatus(artifacts, contour);
   if (contour.key === "fl_resident") {
     refactorResidentTaxFlagPipeline(artifacts);
   }
@@ -985,11 +1016,13 @@ function namespaceDuplicateCheckCodes(artifacts) {
         ? "IP_RESIDENT"
         : artifact.id.includes("ip_nonresident")
           ? "IP_NONRESIDENT"
-          : artifact.id.includes("ul_resident")
-            ? "UL_RESIDENT"
-            : artifact.id.includes("ul_nonresident")
-              ? "UL_NONRESIDENT"
-              : "RULESET";
+          : artifact.id.includes("library.ul.")
+            ? "UL"
+            : artifact.id.includes("ul_resident")
+              ? "UL_RESIDENT"
+              : artifact.id.includes("ul_nonresident")
+                ? "UL_NONRESIDENT"
+                : "RULESET";
     let candidate = `${prefix}.${legacyCode}`;
     let index = 2;
     while (seen.has(candidate)) {
@@ -1064,6 +1097,7 @@ function mergeCatalogs(sources, reports) {
   addResidentTaxFlagCatalog(manifest);
   addStudioPolishCatalog(manifest);
   addIpNonresidentCatalog(manifest);
+  addUlCommonCatalog(manifest);
   addUlResidentCatalog(manifest);
   addUlNonresidentCatalog(manifest);
 

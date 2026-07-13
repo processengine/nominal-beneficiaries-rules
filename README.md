@@ -134,10 +134,22 @@ dist/snapshot.json        собранный jsonspecs snapshot
 docs/sync-report.json     отчет о shared/scoped artifacts и code aliases
 ```
 
-## Следующие слайсы
+## Текущее состояние миграции
 
-1. Переключить `ul_nonresident.validate_application` в processor на `rulesetRef`.
-2. После processor switch закрыть миграцию active validate-application
-   contours и оставить `beneficiary.unbind` как отдельное решение.
-3. После parity вынести общие проверки в library pipelines и убрать
-   физическое дублирование между FL/IP/UL.
+Все active `validate_application` contours в processor переключены на
+package-backed `rulesetRef` и используют
+`@processengine/nominal-beneficiaries-rules@0.6.1`:
+
+- `fl_resident.validate_application`;
+- `fl_nonresident.validate_application`;
+- `ip_resident.validate_application`;
+- `ip_nonresident.validate_application`;
+- `ul_resident.validate_application`;
+- `ul_nonresident.validate_application`.
+
+`beneficiary.unbind` остается отдельным локальным RULES/FUNC решением и не
+входит в этот package migration.
+
+Следующий design slice: после parity вынести общие проверки в library
+pipelines и убрать физическое дублирование между FL/IP/UL без изменения
+публичных `legacyCode`.
