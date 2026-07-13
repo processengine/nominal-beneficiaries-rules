@@ -5,6 +5,7 @@
       "key": "fl_resident",
       "type": "FL_RESIDENT",
       "sourcePath": "../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/fl-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 191,
       "entrypointId": "entrypoints.fl_resident.full_validation"
     },
@@ -12,6 +13,7 @@
       "key": "fl_nonresident",
       "type": "FL_NONRESIDENT",
       "sourcePath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
+      "fieldContractPath": "../processor-preprod/artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
       "sourceArtifacts": 225,
       "entrypointId": "entrypoints.fl_nonresident.full_validation"
     }

@@ -5,6 +5,7 @@ import { customOperatorMeta } from "./operators.mjs";
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const processorDir = process.env.PROCESSOR_REPO || path.resolve(rootDir, "../processor-preprod");
 const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
+const fieldContractDir = path.join(rootDir, "field-contracts");
 
 const contours = [
   {
@@ -16,6 +17,11 @@ const contours = [
       "artifacts/fl-resident.registration/subflows/validate-application-v1/rules.snapshot.json",
     ),
     legacyFixtureFile: "fl-resident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/fl-resident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "fl-resident.validate-application.rules-field-contract.json",
     fixturePath: path.join(processorDir, "fixtures/TC-009-valid-fl-resident-fias-no-addressline.json"),
     entrypointId: "entrypoints.fl_resident.full_validation",
     currentDate: "2026-04-12",
@@ -29,6 +35,11 @@ const contours = [
       "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules.snapshot.json",
     ),
     legacyFixtureFile: "fl-nonresident.validate-application.rules.snapshot.json",
+    fieldContractPath: path.join(
+      processorDir,
+      "artifacts/fl-nonresident.registration/subflows/validate-application-v1/rules-field-contract.json",
+    ),
+    fieldContractFile: "fl-nonresident.validate-application.rules-field-contract.json",
     fixturePath: path.join(processorDir, "fixtures/BEN-FL-NONRES-FOREIGN-PASSPORT-VALID.json"),
     belarusFixturePath: path.join(processorDir, "fixtures/BEN-FL-NONRES-BELARUS-NO-ADDDOC-VALID.json"),
     entrypointId: "entrypoints.fl_nonresident.full_validation",
@@ -308,8 +319,12 @@ function addScopedConflictCatalog(manifest, conflictMap) {
 }
 
 function readSource(contour) {
-  const source = JSON.parse(readFileSync(contour.sourcePath, "utf8"));
-  writeJson(path.join(legacyFixtureDir, contour.legacyFixtureFile), source);
+  const sourceText = readFileSync(contour.sourcePath, "utf8");
+  const source = JSON.parse(sourceText);
+  mkdirSync(legacyFixtureDir, { recursive: true });
+  writeFileSync(path.join(legacyFixtureDir, contour.legacyFixtureFile), sourceText);
+  mkdirSync(fieldContractDir, { recursive: true });
+  writeFileSync(path.join(fieldContractDir, contour.fieldContractFile), readFileSync(contour.fieldContractPath, "utf8"));
   return source;
 }
 
@@ -699,6 +714,7 @@ writeJson(path.join(rootDir, "docs/sync-report.json"), {
     key: contour.key,
     type: contour.type,
     sourcePath: repoRelative(contour.sourcePath),
+    fieldContractPath: repoRelative(contour.fieldContractPath),
     sourceArtifacts: contour.artifacts.length,
     entrypointId: contour.entrypointId,
   })),

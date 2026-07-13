@@ -108,6 +108,7 @@ NPM_TOKEN
 
 ```text
 manifest.json             метаданные пакета и catalog для Studio/UI
+field-contracts/          контракты полей Rules UI для processor compatibility
 rules/                    jsonspecs artifacts, один artifact на файл
 rules/internal/           внутренние блоки legacy snapshot с id internal.*
 operators/node/           доменные операторы бенефициаров

@@ -24,6 +24,7 @@
   "files": [
     "dist/",
     "docs/",
+    "field-contracts/",
     "manifest.json",
     "operators/",
     "rules/",
