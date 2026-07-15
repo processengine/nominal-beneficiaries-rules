@@ -1,0 +1,17 @@
+{
+  "id": "library.nonresident.cond_add_doc_issue_date_end_if_present",
+  "type": "condition",
+  "description": "Если дата окончания действия дополнительного документа указана, проверяем формат, срок и порядок дат",
+  "when": "library.nonresident.pred_add_doc_issueDateEnd_present",
+  "steps": [
+    {
+      "rule": "library.nonresident.add_doc_issue_date_end_format"
+    },
+    {
+      "condition": "library.nonresident.cond_add_doc_issue_date_end_not_expired_if_format_ok"
+    },
+    {
+      "condition": "library.nonresident.cond_add_doc_issue_date_end_order_if_dates_ok"
+    }
+  ]
+}

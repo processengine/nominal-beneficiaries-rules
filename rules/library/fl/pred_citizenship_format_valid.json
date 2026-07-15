@@ -1,0 +1,9 @@
+{
+  "id": "library.fl.pred_citizenship_format_valid",
+  "type": "rule",
+  "description": "Код гражданства указан двухбуквенным кодом страны",
+  "role": "predicate",
+  "operator": "matches_regex",
+  "field": "beneficiary.fl.citizenshipCode",
+  "value": "^[A-Z]{2}$"
+}

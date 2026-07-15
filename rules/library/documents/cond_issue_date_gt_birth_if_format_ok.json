@@ -1,9 +1,10 @@
 {
   "id": "library.documents.cond_issue_date_gt_birth_if_format_ok",
   "type": "condition",
-  "description": "Если дата выдачи документа корректна, проверяем, что она позже даты рождения",
+  "description": "Если даты рождения и выдачи документа корректны, проверяем, что дата выдачи позже даты рождения",
   "when": {
     "all": [
+      "library.fl.pred_birth_date_format_valid",
       "library.documents.pred_issue_date_format_valid"
     ]
   },

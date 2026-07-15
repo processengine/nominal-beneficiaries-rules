@@ -1,5 +1,8 @@
 # Slice 6: UL_NONRESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Шестой слайс добавляет в пакет контур `UL_NONRESIDENT`

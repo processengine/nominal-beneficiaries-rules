@@ -4,6 +4,7 @@
     "pipelineId": "entrypoints.ip_resident.full_validation",
     "currentDate": "2026-06-03"
   },
+  "legacyParity": false,
   "payload": {
     "beneficiary": {
       "type": "IP_RESIDENT",

@@ -1,0 +1,9 @@
+{
+  "id": "library.ul_nonresident.pred_inn_format_valid",
+  "type": "rule",
+  "description": "ИНН иностранной организации содержит 10 цифр",
+  "role": "predicate",
+  "operator": "matches_regex",
+  "field": "beneficiary.inn",
+  "value": "^\\d{10}$"
+}

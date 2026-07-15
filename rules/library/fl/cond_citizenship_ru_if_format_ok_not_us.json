@@ -1,0 +1,16 @@
+{
+  "id": "library.fl.cond_citizenship_ru_if_format_ok_not_us",
+  "type": "condition",
+  "description": "Если код гражданства корректный и это не США, проверяем гражданство РФ",
+  "when": {
+    "all": [
+      "library.fl.pred_citizenship_format_valid",
+      "library.fl.pred_citizenship_not_us"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.fl.citizenship_ru_required"
+    }
+  ]
+}

@@ -4,10 +4,10 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  workflow_dispatch:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,18 +30,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify tag matches package version
-        if: github.event_name == 'push'
+      - name: Verify release commit belongs to origin/main
         run: |
-          package_version="$(node -p "require('./package.json').version")"
-          tag_version="${GITHUB_REF_NAME#v}"
-          if [ "$package_version" != "$tag_version" ]; then
-            echo "Tag version v$tag_version does not match package.json version $package_version" >&2
+          git fetch origin main --no-tags
+          if ! git merge-base --is-ancestor HEAD FETCH_HEAD; then
+            echo "Release tag commit must belong to origin/main" >&2
             exit 1
           fi
 
-      - name: Run parity tests
-        run: npm test
+      - name: Verify clean tagged release state
+        run: npm run release:check
 
       - name: Verify version is not already published
         env:
@@ -55,4 +55,28 @@ jobs:
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: npm publish --access public --provenance
+
+      - name: Verify published gitHead and package contents
+        run: |
+          package_name="$(node -p "require('./package.json').name")"
+          package_version="$(node -p "require('./package.json').version")"
+          published_git_head=""
+          for attempt in $(seq 1 12); do
+            published_git_head="$(npm view "$package_name@$package_version" gitHead 2>/dev/null || true)"
+            if [ -n "$published_git_head" ]; then
+              break
+            fi
+            sleep 5
+          done
+          if [ "$published_git_head" != "$GITHUB_SHA" ]; then
+            echo "npm gitHead $published_git_head does not match release commit $GITHUB_SHA" >&2
+            exit 1
+          fi
+
+          package_dir="$(mktemp -d)"
+          tarball="$(npm pack "$package_name@$package_version" --pack-destination "$package_dir" --silent)"
+          tar -xzf "$package_dir/$tarball" -C "$package_dir"
+          cmp dist/snapshot.json "$package_dir/package/dist/snapshot.json"
+          cmp dist/build-info.json "$package_dir/package/dist/build-info.json"
+          cmp operators/node/index.js "$package_dir/package/operators/node/index.js"

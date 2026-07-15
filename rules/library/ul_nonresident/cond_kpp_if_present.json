@@ -1,0 +1,11 @@
+{
+  "id": "library.ul_nonresident.cond_kpp_if_present",
+  "type": "condition",
+  "description": "Если КПП иностранной организации указан, проверяем формат",
+  "when": "library.ul_nonresident.pred_kpp_present",
+  "steps": [
+    {
+      "rule": "library.ul_nonresident.kpp_format"
+    }
+  ]
+}

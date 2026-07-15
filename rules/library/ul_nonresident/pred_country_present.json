@@ -1,0 +1,8 @@
+{
+  "id": "library.ul_nonresident.pred_country_present",
+  "type": "rule",
+  "description": "Страна регистрации иностранной организации указана",
+  "role": "predicate",
+  "operator": "not_empty",
+  "field": "beneficiary.ul.countryCode"
+}

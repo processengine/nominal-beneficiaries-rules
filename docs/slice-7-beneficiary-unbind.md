@@ -1,5 +1,8 @@
 # Slice 7: beneficiary.unbind
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Седьмой слайс добавляет в пакет локальный RULES-контур отвязки

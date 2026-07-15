@@ -11,7 +11,7 @@
       "rule": "library.ul.legal_address_country_required"
     },
     {
-      "rule": "library.ul.legal_address_country_ru"
+      "condition": "library.ul.cond_legal_address_country_if_present"
     }
   ],
   "entrypoint": false

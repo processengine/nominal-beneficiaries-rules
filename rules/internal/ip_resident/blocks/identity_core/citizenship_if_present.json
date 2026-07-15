@@ -13,6 +13,9 @@
     },
     {
       "rule": "internal.ip_resident.blocks.identity_core.citizenship_not_us"
+    },
+    {
+      "condition": "library.fl.cond_citizenship_ru_if_format_ok_not_us"
     }
   ]
 }

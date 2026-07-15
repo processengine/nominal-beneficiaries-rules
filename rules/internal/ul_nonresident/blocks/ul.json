@@ -8,7 +8,7 @@
       "rule": "library.ul_nonresident.kpp_required"
     },
     {
-      "rule": "library.ul_nonresident.kpp_format"
+      "condition": "library.ul_nonresident.cond_kpp_if_present"
     },
     {
       "condition": "library.ul_nonresident.cond_kio_if_present"
@@ -23,7 +23,7 @@
       "rule": "library.ul_nonresident.country_required"
     },
     {
-      "rule": "library.ul_nonresident.country_format_non_ru"
+      "condition": "library.ul_nonresident.cond_country_if_present"
     },
     {
       "rule": "library.ul_nonresident.registration_number_required"
@@ -32,7 +32,7 @@
       "rule": "library.ul_nonresident.registration_date_required"
     },
     {
-      "rule": "library.ul_nonresident.registration_date_format"
+      "condition": "library.ul_nonresident.cond_registration_date_if_present"
     },
     {
       "rule": "library.ul_nonresident.registration_agency_required"

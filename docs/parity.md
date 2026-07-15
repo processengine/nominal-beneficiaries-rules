@@ -2,7 +2,15 @@
 
 Package slice не меняет бизнес-смысл правил.
 
-Текущий parity-набор: 41 sample.
+Текущий parity-набор для `0.8.1`: 48 samples:
+
+- `FL_RESIDENT`: 8;
+- `FL_NONRESIDENT`: 8;
+- `IP_RESIDENT`: 6;
+- `IP_NONRESIDENT`: 9;
+- `UL_RESIDENT`: 4;
+- `UL_NONRESIDENT`: 8;
+- `beneficiary.unbind`: 5.
 
 Для каждого sample выполняется два запуска:
 
@@ -52,3 +60,7 @@ merchant-facing контракт при работе через общий packa
 Если parity падает, нельзя исправлять sample под новый результат. Сначала нужно
 понять, где drift: в frozen fixture, envelope, custom operator, jsonspecs
 runtime или в самих артефактах.
+
+Каноническая сборка выполняется только через `npm test` / `scripts/build.mjs`.
+Generic `jsonspecs build` может использовать другую версию CLI и другую
+семантику source hash; его нельзя запускать поверх рабочего checkout.

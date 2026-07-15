@@ -5,6 +5,7 @@
   "when": {
     "all": [
       "library.nonresident.pred_add_doc_typeCode_present",
+      "library.nonresident.pred_add_doc_typeCode_supported",
       "library.nonresident.pred_add_doc_typeCode_not_migr"
     ]
   },

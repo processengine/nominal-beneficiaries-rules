@@ -1,5 +1,8 @@
 # Slice 5: UL_RESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Пятый слайс добавляет в пакет контур `UL_RESIDENT` validate-application.

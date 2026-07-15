@@ -54,7 +54,6 @@ writeFileSync(path.join(distDir, manifest.build.buildInfoFile), `${JSON.stringif
   rulesetVersion: manifest.project.version,
   artifactCount: artifacts.length,
   sourceHash: snapshot.sourceHash,
-  builtAt: new Date().toISOString(),
 }, null, 2)}\n`);
 
 console.log(`Built ${manifest.build.snapshotFile}: ${artifacts.length} artifacts, sourceHash ${snapshot.sourceHash}`);

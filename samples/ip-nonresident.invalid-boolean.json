@@ -4,6 +4,7 @@
     "pipelineId": "entrypoints.ip_nonresident.full_validation",
     "currentDate": "2026-05-18"
   },
+  "legacyParity": false,
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
     "beneficiary": {

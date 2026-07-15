@@ -1,0 +1,15 @@
+{
+  "id": "library.tax.cond_foreign_tax_resident_true_if_boolean",
+  "type": "condition",
+  "description": "Если признак иностранного налогового резидентства указан как да или нет, проверяем, что он подтвержден",
+  "when": {
+    "all": [
+      "library.tax.pred_foreign_tax_resident_boolean"
+    ]
+  },
+  "steps": [
+    {
+      "rule": "library.tax.foreign_tax_resident_true_required"
+    }
+  ]
+}

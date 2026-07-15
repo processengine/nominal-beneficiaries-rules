@@ -1,6 +1,6 @@
 {
   "name": "@processengine/nominal-beneficiaries-rules",
-  "version": "0.7.3",
+  "version": "0.8.1",
   "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
   "license": "UNLICENSED",
   "repository": {
@@ -10,7 +10,11 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test:parity": "node scripts/parity.mjs",
-    "test": "npm run build && npm run test:parity"
+    "test": "npm run build && npm run test:parity && npm run verify:package",
+    "verify:package": "node scripts/verify-package.mjs",
+    "release:check": "npm test && npm pack --dry-run --ignore-scripts && node scripts/verify-release.mjs",
+    "prepublishOnly": "node scripts/verify-publish-context.mjs && npm run release:check",
+    "version:set": "node scripts/set-version.mjs"
   },
   "dependencies": {
     "jsonspecs": "^2.1.0"
@@ -19,6 +23,7 @@
     "@processengine/rules": "2.1.0"
   },
   "files": [
+    "AGENTS.md",
     "dist/",
     "docs/",
     "field-contracts/",

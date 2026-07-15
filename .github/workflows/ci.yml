@@ -31,5 +31,14 @@ jobs:
       - name: Run parity tests
         run: npm test
 
+      - name: Verify generated artifacts are committed
+        run: |
+          if [ -n "$(git status --porcelain=v1 --untracked-files=all)" ]; then
+            git status --short
+            git diff -- dist
+            echo "npm test changed the checkout; commit deterministic generated artifacts" >&2
+            exit 1
+          fi
+
       - name: Check npm package contents
-        run: npm pack --dry-run
+        run: npm pack --dry-run --ignore-scripts

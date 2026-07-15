@@ -12,10 +12,10 @@
       "rule": "library.ul_nonresident.inn_format_10"
     },
     {
-      "rule": "library.ul_nonresident.inn_mask_9909"
+      "condition": "library.ul_nonresident.cond_inn_mask_if_format_ok"
     },
     {
-      "rule": "library.ul_nonresident.inn_valid"
+      "condition": "library.ul_nonresident.cond_inn_valid_if_mask_ok"
     }
   ]
 }

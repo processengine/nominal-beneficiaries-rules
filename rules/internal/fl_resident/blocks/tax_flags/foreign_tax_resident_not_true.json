@@ -1,7 +1,7 @@
 {
   "id": "internal.fl_resident.blocks.tax_flags.foreign_tax_resident_not_true",
   "type": "rule",
-  "description": "Признак иностранного налогового резидентства не должен иметь значение true",
+  "description": "Иностранное налоговое резидентство не допускается для резидента РФ",
   "role": "check",
   "operator": "not_equals",
   "level": "EXCEPTION",

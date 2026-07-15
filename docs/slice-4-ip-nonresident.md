@@ -1,5 +1,8 @@
 # Slice 4: IP_NONRESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Четвертый слайс добавляет в пакет контур `IP_NONRESIDENT`

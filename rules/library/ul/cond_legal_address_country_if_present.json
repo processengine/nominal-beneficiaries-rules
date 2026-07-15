@@ -1,0 +1,11 @@
+{
+  "id": "library.ul.cond_legal_address_country_if_present",
+  "type": "condition",
+  "description": "Если страна юридического адреса указана, проверяем, что это Россия",
+  "when": "library.ul.pred_legal_address_country_present",
+  "steps": [
+    {
+      "rule": "library.ul.legal_address_country_ru"
+    }
+  ]
+}

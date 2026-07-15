@@ -17,13 +17,13 @@
       "rule": "library.ul_nonresident.account_number_required"
     },
     {
-      "rule": "library.ul_nonresident.account_number_format"
+      "condition": "library.ul_nonresident.cond_account_number_if_present"
     },
     {
       "rule": "library.ul_nonresident.status_start_required"
     },
     {
-      "rule": "library.ul_nonresident.status_start_format"
+      "condition": "library.ul_nonresident.cond_status_start_if_present"
     },
     {
       "condition": "library.ul.common.cond_status_end_if_present"

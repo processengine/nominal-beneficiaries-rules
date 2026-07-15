@@ -1,5 +1,8 @@
 # Slice 2: FL_NONRESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Второй слайс добавляет в пакет контур `FL_NONRESIDENT`

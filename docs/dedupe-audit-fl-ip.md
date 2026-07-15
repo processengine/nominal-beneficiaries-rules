@@ -1,6 +1,9 @@
 # FL/IP scoped conflicts dedupe audit
 
 Status date: 2026-07-13.
+This is a dated rationale snapshot; current instructions are in
+[`docs/README.md`](./README.md), and current source/tests win over the counts
+recorded here.
 
 This document records the semantic audit of the remaining FL/IP scoped
 conflicts in the rules package. It explains whether each scope is a real

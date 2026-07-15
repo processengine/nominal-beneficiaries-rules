@@ -4,41 +4,37 @@
 
 ## Статус
 
-Пакет отделен от процессора и является source of truth для всех активных
-RULES-контуров процессора:
+Пакет отделен от процессинга данных заявок и является источником истины для всех активных RULES-контуров процессора:
 
-- `FL_RESIDENT`;
-- `FL_NONRESIDENT`;
-- `IP_RESIDENT`;
-- `IP_NONRESIDENT`;
-- `UL_RESIDENT`;
-- `UL_NONRESIDENT`;
-- `beneficiary.unbind`.
+- `FL_RESIDENT`
+- `FL_NONRESIDENT`
+- `IP_RESIDENT`
+- `IP_NONRESIDENT`
+- `UL_RESIDENT`
+- `UL_NONRESIDENT`
+- `UNBIND`
 
-Цель текущего состояния - поддерживать самостоятельный `jsonspecs-snapshot`
-для процессора без локальных `rules.snapshot.json` в `processor-preprod`.
-Замороженные parity fixtures остаются только внутри этого пакета как
-регрессионная база миграции.
+Цель текущего состояния поддерживать самостоятельный `jsonspecs-snapshot` для процессора без локальных `rules.snapshot.json` в `processor-preprod`.
 
 ## Точки входа
 
-| Entrypoint | Сценарий |
-|---|---|
-| `entrypoints.fl_resident.full_validation` | Проверка ФЛ-резидента |
-| `entrypoints.fl_nonresident.full_validation` | Проверка ФЛ-нерезидента |
-| `entrypoints.ip_resident.full_validation` | Проверка ФЛ-данных владельца ИП-резидента |
-| `entrypoints.ip_nonresident.full_validation` | Проверка ИП-нерезидента |
-| `entrypoints.ul_resident.full_validation` | Проверка ЮЛ-резидента |
-| `entrypoints.ul_nonresident.full_validation` | Проверка ЮЛ-нерезидента |
-| `entrypoints.beneficiary.unbind.type_supported` | Проверка типа бенефициара для отвязки |
-| `entrypoints.beneficiary.unbind.field_validation` | Проверка данных для отвязки |
+| Entrypoint                                        | Сценарий                                  |
+| ------------------------------------------------- | ----------------------------------------- |
+| `entrypoints.fl_resident.full_validation`         | Проверка ФЛ-резидента                     |
+| `entrypoints.fl_nonresident.full_validation`      | Проверка ФЛ-нерезидента                   |
+| `entrypoints.ip_resident.full_validation`         | Проверка ФЛ-данных владельца ИП-резидента |
+| `entrypoints.ip_nonresident.full_validation`      | Проверка ИП-нерезидента                   |
+| `entrypoints.ul_resident.full_validation`         | Проверка ЮЛ-резидента                     |
+| `entrypoints.ul_nonresident.full_validation`      | Проверка ЮЛ-нерезидента                   |
+| `entrypoints.beneficiary.unbind.type_supported`   | Проверка типа бенефициара для отвязки     |
+| `entrypoints.beneficiary.unbind.field_validation` | Проверка данных для отвязки               |
 
 ## Runtime Context
 
 Entrypoint требует контекст:
 
-| Поле | Назначение |
-|---|---|
+| Поле          | Назначение                                                                      |
+| ------------- | ------------------------------------------------------------------------------- |
 | `currentDate` | Дата заявки для проверок сроков действия документов и сравнений с текущей датой |
 
 ## Команды
@@ -60,16 +56,22 @@ Samples лежат прямо в `samples/*.json` в Studio-совместимо
 
 ## Доменные операторы
 
-`is_boolean` проверяет, что поле передано как настоящий JSON boolean:
-`true` или `false`. Он заменяет legacy-подход через технический справочник
+`is_boolean` проверяет, что поле передано как настоящий JSON boolean,
+а не строка, число или пустое значение. Он заменяет legacy-подход через технический справочник
 `true_false`, потому что проверка типа не является бизнес-справочником и не
 должна отображаться в Studio как отдельный справочник значений.
 
 Для налоговых флагов сценарий разложен на три слоя:
 
 1. поле обязательно;
-2. если поле передано, проверяется тип `true/false`;
-3. если тип корректный, проверяется бизнес-запрет значения `true`.
+2. если поле передано, проверяется, что это логический признак;
+3. если тип корректный, проверяется бизнес-запрет положительного значения.
+
+Для резидентских ФЛ-контуров (`FL_RESIDENT`, `IP_RESIDENT`) гражданство
+проверяется как отдельная бизнес-граница: после проверки наличия и формата
+`beneficiary.fl.citizenshipCode` значение должно быть `RU`. Гражданство США
+остается отдельным compliance reject; значения не в формате ISO alpha-2
+отклоняются форматом до проверки `RU`.
 
 ## Общие и scoped правила
 
@@ -104,19 +106,25 @@ steps остаются значимыми: если они отличаются,
 Пакет публикуется в npm как
 `@processengine/nominal-beneficiaries-rules`.
 
-Обычный порядок релиза:
+Обязательная процедура описана в
+[`docs/release-procedure.md`](docs/release-procedure.md). Короткая форма после
+проверки полного diff:
 
 ```bash
-npm version patch   # или minor / major
-git push origin main --follow-tags
+npm run version:set -- X.Y.Z
+npm test
+npm pack --dry-run --ignore-scripts
+git commit
+git tag -a vX.Y.Z -m 'vX.Y.Z'
+npm run release:check
+git push --atomic origin main vX.Y.Z
 ```
 
-GitHub Actions запускает `Release` на tag вида `vX.Y.Z`, проверяет совпадение
-tag с `package.json`, прогоняет `npm test`, проверяет, что такая версия еще не
-опубликована, и выполняет `npm publish --access public`.
-
-Для ручного запуска есть `workflow_dispatch` в workflow `Release`; он публикует
-текущую версию из `package.json`.
+Локальный `npm publish`, dirty release, публикация без exact tag и ручной
+`workflow_dispatch` запрещены. GitHub Actions запускает `Release` только на tag
+вида `vX.Y.Z`, проверяет clean tagged commit из `main`, тесты, уникальность
+версии и публикует пакет с npm provenance attestation. После публикации workflow
+сверяет npm `gitHead` и ключевые runtime-файлы с release commit.
 
 Секрет публикации:
 
@@ -145,7 +153,7 @@ test-fixtures/            замороженная регрессионная б
 ## Текущее состояние миграции
 
 Все active RULES contours processor-preprod перенесены в package snapshot
-`@processengine/nominal-beneficiaries-rules@0.7.2`:
+`@processengine/nominal-beneficiaries-rules@0.8.1`:
 
 - `fl_resident.validate_application`;
 - `fl_nonresident.validate_application`;

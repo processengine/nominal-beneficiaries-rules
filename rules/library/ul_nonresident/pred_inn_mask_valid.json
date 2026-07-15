@@ -1,0 +1,9 @@
+{
+  "id": "library.ul_nonresident.pred_inn_mask_valid",
+  "type": "rule",
+  "description": "ИНН иностранной организации соответствует маске 9909",
+  "role": "predicate",
+  "operator": "matches_regex",
+  "field": "beneficiary.inn",
+  "value": "^9909\\d{6}$"
+}

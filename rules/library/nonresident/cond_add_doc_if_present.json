@@ -20,22 +20,13 @@
       "rule": "library.nonresident.add_doc_issue_date_required"
     },
     {
-      "rule": "library.nonresident.add_doc_issue_date_format"
-    },
-    {
-      "rule": "library.nonresident.add_doc_issue_date_not_future"
+      "condition": "library.nonresident.cond_add_doc_issue_date_if_present"
     },
     {
       "rule": "library.nonresident.add_doc_issue_date_end_required"
     },
     {
-      "rule": "library.nonresident.add_doc_issue_date_end_format"
-    },
-    {
-      "rule": "library.nonresident.add_doc_issue_date_end_after_start"
-    },
-    {
-      "rule": "library.nonresident.add_doc_issue_date_end_not_expired"
+      "condition": "library.nonresident.cond_add_doc_issue_date_end_if_present"
     }
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "id": "library.fl.citizenship_ru_required",
+  "type": "rule",
+  "description": "Гражданство резидента должно быть РФ",
+  "role": "check",
+  "operator": "equals",
+  "level": "ERROR",
+  "code": "FL.CITIZENSHIP.MUST_BE_RU",
+  "message": "Гражданство резидента должно быть РФ",
+  "field": "beneficiary.fl.citizenshipCode",
+  "value": "RU"
+}

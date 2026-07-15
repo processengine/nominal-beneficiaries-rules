@@ -1,7 +1,7 @@
 {
   "id": "internal.ip_nonresident.blocks.tax_flags.us_tax_resident_not_true",
   "type": "rule",
-  "description": "Признак налогового резидентства США не должен иметь значение true",
+  "description": "Налоговое резидентство США не допускается для этого сценария",
   "role": "check",
   "operator": "not_equals",
   "level": "EXCEPTION",

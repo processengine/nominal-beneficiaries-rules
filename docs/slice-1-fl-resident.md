@@ -1,5 +1,8 @@
 # Slice 1: FL_RESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Первый слайс переносит `FL_RESIDENT` validate-application из
@@ -46,7 +49,6 @@ Samples с намеренным отличием от legacy помечаютс�
 
 ```bash
 npm test
-node /Users/vladimirtitskiy/Dev/jsonspecs-rule-author/scripts/validate-package.mjs .
 ```
 
 `npm test` сравнивает frozen parity fixture и jsonspecs snapshot по:

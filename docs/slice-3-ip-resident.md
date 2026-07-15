@@ -1,5 +1,8 @@
 # Slice 3: IP_RESIDENT validate-application
 
+Status: historical migration slice; current instructions are in
+[`docs/README.md`](./README.md).
+
 ## Scope
 
 Третий слайс добавляет в пакет контур `IP_RESIDENT` validate-application.

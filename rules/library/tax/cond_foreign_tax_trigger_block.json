@@ -11,6 +11,15 @@
   },
   "steps": [
     {
+      "rule": "library.tax.foreign_tax_resident_required"
+    },
+    {
+      "condition": "library.tax.cond_foreign_tax_resident_type_if_present"
+    },
+    {
+      "condition": "library.tax.cond_foreign_tax_resident_true_if_boolean"
+    },
+    {
       "rule": "library.tax.foreign_country_required"
     },
     {

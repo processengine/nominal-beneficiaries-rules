@@ -1,5 +1,6 @@
 {
   "name": "UL nonresident INN mask reject",
+  "legacyParity": false,
   "context": {
     "pipelineId": "entrypoints.ul_nonresident.full_validation",
     "currentDate": "2026-06-15"
@@ -60,11 +61,6 @@
     "issues": [
       {
         "code": "UL.INN.NONRESIDENT_MASK",
-        "field": "beneficiary.inn",
-        "level": "ERROR"
-      },
-      {
-        "code": "UL_NONRESIDENT.UL.INN.INVALID",
         "field": "beneficiary.inn",
         "level": "ERROR"
       }

@@ -1,0 +1,17 @@
+{
+  "id": "library.nonresident.pred_add_doc_typeCode_supported",
+  "type": "rule",
+  "description": "Тип дополнительного документа поддерживается",
+  "role": "predicate",
+  "operator": "in_dictionary",
+  "field": "beneficiary.addDoc.typeCode",
+  "dictionary": {
+    "type": "static",
+    "id": "add_doc_type_codes",
+    "entries": [
+      "007",
+      "005",
+      "006"
+    ]
+  }
+}

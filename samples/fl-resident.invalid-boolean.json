@@ -4,6 +4,7 @@
     "pipelineId": "entrypoints.fl_resident.full_validation",
     "currentDate": "2026-04-12"
   },
+  "legacyParity": false,
   "payload": {
     "beneficiary": {
       "type": "FL_RESIDENT",

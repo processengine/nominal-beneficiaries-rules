@@ -24,13 +24,7 @@
       "condition": "library.documents.cond_issuer_code_format_if_present"
     },
     {
-      "rule": "library.documents.passport_rf_issue_date_after_14"
-    },
-    {
-      "rule": "library.documents.passport_rf_valid_after_20"
-    },
-    {
-      "rule": "library.documents.passport_rf_valid_after_45"
+      "condition": "library.documents.cond_passport_rf_age_checks_if_dates_format_ok"
     }
   ]
 }
