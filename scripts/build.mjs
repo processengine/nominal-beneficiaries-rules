@@ -5,10 +5,11 @@ import { buildOperatorPack } from "./operators.mjs";
 
 const require = createRequire(import.meta.url);
 const jsonspecs = require("jsonspecs");
+const jsonspecsPackage = require("jsonspecs/package.json");
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const manifest = JSON.parse(readFileSync(path.join(rootDir, "manifest.json"), "utf8"));
 const checkOnly = process.argv.includes("--check");
-const MIN_JSONSPECS_VERSION = "2.3.1";
+const engineVersion = jsonspecsPackage.version;
 
 function readArtifacts(dir) {
   const result = [];
@@ -41,7 +42,7 @@ const snapshot = {
   formatVersion: 1,
   sourceHash: jsonspecs.computeSourceHash(artifacts),
   engine: {
-    minVersion: MIN_JSONSPECS_VERSION,
+    minVersion: engineVersion,
   },
   artifacts,
   meta: {
@@ -63,7 +64,7 @@ if (warnings.length > 0) {
 }
 
 if (checkOnly) {
-  console.log(`Validation OK: ${artifacts.length} artifacts, 0 warnings, sourceHash ${snapshot.sourceHash}`);
+  console.log(`Validation OK: ${artifacts.length} artifacts, 0 diagnostics, 0 warnings, engine jsonspecs ${engineVersion}, sourceHash ${snapshot.sourceHash}`);
   process.exit();
 }
 
@@ -74,11 +75,13 @@ writeFileSync(path.join(distDir, manifest.build.buildInfoFile), `${JSON.stringif
   projectId: manifest.project.id,
   rulesetVersion: manifest.project.version,
   artifactCount: artifacts.length,
-  warnings: 0,
+  engineVersion,
+  warningCount: warnings.length,
+  diagnosticCount: validation.diagnostics.length,
   sourceHash: snapshot.sourceHash,
 }, null, 2)}\n`);
 
-console.log(`Built ${manifest.build.snapshotFile}: ${artifacts.length} artifacts, sourceHash ${snapshot.sourceHash}`);
+console.log(`Built ${manifest.build.snapshotFile}: ${artifacts.length} artifacts, engine jsonspecs ${engineVersion}, sourceHash ${snapshot.sourceHash}`);
 
 function warningDiagnostics(diagnostics = []) {
   return diagnostics.filter((item) => String(item.level || "").toLowerCase() === "warning");

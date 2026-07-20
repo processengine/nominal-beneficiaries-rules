@@ -6873,6 +6873,6 @@
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
-    "rulesetVersion": "0.8.1"
+    "rulesetVersion": "0.8.2"
   }
 }

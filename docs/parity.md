@@ -2,7 +2,7 @@
 
 Package slice не меняет бизнес-смысл правил.
 
-Текущий parity-набор для `0.8.1`: 48 samples:
+Текущий parity-набор для `0.8.2`: 48 samples:
 
 - `FL_RESIDENT`: 8;
 - `FL_NONRESIDENT`: 8;
