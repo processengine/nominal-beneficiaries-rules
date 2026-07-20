@@ -153,7 +153,7 @@ test-fixtures/            замороженная регрессионная б
 ## Текущее состояние миграции
 
 Все active RULES contours processor-preprod перенесены в package snapshot
-`@processengine/nominal-beneficiaries-rules@0.8.2`:
+`@processengine/nominal-beneficiaries-rules@0.8.3`:
 
 - `fl_resident.validate_application`;
 - `fl_nonresident.validate_application`;

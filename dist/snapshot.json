@@ -3,7 +3,7 @@
   "formatVersion": 1,
   "sourceHash": "495a0c4cecca77237e6272727c22ac9a10f65856729688555095ec0c87e0c693",
   "engine": {
-    "minVersion": "2.3.1"
+    "minVersion": "2.3.2"
   },
   "artifacts": [
     {
@@ -6873,6 +6873,6 @@
     "projectId": "nominal-beneficiaries-rules",
     "projectTitle": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
-    "rulesetVersion": "0.8.2"
+    "rulesetVersion": "0.8.3"
   }
 }
