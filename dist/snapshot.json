@@ -3,7 +3,7 @@
   "formatVersion": 1,
   "sourceHash": "495a0c4cecca77237e6272727c22ac9a10f65856729688555095ec0c87e0c693",
   "engine": {
-    "minVersion": "2.0.0"
+    "minVersion": "2.3.1"
   },
   "artifacts": [
     {

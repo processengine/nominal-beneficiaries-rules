@@ -9,6 +9,17 @@ const jsonspecs = require("jsonspecs");
 const customOperators = require("../operators/node/index.js");
 const rootDir = path.resolve(new URL("..", import.meta.url).pathname);
 const legacyFixtureDir = path.join(rootDir, "test-fixtures/legacy-snapshots");
+const legacyCompatOperators = {
+  check: {
+    ...customOperators.check,
+    not_true: jsonspecs.Operators.check.not_true,
+    is_boolean: jsonspecs.Operators.check.is_boolean,
+  },
+  predicate: {
+    ...customOperators.predicate,
+    is_boolean: jsonspecs.Operators.predicate.is_boolean,
+  },
+};
 
 function legacySnapshotPath(fixtureFileName) {
   return path.join(legacyFixtureDir, fixtureFileName);
@@ -102,7 +113,7 @@ function assertEqual(actual, expected, label) {
 const legacyPreparedByPipeline = new Map(
   Object.entries(legacySnapshotPaths).map(([pipelineId, snapshotPath]) => [
     pipelineId,
-    legacyRules.prepareRules(JSON.parse(readFileSync(snapshotPath, "utf8")), { operators: customOperators }),
+    legacyRules.prepareRules(JSON.parse(readFileSync(snapshotPath, "utf8")), { operators: legacyCompatOperators }),
   ]),
 );
 

@@ -138,46 +138,6 @@ function absent(rule, ctx) {
   }
 }
 
-function notTrue(rule, ctx) {
-  try {
-    const got = ctx.get(rule.field);
-    if (
-      !got.ok ||
-      got.value === null ||
-      got.value === undefined ||
-      got.value === ""
-    )
-      return { status: "OK" };
-    return got.value === true ? { status: "FAIL" } : { status: "OK" };
-  } catch (error) {
-    return { status: "EXCEPTION", error };
-  }
-}
-
-function isBoolean(rule, ctx) {
-  try {
-    const got = ctx.get(rule.field);
-    if (!got.ok) return { status: "FAIL" };
-    return typeof got.value === "boolean"
-      ? { status: "OK" }
-      : { status: "FAIL" };
-  } catch (error) {
-    return { status: "EXCEPTION", error };
-  }
-}
-
-function isBooleanPredicate(rule, ctx) {
-  try {
-    const got = ctx.get(rule.field);
-    if (!got.ok) return { status: "UNDEFINED" };
-    return typeof got.value === "boolean"
-      ? { status: "TRUE" }
-      : { status: "FALSE" };
-  } catch (error) {
-    return { status: "EXCEPTION", error };
-  }
-}
-
 function parseIsoDate(value) {
   if (typeof value !== "string") return null;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
@@ -260,13 +220,10 @@ module.exports = {
     valid_inn: validInn,
     valid_ogrn: validOgrn,
     absent,
-    not_true: notTrue,
-    is_boolean: isBoolean,
     passport_rf_issued_at_or_after_age: passportRfIssuedAtOrAfterAge,
     passport_rf_valid_after_replacement_age: passportRfValidAfterReplacementAge,
   },
   predicate: {
-    is_boolean: isBooleanPredicate,
     not_in_dictionary: notInDictionary,
   },
   meta: {
@@ -276,14 +233,6 @@ module.exports = {
         description: "ОГРН/ОГРНИП корректен по контрольному разряду",
       },
       absent: { description: "Поле отсутствует или пустое" },
-      not_true: {
-        description:
-          "Значение не равно true; отсутствие поля не считается нарушением",
-      },
-      is_boolean: {
-        title: "значение является логическим признаком",
-        description: "является флагом (true или false)",
-      },
       passport_rf_issued_at_or_after_age: {
         title: "паспорт РФ выдан не раньше даты достижения возраста",
         description:

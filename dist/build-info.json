@@ -2,5 +2,6 @@
   "projectId": "nominal-beneficiaries-rules",
   "rulesetVersion": "0.8.1",
   "artifactCount": 459,
+  "warnings": 0,
   "sourceHash": "495a0c4cecca77237e6272727c22ac9a10f65856729688555095ec0c87e0c693"
 }

@@ -8,6 +8,7 @@
     "url": "git+https://github.com/processengine/nominal-beneficiaries-rules.git"
   },
   "scripts": {
+    "validate": "node scripts/build.mjs --check",
     "build": "node scripts/build.mjs",
     "test:parity": "node scripts/parity.mjs",
     "test": "npm run build && npm run test:parity && npm run verify:package",
@@ -17,7 +18,7 @@
     "version:set": "node scripts/set-version.mjs"
   },
   "dependencies": {
-    "jsonspecs": "^2.1.0"
+    "jsonspecs": "^2.3.1"
   },
   "devDependencies": {
     "@processengine/rules": "2.1.0"
