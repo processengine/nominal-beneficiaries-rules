@@ -1,8 +1,6 @@
 {
   "id": "library.nonresident.pred_add_doc_series_present",
   "type": "rule",
-  "description": "Серия дополнительного документа заполнена",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.addDoc.series"
 }

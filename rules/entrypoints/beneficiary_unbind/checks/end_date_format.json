@@ -1,12 +1,24 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.end_date_format",
   "type": "rule",
-  "description": "Дата выбытия должна быть в формате YYYY-MM-DD",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "ERROR",
+  "operator": "is_iso_date",
   "field": "beneficiary.status.endDate",
-  "code": "BENEFICIARY_UNBIND_END_DATE_FORMAT",
-  "message": "Дата выбытия должна быть в формате YYYY-MM-DD.",
-  "value": "^\\d{4}-\\d{2}-\\d{2}$"
+  "issue": {
+    "level": "ERROR",
+    "code": "BENEFICIARY_UNBIND_END_DATE_FORMAT",
+    "message": "Дата выбытия должна быть в формате YYYY-MM-DD.",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 3 — активация и деактивация бенефициаров",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Бизнес-требования используют запись ДД.ММ.ГГГГ, а правило сохраняет формат YYYY-MM-DD текущего JSON API."
+    }
+  }
 }

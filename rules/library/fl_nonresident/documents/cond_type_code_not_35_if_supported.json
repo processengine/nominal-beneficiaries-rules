@@ -1,0 +1,8 @@
+{
+  "id": "library.fl_nonresident.documents.cond_type_code_not_35_if_supported",
+  "type": "condition",
+  "when": "library.fl_nonresident.documents.pred_type_code_in_dictionary",
+  "steps": [
+    "library.documents.type_code_not_35"
+  ]
+}

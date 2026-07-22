@@ -1,11 +1,8 @@
 {
   "id": "library.ul_nonresident.cond_registration_date_if_present",
   "type": "condition",
-  "description": "Если дата регистрации иностранной организации указана, проверяем формат",
   "when": "library.ul_nonresident.pred_registration_date_present",
   "steps": [
-    {
-      "rule": "library.ul_nonresident.registration_date_format"
-    }
+    "library.ul_nonresident.registration_date_format"
   ]
 }

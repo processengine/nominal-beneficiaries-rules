@@ -1,11 +1,23 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.full_name_required",
   "type": "rule",
-  "description": "Наименование ИП обязательно",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "IP.FULL_NAME.REQUIRED",
-  "message": "Не указано полное наименование индивидуального предпринимателя",
-  "field": "beneficiary.ip.fullName"
+  "field": "beneficiary.ip.fullName",
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.FULL_NAME.REQUIRED",
+    "message": "Не указано полное наименование индивидуального предпринимателя",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 2 — Наименование",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

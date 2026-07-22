@@ -1,11 +1,23 @@
 {
   "id": "library.ul.tax.foreign_not_true",
   "type": "rule",
-  "description": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
-  "role": "check",
   "operator": "not_true",
-  "level": "EXCEPTION",
-  "code": "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
-  "message": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
-  "field": "beneficiary.tax.foreignTaxResident"
+  "field": "beneficiary.tax.foreignTaxResident",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+    "message": "ЮЛ-резидент не должен быть иностранным налоговым резидентом",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 13 — Категория иностранных налогоплательщиков",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

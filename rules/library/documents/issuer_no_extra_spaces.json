@@ -1,12 +1,32 @@
 {
   "id": "library.documents.issuer_no_extra_spaces",
   "type": "rule",
-  "description": "Орган выдачи не должен содержать лишние пробелы",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "WARNING",
-  "code": "BEN.IDDOC.ISSUER.SPACES",
-  "message": "Поле beneficiary.idDoc.issuer содержит лишние пробелы",
+  "operator": "not_matches_regex",
   "field": "beneficiary.idDoc.issuer",
-  "value": "^(?!\\s)(?!.*\\s$)(?!.*\\s{2,}).+$"
+  "value": "(?:^\\s|\\s$|\\s{2,})",
+  "issue": {
+    "level": "WARNING",
+    "code": "BEN.IDDOC.ISSUER.SPACES",
+    "message": "Поле beneficiary.idDoc.issuer содержит лишние пробелы",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 15 — Орган, выдавший документ",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 16 — Орган, выдавший документ",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

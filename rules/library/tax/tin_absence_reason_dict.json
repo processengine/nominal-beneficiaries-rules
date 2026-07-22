@@ -1,15 +1,32 @@
 {
   "id": "library.tax.tin_absence_reason_dict",
   "type": "rule",
-  "description": "Код причины отсутствия иностранного ИНН должен поддерживаться",
-  "role": "check",
   "operator": "in_dictionary",
-  "level": "EXCEPTION",
-  "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
-  "message": "Некорректный код причины отсутствия иностранного ИНН",
   "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason",
-  "dictionary": {
-    "type": "static",
-    "id": "tin_absence_reasons"
+  "dictionary": "tin_absence_reasons",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
+    "message": "Некорректный код причины отсутствия иностранного ИНН",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 34 — Причина отсутствия иностранного налогового номера",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 37 — Причина отсутствия иностранного налогового номера",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

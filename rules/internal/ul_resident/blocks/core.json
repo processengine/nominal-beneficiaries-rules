@@ -1,33 +1,14 @@
 {
   "id": "internal.ul_resident.blocks.core",
   "type": "pipeline",
-  "description": "Основные сведения ЮЛ-резидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul.inn_required"
-    },
-    {
-      "condition": "library.ul.cond_inn_if_present"
-    },
-    {
-      "rule": "library.ul.participation_id_required"
-    },
-    {
-      "rule": "library.ul.account_number_required"
-    },
-    {
-      "condition": "library.ul.cond_account_number_if_present"
-    },
-    {
-      "rule": "library.ul.status_start_required"
-    },
-    {
-      "condition": "library.ul.cond_status_start_if_present"
-    },
-    {
-      "condition": "library.ul.common.cond_status_end_if_present"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul.inn_required",
+    "library.ul.cond_inn_if_present",
+    "library.ul.participation_id_required",
+    "library.ul.account_number_required",
+    "library.ul.cond_account_number_if_present",
+    "library.ul.status_start_required",
+    "library.ul.cond_status_start_if_present",
+    "library.ul.common.cond_status_end_if_present"
+  ]
 }

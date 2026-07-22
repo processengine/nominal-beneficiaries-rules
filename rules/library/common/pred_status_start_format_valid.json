@@ -1,0 +1,6 @@
+{
+  "id": "library.common.pred_status_start_format_valid",
+  "type": "rule",
+  "operator": "is_iso_date",
+  "field": "beneficiary.status.startDate"
+}

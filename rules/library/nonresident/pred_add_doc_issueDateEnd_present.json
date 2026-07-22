@@ -1,8 +1,6 @@
 {
   "id": "library.nonresident.pred_add_doc_issueDateEnd_present",
   "type": "rule",
-  "description": "Дата окончания действия дополнительного документа заполнена",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.addDoc.issueDateEnd"
 }

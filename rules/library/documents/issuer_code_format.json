@@ -1,12 +1,32 @@
 {
   "id": "library.documents.issuer_code_format",
   "type": "rule",
-  "description": "Код подразделения должен быть в формате XXX-XXX",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.ISSUER_CODE.FORMAT",
-  "message": "Код подразделения должен быть в формате XXX-XXX и не может быть 000-000",
   "field": "beneficiary.idDoc.issuerCode",
-  "value": "^(?!000-000)\\d{3}-\\d{3}$"
+  "value": "^(?:[1-9][0-9]{2}-[0-9]{3}|0[1-9][0-9]-[0-9]{3}|00[1-9]-[0-9]{3}|000-[1-9][0-9]{2}|000-0[1-9][0-9]|000-00[1-9])$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.ISSUER_CODE.FORMAT",
+    "message": "Код подразделения должен быть в формате XXX-XXX и не может быть 000-000",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 16 — Код подразделения",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 17 — Код подразделения",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

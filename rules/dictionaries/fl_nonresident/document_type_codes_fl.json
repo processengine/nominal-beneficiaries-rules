@@ -1,8 +1,8 @@
 {
   "id": "dictionaries.fl_nonresident.document_type_codes_fl",
   "type": "dictionary",
-  "description": "Коды документов ФЛ-нерезидента для ближайшего релиза: 004",
   "entries": [
-    "004"
+    "004",
+    "35"
   ]
 }

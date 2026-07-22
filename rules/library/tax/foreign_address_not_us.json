@@ -1,12 +1,32 @@
 {
   "id": "library.tax.foreign_address_not_us",
   "type": "rule",
-  "description": "Адрес в иностранном государстве не должен содержать указание на США",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "EXCEPTION",
-  "code": "BEN.TAX.FOREIGN_ADDRESS.NOT_US",
-  "message": "Адрес в иностранном государстве не должен указывать на США",
+  "operator": "not_matches_regex",
   "field": "beneficiary.tax.foreignTaxResidency.address",
-  "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$"
+  "value": "(?:США|USA|Usa|usa|US|U\\.S\\.)",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TAX.FOREIGN_ADDRESS.NOT_US",
+    "message": "Адрес в иностранном государстве не должен указывать на США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 35 — Адрес в иностранном государстве",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 38 — Адрес в иностранном государстве",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

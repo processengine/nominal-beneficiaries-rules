@@ -1,12 +1,32 @@
 {
   "id": "library.fl.last_name_letters_hyphen",
   "type": "rule",
-  "description": "Фамилия должна содержать только буквы, пробелы и дефис",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "FL.LAST_NAME.FORMAT",
-  "message": "Допустимы буквы, пробел и дефис; начальные и конечные пробелы не допускаются",
   "field": "beneficiary.fl.lastName",
-  "value": "^[A-Za-zА-Яа-яЁё](?:[A-Za-zА-Яа-яЁё -]*[A-Za-zА-Яа-яЁё])?$"
+  "value": "^[A-Za-zА-Яа-яЁё](?:[A-Za-zА-Яа-яЁё \\-]*[A-Za-zА-Яа-яЁё])?$",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.LAST_NAME.FORMAT",
+    "message": "Допустимы буквы, пробел и дефис; начальные и конечные пробелы не допускаются",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 2 — Фамилия",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 3 — Фамилия",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

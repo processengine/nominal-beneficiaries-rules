@@ -1,12 +1,24 @@
 {
   "id": "internal.fl_resident.blocks.identity_core.citizenship_not_us",
   "type": "rule",
-  "description": "Код гражданства не должен быть US",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "FL.CITIZENSHIP.NOT_US",
-  "message": "Гражданство США не допускается для FL_RESIDENT",
   "field": "beneficiary.fl.citizenshipCode",
-  "value": "US"
+  "value": "US",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "FL.CITIZENSHIP.NOT_US",
+    "message": "Гражданство США не допускается для FL_RESIDENT",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 7 — Гражданство",
+          "page": 13,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

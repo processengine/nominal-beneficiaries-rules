@@ -1,8 +1,6 @@
 {
   "id": "library.tax.pred_us_tax_resident_boolean",
   "type": "rule",
-  "description": "Проверяет, что признак налогового резидентства США передан как true или false",
-  "role": "predicate",
   "operator": "is_boolean",
   "field": "beneficiary.tax.usTaxResident"
 }

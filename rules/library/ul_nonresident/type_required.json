@@ -1,15 +1,23 @@
 {
   "id": "library.ul_nonresident.type_required",
   "type": "rule",
-  "description": "Не указана категория бенефициара",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "UL_NONRESIDENT.UL.TYPE.REQUIRED",
-  "message": "Не указана категория бенефициара",
   "field": "beneficiary.type",
-  "meta": {
-    "legacyCode": "UL.TYPE.REQUIRED",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "ERROR",
+    "code": "UL_NONRESIDENT.UL.TYPE.REQUIRED",
+    "message": "Не указана категория бенефициара",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "абзац перед наборами полей — тип бенефициара и признак резидент/нерезидент",
+          "page": 4,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,106 @@
+{
+  "name": "Покрытие Rules v4: 10 кодов ошибок",
+  "pipelineId": "entrypoints.fl_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "inn": "744404355804",
+      "participationId": "TEST-POC-009",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004",
+        "email": "test@example.com",
+        "postalAddress": "Берлин"
+      },
+      "status": {
+        "startDate": "2024-01-26"
+      },
+      "fl": {
+        "birthDate": "1970-01-01",
+        "birthPlace": "гор. Магнитогорск",
+        "citizenshipCode": "RU"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issueDate": "2000-01-01",
+        "issuer": "ОВД",
+        "issuerCode": "123-456",
+        "issueDateEnd": "2030-01-01"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "regionCode": "54",
+          "regionName": "Новосибирская область",
+          "flat": "45"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "foreignTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-01-01"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "FL.LAST_NAME.REQUIRED",
+        "field": "beneficiary.fl.lastName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.FIRST_NAME.REQUIRED",
+        "field": "beneficiary.fl.firstName",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.PASSPORT_RF.REPLACEMENT_45.EXPIRED",
+        "field": "beneficiary.idDoc.issueDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.CITY_OR_LOCALITY.REQUIRED",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.registration.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
+        "field": "beneficiary.address.registration.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
+        "field": "beneficiary.address.registration.house",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
+        "field": "beneficiary.address.registration.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.POSTAL_COUNTRY.REQUIRED",
+        "field": "beneficiary.contacts.postalAddressCountryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.TAX.US_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.usResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

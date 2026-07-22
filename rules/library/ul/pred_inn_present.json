@@ -1,8 +1,6 @@
 {
   "id": "library.ul.pred_inn_present",
   "type": "rule",
-  "description": "ИНН юридического лица указан",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.inn"
 }

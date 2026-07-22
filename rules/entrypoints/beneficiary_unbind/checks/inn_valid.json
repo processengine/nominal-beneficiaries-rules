@@ -1,11 +1,24 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.inn_valid",
   "type": "rule",
-  "description": "ИНН не прошёл проверку контрольных разрядов",
-  "role": "check",
   "operator": "valid_inn",
-  "level": "ERROR",
   "field": "beneficiary.inn",
-  "code": "BENEFICIARY_UNBIND_INN_VALID",
-  "message": "ИНН не прошёл проверку контрольных разрядов."
+  "issue": {
+    "level": "ERROR",
+    "code": "BENEFICIARY_UNBIND_INN_VALID",
+    "message": "ИНН не прошёл проверку контрольных разрядов.",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 3 — активация и деактивация бенефициаров",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Правило сохраняет действующий API-контракт; отдельного пункта с такой детализацией в бизнес-требованиях нет."
+    }
+  }
 }

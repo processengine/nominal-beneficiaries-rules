@@ -1,0 +1,47 @@
+{
+  "name": "Покрытие Rules v4: UL.TAX.PASSIVE_NFE.NOT_TRUE",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "6454122829",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": true,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+        "field": "beneficiary.tax.passiveNfe",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

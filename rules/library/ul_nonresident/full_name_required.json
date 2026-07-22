@@ -1,11 +1,23 @@
 {
   "id": "library.ul_nonresident.full_name_required",
   "type": "rule",
-  "description": "Не указано полное наименование иностранной организации на русском языке",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "UL.FULL_NAME.REQUIRED",
-  "message": "Не указано полное наименование иностранной организации на русском языке",
-  "field": "beneficiary.ul.fullName"
+  "field": "beneficiary.ul.fullName",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.FULL_NAME.REQUIRED",
+    "message": "Не указано полное наименование иностранной организации на русском языке",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 3.1 — Полное наименование на русском языке",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

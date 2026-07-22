@@ -1,11 +1,8 @@
 {
   "id": "library.ul_nonresident.cond_account_number_if_present",
   "type": "condition",
-  "description": "Если номер номинального счёта указан, проверяем формат",
   "when": "library.common.pred_account_number_present",
   "steps": [
-    {
-      "rule": "library.ul_nonresident.account_number_format"
-    }
+    "library.ul_nonresident.account_number_format"
   ]
 }

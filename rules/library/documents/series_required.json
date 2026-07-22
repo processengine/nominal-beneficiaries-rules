@@ -1,11 +1,31 @@
 {
   "id": "library.documents.series_required",
   "type": "rule",
-  "description": "Серия документа обязательна",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.SERIES.REQUIRED",
-  "message": "Не указана серия документа",
-  "field": "beneficiary.idDoc.series"
+  "field": "beneficiary.idDoc.series",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.SERIES.REQUIRED",
+    "message": "Не указана серия документа",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 11 — Серия документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 12 — Серия документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

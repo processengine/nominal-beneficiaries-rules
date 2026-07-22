@@ -1,9 +1,6 @@
 {
   "name": "Beneficiary unbind valid fields",
-  "context": {
-    "pipelineId": "entrypoints.beneficiary.unbind.field_validation",
-    "currentDate": "2026-06-15"
-  },
+  "pipelineId": "entrypoints.beneficiary.unbind.field_validation",
   "payload": {
     "beneficiary": {
       "type": "UL_NONRESIDENT",
@@ -17,6 +14,9 @@
         "endDate": "2026-06-03"
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
   },
   "expect": {
     "status": "OK",

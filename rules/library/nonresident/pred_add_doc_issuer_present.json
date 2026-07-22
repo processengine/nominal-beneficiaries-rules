@@ -1,8 +1,6 @@
 {
   "id": "library.nonresident.pred_add_doc_issuer_present",
   "type": "rule",
-  "description": "Орган выдачи дополнительного документа заполнен",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.addDoc.issuer"
 }

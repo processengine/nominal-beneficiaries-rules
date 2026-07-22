@@ -1,19 +1,35 @@
 {
   "id": "library.ip_nonresident.nonresident.add_doc_required",
   "type": "rule",
-  "description": "Для ИП-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
-  "role": "check",
   "operator": "any_filled",
-  "level": "ERROR",
-  "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.REQUIRED",
-  "message": "Для ИП-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
   "fields": [
     "beneficiary.addDoc.number",
     "beneficiary.addDoc.issueDate",
     "beneficiary.addDoc.issueDateEnd"
   ],
-  "meta": {
-    "legacyCode": "FL_NONRES.ADD_DOC.REQUIRED",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "ERROR",
+    "code": "IP_NONRESIDENT.FL_NONRES.ADD_DOC.REQUIRED",
+    "message": "Для ИП-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 18–26 — документ о праве пребывания или миграционная карта",
+          "page": 7,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Особенности предоставления данных бенефициаров по отдельным параметрам",
+          "item": "исключение по миграционной карте для Беларуси и стран ЕАЭС",
+          "page": 22,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

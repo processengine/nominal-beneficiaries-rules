@@ -1,11 +1,31 @@
 {
   "id": "library.fl.last_name_required",
   "type": "rule",
-  "description": "Фамилия обязательна",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "FL.LAST_NAME.REQUIRED",
-  "message": "Не указана фамилия физического лица",
-  "field": "beneficiary.fl.lastName"
+  "field": "beneficiary.fl.lastName",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.LAST_NAME.REQUIRED",
+    "message": "Не указана фамилия физического лица",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 2 — Фамилия",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 3 — Фамилия",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

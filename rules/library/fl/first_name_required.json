@@ -1,11 +1,31 @@
 {
   "id": "library.fl.first_name_required",
   "type": "rule",
-  "description": "Имя обязательно",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "FL.FIRST_NAME.REQUIRED",
-  "message": "Не указано имя физического лица",
-  "field": "beneficiary.fl.firstName"
+  "field": "beneficiary.fl.firstName",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.FIRST_NAME.REQUIRED",
+    "message": "Не указано имя физического лица",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 3 — Имя",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 4 — Имя",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

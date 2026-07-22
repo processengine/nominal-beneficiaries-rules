@@ -1,8 +1,6 @@
 {
   "id": "library.nonresident.pred_add_doc_issueDateEnd_not_expired",
   "type": "rule",
-  "description": "Срок действия дополнительного документа не истёк",
-  "role": "predicate",
   "operator": "field_greater_or_equal_than_field",
   "field": "beneficiary.addDoc.issueDateEnd",
   "value_field": "$context.currentDate"

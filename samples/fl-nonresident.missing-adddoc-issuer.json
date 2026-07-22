@@ -1,9 +1,6 @@
 {
   "name": "FL nonresident missing additional document issuer",
-  "context": {
-    "pipelineId": "entrypoints.fl_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
@@ -67,6 +64,9 @@
         "issueDateEnd": "2027-01-15"
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "ERROR",

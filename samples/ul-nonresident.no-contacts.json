@@ -1,9 +1,6 @@
 {
   "name": "UL nonresident missing contacts",
-  "context": {
-    "pipelineId": "entrypoints.ul_nonresident.full_validation",
-    "currentDate": "2026-06-15"
-  },
+  "pipelineId": "entrypoints.ul_nonresident.full_validation",
   "payload": {
     "requestExtId": "ul-nonresident-test-request-0001",
     "beneficiary": {
@@ -53,6 +50,9 @@
         "controllingPersonsUsTaxResident": false
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
   },
   "expect": {
     "status": "ERROR",

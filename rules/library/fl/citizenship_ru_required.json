@@ -1,12 +1,32 @@
 {
   "id": "library.fl.citizenship_ru_required",
   "type": "rule",
-  "description": "Гражданство резидента должно быть РФ",
-  "role": "check",
   "operator": "equals",
-  "level": "ERROR",
-  "code": "FL.CITIZENSHIP.MUST_BE_RU",
-  "message": "Гражданство резидента должно быть РФ",
   "field": "beneficiary.fl.citizenshipCode",
-  "value": "RU"
+  "value": "RU",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.CITIZENSHIP.MUST_BE_RU",
+    "message": "Гражданство резидента должно быть РФ",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 7 — Гражданство",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 8 — Гражданство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

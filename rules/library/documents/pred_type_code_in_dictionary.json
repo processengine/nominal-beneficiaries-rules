@@ -1,0 +1,7 @@
+{
+  "id": "library.documents.pred_type_code_in_dictionary",
+  "type": "rule",
+  "operator": "in_dictionary",
+  "field": "beneficiary.idDoc.typeCode",
+  "dictionary": "document_type_codes_fl"
+}

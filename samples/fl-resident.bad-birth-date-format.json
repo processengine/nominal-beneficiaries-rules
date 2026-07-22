@@ -1,10 +1,6 @@
 {
   "name": "FL resident invalid birth date format",
-  "legacyParity": false,
-  "context": {
-    "pipelineId": "entrypoints.fl_resident.full_validation",
-    "currentDate": "2026-04-12"
-  },
+  "pipelineId": "entrypoints.fl_resident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_RESIDENT",
@@ -23,7 +19,7 @@
       "fl": {
         "lastName": "Петров",
         "firstName": "Алексей",
-        "birthDate": "21.03.1986",
+        "birthDate": "1979-02-30",
         "birthPlace": "гор. Магнитогорск",
         "citizenshipCode": "RU"
       },
@@ -54,6 +50,9 @@
         "foreignTaxResident": false
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-04-12"
   },
   "expect": {
     "status": "ERROR",

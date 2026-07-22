@@ -1,0 +1,102 @@
+{
+  "name": "Покрытие Rules v4: 10 кодов ошибок",
+  "pipelineId": "entrypoints.fl_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "inn": "__INVALID__",
+      "account": {},
+      "contacts": {},
+      "status": {
+        "endDate": "2026-02-30"
+      },
+      "fl": {
+        "lastName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "firstName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "birthDate": "1979-12-01",
+        "birthPlace": "гор. Магнитогорск",
+        "citizenshipCode": "RU"
+      },
+      "idDoc": {
+        "typeCode": "35",
+        "series": "45 10",
+        "number": "123456",
+        "issueDate": "2024-12-15",
+        "issuer": "ОВД",
+        "issuerCode": "123-456",
+        "issueDateEnd": "2030-01-01"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "630091",
+          "regionCode": "54",
+          "regionName": "Новосибирская область",
+          "city": "Новосибирск",
+          "streetType": "пр-кт",
+          "street": "Красный",
+          "house": "18",
+          "flat": "45"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-04-12"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.PARTICIPATION.REQUIRED",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ACCOUNT.NUMBER.REQUIRED",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.MIN_ONE",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.STATUS.START.REQUIRED",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.STATUS.END.FORMAT",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.INN.LENGTH_12",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.LAST_NAME.LENGTH_MAX",
+        "field": "beneficiary.fl.lastName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.FIRST_NAME.LENGTH_MAX",
+        "field": "beneficiary.fl.firstName",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.TYPE_CODE.NOT_35",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

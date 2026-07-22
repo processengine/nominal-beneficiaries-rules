@@ -1,0 +1,75 @@
+{
+  "name": "Покрытие Rules v4: FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "NONRES-BY-NO-ADDDOC",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9157382046",
+        "email": "belarus-nonresident@example.com"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "lastName": "Иванов",
+        "firstName": "Алексей",
+        "middleName": "Сергеевич",
+        "birthDate": "1990-04-12",
+        "birthPlace": "USA",
+        "citizenshipCode": "BY"
+      },
+      "idDoc": {
+        "typeCode": "004",
+        "series": "",
+        "number": "BM1234567",
+        "issuer": "Ministry of Internal Affairs of Belarus",
+        "issueDate": "2021-02-12",
+        "issueDateEnd": "2031-02-12"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "109559",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "city": "Москва",
+          "streetType": "ул",
+          "street": "Новороссийская",
+          "house": "30к1",
+          "flat": "254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "BY",
+          "tin": "123456789",
+          "tinAbsenceReason": null,
+          "address": "Republic of Belarus, Minsk, Nezavisimosti avenue, 1"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+        "field": "beneficiary.fl.birthPlace",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

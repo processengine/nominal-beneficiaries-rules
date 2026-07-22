@@ -1,0 +1,47 @@
+{
+  "name": "Покрытие Rules v4: UL.TYPE.MISMATCH",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "inn": "6454122829",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.TYPE.MISMATCH",
+        "field": "beneficiary.type",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

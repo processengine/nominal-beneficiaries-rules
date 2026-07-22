@@ -1,9 +1,6 @@
 {
   "name": "FL nonresident Belarus valid application without migration document",
-  "context": {
-    "pipelineId": "entrypoints.fl_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
@@ -60,6 +57,9 @@
         }
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "OK",

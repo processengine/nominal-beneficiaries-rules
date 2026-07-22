@@ -1,11 +1,24 @@
 {
   "id": "library.common.account_number_required",
   "type": "rule",
-  "description": "Номер счета должен быть указан",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "BEN.ACCOUNT.NUMBER.REQUIRED",
-  "message": "Не указан beneficiary.account.number",
-  "field": "beneficiary.account.number"
+  "field": "beneficiary.account.number",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ACCOUNT.NUMBER.REQUIRED",
+    "message": "Не указан beneficiary.account.number",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Номер счёта относится к действующему API-контракту сценария привязки или отвязки и отдельной строкой в наборе полей бизнес-требований не приведён."
+    }
+  }
 }

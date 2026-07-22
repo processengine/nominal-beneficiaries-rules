@@ -1,0 +1,76 @@
+{
+  "name": "Покрытие Rules v4: BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+  "pipelineId": "entrypoints.fl_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "inn": "744404355804",
+      "participationId": "TEST-POC-009",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004",
+        "email": "test@example.com",
+        "postalAddress": "Берлин",
+        "postalAddressCountryCode": "DE",
+        "foreignPhone": "+491234567890"
+      },
+      "status": {
+        "startDate": "2024-01-26"
+      },
+      "fl": {
+        "lastName": "Петров",
+        "firstName": "Алексей",
+        "birthDate": "1979-12-01",
+        "birthPlace": "гор. Магнитогорск",
+        "citizenshipCode": "RU"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issueDate": "2024-12-15",
+        "issuer": "ОВД",
+        "issuerCode": "123-456"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "630091",
+          "regionCode": "54",
+          "regionName": "Новосибирская область",
+          "city": "Новосибирск",
+          "streetType": "пр-кт",
+          "street": "Красный",
+          "house": "18",
+          "flat": "45"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "tin": "DE123456",
+          "address": "Берлин"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-04-12"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.foreignTaxResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

@@ -1,15 +1,23 @@
 {
   "id": "library.ul_nonresident.status_start_required",
   "type": "rule",
-  "description": "Не указана дата начала участия бенефициара",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.REQUIRED",
-  "message": "Не указана дата начала участия бенефициара",
   "field": "beneficiary.status.startDate",
-  "meta": {
-    "legacyCode": "UL.STATUS.START_DATE.REQUIRED",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "ERROR",
+    "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.REQUIRED",
+    "message": "Не указана дата начала участия бенефициара",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 21 — Дата приобретения статуса бенефициара",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

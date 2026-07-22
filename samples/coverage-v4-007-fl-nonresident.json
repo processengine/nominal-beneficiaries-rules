@@ -1,0 +1,111 @@
+{
+  "name": "Покрытие Rules v4: 7 кодов ошибок",
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "NONRES-BY-NO-ADDDOC",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9157382046",
+        "email": "belarus-nonresident@example.com",
+        "postalAddress": "Берлин",
+        "postalAddressCountryCode": "DE",
+        "foreignPhone": "+491234567890"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "middleName": "Сергеевич",
+        "birthDate": "1990-04-12",
+        "birthPlace": "г. Минск",
+        "citizenshipCode": "BY"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issuer": "ОВД",
+        "issueDate": "2024-12-15",
+        "issueDateEnd": "2030-01-01"
+      },
+      "address": {
+        "registration": {
+          "postalCode": "109559",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "city": "Москва",
+          "streetType": "ул",
+          "street": "Новороссийская",
+          "house": "30к1",
+          "flat": "254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "address": "Берлин",
+          "tinAbsenceReason": "__UNSUPPORTED__"
+        }
+      },
+      "addDoc": {
+        "typeCode": "005",
+        "number": "123456",
+        "issueDate": "2020-01-01",
+        "issueDateEnd": "2030-01-01",
+        "issuer": "МВД"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "FL.LAST_NAME.REQUIRED",
+        "field": "beneficiary.fl.lastName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.FIRST_NAME.REQUIRED",
+        "field": "beneficiary.fl.firstName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.ISSUER_CODE.REQUIRED",
+        "field": "beneficiary.idDoc.issuerCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
+        "field": "beneficiary.addDoc.series",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.COUNTRY.REQUIRED",
+        "field": "beneficiary.address.registration.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
+        "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

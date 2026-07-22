@@ -1,16 +1,24 @@
 {
   "id": "internal.fl_nonresident.blocks.tax_flags.us_resident_not_true",
   "type": "rule",
-  "description": "Резидентство США не допускается для этого сценария",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "FL_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
-  "message": "Признак резидентства США не допускается для ФЛ-нерезидента РФ",
   "field": "beneficiary.tax.usResident",
   "value": true,
-  "meta": {
-    "legacyCode": "BEN.TAX.US_RESIDENT.NOT_TRUE",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "FL_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+    "message": "Признак резидентства США не допускается для ФЛ-нерезидента РФ",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 38 — Резидентство США",
+          "page": 13,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

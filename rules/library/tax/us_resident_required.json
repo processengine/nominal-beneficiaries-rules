@@ -1,11 +1,31 @@
 {
   "id": "library.tax.us_resident_required",
   "type": "rule",
-  "description": "Признак резидентства США должен быть указан",
-  "role": "check",
   "operator": "not_empty",
-  "level": "EXCEPTION",
-  "code": "BEN.TAX.US_RESIDENT.REQUIRED",
-  "message": "Не указан признак резидентства США",
-  "field": "beneficiary.tax.usResident"
+  "field": "beneficiary.tax.usResident",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TAX.US_RESIDENT.REQUIRED",
+    "message": "Не указан признак резидентства США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 38 — Резидентство США",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 41 — Резидентство США",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

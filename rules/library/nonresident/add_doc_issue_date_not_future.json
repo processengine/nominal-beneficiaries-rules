@@ -1,12 +1,32 @@
 {
   "id": "library.nonresident.add_doc_issue_date_not_future",
   "type": "rule",
-  "description": "Дата начала действия дополнительного документа не больше текущей даты",
-  "role": "check",
   "operator": "field_less_or_equal_than_field",
-  "level": "ERROR",
-  "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.NOT_FUTURE",
-  "message": "Дата начала действия дополнительного документа не должна быть больше текущей даты",
   "field": "beneficiary.addDoc.issueDate",
-  "value_field": "$context.currentDate"
+  "value_field": "$context.currentDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.NOT_FUTURE",
+    "message": "Дата начала действия дополнительного документа не должна быть больше текущей даты",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "пп. 17–25 — документ о праве пребывания или миграционная карта",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 18–26 — документ о праве пребывания или миграционная карта",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,234 @@
+{
+  "name": "Покрытие Rules v4: 32 кодов ошибок",
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "111111111111",
+      "participationId": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+      "account": {
+        "number": "__INVALID__"
+      },
+      "contacts": {
+        "phone": "__INVALID__",
+        "email": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "postalAddress": "Берлин",
+        "postalAddressCountryCode": "__INVALID__",
+        "foreignPhone": "__INVALID__"
+      },
+      "status": {
+        "startDate": "2025-01-02",
+        "endDate": "2025-01-01"
+      },
+      "fl": {
+        "lastName": "__INVALID__",
+        "firstName": "__INVALID__",
+        "middleName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "citizenshipCode": "__INVALID__"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issuer": "ОВД",
+        "issueDate": "2025-01-02",
+        "issueDateEnd": "2025-01-01",
+        "issuerCode": "123-456"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "__INVALID__",
+          "postalCode": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "regionCode": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "regionName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "city": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "streetType": "__UNSUPPORTED__",
+          "street": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "house": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "flat": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "fullAddress": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "building": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+          "locality": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "tin": "DE123456",
+          "address": "Берлин"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.PARTICIPATION.LENGTH",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ACCOUNT.NUMBER.FORMAT",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.PHONE.RU_LOCAL_FORMAT",
+        "field": "beneficiary.contacts.phone",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.EMAIL.FORMAT",
+        "field": "beneficiary.contacts.email",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.EMAIL.LENGTH",
+        "field": "beneficiary.contacts.email",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.STATUS.END.ORDER",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.INN.NOT_REPEATED",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.INN.INVALID",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.LAST_NAME.FORMAT",
+        "field": "beneficiary.fl.lastName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.FIRST_NAME.FORMAT",
+        "field": "beneficiary.fl.firstName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.MIDDLE_NAME.LENGTH",
+        "field": "beneficiary.fl.middleName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.BIRTH_DATE.REQUIRED",
+        "field": "beneficiary.fl.birthDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.BIRTH_PLACE.REQUIRED",
+        "field": "beneficiary.fl.birthPlace",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.CITIZENSHIP_CODE.FORMAT",
+        "field": "beneficiary.fl.citizenshipCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.DATE.ORDER",
+        "field": "beneficiary.idDoc.issueDateEnd",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.ISSUE_DATE_END.EXPIRED",
+        "field": "beneficiary.idDoc.issueDateEnd",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRES.ADD_DOC.REQUIRED",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.COUNTRY.FORMAT",
+        "field": "beneficiary.address.registration.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.POSTAL_COUNTRY.FORMAT",
+        "field": "beneficiary.contacts.postalAddressCountryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.POSTAL.LENGTH",
+        "field": "beneficiary.address.registration.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.REGION_CODE.LENGTH",
+        "field": "beneficiary.address.registration.regionCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.REGION_NAME.LENGTH",
+        "field": "beneficiary.address.registration.regionName",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.CITY.LENGTH",
+        "field": "beneficiary.address.registration.city",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.LOCALITY.LENGTH",
+        "field": "beneficiary.address.registration.locality",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.STREET.LENGTH",
+        "field": "beneficiary.address.registration.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.STREET_TYPE.DICT",
+        "field": "beneficiary.address.registration.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.HOUSE.LENGTH",
+        "field": "beneficiary.address.registration.house",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.BUILDING.LENGTH",
+        "field": "beneficiary.address.registration.building",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.APARTMENT.LENGTH",
+        "field": "beneficiary.address.registration.flat",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+        "field": "beneficiary.address.registration.fullAddress",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.PHONE_FOREIGN.E164",
+        "field": "beneficiary.contacts.foreignPhone",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

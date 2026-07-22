@@ -1,0 +1,24 @@
+{
+  "id": "library.context.current_date_format",
+  "type": "rule",
+  "operator": "is_iso_date",
+  "field": "$context.currentDate",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "CONTEXT.CURRENT_DATE.FORMAT",
+    "message": "Дата заявки в context.currentDate должна быть существующей датой в формате YYYY-MM-DD",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Дата заявки является техническим контекстом для сравнительных проверок и отдельным полем в бизнес-требованиях не названа."
+    }
+  }
+}

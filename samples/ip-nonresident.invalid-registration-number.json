@@ -1,9 +1,6 @@
 {
   "name": "IP nonresident invalid registration number",
-  "context": {
-    "pipelineId": "entrypoints.ip_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
+  "pipelineId": "entrypoints.ip_nonresident.full_validation",
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
     "beneficiary": {
@@ -86,6 +83,9 @@
         }
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "ERROR",

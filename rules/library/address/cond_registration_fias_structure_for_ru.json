@@ -1,30 +1,17 @@
 {
   "id": "library.address.cond_registration_fias_structure_for_ru",
   "type": "condition",
-  "description": "Если адрес регистрации относится к РФ, требуем ФИАС-структуру адреса",
   "when": {
     "all": [
       "library.address.pred_registration_country_ru"
     ]
   },
   "steps": [
-    {
-      "rule": "library.address.registration_region_code_required_for_ru"
-    },
-    {
-      "rule": "library.address.registration_city_or_locality_required_for_ru"
-    },
-    {
-      "rule": "library.address.registration_street_required_for_ru"
-    },
-    {
-      "rule": "library.address.registration_street_type_required_for_ru"
-    },
-    {
-      "rule": "library.address.registration_house_required_for_ru"
-    },
-    {
-      "rule": "library.address.registration_postal_required_for_ru"
-    }
+    "library.address.registration_region_code_required_for_ru",
+    "library.address.registration_city_or_locality_required_for_ru",
+    "library.address.registration_street_required_for_ru",
+    "library.address.registration_street_type_required_for_ru",
+    "library.address.registration_house_required_for_ru",
+    "library.address.registration_postal_required_for_ru"
   ]
 }

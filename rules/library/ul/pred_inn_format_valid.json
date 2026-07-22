@@ -1,8 +1,6 @@
 {
   "id": "library.ul.pred_inn_format_valid",
   "type": "rule",
-  "description": "ИНН юридического лица содержит 10 цифр",
-  "role": "predicate",
   "operator": "matches_regex",
   "field": "beneficiary.inn",
   "value": "^\\d{10}$"

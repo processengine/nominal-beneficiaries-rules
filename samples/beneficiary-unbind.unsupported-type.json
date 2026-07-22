@@ -1,9 +1,6 @@
 {
   "name": "Beneficiary unbind unsupported type",
-  "context": {
-    "pipelineId": "entrypoints.beneficiary.unbind.type_supported",
-    "currentDate": "2026-06-15"
-  },
+  "pipelineId": "entrypoints.beneficiary.unbind.type_supported",
   "payload": {
     "beneficiary": {
       "type": "UNSUPPORTED_TYPE",
@@ -18,6 +15,9 @@
       }
     }
   },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
   "expect": {
     "status": "ERROR",
     "exact": true,
@@ -28,7 +28,5 @@
         "level": "ERROR"
       }
     ]
-  },
-  "legacyParity": false,
-  "note": "Текст ошибки в jsonspecs-пакете очищен от legacy-формулировки"
+  }
 }

@@ -1,0 +1,51 @@
+{
+  "name": "Покрытие Rules v4: UL.INN.REQUIRED, UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": true,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.INN.REQUIRED",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.usTaxResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

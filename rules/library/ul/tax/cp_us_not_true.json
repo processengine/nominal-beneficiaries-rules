@@ -1,11 +1,23 @@
 {
   "id": "library.ul.tax.cp_us_not_true",
   "type": "rule",
-  "description": "У ЮЛ-резидента не должно быть контролирующих лиц с налоговым резидентством США",
-  "role": "check",
   "operator": "not_true",
-  "level": "EXCEPTION",
-  "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
-  "message": "У ЮЛ-резидента не должно быть контролирующих лиц с налоговым резидентством США",
-  "field": "beneficiary.tax.controllingPersonsUsTaxResident"
+  "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+    "message": "У ЮЛ-резидента не должно быть контролирующих лиц с налоговым резидентством США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 20 — Налоговое резидентство США контролирующих лиц",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

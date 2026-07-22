@@ -1,12 +1,32 @@
 {
   "id": "library.documents.series_passport_rf_format",
   "type": "rule",
-  "description": "Серия паспорта РФ должна содержать ровно 4 цифры",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.SERIES.PASSPORT_RF.FORMAT",
-  "message": "Серия паспорта РФ должна быть в формате 01 23: содержит только цифры пробел между ними и не состоять только из нулей",
   "field": "beneficiary.idDoc.series",
-  "value": "^(?!00 00$)\\d{2} \\d{2}$"
+  "value": "^(?:[1-9][0-9] [0-9]{2}|0[1-9] [0-9]{2}|00 [1-9][0-9]|00 0[1-9])$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.SERIES.PASSPORT_RF.FORMAT",
+    "message": "Серия паспорта РФ должна быть в формате 01 23: содержит только цифры пробел между ними и не состоять только из нулей",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 11 — Серия документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 12 — Серия документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

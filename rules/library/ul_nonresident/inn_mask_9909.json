@@ -1,12 +1,24 @@
 {
   "id": "library.ul_nonresident.inn_mask_9909",
   "type": "rule",
-  "description": "ИНН ЮЛ-нерезидента требует уточнения",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "UL.INN.NONRESIDENT_MASK",
-  "message": "ИНН ЮЛ-нерезидента требует уточнения",
   "field": "beneficiary.inn",
-  "value": "^9909\\d{6}$"
+  "value": "^9909\\d{6}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.INN.NONRESIDENT_MASK",
+    "message": "ИНН ЮЛ-нерезидента требует уточнения",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 1 — ИНН",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

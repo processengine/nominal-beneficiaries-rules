@@ -1,19 +1,24 @@
 {
   "id": "library.ul_nonresident.type_supported",
   "type": "rule",
-  "description": "Категория бенефициара должна быть поддерживаемой",
-  "role": "check",
   "operator": "in_dictionary",
-  "level": "EXCEPTION",
-  "code": "UL_NONRESIDENT.BEN.TYPE.UNSUPPORTED",
-  "message": "Категория бенефициара должна быть поддерживаемой",
   "field": "beneficiary.type",
-  "dictionary": {
-    "type": "static",
-    "id": "beneficiary_types"
-  },
-  "meta": {
-    "legacyCode": "BEN.TYPE.UNSUPPORTED",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "dictionary": "beneficiary_types",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL_NONRESIDENT.BEN.TYPE.UNSUPPORTED",
+    "message": "Категория бенефициара должна быть поддерживаемой",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "абзац перед наборами полей — тип бенефициара и признак резидент/нерезидент",
+          "page": 4,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

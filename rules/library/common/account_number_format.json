@@ -1,12 +1,25 @@
 {
   "id": "library.common.account_number_format",
   "type": "rule",
-  "description": "Номер счета должен состоять из 20 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.ACCOUNT.NUMBER.FORMAT",
-  "message": "beneficiary.account.number должен состоять из 20 цифр",
   "field": "beneficiary.account.number",
-  "value": "^\\d{20}$"
+  "value": "^\\d{20}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ACCOUNT.NUMBER.FORMAT",
+    "message": "beneficiary.account.number должен состоять из 20 цифр",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Номер счёта относится к действующему API-контракту сценария привязки или отвязки и отдельной строкой в наборе полей бизнес-требований не приведён."
+    }
+  }
 }

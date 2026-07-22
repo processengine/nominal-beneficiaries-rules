@@ -1,8 +1,0 @@
-{
-  "id": "library.nonresident.pred_add_doc_typeCode_empty",
-  "type": "rule",
-  "description": "Тип дополнительного документа не заполнен",
-  "role": "predicate",
-  "operator": "is_empty",
-  "field": "beneficiary.addDoc.typeCode"
-}

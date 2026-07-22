@@ -1,11 +1,31 @@
 {
   "id": "library.tax.foreign_tax_resident_bool",
   "type": "rule",
-  "description": "Признак иностранного налогового резидентства должен быть указан как да или нет",
-  "role": "check",
   "operator": "is_boolean",
-  "level": "EXCEPTION",
-  "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.BOOL",
-  "message": "Признак иностранного налогового резидентства должен быть указан как да или нет",
-  "field": "beneficiary.tax.foreignTaxResident"
+  "field": "beneficiary.tax.foreignTaxResident",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.BOOL",
+    "message": "Признак иностранного налогового резидентства должен быть указан как да или нет",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "пп. 31–36 — иностранный документ и иностранное налоговое резидентство",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 34–39 — иностранный документ и иностранное налоговое резидентство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,11 +1,23 @@
 {
   "id": "library.ul.tax.passive_nfe_not_true",
   "type": "rule",
-  "description": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
-  "role": "check",
   "operator": "not_true",
-  "level": "EXCEPTION",
-  "code": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
-  "message": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
-  "field": "beneficiary.tax.passiveNfe"
+  "field": "beneficiary.tax.passiveNfe",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL.TAX.PASSIVE_NFE.NOT_TRUE",
+    "message": "ЮЛ-резидент не должен быть пассивной нефинансовой организацией",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 17 — Пассивная нефинансовая организация",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,11 +1,8 @@
 {
   "id": "library.nonresident.cond_add_doc_required_unless_belarus",
   "type": "condition",
-  "description": "Для граждан Беларуси миграционная карта, РВП или ВНЖ не требуются",
   "when": "library.nonresident.pred_citizenship_not_belarus",
   "steps": [
-    {
-      "rule": "library.nonresident.add_doc_required"
-    }
+    "library.nonresident.add_doc_required"
   ]
 }

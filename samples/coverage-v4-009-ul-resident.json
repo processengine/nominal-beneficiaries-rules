@@ -1,0 +1,64 @@
+{
+  "name": "Покрытие Rules v4: 5 кодов ошибок",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "__INVALID__",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {},
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "endDate": "2026-02-30"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.INN.LENGTH_10",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ACCOUNT.NUMBER.REQUIRED",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.STATUS.START_DATE.REQUIRED",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.BEN.STATUS.END.FORMAT",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

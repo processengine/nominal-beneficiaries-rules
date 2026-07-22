@@ -1,15 +1,12 @@
 {
   "id": "library.address.cond_street_type_if_present",
   "type": "condition",
-  "description": "Если заполнен тип улицы адреса регистрации, проверяем допустимый справочник",
   "when": {
     "all": [
       "library.address.pred_street_type_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.address.street_type_in_dictionary"
-    }
+    "library.address.street_type_in_dictionary"
   ]
 }

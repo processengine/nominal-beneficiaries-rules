@@ -1,36 +1,15 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration",
   "type": "pipeline",
-  "description": "Проверки регистрационных реквизитов ИП-нерезидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.full_name_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.short_name_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_number_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_number_format"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_date_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_date_format"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_code_required"
-    },
-    {
-      "rule": "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "internal.ip_nonresident.blocks.ip_registration.full_name_required",
+    "internal.ip_nonresident.blocks.ip_registration.short_name_required",
+    "internal.ip_nonresident.blocks.ip_registration.registration_number_required",
+    "internal.ip_nonresident.blocks.ip_registration.registration_number_format",
+    "internal.ip_nonresident.blocks.ip_registration.registration_date_required",
+    "internal.ip_nonresident.blocks.ip_registration.registration_date_format",
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_required",
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_code_required",
+    "internal.ip_nonresident.blocks.ip_registration.registration_agency_address_required"
+  ]
 }

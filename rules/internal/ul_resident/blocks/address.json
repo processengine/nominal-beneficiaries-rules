@@ -1,18 +1,9 @@
 {
   "id": "internal.ul_resident.blocks.address",
   "type": "pipeline",
-  "description": "Юридический адрес ЮЛ-резидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul.legal_address_required"
-    },
-    {
-      "rule": "library.ul.legal_address_country_required"
-    },
-    {
-      "condition": "library.ul.cond_legal_address_country_if_present"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul.legal_address_required",
+    "library.ul.legal_address_country_required",
+    "library.ul.cond_legal_address_country_if_present"
+  ]
 }

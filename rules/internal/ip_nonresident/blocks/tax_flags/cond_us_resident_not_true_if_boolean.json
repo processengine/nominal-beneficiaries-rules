@@ -1,0 +1,8 @@
+{
+  "id": "internal.ip_nonresident.blocks.tax_flags.cond_us_resident_not_true_if_boolean",
+  "type": "condition",
+  "when": "library.tax.pred_us_resident_boolean",
+  "steps": [
+    "internal.ip_nonresident.blocks.tax_flags.us_resident_not_true"
+  ]
+}

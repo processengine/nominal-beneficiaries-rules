@@ -1,0 +1,7 @@
+{
+  "id": "library.common.pred_beneficiary_type_supported",
+  "type": "rule",
+  "operator": "in_dictionary",
+  "field": "beneficiary.type",
+  "dictionary": "beneficiary_types"
+}

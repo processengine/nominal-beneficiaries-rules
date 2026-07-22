@@ -1,12 +1,32 @@
 {
   "id": "library.documents.date_order",
   "type": "rule",
-  "description": "Дата окончания действия документа должна быть позже даты выдачи",
-  "role": "check",
   "operator": "field_greater_than_field",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.DATE.ORDER",
-  "message": "Дата окончания действия документа должна быть позже даты выдачи",
   "field": "beneficiary.idDoc.issueDateEnd",
-  "value_field": "beneficiary.idDoc.issueDate"
+  "value_field": "beneficiary.idDoc.issueDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.DATE.ORDER",
+    "message": "Дата окончания действия документа должна быть позже даты выдачи",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 14 — Дата окончания действия документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 15 — Дата окончания действия документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

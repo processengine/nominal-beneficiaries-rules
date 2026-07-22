@@ -1,11 +1,8 @@
 {
   "id": "library.ul.cond_status_start_if_present",
   "type": "condition",
-  "description": "Если дата начала участия указана, проверяем формат",
   "when": "library.common.pred_status_start_present",
   "steps": [
-    {
-      "rule": "library.ul.status_start_format"
-    }
+    "library.ul.status_start_format"
   ]
 }

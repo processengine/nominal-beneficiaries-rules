@@ -1,12 +1,32 @@
 {
   "id": "library.fl.citizenship_code_format",
   "type": "rule",
-  "description": "Код гражданства должен быть двухбуквенным кодом страны",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "FL.CITIZENSHIP_CODE.FORMAT",
-  "message": "Код гражданства должен быть в формате ISO 3166-1 alpha-2",
   "field": "beneficiary.fl.citizenshipCode",
-  "value": "^[A-Z]{2}$"
+  "value": "^[A-Z]{2}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.CITIZENSHIP_CODE.FORMAT",
+    "message": "Код гражданства должен быть в формате ISO 3166-1 alpha-2",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 7 — Гражданство",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 8 — Гражданство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

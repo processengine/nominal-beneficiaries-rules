@@ -1,36 +1,16 @@
 {
   "id": "entrypoints.ul_nonresident.full_validation",
   "type": "pipeline",
-  "description": "Проверка ЮЛ-нерезидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul_nonresident.type_required"
-    },
-    {
-      "rule": "library.ul_nonresident.type_supported"
-    },
-    {
-      "rule": "library.ul_nonresident.type_is_ul_nonresident"
-    },
-    {
-      "pipeline": "internal.ul_nonresident.blocks.core"
-    },
-    {
-      "pipeline": "internal.ul_nonresident.blocks.ul"
-    },
-    {
-      "pipeline": "internal.ul_nonresident.blocks.contacts"
-    },
-    {
-      "pipeline": "internal.ul_nonresident.blocks.address"
-    },
-    {
-      "pipeline": "internal.ul_nonresident.blocks.tax"
-    }
-  ],
-  "entrypoint": true,
-  "required_context": [
-    "currentDate"
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.ul_nonresident.type_required",
+    "library.ul_nonresident.type_supported",
+    "entrypoints.ul_nonresident.full_validation.cond_type_is_ul_nonresident_if_supported",
+    "internal.ul_nonresident.blocks.core",
+    "internal.ul_nonresident.blocks.ul",
+    "internal.ul_nonresident.blocks.contacts",
+    "internal.ul_nonresident.blocks.address",
+    "internal.ul_nonresident.blocks.tax"
   ]
 }

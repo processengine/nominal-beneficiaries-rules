@@ -1,11 +1,23 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.registration_number_required",
   "type": "rule",
-  "description": "ОГРНИП обязателен для ИП-нерезидента",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "IP.REGISTRATION_NUMBER.REQUIRED",
-  "message": "Не указан ОГРНИП индивидуального предпринимателя",
-  "field": "beneficiary.ip.registration.number"
+  "field": "beneficiary.ip.registration.number",
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.REGISTRATION_NUMBER.REQUIRED",
+    "message": "Не указан ОГРНИП индивидуального предпринимателя",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 28 — ОГРНИП",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

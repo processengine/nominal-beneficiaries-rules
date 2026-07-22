@@ -1,0 +1,52 @@
+{
+  "name": "Покрытие Rules v4: 6 кодов ошибок",
+  "pipelineId": "entrypoints.beneficiary.unbind.field_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "account": {},
+      "status": {
+        "startDate": null
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BENEFICIARY_UNBIND_PARTICIPATION_ID_PRESENT",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "BENEFICIARY_UNBIND_INN_PRESENT",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "BENEFICIARY_UNBIND_ACCOUNT_PRESENT",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "BENEFICIARY_UNBIND_START_DATE_PRESENT",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "BENEFICIARY_UNBIND_START_DATE_FORMAT",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "BENEFICIARY_UNBIND_END_DATE_PRESENT",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

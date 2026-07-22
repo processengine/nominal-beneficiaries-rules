@@ -1,15 +1,23 @@
 {
   "id": "library.ul_nonresident.tax.cp_foreign_not_true",
   "type": "rule",
-  "description": "У ЮЛ-нерезидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
-  "role": "check",
   "operator": "not_true",
-  "level": "EXCEPTION",
-  "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
-  "message": "У ЮЛ-нерезидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
   "field": "beneficiary.tax.controllingPersonsForeignTaxResident",
-  "meta": {
-    "legacyCode": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.NOT_TRUE",
+    "message": "У ЮЛ-нерезидента не должно быть контролирующих лиц с иностранным налоговым резидентством",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 18 — Иностранное налоговое резидентство контролирующих лиц",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

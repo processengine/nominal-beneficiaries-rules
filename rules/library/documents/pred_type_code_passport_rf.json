@@ -1,8 +1,6 @@
 {
   "id": "library.documents.pred_type_code_passport_rf",
   "type": "rule",
-  "description": "Тип документа паспорт РФ?",
-  "role": "predicate",
   "operator": "equals",
   "field": "beneficiary.idDoc.typeCode",
   "value": "001"

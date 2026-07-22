@@ -1,12 +1,32 @@
 {
   "id": "library.common.status_end_format",
   "type": "rule",
-  "description": "Дата окончания статуса должна быть в формате YYYY-MM-DD",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.STATUS.END.FORMAT",
-  "message": "beneficiary.status.endDate должна быть в формате YYYY-MM-DD",
+  "operator": "is_iso_date",
   "field": "beneficiary.status.endDate",
-  "value": "^\\d{4}-\\d{2}-\\d{2}$"
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.STATUS.END.FORMAT",
+    "message": "beneficiary.status.endDate должна быть в формате YYYY-MM-DD",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 40 — Дата прекращения статуса бенефициара",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 43 — Дата прекращения статуса бенефициара",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Бизнес-требования используют запись ДД.ММ.ГГГГ, а правило сохраняет формат YYYY-MM-DD текущего JSON API."
+    }
+  }
 }

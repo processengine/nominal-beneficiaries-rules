@@ -1,10 +1,6 @@
 {
   "name": "FL nonresident invalid boolean tax flag",
-  "context": {
-    "pipelineId": "entrypoints.fl_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
-  "legacyParity": false,
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
@@ -69,6 +65,9 @@
         "issuer": "ГУ МВД России"
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "EXCEPTION",

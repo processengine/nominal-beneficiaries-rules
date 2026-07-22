@@ -1,15 +1,23 @@
 {
   "id": "library.ul_nonresident.tax.us_not_true",
   "type": "rule",
-  "description": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
-  "role": "check",
   "operator": "not_true",
-  "level": "EXCEPTION",
-  "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
-  "message": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
   "field": "beneficiary.tax.usTaxResident",
-  "meta": {
-    "legacyCode": "UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.NOT_TRUE",
+    "message": "ЮЛ-нерезидент не должен быть налоговым резидентом США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 19 — Налоговое резидентство США",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

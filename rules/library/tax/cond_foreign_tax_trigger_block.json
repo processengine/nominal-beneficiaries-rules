@@ -1,7 +1,6 @@
 {
   "id": "library.tax.cond_foreign_tax_trigger_block",
   "type": "condition",
-  "description": "Если указан иностранный документ или адрес не в России, то проверяем данные иностранного налогового резидентства",
   "when": {
     "any": [
       "library.tax.pred_is_foreign_id_doc_true",
@@ -10,38 +9,16 @@
     ]
   },
   "steps": [
-    {
-      "rule": "library.tax.foreign_tax_resident_required"
-    },
-    {
-      "condition": "library.tax.cond_foreign_tax_resident_type_if_present"
-    },
-    {
-      "condition": "library.tax.cond_foreign_tax_resident_true_if_boolean"
-    },
-    {
-      "rule": "library.tax.foreign_country_required"
-    },
-    {
-      "rule": "library.tax.foreign_country_format"
-    },
-    {
-      "rule": "library.tax.foreign_country_not_us"
-    },
-    {
-      "rule": "library.tax.foreign_tin_or_reason"
-    },
-    {
-      "rule": "library.tax.foreign_address_or_postal_required"
-    },
-    {
-      "condition": "library.tax.cond_foreign_address_if_present"
-    },
-    {
-      "condition": "library.tax.cond_tin_if_present"
-    },
-    {
-      "condition": "library.tax.cond_reason_if_present"
-    }
+    "library.tax.foreign_tax_resident_required",
+    "library.tax.cond_foreign_tax_resident_type_if_present",
+    "library.tax.cond_foreign_tax_resident_true_if_boolean",
+    "library.tax.foreign_country_required",
+    "library.tax.foreign_country_format",
+    "library.tax.foreign_country_not_us",
+    "library.tax.foreign_tin_or_reason",
+    "library.tax.foreign_address_or_postal_required",
+    "library.tax.cond_foreign_address_if_present",
+    "library.tax.cond_tin_if_present",
+    "library.tax.cond_reason_if_present"
   ]
 }

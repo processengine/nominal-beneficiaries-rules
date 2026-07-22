@@ -1,12 +1,25 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.registration_number_format",
   "type": "rule",
-  "description": "ОГРНИП ИП-нерезидента должен содержать 15 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "IP.REGISTRATION_NUMBER.FORMAT",
-  "message": "ОГРНИП должен содержать ровно 15 цифр",
   "field": "beneficiary.ip.registration.number",
-  "value": "^\\d{15}$"
+  "value": "^\\d{15}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.REGISTRATION_NUMBER.FORMAT",
+    "message": "ОГРНИП должен содержать ровно 15 цифр",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 28 — ОГРНИП",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Бизнес-требования указывают 13 цифр, а правило сохраняет принятый в текущем API стандартный 15-значный формат ОГРНИП."
+    }
+  }
 }

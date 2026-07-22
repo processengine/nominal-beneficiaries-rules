@@ -1,9 +1,6 @@
 {
   "name": "UL resident valid merchant application",
-  "context": {
-    "pipelineId": "entrypoints.ul_resident.full_validation",
-    "currentDate": "2026-06-15"
-  },
+  "pipelineId": "entrypoints.ul_resident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "UL_RESIDENT",
@@ -32,6 +29,9 @@
         "controllingPersonsUsTaxResident": false
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
   },
   "expect": {
     "status": "OK",

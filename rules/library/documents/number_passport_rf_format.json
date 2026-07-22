@@ -1,12 +1,32 @@
 {
   "id": "library.documents.number_passport_rf_format",
   "type": "rule",
-  "description": "Номер паспорта РФ должен содержать ровно 6 цифр и не быть 000000",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.NUMBER.PASSPORT_RF.FORMAT",
-  "message": "Номер паспорта РФ должен содержать ровно 6 цифр и не может быть 000000",
   "field": "beneficiary.idDoc.number",
-  "value": "^(?!000000)\\d{6}$"
+  "value": "^(?:[1-9][0-9]{5}|0[1-9][0-9]{4}|00[1-9][0-9]{3}|000[1-9][0-9]{2}|0000[1-9][0-9]|00000[1-9])$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.NUMBER.PASSPORT_RF.FORMAT",
+    "message": "Номер паспорта РФ должен содержать ровно 6 цифр и не может быть 000000",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 12 — Номер документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 13 — Номер документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

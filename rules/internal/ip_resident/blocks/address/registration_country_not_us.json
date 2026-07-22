@@ -1,16 +1,24 @@
 {
   "id": "internal.ip_resident.blocks.address.registration_country_not_us",
   "type": "rule",
-  "description": "Страна адреса регистрации не должна быть US",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "IP_RESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
-  "message": "Адрес США не допускается для IP_RESIDENT",
   "field": "beneficiary.address.registration.countryCode",
   "value": "US",
-  "meta": {
-    "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "IP_RESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+    "message": "Адрес США не допускается для IP_RESIDENT",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 27 — Адрес места жительства, регистрации или пребывания",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

@@ -1,12 +1,25 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.inn_format",
   "type": "rule",
-  "description": "ИНН бенефициара должен состоять из 10 или 12 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
   "field": "beneficiary.inn",
-  "code": "BENEFICIARY_UNBIND_INN_FORMAT",
-  "message": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
-  "value": "^(\\d{10}|\\d{12})$"
+  "value": "^(\\d{10}|\\d{12})$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BENEFICIARY_UNBIND_INN_FORMAT",
+    "message": "ИНН бенефициара должен состоять из 10 или 12 цифр.",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 3 — активация и деактивация бенефициаров",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Правило сохраняет действующий API-контракт; отдельного пункта с такой детализацией в бизнес-требованиях нет."
+    }
+  }
 }

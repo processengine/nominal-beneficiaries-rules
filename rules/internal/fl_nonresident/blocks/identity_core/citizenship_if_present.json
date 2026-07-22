@@ -1,18 +1,13 @@
 {
   "id": "internal.fl_nonresident.blocks.identity_core.citizenship_if_present",
   "type": "condition",
-  "description": "Если гражданство указано, то проверяем формат и ограничения",
   "when": {
     "all": [
       "library.fl.pred_citizenship_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.fl.citizenship_code_format"
-    },
-    {
-      "rule": "internal.fl_nonresident.blocks.identity_core.citizenship_not_us"
-    }
+    "library.fl.citizenship_code_format",
+    "internal.fl_nonresident.blocks.identity_core.citizenship_not_us"
   ]
 }

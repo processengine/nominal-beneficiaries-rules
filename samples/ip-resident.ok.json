@@ -1,9 +1,6 @@
 {
   "name": "IP resident valid owner application",
-  "context": {
-    "pipelineId": "entrypoints.ip_resident.full_validation",
-    "currentDate": "2026-06-03"
-  },
+  "pipelineId": "entrypoints.ip_resident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "IP_RESIDENT",
@@ -53,6 +50,9 @@
         "foreignTaxResident": false
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-06-03"
   },
   "expect": {
     "status": "OK",

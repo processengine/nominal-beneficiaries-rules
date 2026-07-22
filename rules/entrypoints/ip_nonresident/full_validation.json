@@ -1,42 +1,18 @@
 {
   "id": "entrypoints.ip_nonresident.full_validation",
   "type": "pipeline",
-  "description": "Проверка ИП-нерезидента РФ",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.common.beneficiary_type_required"
-    },
-    {
-      "rule": "library.common.beneficiary_type_supported"
-    },
-    {
-      "rule": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.ip_registration"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.contacts_and_status"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.identity_core"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.identity_document"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.add_doc"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.address"
-    },
-    {
-      "pipeline": "internal.ip_nonresident.blocks.tax_flags"
-    }
-  ],
-  "entrypoint": true,
-  "required_context": [
-    "currentDate"
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.common.beneficiary_type_required",
+    "library.common.beneficiary_type_supported",
+    "entrypoints.ip_nonresident.full_validation.cond_type_is_ip_nonresident_if_supported",
+    "internal.ip_nonresident.blocks.ip_registration",
+    "internal.ip_nonresident.blocks.contacts_and_status",
+    "internal.ip_nonresident.blocks.identity_core",
+    "internal.ip_nonresident.blocks.identity_document",
+    "internal.ip_nonresident.blocks.add_doc",
+    "internal.ip_nonresident.blocks.address",
+    "internal.ip_nonresident.blocks.tax_flags"
   ]
 }

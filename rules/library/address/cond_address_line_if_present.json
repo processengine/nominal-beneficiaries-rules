@@ -1,15 +1,12 @@
 {
   "id": "library.address.cond_address_line_if_present",
   "type": "condition",
-  "description": "Если полный адрес регистрации заполнен, проверяем формат и длину",
   "when": {
     "all": [
       "library.address.pred_full_address_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.address.full_address"
-    }
+    "library.address.full_address"
   ]
 }

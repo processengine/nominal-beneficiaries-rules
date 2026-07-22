@@ -1,16 +1,25 @@
 {
   "id": "library.ip_nonresident.address.full_address",
   "type": "rule",
-  "description": "Если полный адрес места жительства / регистрации / пребывания передан, проверяем длину",
-  "role": "check",
   "operator": "length_max",
-  "level": "ERROR",
-  "code": "IP_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
-  "message": "Полный адрес места жительства / регистрации / пребывания превышает 500 символов",
   "field": "beneficiary.address.registration.fullAddress",
   "value": 500,
-  "meta": {
-    "legacyCode": "BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "ERROR",
+    "code": "IP_NONRESIDENT.BEN.ADDR.REG.ADDRESS_LINE.LENGTH",
+    "message": "Полный адрес места жительства / регистрации / пребывания превышает 500 символов",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 27 — Адрес места жительства, регистрации или пребывания",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Предельная длина сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают это числовое ограничение."
+    }
   }
 }

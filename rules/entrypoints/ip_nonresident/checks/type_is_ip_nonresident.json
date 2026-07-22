@@ -1,16 +1,24 @@
 {
   "id": "entrypoints.ip_nonresident.full_validation.type_is_ip_nonresident",
   "type": "rule",
-  "description": "Тип бенефициара должен быть ИП-нерезидент",
-  "role": "check",
   "operator": "equals",
-  "level": "EXCEPTION",
-  "code": "IP_NONRESIDENT.IP.TYPE.MISMATCH",
-  "message": "Бенефициар должен быть индивидуальным предпринимателем, нерезидентом РФ",
   "field": "beneficiary.type",
   "value": "IP_NONRESIDENT",
-  "meta": {
-    "legacyCode": "IP.TYPE.MISMATCH",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "IP_NONRESIDENT.IP.TYPE.MISMATCH",
+    "message": "Бенефициар должен быть индивидуальным предпринимателем, нерезидентом РФ",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "абзац перед наборами полей — тип бенефициара и признак резидент/нерезидент",
+          "page": 4,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

@@ -1,11 +1,23 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.short_name_required",
   "type": "rule",
-  "description": "Краткое наименование ИП обязательно",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "IP.SHORT_NAME.REQUIRED",
-  "message": "Не указано краткое наименование индивидуального предпринимателя",
-  "field": "beneficiary.ip.shortName"
+  "field": "beneficiary.ip.shortName",
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.SHORT_NAME.REQUIRED",
+    "message": "Не указано краткое наименование индивидуального предпринимателя",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 2 — Наименование",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,16 +1,40 @@
 {
   "id": "library.documents.passport_rf_valid_after_45",
   "type": "rule",
-  "description": "Паспорт РФ действителен после 45 лет",
-  "role": "check",
   "operator": "passport_rf_valid_after_replacement_age",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.PASSPORT_RF.REPLACEMENT_45.EXPIRED",
-  "message": "Паспорт РФ должен быть заменён после достижения 45 лет; допустимый период после дня рождения составляет 90 дней",
   "field": "beneficiary.idDoc.issueDate",
-  "birthDateField": "beneficiary.fl.birthDate",
-  "issueDateField": "beneficiary.idDoc.issueDate",
-  "currentDateField": "$context.currentDate",
-  "ageYears": 45,
-  "graceDays": 90
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.PASSPORT_RF.REPLACEMENT_45.EXPIRED",
+    "message": "Паспорт РФ должен быть заменён после достижения 45 лет; допустимый период после дня рождения составляет 90 дней",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 13 — Дата выдачи документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 14 — Дата выдачи документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Возрастная проверка паспорта сохраняет действующий API-контракт и отдельно в бизнес-требованиях не сформулирована."
+    }
+  },
+  "inputs": {
+    "birthDate": "beneficiary.fl.birthDate",
+    "currentDate": "$context.currentDate"
+  },
+  "params": {
+    "ageYears": 45,
+    "graceDays": 90
+  }
 }

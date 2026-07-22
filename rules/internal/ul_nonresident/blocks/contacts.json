@@ -1,12 +1,7 @@
 {
   "id": "internal.ul_nonresident.blocks.contacts",
   "type": "pipeline",
-  "description": "Контакты ЮЛ-нерезидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul_nonresident.contacts_any"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul_nonresident.contacts_any"
+  ]
 }

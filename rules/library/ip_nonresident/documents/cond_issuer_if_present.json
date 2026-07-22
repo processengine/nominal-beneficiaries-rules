@@ -1,14 +1,9 @@
 {
   "id": "library.ip_nonresident.documents.cond_issuer_if_present",
   "type": "condition",
-  "description": "Если орган выдачи указан, выполняем мягкие проверки качества заполнения",
   "when": "library.documents.pred_issuer_present",
   "steps": [
-    {
-      "rule": "library.ip_nonresident.documents.issuer_no_extra_spaces"
-    },
-    {
-      "rule": "library.ip_nonresident.documents.issuer_no_garbage_symbols"
-    }
+    "library.ip_nonresident.documents.issuer_no_extra_spaces",
+    "library.ip_nonresident.documents.issuer_no_garbage_symbols"
   ]
 }

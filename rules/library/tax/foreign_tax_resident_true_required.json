@@ -1,12 +1,32 @@
 {
   "id": "library.tax.foreign_tax_resident_true_required",
   "type": "rule",
-  "description": "При иностранном документе или адресе не в России иностранное налоговое резидентство должно быть подтверждено",
-  "role": "check",
   "operator": "equals",
-  "level": "EXCEPTION",
-  "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.MUST_BE_TRUE",
-  "message": "Иностранное налоговое резидентство должно быть подтверждено",
   "field": "beneficiary.tax.foreignTaxResident",
-  "value": true
+  "value": true,
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.MUST_BE_TRUE",
+    "message": "Иностранное налоговое резидентство должно быть подтверждено",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "пп. 31–36 — иностранный документ и иностранное налоговое резидентство",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 34–39 — иностранный документ и иностранное налоговое резидентство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

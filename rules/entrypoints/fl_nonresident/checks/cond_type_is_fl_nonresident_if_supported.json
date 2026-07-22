@@ -1,0 +1,8 @@
+{
+  "id": "entrypoints.fl_nonresident.full_validation.cond_type_is_fl_nonresident_if_supported",
+  "type": "condition",
+  "when": "library.common.pred_beneficiary_type_supported",
+  "steps": [
+    "entrypoints.fl_nonresident.full_validation.type_is_fl_nonresident"
+  ]
+}

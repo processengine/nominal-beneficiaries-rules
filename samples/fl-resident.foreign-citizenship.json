@@ -1,9 +1,6 @@
 {
   "name": "FL resident with foreign citizenship",
-  "context": {
-    "pipelineId": "entrypoints.fl_resident.full_validation",
-    "currentDate": "2026-04-12"
-  },
+  "pipelineId": "entrypoints.fl_resident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_RESIDENT",
@@ -54,6 +51,9 @@
       }
     }
   },
+  "context": {
+    "currentDate": "2026-04-12"
+  },
   "expect": {
     "status": "ERROR",
     "exact": true,
@@ -64,6 +64,5 @@
         "level": "ERROR"
       }
     ]
-  },
-  "legacyParity": false
+  }
 }

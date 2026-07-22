@@ -1,9 +1,6 @@
 {
   "name": "FL nonresident unsupported additional document type",
-  "context": {
-    "pipelineId": "entrypoints.fl_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
@@ -68,6 +65,9 @@
         "issuer": "ГУ МВД России"
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "ERROR",

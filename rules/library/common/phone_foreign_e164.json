@@ -1,12 +1,33 @@
 {
   "id": "library.common.phone_foreign_e164",
   "type": "rule",
-  "description": "Иностранный телефон должен быть в формате E.164",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.CONTACTS.PHONE_FOREIGN.E164",
-  "message": "Иностранный телефон должен быть в формате E.164",
   "field": "beneficiary.contacts.foreignPhone",
-  "value": "^\\+?[1-9]\\d{7,14}$"
+  "value": "^\\+?[1-9]\\d{7,14}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.CONTACTS.PHONE_FOREIGN.E164",
+    "message": "Иностранный телефон должен быть в формате E.164",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 36 — Номер телефона в иностранном государстве",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 39 — Номер телефона в иностранном государстве",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Конкретная маска сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают эту маску."
+    }
+  }
 }

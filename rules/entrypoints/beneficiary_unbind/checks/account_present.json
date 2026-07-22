@@ -1,11 +1,24 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation.account_present",
   "type": "rule",
-  "description": "Не указан номер номинального счёта",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
   "field": "beneficiary.account.number",
-  "code": "BENEFICIARY_UNBIND_ACCOUNT_PRESENT",
-  "message": "Не указан номер номинального счёта."
+  "issue": {
+    "level": "ERROR",
+    "code": "BENEFICIARY_UNBIND_ACCOUNT_PRESENT",
+    "message": "Не указан номер номинального счёта.",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 3 — активация и деактивация бенефициаров",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Номер счёта относится к действующему API-контракту сценария привязки или отвязки и отдельной строкой в наборе полей бизнес-требований не приведён."
+    }
+  }
 }

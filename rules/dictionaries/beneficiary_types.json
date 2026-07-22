@@ -1,7 +1,6 @@
 {
   "id": "beneficiary_types",
   "type": "dictionary",
-  "description": "Допустимые категории бенефициаров для версии 1",
   "entries": [
     "UL_RESIDENT",
     "UL_NONRESIDENT",

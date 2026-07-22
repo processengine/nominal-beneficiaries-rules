@@ -1,11 +1,8 @@
 {
   "id": "library.ul_nonresident.cond_legal_address_country_if_present",
   "type": "condition",
-  "description": "Если страна юридического адреса иностранной организации указана, проверяем формат",
   "when": "library.ul_nonresident.pred_legal_address_country_present",
   "steps": [
-    {
-      "rule": "library.ul_nonresident.legal_address_country_format_non_ru"
-    }
+    "library.ul_nonresident.legal_address_country_format_non_ru"
   ]
 }

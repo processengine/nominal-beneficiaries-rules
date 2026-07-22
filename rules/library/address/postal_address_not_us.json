@@ -1,12 +1,32 @@
 {
   "id": "library.address.postal_address_not_us",
   "type": "rule",
-  "description": "Почтовый адрес не должен содержать указание на США",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "EXCEPTION",
-  "code": "BEN.CONTACTS.POSTAL.NOT_US",
-  "message": "Почтовый адрес не должен указывать на США",
+  "operator": "not_matches_regex",
   "field": "beneficiary.contacts.postalAddress",
-  "value": "^(?!.*(?:США|USA|Usa|usa|US|U\\.S\\.)).*$"
+  "value": "(?:США|USA|Usa|usa|US|U\\.S\\.)",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.CONTACTS.POSTAL.NOT_US",
+    "message": "Почтовый адрес не должен указывать на США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 30 — Почтовый адрес",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 33 — Почтовый адрес",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

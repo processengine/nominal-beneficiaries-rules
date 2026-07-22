@@ -1,14 +1,9 @@
 {
   "id": "library.ul.cond_inn_if_present",
   "type": "condition",
-  "description": "Если ИНН юридического лица указан, проверяем формат и контрольный разряд",
   "when": "library.ul.pred_inn_present",
   "steps": [
-    {
-      "rule": "library.ul.inn_format_10"
-    },
-    {
-      "condition": "library.ul.cond_inn_valid_if_format_ok"
-    }
+    "library.ul.inn_format_10",
+    "library.ul.cond_inn_valid_if_format_ok"
   ]
 }

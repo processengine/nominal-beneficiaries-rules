@@ -1,12 +1,24 @@
 {
   "id": "library.ul.inn_format_10",
   "type": "rule",
-  "description": "ИНН юридического лица должен содержать 10 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "UL.INN.LENGTH_10",
-  "message": "ИНН юридического лица должен содержать 10 цифр",
   "field": "beneficiary.inn",
-  "value": "^\\d{10}$"
+  "value": "^\\d{10}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.INN.LENGTH_10",
+    "message": "ИНН юридического лица должен содержать 10 цифр",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 1 — ИНН",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

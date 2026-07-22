@@ -1,0 +1,150 @@
+{
+  "name": "Покрытие Rules v4: 19 кодов ошибок",
+  "pipelineId": "entrypoints.ul_nonresident.full_validation",
+  "payload": {
+    "requestExtId": "ul-nonresident-test-request-0001",
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "inn": "9909123456",
+      "account": {
+        "number": "__INVALID__"
+      },
+      "contacts": {
+        "email": "beneficiary@example.kz",
+        "foreignPhone": "+491234567890",
+        "postalAddress": "Берлин",
+        "postalAddressCountryCode": "DE"
+      },
+      "status": {
+        "startDate": "2026-02-30",
+        "endDate": "2025-01-01"
+      },
+      "ul": {
+        "kpp": "__INVALID__",
+        "kio": "__INVALID__",
+        "shortName": "АО \"KAZAKHSTAN TEST COMPANY\"",
+        "foreignShortName": "KTC JSC",
+        "registration": {
+          "date": "2026-02-30"
+        }
+      },
+      "address": {
+        "legal": {}
+      },
+      "tax": {
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "tin": "DE123456",
+          "address": "Берлин"
+        },
+        "controllingPersonsUsTaxResident": true
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL_NONRESIDENT.UL.INN.INVALID",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.PARTICIPATION_ID.REQUIRED",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.ACCOUNT.NUMBER.FORMAT",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.STATUS.START_DATE.FORMAT",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.BEN.STATUS.END.ORDER",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.KPP.FORMAT",
+        "field": "beneficiary.ul.kpp",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.KIO.FORMAT",
+        "field": "beneficiary.ul.kio",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.FULL_NAME.REQUIRED",
+        "field": "beneficiary.ul.fullName",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.FOREIGN_FULL_NAME.REQUIRED",
+        "field": "beneficiary.ul.foreignFullName",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.COUNTRY.REQUIRED",
+        "field": "beneficiary.ul.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.REGISTRATION.NUMBER.REQUIRED",
+        "field": "beneficiary.ul.registration.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.REGISTRATION.DATE.FORMAT",
+        "field": "beneficiary.ul.registration.date",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.REGISTRATION.AGENCY.REQUIRED",
+        "field": "beneficiary.ul.registration.agency",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.REGISTRATION.PLACE.REQUIRED",
+        "field": "beneficiary.ul.registration.place",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.REQUIRED",
+        "field": "beneficiary.address.legal.fullAddress",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+        "field": "beneficiary.address.legal.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.foreignTaxResident",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.TAX.US_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.usTaxResident",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL_NONRESIDENT.UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

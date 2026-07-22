@@ -1,16 +1,24 @@
 {
   "id": "internal.ip_nonresident.blocks.identity_core.citizenship_not_us",
   "type": "rule",
-  "description": "Код гражданства не должен быть US",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "IP_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
-  "message": "Гражданство США не допускается для ИП-нерезидента",
   "field": "beneficiary.fl.citizenshipCode",
   "value": "US",
-  "meta": {
-    "legacyCode": "FL.CITIZENSHIP.NOT_US",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "IP_NONRESIDENT.FL.CITIZENSHIP.NOT_US",
+    "message": "Гражданство США не допускается для ИП-нерезидента",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 8 — Гражданство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

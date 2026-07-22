@@ -1,12 +1,32 @@
 {
   "id": "library.fl.first_name_length_max",
   "type": "rule",
-  "description": "Имя не должно превышать 100 символов",
-  "role": "check",
   "operator": "length_max",
-  "level": "ERROR",
-  "code": "FL.FIRST_NAME.LENGTH_MAX",
-  "message": "Имя не должно превышать 100 символов",
   "field": "beneficiary.fl.firstName",
-  "value": 100
+  "value": 100,
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.FIRST_NAME.LENGTH_MAX",
+    "message": "Имя не должно превышать 100 символов",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 3 — Имя",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 4 — Имя",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

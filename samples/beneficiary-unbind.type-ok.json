@@ -1,9 +1,6 @@
 {
   "name": "Beneficiary unbind supported type",
-  "context": {
-    "pipelineId": "entrypoints.beneficiary.unbind.type_supported",
-    "currentDate": "2026-06-15"
-  },
+  "pipelineId": "entrypoints.beneficiary.unbind.type_supported",
   "payload": {
     "beneficiary": {
       "type": "UL_NONRESIDENT",
@@ -17,6 +14,9 @@
         "endDate": "2026-06-03"
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
   },
   "expect": {
     "status": "OK",

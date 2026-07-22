@@ -1,12 +1,33 @@
 {
   "id": "library.common.email_format",
   "type": "rule",
-  "description": "Эл. почта должна быть корректной",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "BEN.CONTACTS.EMAIL.FORMAT",
-  "message": "Некорректная эл. почта",
   "field": "beneficiary.contacts.email",
-  "value": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+  "value": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.CONTACTS.EMAIL.FORMAT",
+    "message": "Некорректная эл. почта",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 29 — Адрес электронной почты",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 32 — Адрес электронной почты",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Конкретная маска сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают эту маску."
+    }
+  }
 }

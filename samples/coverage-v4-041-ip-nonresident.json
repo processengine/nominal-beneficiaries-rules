@@ -1,0 +1,101 @@
+{
+  "name": "Покрытие Rules v4: IP_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+  "pipelineId": "entrypoints.ip_nonresident.full_validation",
+  "payload": {
+    "requestExtId": "ip-nonresident-smoke-001",
+    "beneficiary": {
+      "type": "IP_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "IP-NONRESIDENT-SMOKE-001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9157382046",
+        "email": "nonresident@example.com",
+        "foreignPhone": "+992372000001",
+        "postalAddressCountryCode": "RU",
+        "postalAddress": "109559, Россия, Москва, ул Новороссийская, д 30 к 1, кв 254"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "lastName": "Каримов",
+        "firstName": "Али",
+        "middleName": "Ахмедович",
+        "birthDate": "1990-04-12",
+        "birthPlace": "г. Душанбе",
+        "citizenshipCode": "TJ"
+      },
+      "idDoc": {
+        "typeCode": "004",
+        "series": "",
+        "number": "PE0512700",
+        "issuer": "Ministry of Internal Affairs of Tajikistan",
+        "issueDate": "2021-02-12",
+        "issueDateEnd": "2031-02-12"
+      },
+      "addDoc": {
+        "typeCode": "005",
+        "series": "77",
+        "number": "123456789",
+        "issuer": "ГУ МВД России по г. Москве",
+        "issueDate": "2024-01-15",
+        "issueDateEnd": "2027-01-15"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "109559",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "city": "Москва",
+          "streetType": "ул",
+          "street": "Новороссийская",
+          "house": "30к1",
+          "flat": "254",
+          "fullAddress": "109559, г Москва, ул Новороссийская, д 30 к 1, кв 254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": true,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "TJ",
+          "tin": "123456789",
+          "tinAbsenceReason": null,
+          "address": "Republic of Tajikistan, Dushanbe, Rudaki avenue, 1"
+        }
+      },
+      "ip": {
+        "fullName": "Индивидуальный предприниматель Каримов Али Ахмедович",
+        "shortName": "ИП Каримов А. А.",
+        "okopf": "50102",
+        "country": "RU",
+        "registration": {
+          "number": "326990000000123",
+          "date": "2026-02-11",
+          "agency": "Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве",
+          "agencyCode": "7746",
+          "agencyAddress": "125373, г. Москва, Походный проезд, домовладение 3, стр. 2"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "IP_NONRESIDENT.BEN.TAX.US_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.usResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

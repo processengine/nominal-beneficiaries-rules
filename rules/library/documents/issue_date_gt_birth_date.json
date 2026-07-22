@@ -1,12 +1,32 @@
 {
   "id": "library.documents.issue_date_gt_birth_date",
   "type": "rule",
-  "description": "Дата выдачи документа должна быть позже даты рождения",
-  "role": "check",
   "operator": "field_greater_than_field",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.ISSUE_DATE.GT_BIRTH_DATE",
-  "message": "Дата выдачи документа должна быть позже даты рождения",
   "field": "beneficiary.idDoc.issueDate",
-  "value_field": "beneficiary.fl.birthDate"
+  "value_field": "beneficiary.fl.birthDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.ISSUE_DATE.GT_BIRTH_DATE",
+    "message": "Дата выдачи документа должна быть позже даты рождения",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 13 — Дата выдачи документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 14 — Дата выдачи документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

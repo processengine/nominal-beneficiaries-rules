@@ -1,9 +1,6 @@
 {
   "name": "IP resident with foreign citizenship",
-  "context": {
-    "pipelineId": "entrypoints.ip_resident.full_validation",
-    "currentDate": "2026-06-03"
-  },
+  "pipelineId": "entrypoints.ip_resident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "IP_RESIDENT",
@@ -54,6 +51,9 @@
       }
     }
   },
+  "context": {
+    "currentDate": "2026-06-03"
+  },
   "expect": {
     "status": "ERROR",
     "exact": true,
@@ -64,6 +64,5 @@
         "level": "ERROR"
       }
     ]
-  },
-  "legacyParity": false
+  }
 }

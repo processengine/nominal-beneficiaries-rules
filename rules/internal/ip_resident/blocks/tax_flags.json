@@ -1,27 +1,12 @@
 {
   "id": "internal.ip_resident.blocks.tax_flags",
   "type": "pipeline",
-  "description": "Регуляторные флаги и иностранное налоговое резидентство",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.tax.foreign_tax_resident_bool"
-    },
-    {
-      "rule": "internal.ip_resident.blocks.tax_flags.foreign_tax_resident_not_true"
-    },
-    {
-      "rule": "library.tax.us_tax_resident_bool"
-    },
-    {
-      "rule": "internal.ip_resident.blocks.tax_flags.us_tax_resident_not_true"
-    },
-    {
-      "rule": "library.tax.us_resident_bool"
-    },
-    {
-      "rule": "internal.ip_resident.blocks.tax_flags.us_resident_not_true"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.tax.foreign_tax_resident_bool",
+    "internal.ip_resident.blocks.tax_flags.cond_foreign_tax_resident_not_true_if_boolean",
+    "library.tax.us_tax_resident_bool",
+    "internal.ip_resident.blocks.tax_flags.cond_us_tax_resident_not_true_if_boolean",
+    "library.tax.us_resident_bool",
+    "internal.ip_resident.blocks.tax_flags.cond_us_resident_not_true_if_boolean"
+  ]
 }

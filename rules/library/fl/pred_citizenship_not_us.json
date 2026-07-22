@@ -1,9 +1,7 @@
 {
   "id": "library.fl.pred_citizenship_not_us",
   "type": "rule",
-  "description": "Гражданство не США",
-  "role": "predicate",
-  "operator": "not_equals",
+  "operator": "not_matches_regex",
   "field": "beneficiary.fl.citizenshipCode",
-  "value": "US"
+  "value": "^US$"
 }

@@ -1,11 +1,8 @@
 {
   "id": "library.nonresident.cond_add_doc_migration_card",
   "type": "condition",
-  "description": "Если дополнительный документ является миграционной картой, проверяем обязательные поля миграционной карты",
   "when": "library.nonresident.pred_add_doc_typeCode_migr",
   "steps": [
-    {
-      "rule": "library.nonresident.add_doc_migration_series_required"
-    }
+    "library.nonresident.add_doc_migration_series_required"
   ]
 }

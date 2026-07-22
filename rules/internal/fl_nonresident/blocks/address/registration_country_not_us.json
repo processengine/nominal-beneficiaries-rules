@@ -1,16 +1,24 @@
 {
   "id": "internal.fl_nonresident.blocks.address.registration_country_not_us",
   "type": "rule",
-  "description": "Страна адреса регистрации не должна быть US",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
-  "message": "Адрес США не допускается для ФЛ-нерезидента",
   "field": "beneficiary.address.registration.countryCode",
   "value": "US",
-  "meta": {
-    "legacyCode": "BEN.ADDRESS.COUNTRY.NOT_US",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+    "message": "Адрес США не допускается для ФЛ-нерезидента",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 26 — Адрес места жительства, регистрации или пребывания",
+          "page": 13,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

@@ -1,16 +1,24 @@
 {
   "id": "library.ul.common.status_end_gt_start",
   "type": "rule",
-  "description": "Дата окончания участия должна быть позже даты начала",
-  "role": "check",
   "operator": "field_greater_than_field",
-  "level": "ERROR",
-  "code": "UL.BEN.STATUS.END.ORDER",
-  "message": "Дата окончания участия должна быть позже даты начала участия",
   "field": "beneficiary.status.endDate",
   "value_field": "beneficiary.status.startDate",
-  "meta": {
-    "legacyCode": "BEN.STATUS.END.ORDER",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.BEN.STATUS.END.ORDER",
+    "message": "Дата окончания участия должна быть позже даты начала участия",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 22 — Дата прекращения статуса бенефициара",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

@@ -1,14 +1,9 @@
 {
   "id": "library.nonresident.cond_add_doc_issue_date_if_present",
   "type": "condition",
-  "description": "Если дата начала действия дополнительного документа указана, проверяем формат и текущую дату",
   "when": "library.nonresident.pred_add_doc_issueDate_present",
   "steps": [
-    {
-      "rule": "library.nonresident.add_doc_issue_date_format"
-    },
-    {
-      "condition": "library.nonresident.cond_add_doc_issue_date_not_future_if_format_ok"
-    }
+    "library.nonresident.add_doc_issue_date_format",
+    "library.nonresident.cond_add_doc_issue_date_not_future_if_format_ok"
   ]
 }

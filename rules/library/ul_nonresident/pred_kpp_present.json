@@ -1,8 +1,6 @@
 {
   "id": "library.ul_nonresident.pred_kpp_present",
   "type": "rule",
-  "description": "КПП иностранной организации указан",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.ul.kpp"
 }

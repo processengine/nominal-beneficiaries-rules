@@ -1,7 +1,6 @@
 {
   "id": "library.nonresident.cond_add_doc_issue_date_end_order_if_dates_ok",
   "type": "condition",
-  "description": "Если даты дополнительного документа корректны и срок не истёк, проверяем порядок дат",
   "when": {
     "all": [
       "library.nonresident.pred_add_doc_issueDate_format_valid",
@@ -10,8 +9,6 @@
     ]
   },
   "steps": [
-    {
-      "rule": "library.nonresident.add_doc_issue_date_end_after_start"
-    }
+    "library.nonresident.add_doc_issue_date_end_after_start"
   ]
 }

@@ -1,11 +1,23 @@
 {
   "id": "library.ul.tax.us_required",
   "type": "rule",
-  "description": "Не указано, является ли ЮЛ-резидент налоговым резидентом США",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
-  "message": "Не указано, является ли ЮЛ-резидент налоговым резидентом США",
-  "field": "beneficiary.tax.usTaxResident"
+  "field": "beneficiary.tax.usTaxResident",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
+    "message": "Не указано, является ли ЮЛ-резидент налоговым резидентом США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 19 — Налоговое резидентство США",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

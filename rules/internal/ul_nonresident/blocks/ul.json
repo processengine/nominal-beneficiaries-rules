@@ -1,45 +1,18 @@
 {
   "id": "internal.ul_nonresident.blocks.ul",
   "type": "pipeline",
-  "description": "Сведения об иностранной организации",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul_nonresident.kpp_required"
-    },
-    {
-      "condition": "library.ul_nonresident.cond_kpp_if_present"
-    },
-    {
-      "condition": "library.ul_nonresident.cond_kio_if_present"
-    },
-    {
-      "rule": "library.ul_nonresident.full_name_required"
-    },
-    {
-      "rule": "library.ul_nonresident.foreign_full_name_required"
-    },
-    {
-      "rule": "library.ul_nonresident.country_required"
-    },
-    {
-      "condition": "library.ul_nonresident.cond_country_if_present"
-    },
-    {
-      "rule": "library.ul_nonresident.registration_number_required"
-    },
-    {
-      "rule": "library.ul_nonresident.registration_date_required"
-    },
-    {
-      "condition": "library.ul_nonresident.cond_registration_date_if_present"
-    },
-    {
-      "rule": "library.ul_nonresident.registration_agency_required"
-    },
-    {
-      "rule": "library.ul_nonresident.registration_place_required"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul_nonresident.kpp_required",
+    "library.ul_nonresident.cond_kpp_if_present",
+    "library.ul_nonresident.cond_kio_if_present",
+    "library.ul_nonresident.full_name_required",
+    "library.ul_nonresident.foreign_full_name_required",
+    "library.ul_nonresident.country_required",
+    "library.ul_nonresident.cond_country_if_present",
+    "library.ul_nonresident.registration_number_required",
+    "library.ul_nonresident.registration_date_required",
+    "library.ul_nonresident.cond_registration_date_if_present",
+    "library.ul_nonresident.registration_agency_required",
+    "library.ul_nonresident.registration_place_required"
+  ]
 }

@@ -1,0 +1,125 @@
+{
+  "name": "Покрытие Rules v4: 6 кодов ошибок",
+  "pipelineId": "entrypoints.ip_nonresident.full_validation",
+  "payload": {
+    "requestExtId": "ip-nonresident-smoke-001",
+    "beneficiary": {
+      "type": "IP_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "IP-NONRESIDENT-SMOKE-001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9157382046",
+        "email": "nonresident@example.com",
+        "foreignPhone": "+491234567890",
+        "postalAddressCountryCode": "DE",
+        "postalAddress": "Берлин"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "lastName": "Каримов",
+        "firstName": "Али",
+        "middleName": "Ахмедович",
+        "birthDate": "2025-01-02",
+        "birthPlace": "г. Душанбе",
+        "citizenshipCode": "TJ"
+      },
+      "idDoc": {
+        "typeCode": "001",
+        "series": "45 10",
+        "number": "123456",
+        "issuer": "__INVALID__",
+        "issueDate": "2024-12-15",
+        "issueDateEnd": "2030-01-01",
+        "issuerCode": "123-456"
+      },
+      "addDoc": {
+        "typeCode": "005",
+        "series": "77",
+        "number": "123456",
+        "issuer": "МВД",
+        "issueDate": "2025-01-02",
+        "issueDateEnd": "2025-01-01"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "109559",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "city": "Москва",
+          "streetType": "ул",
+          "street": "Новороссийская",
+          "house": "30к1",
+          "flat": "254",
+          "fullAddress": "109559, г Москва, ул Новороссийская, д 30 к 1, кв 254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "tin": "DE123456"
+        }
+      },
+      "ip": {
+        "fullName": "Индивидуальный предприниматель Каримов Али Ахмедович",
+        "shortName": "ИП Каримов А. А.",
+        "okopf": "50102",
+        "country": "RU",
+        "registration": {
+          "number": "326990000000123",
+          "date": "2026-02-11",
+          "agency": "Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве",
+          "agencyCode": "7746",
+          "agencyAddress": "125373, г. Москва, Походный проезд, домовладение 3, стр. 2"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2025-01-01"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "IP_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "IP_NONRESIDENT.BEN.IDDOC.ISSUER.SYMBOLS",
+        "field": "beneficiary.idDoc.issuer",
+        "level": "WARNING"
+      },
+      {
+        "code": "BEN.IDDOC.ISSUE_DATE.GT_BIRTH_DATE",
+        "field": "beneficiary.idDoc.issueDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.NOT_FUTURE",
+        "field": "beneficiary.addDoc.issueDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRES.ADD_DOC.DATE.ORDER",
+        "field": "beneficiary.addDoc.issueDateEnd",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.TAX.FOREIGN_ADDRESS.OR_POSTAL_REQUIRED",
+        "field": "beneficiary.tax.foreignTaxResidency.address",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

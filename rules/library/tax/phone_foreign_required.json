@@ -1,11 +1,31 @@
 {
   "id": "library.tax.phone_foreign_required",
   "type": "rule",
-  "description": "Если есть иностранное налоговое резидентство и нет телефона РФ, нужен иностранный телефон",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "BEN.CONTACTS.PHONE_FOREIGN.REQUIRED",
-  "message": "Иностранный телефон обязателен при иностранном налоговом резидентстве, если телефон РФ не указан",
-  "field": "beneficiary.contacts.foreignPhone"
+  "field": "beneficiary.contacts.foreignPhone",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.CONTACTS.PHONE_FOREIGN.REQUIRED",
+    "message": "Иностранный телефон обязателен при иностранном налоговом резидентстве, если телефон РФ не указан",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 36 — Номер телефона в иностранном государстве",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 39 — Номер телефона в иностранном государстве",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

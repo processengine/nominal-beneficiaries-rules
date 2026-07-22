@@ -1,12 +1,32 @@
 {
   "id": "library.nonresident.add_doc_issue_date_format",
   "type": "rule",
-  "description": "Поле \"Дата начала действия дополнительного документа\" в формате YYYY-MM-DD",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.FORMAT",
-  "message": "Дата начала действия дополнительного документа должна быть в формате YYYY-MM-DD",
+  "operator": "is_iso_date",
   "field": "beneficiary.addDoc.issueDate",
-  "value": "^\\d{4}-\\d{2}-\\d{2}$"
+  "issue": {
+    "level": "ERROR",
+    "code": "FL_NONRES.ADD_DOC.ISSUE_DATE.FORMAT",
+    "message": "Дата начала действия дополнительного документа должна быть в формате YYYY-MM-DD",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "пп. 17–25 — документ о праве пребывания или миграционная карта",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 18–26 — документ о праве пребывания или миграционная карта",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Бизнес-требования используют запись ДД.ММ.ГГГГ, а правило сохраняет формат YYYY-MM-DD текущего JSON API."
+    }
+  }
 }

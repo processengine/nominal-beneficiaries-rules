@@ -1,15 +1,12 @@
 {
   "id": "library.common.cond_account_number_if_present",
   "type": "condition",
-  "description": "Если номер счета указан, проверяем его формат",
   "when": {
     "all": [
       "library.common.pred_account_number_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.common.account_number_format"
-    }
+    "library.common.account_number_format"
   ]
 }

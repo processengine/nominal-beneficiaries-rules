@@ -1,12 +1,7 @@
 {
   "id": "internal.ul_resident.blocks.contacts",
   "type": "pipeline",
-  "description": "Контакты ЮЛ-резидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul.contacts_any"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul.contacts_any"
+  ]
 }

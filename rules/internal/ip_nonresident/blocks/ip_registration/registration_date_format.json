@@ -1,12 +1,24 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.registration_date_format",
   "type": "rule",
-  "description": "Дата регистрации ИП должна быть в формате YYYY-MM-DD",
-  "role": "check",
-  "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "IP.REGISTRATION_DATE.FORMAT",
-  "message": "Дата государственной регистрации ИП должна быть в формате YYYY-MM-DD",
+  "operator": "is_iso_date",
   "field": "beneficiary.ip.registration.date",
-  "value": "^\\d{4}-\\d{2}-\\d{2}$"
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.REGISTRATION_DATE.FORMAT",
+    "message": "Дата государственной регистрации ИП должна быть в формате YYYY-MM-DD",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Детализация регистрационных данных сохраняет действующий API-контракт, а бизнес-требования описывают их более крупным полем."
+    }
+  }
 }

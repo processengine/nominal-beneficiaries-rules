@@ -1,0 +1,8 @@
+{
+  "id": "entrypoints.beneficiary.unbind.field_validation.cond_inn_valid_if_format_ok",
+  "type": "condition",
+  "when": "entrypoints.beneficiary.unbind.field_validation.inn_format",
+  "steps": [
+    "entrypoints.beneficiary.unbind.field_validation.inn_valid"
+  ]
+}

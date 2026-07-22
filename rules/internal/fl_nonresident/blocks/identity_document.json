@@ -1,39 +1,16 @@
 {
   "id": "internal.fl_nonresident.blocks.identity_document",
   "type": "pipeline",
-  "description": "Проверка документа удостоверяющего личность",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.documents.type_code_required"
-    },
-    {
-      "rule": "library.fl_nonresident.documents.type_code_in_dictionary"
-    },
-    {
-      "rule": "library.documents.type_code_not_35"
-    },
-    {
-      "rule": "library.documents.number_required"
-    },
-    {
-      "rule": "library.documents.issuer_required"
-    },
-    {
-      "condition": "library.fl_nonresident.documents.cond_issuer_if_present"
-    },
-    {
-      "rule": "library.documents.issue_date_required"
-    },
-    {
-      "condition": "library.documents.cond_issue_date_if_present"
-    },
-    {
-      "condition": "library.documents.cond_issue_date_end_if_present"
-    },
-    {
-      "condition": "library.fl_nonresident.documents.cond_passport_rf_fields"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.documents.type_code_required",
+    "library.fl_nonresident.documents.type_code_in_dictionary",
+    "library.fl_nonresident.documents.cond_type_code_not_35_if_supported",
+    "library.documents.number_required",
+    "library.documents.issuer_required",
+    "library.fl_nonresident.documents.cond_issuer_if_present",
+    "library.documents.issue_date_required",
+    "library.documents.cond_issue_date_if_present",
+    "library.documents.cond_issue_date_end_if_present",
+    "library.fl_nonresident.documents.cond_passport_rf_fields"
+  ]
 }

@@ -1,12 +1,32 @@
 {
   "id": "library.common.status_end_gt_start",
   "type": "rule",
-  "description": "Дата окончания статуса должна быть позже даты начала",
-  "role": "check",
   "operator": "field_greater_than_field",
-  "level": "ERROR",
-  "code": "BEN.STATUS.END.ORDER",
-  "message": "Дата окончания статуса должна быть позже beneficiary.status.startDate",
   "field": "beneficiary.status.endDate",
-  "value_field": "beneficiary.status.startDate"
+  "value_field": "beneficiary.status.startDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.STATUS.END.ORDER",
+    "message": "Дата окончания статуса должна быть позже beneficiary.status.startDate",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 40 — Дата прекращения статуса бенефициара",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 43 — Дата прекращения статуса бенефициара",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

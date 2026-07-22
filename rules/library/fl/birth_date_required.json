@@ -1,11 +1,31 @@
 {
   "id": "library.fl.birth_date_required",
   "type": "rule",
-  "description": "Дата рождения обязательна",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "FL.BIRTH_DATE.REQUIRED",
-  "message": "Не указана дата рождения физического лица",
-  "field": "beneficiary.fl.birthDate"
+  "field": "beneficiary.fl.birthDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.BIRTH_DATE.REQUIRED",
+    "message": "Не указана дата рождения физического лица",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 5 — Дата рождения",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 6 — Дата рождения",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,12 +1,33 @@
 {
   "id": "library.common.participation_length",
   "type": "rule",
-  "description": "Идентификатор основания участия не должен быть длиннее 64 символов",
-  "role": "check",
   "operator": "length_max",
-  "level": "ERROR",
-  "code": "BEN.PARTICIPATION.LENGTH",
-  "message": "Идентификатор основания участия превышает 64 символа",
   "field": "beneficiary.participationId",
-  "value": 64
+  "value": 64,
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.PARTICIPATION.LENGTH",
+    "message": "Идентификатор основания участия превышает 64 символа",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 27 — Идентификатор основания участия",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 30 — Идентификатор основания участия",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Предельная длина сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают это числовое ограничение."
+    }
+  }
 }

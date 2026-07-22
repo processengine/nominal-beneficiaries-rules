@@ -1,36 +1,15 @@
 {
   "id": "entrypoints.beneficiary.unbind.field_validation",
   "type": "pipeline",
-  "entrypoint": true,
-  "strict": false,
-  "description": "Проверка данных для отвязки бенефициара",
-  "flow": [
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.participation_id_present"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.inn_present"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.inn_format"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.inn_valid"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.account_present"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.start_date_present"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.start_date_format"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.end_date_present"
-    },
-    {
-      "rule": "entrypoints.beneficiary.unbind.field_validation.end_date_format"
-    }
+  "steps": [
+    "entrypoints.beneficiary.unbind.field_validation.participation_id_present",
+    "entrypoints.beneficiary.unbind.field_validation.inn_present",
+    "entrypoints.beneficiary.unbind.field_validation.inn_format",
+    "entrypoints.beneficiary.unbind.field_validation.cond_inn_valid_if_format_ok",
+    "entrypoints.beneficiary.unbind.field_validation.account_present",
+    "entrypoints.beneficiary.unbind.field_validation.start_date_present",
+    "entrypoints.beneficiary.unbind.field_validation.start_date_format",
+    "entrypoints.beneficiary.unbind.field_validation.end_date_present",
+    "entrypoints.beneficiary.unbind.field_validation.end_date_format"
   ]
 }

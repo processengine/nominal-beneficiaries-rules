@@ -1,11 +1,8 @@
 {
   "id": "library.ul.cond_inn_valid_if_format_ok",
   "type": "condition",
-  "description": "Если ИНН юридического лица содержит 10 цифр, проверяем контрольный разряд",
   "when": "library.ul.pred_inn_format_valid",
   "steps": [
-    {
-      "rule": "library.ul.inn_valid"
-    }
+    "library.ul.inn_valid"
   ]
 }

@@ -1,12 +1,40 @@
 {
   "id": "library.documents.type_code_not_35",
   "type": "rule",
-  "description": "Код типа документа не должен быть равен 35",
-  "role": "check",
   "operator": "not_equals",
-  "level": "EXCEPTION",
-  "code": "BEN.IDDOC.TYPE_CODE.NOT_35",
-  "message": "Код типа документа 35 не допускается для регистрации бенефициара",
   "field": "beneficiary.idDoc.typeCode",
-  "value": "35"
+  "value": "35",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.IDDOC.TYPE_CODE.NOT_35",
+    "message": "Код типа документа 35 не допускается для регистрации бенефициара",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 9 — Код вида документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 10 — Код вида документа",
+          "page": 7,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Особенности предоставления данных бенефициаров по отдельным параметрам",
+          "item": "коды видов документов, удостоверяющих личность",
+          "page": 21,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

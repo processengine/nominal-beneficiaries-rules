@@ -1,39 +1,16 @@
 {
   "id": "internal.ip_nonresident.blocks.contacts_and_status",
   "type": "pipeline",
-  "description": "Общие проверки контактов и статуса связи",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.common.participation_required"
-    },
-    {
-      "condition": "library.common.cond_participation_if_present"
-    },
-    {
-      "rule": "library.common.account_number_required"
-    },
-    {
-      "condition": "library.common.cond_account_number_if_present"
-    },
-    {
-      "rule": "library.ip_nonresident.common.contacts_any"
-    },
-    {
-      "condition": "library.common.cond_phone_if_present"
-    },
-    {
-      "condition": "library.common.cond_email_if_present"
-    },
-    {
-      "rule": "library.common.status_start_required"
-    },
-    {
-      "condition": "library.common.cond_status_start_if_present"
-    },
-    {
-      "condition": "library.common.cond_status_end_if_present"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.common.participation_required",
+    "library.common.cond_participation_if_present",
+    "library.common.account_number_required",
+    "library.common.cond_account_number_if_present",
+    "library.ip_nonresident.common.contacts_any",
+    "library.common.cond_phone_if_present",
+    "library.common.cond_email_if_present",
+    "library.common.status_start_required",
+    "library.common.cond_status_start_if_present",
+    "library.common.cond_status_end_if_present"
+  ]
 }

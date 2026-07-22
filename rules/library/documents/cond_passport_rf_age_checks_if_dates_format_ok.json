@@ -1,7 +1,6 @@
 {
   "id": "library.documents.cond_passport_rf_age_checks_if_dates_format_ok",
   "type": "condition",
-  "description": "Если даты рождения и выдачи паспорта корректны, проверяем возраст и срок замены паспорта",
   "when": {
     "all": [
       "library.fl.pred_birth_date_format_valid",
@@ -9,14 +8,8 @@
     ]
   },
   "steps": [
-    {
-      "rule": "library.documents.passport_rf_issue_date_after_14"
-    },
-    {
-      "rule": "library.documents.passport_rf_valid_after_20"
-    },
-    {
-      "rule": "library.documents.passport_rf_valid_after_45"
-    }
+    "library.documents.passport_rf_issue_date_after_14",
+    "library.documents.passport_rf_valid_after_20",
+    "library.documents.passport_rf_valid_after_45"
   ]
 }

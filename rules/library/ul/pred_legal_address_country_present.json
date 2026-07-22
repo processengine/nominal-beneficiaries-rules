@@ -1,8 +1,6 @@
 {
   "id": "library.ul.pred_legal_address_country_present",
   "type": "rule",
-  "description": "Страна юридического адреса ЮЛ-резидента указана",
-  "role": "predicate",
   "operator": "not_empty",
   "field": "beneficiary.address.legal.countryCode"
 }

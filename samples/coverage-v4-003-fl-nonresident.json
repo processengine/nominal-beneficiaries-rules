@@ -1,0 +1,156 @@
+{
+  "name": "Покрытие Rules v4: 18 кодов ошибок",
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "__INVALID__",
+      "account": {},
+      "contacts": {
+        "postalAddress": "Берлин"
+      },
+      "status": {
+        "endDate": "2026-02-30"
+      },
+      "fl": {
+        "lastName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "firstName": "ЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯЯ",
+        "middleName": "Сергеевич",
+        "birthDate": "1990-04-12",
+        "birthPlace": "г. Минск",
+        "citizenshipCode": "BY"
+      },
+      "idDoc": {
+        "typeCode": null,
+        "series": "45 10",
+        "number": "123456",
+        "issuer": "ОВД",
+        "issueDate": "2024-12-15",
+        "issueDateEnd": "2030-01-01",
+        "issuerCode": "123-456"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "regionCode": "77",
+          "regionName": "г Москва",
+          "flat": "254"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "BY",
+          "tin": "123456789",
+          "tinAbsenceReason": null,
+          "address": "Republic of Belarus, Minsk, Nezavisimosti avenue, 1"
+        }
+      },
+      "addDoc": {
+        "typeCode": "007",
+        "number": "123456",
+        "issueDate": "2020-01-01",
+        "issueDateEnd": "2030-01-01"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.PARTICIPATION.REQUIRED",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ACCOUNT.NUMBER.REQUIRED",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.STATUS.START.REQUIRED",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.STATUS.END.FORMAT",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.INN.LENGTH_12",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.LAST_NAME.LENGTH_MAX",
+        "field": "beneficiary.fl.lastName",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL.FIRST_NAME.LENGTH_MAX",
+        "field": "beneficiary.fl.firstName",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.IDDOC.TYPE_CODE.REQUIRED",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+        "field": "beneficiary.idDoc.typeCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "FL_NONRES.ADD_DOC.MIGRATION_CARD.SERIES.REQUIRED",
+        "field": "beneficiary.addDoc.series",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.CITY_OR_LOCALITY.REQUIRED",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.registration.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
+        "field": "beneficiary.address.registration.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
+        "field": "beneficiary.address.registration.house",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
+        "field": "beneficiary.address.registration.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.POSTAL_COUNTRY.REQUIRED",
+        "field": "beneficiary.contacts.postalAddressCountryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.CONTACTS.PHONE_FOREIGN.REQUIRED",
+        "field": "beneficiary.contacts.foreignPhone",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

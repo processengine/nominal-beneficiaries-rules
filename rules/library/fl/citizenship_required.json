@@ -1,11 +1,31 @@
 {
   "id": "library.fl.citizenship_required",
   "type": "rule",
-  "description": "Код гражданства должен быть заполнен",
-  "role": "check",
   "operator": "not_empty",
-  "level": "EXCEPTION",
-  "code": "FL.CITIZENSHIP.REQUIRED",
-  "message": "Необходимо заполнить код гражданства",
-  "field": "beneficiary.fl.citizenshipCode"
+  "field": "beneficiary.fl.citizenshipCode",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "FL.CITIZENSHIP.REQUIRED",
+    "message": "Необходимо заполнить код гражданства",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 7 — Гражданство",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 8 — Гражданство",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

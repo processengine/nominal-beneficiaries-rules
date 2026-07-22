@@ -1,12 +1,25 @@
 {
   "id": "library.ul_nonresident.kio_format",
   "type": "rule",
-  "description": "КИО иностранной организации должен содержать 5 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "UL.KIO.FORMAT",
-  "message": "КИО иностранной организации должен содержать 5 цифр",
   "field": "beneficiary.ul.kio",
-  "value": "^\\d{5}$"
+  "value": "^\\d{5}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.KIO.FORMAT",
+    "message": "КИО иностранной организации должен содержать 5 цифр",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 2 — КИО",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Конкретная маска сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают эту маску."
+    }
+  }
 }

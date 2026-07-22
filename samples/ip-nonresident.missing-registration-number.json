@@ -1,9 +1,6 @@
 {
   "name": "IP nonresident missing registration number",
-  "context": {
-    "pipelineId": "entrypoints.ip_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
+  "pipelineId": "entrypoints.ip_nonresident.full_validation",
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
     "beneficiary": {
@@ -86,17 +83,15 @@
       }
     }
   },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
   "expect": {
     "status": "ERROR",
     "exact": true,
     "issues": [
       {
         "code": "IP.REGISTRATION_NUMBER.REQUIRED",
-        "field": "beneficiary.ip.registration.number",
-        "level": "ERROR"
-      },
-      {
-        "code": "IP.REGISTRATION_NUMBER.FORMAT",
         "field": "beneficiary.ip.registration.number",
         "level": "ERROR"
       }

@@ -1,11 +1,8 @@
 {
   "id": "library.nonresident.cond_add_doc_issue_date_not_future_if_format_ok",
   "type": "condition",
-  "description": "Если дата начала действия дополнительного документа корректна, проверяем, что она не в будущем",
   "when": "library.nonresident.pred_add_doc_issueDate_format_valid",
   "steps": [
-    {
-      "rule": "library.nonresident.add_doc_issue_date_not_future"
-    }
+    "library.nonresident.add_doc_issue_date_not_future"
   ]
 }

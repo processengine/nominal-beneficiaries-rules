@@ -1,13 +1,38 @@
 {
   "id": "library.documents.passport_rf_issue_date_after_14",
   "type": "rule",
-  "description": "Паспорт РФ выдан не раньше 14 лет",
-  "role": "check",
   "operator": "passport_rf_issued_at_or_after_age",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.PASSPORT_RF.ISSUE_DATE.BEFORE_14",
-  "message": "Дата выдачи паспорта РФ не может быть раньше даты 14-летия",
   "field": "beneficiary.idDoc.issueDate",
-  "birthDateField": "beneficiary.fl.birthDate",
-  "ageYears": 14
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.PASSPORT_RF.ISSUE_DATE.BEFORE_14",
+    "message": "Дата выдачи паспорта РФ не может быть раньше даты 14-летия",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 13 — Дата выдачи документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 14 — Дата выдачи документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Возрастная проверка паспорта сохраняет действующий API-контракт и отдельно в бизнес-требованиях не сформулирована."
+    }
+  },
+  "inputs": {
+    "birthDate": "beneficiary.fl.birthDate"
+  },
+  "params": {
+    "ageYears": 14
+  }
 }

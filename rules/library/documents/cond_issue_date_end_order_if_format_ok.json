@@ -1,18 +1,14 @@
 {
   "id": "library.documents.cond_issue_date_end_order_if_format_ok",
   "type": "condition",
-  "description": "Если формат даты окончания документа корректен, то проверяем порядок дат",
   "when": {
     "all": [
+      "library.documents.pred_issue_date_format_valid",
       "library.documents.pred_issue_date_end_format_valid"
     ]
   },
   "steps": [
-    {
-      "rule": "library.documents.date_order"
-    },
-    {
-      "rule": "library.documents.issue_date_end_not_expired"
-    }
+    "library.documents.date_order",
+    "library.documents.issue_date_end_not_expired"
   ]
 }

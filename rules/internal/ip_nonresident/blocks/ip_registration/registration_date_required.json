@@ -1,11 +1,24 @@
 {
   "id": "internal.ip_nonresident.blocks.ip_registration.registration_date_required",
   "type": "rule",
-  "description": "Дата регистрации ИП обязательна",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "IP.REGISTRATION_DATE.REQUIRED",
-  "message": "Не указана дата государственной регистрации индивидуального предпринимателя",
-  "field": "beneficiary.ip.registration.date"
+  "field": "beneficiary.ip.registration.date",
+  "issue": {
+    "level": "ERROR",
+    "code": "IP.REGISTRATION_DATE.REQUIRED",
+    "message": "Не указана дата государственной регистрации индивидуального предпринимателя",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Детализация регистрационных данных сохраняет действующий API-контракт, а бизнес-требования описывают их более крупным полем."
+    }
+  }
 }

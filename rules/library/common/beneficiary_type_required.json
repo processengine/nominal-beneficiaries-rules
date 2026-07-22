@@ -1,11 +1,23 @@
 {
   "id": "library.common.beneficiary_type_required",
   "type": "rule",
-  "description": "Тип бенефициара обязателен",
-  "role": "check",
   "operator": "not_empty",
-  "level": "EXCEPTION",
-  "code": "BEN.TYPE.REQUIRED",
-  "message": "Не указан тип бенефициара",
-  "field": "beneficiary.type"
+  "field": "beneficiary.type",
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.TYPE.REQUIRED",
+    "message": "Не указан тип бенефициара",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "абзац перед наборами полей — тип бенефициара и признак резидент/нерезидент",
+          "page": 4,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

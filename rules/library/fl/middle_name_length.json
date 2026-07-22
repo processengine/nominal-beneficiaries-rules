@@ -1,12 +1,33 @@
 {
   "id": "library.fl.middle_name_length",
   "type": "rule",
-  "description": "Отчество не должно быть длиннее 255 символов",
-  "role": "check",
   "operator": "length_max",
-  "level": "ERROR",
-  "code": "FL.MIDDLE_NAME.LENGTH",
-  "message": "Отчество слишком длинное",
   "field": "beneficiary.fl.middleName",
-  "value": 255
+  "value": 255,
+  "issue": {
+    "level": "ERROR",
+    "code": "FL.MIDDLE_NAME.LENGTH",
+    "message": "Отчество слишком длинное",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 4 — Отчество",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 5 — Отчество",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Предельная длина сохраняет действующий API-контракт; бизнес-требования требуют контроль поля, но не задают это числовое ограничение."
+    }
+  }
 }

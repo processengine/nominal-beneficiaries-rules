@@ -1,10 +1,6 @@
 {
   "name": "IP nonresident invalid boolean tax flag",
-  "context": {
-    "pipelineId": "entrypoints.ip_nonresident.full_validation",
-    "currentDate": "2026-05-18"
-  },
-  "legacyParity": false,
+  "pipelineId": "entrypoints.ip_nonresident.full_validation",
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
     "beneficiary": {
@@ -87,6 +83,9 @@
         }
       }
     }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
   },
   "expect": {
     "status": "EXCEPTION",

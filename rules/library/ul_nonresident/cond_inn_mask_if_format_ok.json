@@ -1,11 +1,8 @@
 {
   "id": "library.ul_nonresident.cond_inn_mask_if_format_ok",
   "type": "condition",
-  "description": "Если ИНН иностранной организации содержит 10 цифр, проверяем маску 9909",
   "when": "library.ul_nonresident.pred_inn_format_valid",
   "steps": [
-    {
-      "rule": "library.ul_nonresident.inn_mask_9909"
-    }
+    "library.ul_nonresident.inn_mask_9909"
   ]
 }

@@ -1,39 +1,16 @@
 {
   "id": "internal.ul_resident.blocks.tax_flags",
   "type": "pipeline",
-  "description": "Налоговые и регуляторные сведения ЮЛ-резидента",
-  "strict": false,
-  "flow": [
-    {
-      "rule": "library.ul.tax.foreign_required"
-    },
-    {
-      "rule": "library.ul.tax.foreign_not_true"
-    },
-    {
-      "rule": "library.ul.tax.passive_nfe_required"
-    },
-    {
-      "rule": "library.ul.tax.passive_nfe_not_true"
-    },
-    {
-      "rule": "library.ul.tax.cp_foreign_required"
-    },
-    {
-      "rule": "library.ul.tax.cp_foreign_not_true"
-    },
-    {
-      "rule": "library.ul.tax.us_required"
-    },
-    {
-      "rule": "library.ul.tax.us_not_true"
-    },
-    {
-      "rule": "library.ul.tax.cp_us_required"
-    },
-    {
-      "rule": "library.ul.tax.cp_us_not_true"
-    }
-  ],
-  "entrypoint": false
+  "steps": [
+    "library.ul.tax.foreign_required",
+    "library.ul.tax.foreign_not_true",
+    "library.ul.tax.passive_nfe_required",
+    "library.ul.tax.passive_nfe_not_true",
+    "library.ul.tax.cp_foreign_required",
+    "library.ul.tax.cp_foreign_not_true",
+    "library.ul.tax.us_required",
+    "library.ul.tax.us_not_true",
+    "library.ul.tax.cp_us_required",
+    "library.ul.tax.cp_us_not_true"
+  ]
 }

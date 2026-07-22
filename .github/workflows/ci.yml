@@ -12,8 +12,12 @@ permissions:
 
 jobs:
   validate:
-    name: Validate rules package
+    name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
 
     steps:
       - name: Checkout
@@ -24,26 +28,20 @@ jobs:
         # actions/setup-node@v4
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 20
+          node-version: ${{ matrix.node-version }}
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate warning gate
-        run: npm run validate
-
-      - name: Run parity tests
+      - name: Validate, test and build
         run: npm test
 
-      - name: Verify generated artifacts are committed
-        run: |
-          if [ -n "$(git status --porcelain=v1 --untracked-files=all)" ]; then
-            git status --short
-            git diff -- dist
-            echo "npm test changed the checkout; commit deterministic generated artifacts" >&2
-            exit 1
-          fi
+      - name: Dependency audit
+        run: npm audit --omit=dev
+
+      - name: Verify tracked sources are unchanged
+        run: git diff --exit-code
 
       - name: Check npm package contents
         run: npm pack --dry-run --ignore-scripts

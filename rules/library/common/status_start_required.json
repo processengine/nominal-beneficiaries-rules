@@ -1,11 +1,31 @@
 {
   "id": "library.common.status_start_required",
   "type": "rule",
-  "description": "Дата присоединения обязательна",
-  "role": "check",
   "operator": "not_empty",
-  "level": "ERROR",
-  "code": "BEN.STATUS.START.REQUIRED",
-  "message": "Не указана дата присоединения",
-  "field": "beneficiary.status.startDate"
+  "field": "beneficiary.status.startDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.STATUS.START.REQUIRED",
+    "message": "Не указана дата присоединения",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 39 — Дата приобретения статуса бенефициара",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 42 — Дата приобретения статуса бенефициара",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

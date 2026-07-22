@@ -1,15 +1,43 @@
 {
   "id": "library.nonresident.add_doc_required",
   "type": "rule",
-  "description": "Для ФЛ-нерезидента должен быть указан дополнительный документ: документ права пребывания или миграционная карта. Для граждан Беларуси блок необязателен",
-  "role": "check",
   "operator": "any_filled",
-  "level": "ERROR",
-  "code": "FL_NONRES.ADD_DOC.REQUIRED",
-  "message": "Для ФЛ-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
   "fields": [
     "beneficiary.addDoc.number",
     "beneficiary.addDoc.issueDate",
     "beneficiary.addDoc.issueDateEnd"
-  ]
+  ],
+  "issue": {
+    "level": "ERROR",
+    "code": "FL_NONRES.ADD_DOC.REQUIRED",
+    "message": "Для ФЛ-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "пп. 17–25 — документ о праве пребывания или миграционная карта",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "пп. 18–26 — документ о праве пребывания или миграционная карта",
+          "page": 7,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Особенности предоставления данных бенефициаров по отдельным параметрам",
+          "item": "исключение по миграционной карте для Беларуси и стран ЕАЭС",
+          "page": 22,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

@@ -1,0 +1,8 @@
+{
+  "id": "entrypoints.ul_resident.full_validation.cond_type_is_ul_resident_if_supported",
+  "type": "condition",
+  "when": "library.common.pred_beneficiary_type_supported",
+  "steps": [
+    "library.ul.type_is_ul_resident"
+  ]
+}

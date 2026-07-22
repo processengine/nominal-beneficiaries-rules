@@ -1,12 +1,25 @@
 {
   "id": "library.ul_nonresident.kpp_format",
   "type": "rule",
-  "description": "КПП иностранной организации должен содержать 9 цифр",
-  "role": "check",
   "operator": "matches_regex",
-  "level": "ERROR",
-  "code": "UL.KPP.FORMAT",
-  "message": "КПП иностранной организации должен содержать 9 цифр",
   "field": "beneficiary.ul.kpp",
-  "value": "^\\d{9}$"
+  "value": "^\\d{9}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.KPP.FORMAT",
+    "message": "КПП иностранной организации должен содержать 9 цифр",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "КПП сохраняет действующий API-контракт, но отдельной строкой в наборе полей бизнес-требований не приведён."
+    }
+  }
 }

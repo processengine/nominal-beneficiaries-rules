@@ -1,15 +1,32 @@
 {
   "id": "library.address.street_type_in_dictionary",
   "type": "rule",
-  "description": "Тип улицы адреса регистрации должен поддерживаться",
-  "role": "check",
   "operator": "in_dictionary",
-  "level": "ERROR",
-  "code": "BEN.ADDR.REG.STREET_TYPE.DICT",
-  "message": "Тип улицы адреса регистрации должен поддерживаться в ФИАС/ГАР",
   "field": "beneficiary.address.registration.streetType",
-  "dictionary": {
-    "type": "static",
-    "id": "street_types_fias_basic"
+  "dictionary": "street_types_fias_basic",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ADDR.REG.STREET_TYPE.DICT",
+    "message": "Тип улицы адреса регистрации должен поддерживаться в ФИАС/ГАР",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 26 — Адрес места жительства, регистрации или пребывания",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 27 — Адрес места жительства, регистрации или пребывания",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }

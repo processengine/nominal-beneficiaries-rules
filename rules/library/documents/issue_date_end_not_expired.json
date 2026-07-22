@@ -1,12 +1,32 @@
 {
   "id": "library.documents.issue_date_end_not_expired",
   "type": "rule",
-  "description": "Срок действия документа не истёк",
-  "role": "check",
   "operator": "field_greater_or_equal_than_field",
-  "level": "ERROR",
-  "code": "BEN.IDDOC.ISSUE_DATE_END.EXPIRED",
-  "message": "Срок действия документа истёк",
   "field": "beneficiary.idDoc.issueDateEnd",
-  "value_field": "$context.currentDate"
+  "value_field": "$context.currentDate",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.IDDOC.ISSUE_DATE_END.EXPIRED",
+    "message": "Срок действия документа истёк",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 14 — Дата окончания действия документа",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 15 — Дата окончания действия документа",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
 }

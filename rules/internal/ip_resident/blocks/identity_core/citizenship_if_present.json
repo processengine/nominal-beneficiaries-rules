@@ -1,21 +1,14 @@
 {
   "id": "internal.ip_resident.blocks.identity_core.citizenship_if_present",
   "type": "condition",
-  "description": "Если гражданство указано, то проверяем формат и ограничения",
   "when": {
     "all": [
       "library.fl.pred_citizenship_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.fl.citizenship_code_format"
-    },
-    {
-      "rule": "internal.ip_resident.blocks.identity_core.citizenship_not_us"
-    },
-    {
-      "condition": "library.fl.cond_citizenship_ru_if_format_ok_not_us"
-    }
+    "library.fl.citizenship_code_format",
+    "internal.ip_resident.blocks.identity_core.citizenship_not_us",
+    "library.fl.cond_citizenship_ru_if_format_ok_not_us"
   ]
 }

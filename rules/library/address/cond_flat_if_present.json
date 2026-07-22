@@ -1,15 +1,12 @@
 {
   "id": "library.address.cond_flat_if_present",
   "type": "condition",
-  "description": "Если заполнена квартира адреса регистрации, проверяем формат и длину",
   "when": {
     "all": [
       "library.address.pred_flat_present"
     ]
   },
   "steps": [
-    {
-      "rule": "library.address.flat"
-    }
+    "library.address.flat"
   ]
 }

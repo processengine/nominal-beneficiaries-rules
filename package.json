@@ -1,35 +1,37 @@
 {
   "name": "@processengine/nominal-beneficiaries-rules",
-  "version": "0.8.3",
+  "version": "1.0.0",
   "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/processengine/nominal-beneficiaries-rules.git"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "validate": "node scripts/build.mjs --check",
-    "build": "node scripts/build.mjs",
-    "test:parity": "node scripts/parity.mjs",
-    "test:warning-gate": "node scripts/warning-gate-red-test.mjs",
-    "test": "npm run build && npm run test:parity && npm run test:warning-gate && npm run verify:package",
+    "validate": "jsonspecs validate --fail-on-warning",
+    "build": "jsonspecs build --fail-on-warning",
+    "test:operators": "node --test tests/operators.test.js",
+    "test:rules": "jsonspecs test",
+    "test": "npm run validate && npm run test:operators && npm run test:rules && npm run build && npm run verify:package",
     "verify:package": "node scripts/verify-package.mjs",
-    "release:check": "npm test && npm pack --dry-run --ignore-scripts && node scripts/verify-release.mjs",
+    "release:check": "npm test && npm audit --omit=dev && npm pack --dry-run --ignore-scripts && node scripts/verify-release.mjs",
     "prepublishOnly": "node scripts/verify-publish-context.mjs && npm run release:check",
     "version:set": "node scripts/set-version.mjs"
   },
   "dependencies": {
-    "jsonspecs": "^2.3.2"
+    "@jsonspecs/rules": "4.0.0"
   },
   "devDependencies": {
-    "@processengine/rules": "2.1.0"
+    "jsonspecs-cli": "4.0.1"
   },
   "files": [
     "AGENTS.md",
     "CHANGELOG.md",
     "dist/",
     "docs/",
-    "field-contracts/",
     "manifest.json",
     "operators/",
     "rules/",

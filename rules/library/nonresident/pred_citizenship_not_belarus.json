@@ -1,9 +1,7 @@
 {
   "id": "library.nonresident.pred_citizenship_not_belarus",
   "type": "rule",
-  "description": "Код гражданства не равен BY",
-  "role": "predicate",
-  "operator": "not_equals",
+  "operator": "not_matches_regex",
   "field": "beneficiary.fl.citizenshipCode",
-  "value": "BY"
+  "value": "^BY$"
 }

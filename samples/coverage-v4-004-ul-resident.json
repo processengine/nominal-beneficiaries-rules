@@ -1,0 +1,103 @@
+{
+  "name": "Покрытие Rules v4: 12 кодов ошибок",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "7712345678",
+      "account": {
+        "number": "__INVALID__"
+      },
+      "contacts": {
+        "phone": "9801611004",
+        "postalAddress": "Берлин",
+        "postalAddressCountryCode": "DE",
+        "foreignPhone": "+491234567890"
+      },
+      "status": {
+        "startDate": "2026-02-30",
+        "endDate": "2025-01-01"
+      },
+      "address": {
+        "legal": {}
+      },
+      "tax": {
+        "controllingPersonsUsTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "DE",
+          "tin": "DE123456",
+          "address": "Берлин"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.INN.INVALID",
+        "field": "beneficiary.inn",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.PARTICIPATION_ID.REQUIRED",
+        "field": "beneficiary.participationId",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ACCOUNT.NUMBER.FORMAT",
+        "field": "beneficiary.account.number",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.STATUS.START_DATE.FORMAT",
+        "field": "beneficiary.status.startDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.BEN.STATUS.END.ORDER",
+        "field": "beneficiary.status.endDate",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.REQUIRED",
+        "field": "beneficiary.address.legal.fullAddress",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+        "field": "beneficiary.address.legal.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.foreignTaxResident",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.PASSIVE_NFE.REQUIRED",
+        "field": "beneficiary.tax.passiveNfe",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.CONTROLLING_PERSONS_FOREIGN_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.controllingPersonsForeignTaxResident",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.US_TAX_RESIDENT.REQUIRED",
+        "field": "beneficiary.tax.usTaxResident",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.TAX.CONTROLLING_PERSONS_US_TAX_RESIDENT.NOT_TRUE",
+        "field": "beneficiary.tax.controllingPersonsUsTaxResident",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

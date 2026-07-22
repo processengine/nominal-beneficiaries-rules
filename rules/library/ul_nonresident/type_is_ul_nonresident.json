@@ -1,16 +1,24 @@
 {
   "id": "library.ul_nonresident.type_is_ul_nonresident",
   "type": "rule",
-  "description": "Заявка должна быть на ЮЛ-нерезидента",
-  "role": "check",
   "operator": "equals",
-  "level": "EXCEPTION",
-  "code": "UL_NONRESIDENT.UL.TYPE.MISMATCH",
-  "message": "Заявка должна быть на ЮЛ-нерезидента",
   "field": "beneficiary.type",
   "value": "UL_NONRESIDENT",
-  "meta": {
-    "legacyCode": "UL.TYPE.MISMATCH",
-    "codeNamespaceReason": "jsonspecs requires unique check codes inside one compiled ruleset"
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "UL_NONRESIDENT.UL.TYPE.MISMATCH",
+    "message": "Заявка должна быть на ЮЛ-нерезидента",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "абзац перед наборами полей — тип бенефициара и признак резидент/нерезидент",
+          "page": 4,
+          "pageKind": "section-start"
+        }
+      ]
+    }
   }
 }
