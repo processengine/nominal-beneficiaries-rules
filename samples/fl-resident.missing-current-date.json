@@ -51,9 +51,7 @@
       }
     }
   },
-  "context": {
-    "merchAccount": "40702810120028000006"
-  },
+  "context": {},
   "expect": {
     "status": "EXCEPTION",
     "exact": true,

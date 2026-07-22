@@ -4,8 +4,6 @@
   "steps": [
     "library.context.current_date_required",
     "library.context.current_date_format",
-    "library.context.merch_account_required",
-    "library.common.cond_account_matches_merchant_if_present",
     "library.common.beneficiary_type_required",
     "library.common.beneficiary_type_supported",
     "entrypoints.ip_resident.full_validation.cond_type_is_ip_resident_if_supported",

@@ -58,8 +58,7 @@
     }
   },
   "context": {
-    "currentDate": "2026-04-12",
-    "merchAccount": "__INVALID__"
+    "currentDate": "2026-04-12"
   },
   "expect": {
     "status": "EXCEPTION",
