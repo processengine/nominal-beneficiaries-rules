@@ -1,5 +1,5 @@
 {
-  "name": "Beneficiary unbind invalid end date",
+  "name": "Beneficiary unbind for an account the merchant does not own",
   "pipelineId": "entrypoints.beneficiary.unbind.field_validation",
   "payload": {
     "beneficiary": {
@@ -11,21 +11,20 @@
       },
       "status": {
         "startDate": "2026-05-18",
-        "endDate": "2026/06/03"
+        "endDate": "2026-06-03"
       }
     }
   },
   "context": {
     "currentDate": "2026-06-15",
-    "merchAccount": "40702810120028000006"
+    "merchAccount": "40702810100000100009"
   },
   "expect": {
     "status": "ERROR",
     "exact": true,
     "issues": [
       {
-        "code": "BENEFICIARY_UNBIND_END_DATE_FORMAT",
-        "field": "beneficiary.status.endDate",
+        "code": "BEN.ACCOUNT.NUMBER.NOT_AVAILABLE",
         "level": "ERROR"
       }
     ]

@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: BEN.ADDR.REG.COUNTRY.REQUIRED, BEN.IDDOC.PASSPORT_RF.REPLACEMENT_20.EXPIRED, BEN.TAX.US_TAX_RESIDENT.REQUIRED",
+  "name": "FL resident validation without merchant account in context",
   "pipelineId": "entrypoints.fl_resident.full_validation",
   "payload": {
     "beneficiary": {
@@ -19,7 +19,7 @@
       "fl": {
         "lastName": "Петров",
         "firstName": "Алексей",
-        "birthDate": "2000-01-01",
+        "birthDate": "1979-12-01",
         "birthPlace": "гор. Магнитогорск",
         "citizenshipCode": "RU"
       },
@@ -27,13 +27,13 @@
         "typeCode": "001",
         "series": "45 10",
         "number": "123456",
-        "issueDate": "2015-01-01",
+        "issueDate": "2024-12-15",
         "issuer": "ОВД",
-        "issuerCode": "123-456",
-        "issueDateEnd": "2030-01-01"
+        "issuerCode": "123-456"
       },
       "address": {
         "registration": {
+          "countryCode": "RU",
           "postalCode": "630091",
           "regionCode": "54",
           "regionName": "Новосибирская область",
@@ -45,32 +45,21 @@
         }
       },
       "tax": {
+        "usTaxResident": false,
         "usResident": false,
         "foreignTaxResident": false
       }
     }
   },
   "context": {
-    "currentDate": "2026-01-01",
-    "merchAccount": "40702810120028000006"
+    "currentDate": "2026-04-12"
   },
   "expect": {
     "status": "EXCEPTION",
     "exact": true,
     "issues": [
       {
-        "code": "BEN.IDDOC.PASSPORT_RF.REPLACEMENT_20.EXPIRED",
-        "field": "beneficiary.idDoc.issueDate",
-        "level": "ERROR"
-      },
-      {
-        "code": "BEN.ADDR.REG.COUNTRY.REQUIRED",
-        "field": "beneficiary.address.registration.countryCode",
-        "level": "ERROR"
-      },
-      {
-        "code": "BEN.TAX.US_TAX_RESIDENT.REQUIRED",
-        "field": "beneficiary.tax.usTaxResident",
+        "code": "CONTEXT.MERCH_ACCOUNT.REQUIRED",
         "level": "EXCEPTION"
       }
     ]

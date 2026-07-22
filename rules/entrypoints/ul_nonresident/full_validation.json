@@ -4,6 +4,8 @@
   "steps": [
     "library.context.current_date_required",
     "library.context.current_date_format",
+    "library.context.merch_account_required",
+    "library.common.cond_account_matches_merchant_if_present",
     "library.ul_nonresident.type_required",
     "library.ul_nonresident.type_supported",
     "entrypoints.ul_nonresident.full_validation.cond_type_is_ul_nonresident_if_supported",

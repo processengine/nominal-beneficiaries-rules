@@ -69,7 +69,8 @@
     }
   },
   "context": {
-    "currentDate": "2025-01-02"
+    "currentDate": "2025-01-02",
+    "merchAccount": "40702810120028000006"
   },
   "expect": {
     "status": "ERROR",

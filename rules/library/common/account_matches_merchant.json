@@ -1,0 +1,25 @@
+{
+  "id": "library.common.account_matches_merchant",
+  "type": "rule",
+  "operator": "field_equals_field",
+  "field": "beneficiary.account.number",
+  "value_field": "$context.merchAccount",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ACCOUNT.NUMBER.NOT_AVAILABLE",
+    "message": "Счёт, указанный в заявке, недоступен",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. ОПИСАНИЕ ТРЕБУЕМЫХ ИЗМЕНЕНИЙ/ НОВОГО ПРОЦЕССА",
+          "item": "п. 1 — новый набор полей, проверки формата, контроли АБС и отклонение запросов",
+          "page": 2,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Мерчанту доступен единственный номинальный счёт из конфигурации шлюза; заявка на любой другой счёт отклоняется как ошибка данных заявки."
+    }
+  }
+}

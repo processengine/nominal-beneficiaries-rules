@@ -7,6 +7,8 @@
     "entrypoints.beneficiary.unbind.field_validation.inn_format",
     "entrypoints.beneficiary.unbind.field_validation.cond_inn_valid_if_format_ok",
     "entrypoints.beneficiary.unbind.field_validation.account_present",
+    "library.context.merch_account_required",
+    "entrypoints.beneficiary.unbind.field_validation.cond_account_matches_merchant_if_present",
     "entrypoints.beneficiary.unbind.field_validation.start_date_present",
     "entrypoints.beneficiary.unbind.field_validation.start_date_format",
     "entrypoints.beneficiary.unbind.field_validation.end_date_present",
