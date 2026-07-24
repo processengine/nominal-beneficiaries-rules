@@ -1,0 +1,20 @@
+{
+  "name": "update.fl_resident.ok-email-only.json",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "contacts": {
+        "email": "good@example.test"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "entrypoints.ul_resident.update_validation",
+  "type": "pipeline",
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.ul.type_required",
+    "library.ul.type_supported",
+    "entrypoints.ul_resident.full_validation.cond_type_is_ul_resident_if_supported",
+    "internal.ul_resident.update.contacts",
+    "internal.ul_resident.update.address"
+  ]
+}

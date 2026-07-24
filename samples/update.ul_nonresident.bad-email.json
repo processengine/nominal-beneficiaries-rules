@@ -1,0 +1,26 @@
+{
+  "name": "update.ul_nonresident.bad-email.json",
+  "pipelineId": "entrypoints.ul_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "contacts": {
+        "email": "not-an-email"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": false,
+    "issues": [
+      {
+        "code": "BEN.CONTACTS.EMAIL.FORMAT",
+        "field": "beneficiary.contacts.email",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

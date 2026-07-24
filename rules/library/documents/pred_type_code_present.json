@@ -1,0 +1,6 @@
+{
+  "id": "library.documents.pred_type_code_present",
+  "type": "rule",
+  "operator": "not_empty",
+  "field": "beneficiary.idDoc.typeCode"
+}

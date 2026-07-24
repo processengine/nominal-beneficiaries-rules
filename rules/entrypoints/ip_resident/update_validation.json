@@ -1,0 +1,16 @@
+{
+  "id": "entrypoints.ip_resident.update_validation",
+  "type": "pipeline",
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.common.beneficiary_type_required",
+    "library.common.beneficiary_type_supported",
+    "entrypoints.ip_resident.full_validation.cond_type_is_ip_resident_if_supported",
+    "internal.ip_resident.update.contacts",
+    "internal.ip_resident.update.identity",
+    "internal.ip_resident.update.document",
+    "internal.ip_resident.update.address",
+    "internal.ip_resident.update.tax"
+  ]
+}

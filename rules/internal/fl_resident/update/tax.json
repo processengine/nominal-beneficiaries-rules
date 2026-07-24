@@ -1,0 +1,12 @@
+{
+  "id": "internal.fl_resident.update.tax",
+  "type": "pipeline",
+  "steps": [
+    "library.tax.cond_foreign_tax_resident_type_if_present",
+    "internal.fl_resident.blocks.tax_flags.cond_foreign_tax_resident_not_true_if_boolean",
+    "library.tax.cond_us_tax_resident_type_if_present",
+    "internal.fl_resident.blocks.tax_flags.cond_us_tax_resident_not_true_if_boolean",
+    "library.tax.cond_us_resident_type_if_present",
+    "internal.fl_resident.blocks.tax_flags.cond_us_resident_not_true_if_boolean"
+  ]
+}

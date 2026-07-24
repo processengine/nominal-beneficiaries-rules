@@ -1,0 +1,20 @@
+{
+  "name": "update.ul_nonresident.ok-email-only.json",
+  "pipelineId": "entrypoints.ul_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "contacts": {
+        "email": "good@example.test"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

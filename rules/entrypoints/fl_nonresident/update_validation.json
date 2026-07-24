@@ -1,0 +1,17 @@
+{
+  "id": "entrypoints.fl_nonresident.update_validation",
+  "type": "pipeline",
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.common.beneficiary_type_required",
+    "library.common.beneficiary_type_supported",
+    "entrypoints.fl_nonresident.full_validation.cond_type_is_fl_nonresident_if_supported",
+    "internal.fl_nonresident.update.contacts",
+    "internal.fl_nonresident.update.identity",
+    "internal.fl_nonresident.update.document",
+    "internal.fl_nonresident.update.add_doc",
+    "internal.fl_nonresident.update.address",
+    "internal.fl_nonresident.update.tax"
+  ]
+}

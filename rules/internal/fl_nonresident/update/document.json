@@ -1,0 +1,14 @@
+{
+  "id": "internal.fl_nonresident.update.document",
+  "type": "pipeline",
+  "steps": [
+    "library.documents.cond_type_code_in_dictionary_if_present",
+    "library.documents.cond_type_code_not_35_if_supported",
+    "library.documents.cond_series_format_if_present",
+    "library.documents.cond_issuer_if_present",
+    "library.documents.cond_issuer_code_format_if_present",
+    "library.documents.cond_issue_date_if_present",
+    "library.documents.cond_issue_date_end_if_present",
+    "library.documents.cond_passport_rf_fields"
+  ]
+}

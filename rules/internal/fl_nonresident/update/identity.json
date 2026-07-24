@@ -1,0 +1,13 @@
+{
+  "id": "internal.fl_nonresident.update.identity",
+  "type": "pipeline",
+  "steps": [
+    "library.fl.cond_inn_if_present",
+    "library.fl.cond_last_name_if_present",
+    "library.fl.cond_first_name_if_present",
+    "library.fl.cond_middle_name_if_present",
+    "library.fl.cond_birth_date_if_present",
+    "internal.fl_nonresident.blocks.identity_core.birth_place_if_present",
+    "internal.fl_nonresident.blocks.identity_core.citizenship_if_present"
+  ]
+}

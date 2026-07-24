@@ -1,0 +1,16 @@
+{
+  "id": "entrypoints.fl_resident.update_validation",
+  "type": "pipeline",
+  "steps": [
+    "library.context.current_date_required",
+    "library.context.current_date_format",
+    "library.common.beneficiary_type_required",
+    "library.common.beneficiary_type_supported",
+    "entrypoints.fl_resident.full_validation.cond_type_is_fl_resident_if_supported",
+    "internal.fl_resident.update.contacts",
+    "internal.fl_resident.update.identity",
+    "internal.fl_resident.update.document",
+    "internal.fl_resident.update.address",
+    "internal.fl_resident.update.tax"
+  ]
+}

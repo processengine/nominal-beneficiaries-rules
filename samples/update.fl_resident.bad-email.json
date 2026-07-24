@@ -1,0 +1,26 @@
+{
+  "name": "update.fl_resident.bad-email.json",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "contacts": {
+        "email": "not-an-email"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": false,
+    "issues": [
+      {
+        "code": "BEN.CONTACTS.EMAIL.FORMAT",
+        "field": "beneficiary.contacts.email",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

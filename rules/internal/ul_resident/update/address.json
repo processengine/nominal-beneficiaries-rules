@@ -1,0 +1,7 @@
+{
+  "id": "internal.ul_resident.update.address",
+  "type": "pipeline",
+  "steps": [
+    "library.ul.cond_legal_address_country_if_present"
+  ]
+}

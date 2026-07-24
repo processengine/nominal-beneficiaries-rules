@@ -1,0 +1,26 @@
+{
+  "name": "update.ip_resident.bad-email.json",
+  "pipelineId": "entrypoints.ip_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "IP_RESIDENT",
+      "contacts": {
+        "email": "not-an-email"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": false,
+    "issues": [
+      {
+        "code": "BEN.CONTACTS.EMAIL.FORMAT",
+        "field": "beneficiary.contacts.email",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

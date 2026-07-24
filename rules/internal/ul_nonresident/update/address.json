@@ -1,0 +1,7 @@
+{
+  "id": "internal.ul_nonresident.update.address",
+  "type": "pipeline",
+  "steps": [
+    "library.ul_nonresident.cond_legal_address_country_if_present"
+  ]
+}

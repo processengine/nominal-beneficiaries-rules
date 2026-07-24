@@ -1,0 +1,25 @@
+{
+  "name": "update.ip_resident.compliance-us-citizenship.json",
+  "pipelineId": "entrypoints.ip_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "IP_RESIDENT",
+      "fl": {
+        "citizenshipCode": "US"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "EXCEPTION",
+    "exact": false,
+    "issues": [
+      {
+        "code": "IP_RESIDENT.FL.CITIZENSHIP.NOT_US",
+        "level": "EXCEPTION"
+      }
+    ]
+  }
+}

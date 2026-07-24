@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -11,11 +11,16 @@
     "entrypoints.beneficiary.unbind.field_validation",
     "entrypoints.beneficiary.unbind.type_supported",
     "entrypoints.fl_nonresident.full_validation",
+    "entrypoints.fl_nonresident.update_validation",
     "entrypoints.fl_resident.full_validation",
+    "entrypoints.fl_resident.update_validation",
     "entrypoints.ip_nonresident.full_validation",
     "entrypoints.ip_resident.full_validation",
+    "entrypoints.ip_resident.update_validation",
     "entrypoints.ul_nonresident.full_validation",
-    "entrypoints.ul_resident.full_validation"
+    "entrypoints.ul_nonresident.update_validation",
+    "entrypoints.ul_resident.full_validation",
+    "entrypoints.ul_resident.update_validation"
   ],
   "paths": {
     "rules": "./rules",
@@ -354,6 +359,26 @@
       "entrypoints.ul_resident.full_validation": {
         "title": "Проверка ЮЛ-резидента",
         "description": "Проверяет данные ЮЛ-резидента перед обращением в ЕГРЮЛ и ЦФТ"
+      },
+      "entrypoints.fl_resident.update_validation": {
+        "title": "Валидация обновления карточки (fl_resident)",
+        "description": "Проверяет только переданные на обновление поля в том же формате, что и регистрация."
+      },
+      "entrypoints.ip_resident.update_validation": {
+        "title": "Валидация обновления карточки (ip_resident)",
+        "description": "Проверяет только переданные на обновление поля в том же формате, что и регистрация."
+      },
+      "entrypoints.fl_nonresident.update_validation": {
+        "title": "Валидация обновления карточки (fl_nonresident)",
+        "description": "Проверяет только переданные на обновление поля ФЛ-нерезидента в формате регистрации."
+      },
+      "entrypoints.ul_resident.update_validation": {
+        "title": "Валидация обновления карточки (ul_resident)",
+        "description": "Проверяет переданные на обновление контакты и юридический адрес ЮЛ."
+      },
+      "entrypoints.ul_nonresident.update_validation": {
+        "title": "Валидация обновления карточки (ul_nonresident)",
+        "description": "Проверяет переданные на обновление контакты и юридический адрес ЮЛ."
       }
     },
     "artifacts": {
@@ -2036,6 +2061,112 @@
       },
       "tin_absence_reasons": {
         "title": "Причины отсутствия иностранного ИНН"
+      },
+      "internal.fl_resident.update.contacts": {
+        "title": "Контакты и статус (обновление)",
+        "description": "Формат телефона, почты и дат статуса, если они переданы на обновление."
+      },
+      "internal.fl_resident.update.identity": {
+        "title": "Идентификационные данные (обновление)",
+        "description": "Формат и комплаенс идентификационных полей ФЛ, если они переданы."
+      },
+      "internal.fl_resident.update.document": {
+        "title": "Документ, удостоверяющий личность (обновление)",
+        "description": "Формат полей документа, если они переданы на обновление."
+      },
+      "internal.fl_resident.update.address": {
+        "title": "Адрес регистрации (обновление)",
+        "description": "Формат адресных полей, если адрес передан на обновление."
+      },
+      "internal.fl_resident.update.tax": {
+        "title": "Налоговые флаги (обновление)",
+        "description": "Комплаенс-проверка налоговых флагов, если они переданы на обновление."
+      },
+      "internal.ip_resident.update.contacts": {
+        "title": "Контакты и статус (обновление)",
+        "description": "Формат телефона, почты и дат статуса, если они переданы на обновление."
+      },
+      "internal.ip_resident.update.identity": {
+        "title": "Идентификационные данные (обновление)",
+        "description": "Формат и комплаенс идентификационных полей ФЛ, если они переданы."
+      },
+      "internal.ip_resident.update.document": {
+        "title": "Документ, удостоверяющий личность (обновление)",
+        "description": "Формат полей документа, если они переданы на обновление."
+      },
+      "internal.ip_resident.update.address": {
+        "title": "Адрес регистрации (обновление)",
+        "description": "Формат адресных полей, если адрес передан на обновление."
+      },
+      "internal.ip_resident.update.tax": {
+        "title": "Налоговые флаги (обновление)",
+        "description": "Комплаенс-проверка налоговых флагов, если они переданы на обновление."
+      },
+      "internal.fl_nonresident.update.contacts": {
+        "title": "Контакты и статус (обновление)",
+        "description": "Формат телефона, иностранного телефона, почты и дат статуса, если переданы."
+      },
+      "internal.fl_nonresident.update.identity": {
+        "title": "Идентификационные данные (обновление)",
+        "description": "Формат и комплаенс идентификационных полей ФЛ-нерезидента, если переданы."
+      },
+      "internal.fl_nonresident.update.document": {
+        "title": "Документ, удостоверяющий личность (обновление)",
+        "description": "Формат полей документа, если переданы."
+      },
+      "internal.fl_nonresident.update.add_doc": {
+        "title": "Дополнительный документ (обновление)",
+        "description": "Формат дополнительного документа нерезидента, если он передан."
+      },
+      "internal.fl_nonresident.update.address": {
+        "title": "Адрес регистрации (обновление)",
+        "description": "Формат адресных полей, если адрес передан."
+      },
+      "internal.fl_nonresident.update.tax": {
+        "title": "Налоговые флаги (обновление)",
+        "description": "Комплаенс-проверка налоговых флагов США, если переданы."
+      },
+      "internal.ul_resident.update.contacts": {
+        "title": "Контакты (обновление)",
+        "description": "Формат телефона, иностранного телефона и почты, если переданы."
+      },
+      "internal.ul_resident.update.address": {
+        "title": "Юридический адрес (обновление)",
+        "description": "Формат страны юридического адреса, если адрес передан."
+      },
+      "internal.ul_nonresident.update.contacts": {
+        "title": "Контакты (обновление)",
+        "description": "Формат телефона, иностранного телефона и почты, если переданы."
+      },
+      "internal.ul_nonresident.update.address": {
+        "title": "Юридический адрес (обновление)",
+        "description": "Формат страны юридического адреса, если адрес передан."
+      },
+      "library.documents.pred_type_code_present": {
+        "title": "Код типа документа указан"
+      },
+      "library.documents.cond_type_code_in_dictionary_if_present": {
+        "title": "Если код типа документа указан, проверяем его по справочнику"
+      },
+      "entrypoints.fl_resident.update_validation": {
+        "title": "Валидация обновления карточки (fl_resident)",
+        "description": "Проверяет только переданные на обновление поля в том же формате, что и регистрация."
+      },
+      "entrypoints.ip_resident.update_validation": {
+        "title": "Валидация обновления карточки (ip_resident)",
+        "description": "Проверяет только переданные на обновление поля в том же формате, что и регистрация."
+      },
+      "entrypoints.fl_nonresident.update_validation": {
+        "title": "Валидация обновления карточки (fl_nonresident)",
+        "description": "Проверяет только переданные на обновление поля ФЛ-нерезидента в формате регистрации."
+      },
+      "entrypoints.ul_resident.update_validation": {
+        "title": "Валидация обновления карточки (ul_resident)",
+        "description": "Проверяет переданные на обновление контакты и юридический адрес ЮЛ."
+      },
+      "entrypoints.ul_nonresident.update_validation": {
+        "title": "Валидация обновления карточки (ul_nonresident)",
+        "description": "Проверяет переданные на обновление контакты и юридический адрес ЮЛ."
       }
     },
     "operators": {
