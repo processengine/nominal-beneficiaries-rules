@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+  "name": "Совместимость FL_NONRESIDENT: входной US countryCode не влияет на российскую проверку адреса",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
@@ -62,14 +62,8 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "OK",
     "exact": true,
-    "issues": [
-      {
-        "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
-        "field": "beneficiary.address.registration.countryCode",
-        "level": "EXCEPTION"
-      }
-    ]
+    "issues": []
   }
 }

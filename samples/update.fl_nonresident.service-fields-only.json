@@ -1,0 +1,55 @@
+{
+  "name": "update.fl_nonresident.service-fields-only.json",
+  "pipelineId": "entrypoints.fl_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "address": {
+        "registration": {
+          "state": "US",
+          "cityFias": "legacy-city-fias",
+          "streetId": 100500
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.ADDR.REG.FIAS.REGION_CODE.REQUIRED",
+        "field": "beneficiary.address.registration.regionCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.CITY_OR_LOCALITY.REQUIRED",
+        "field": null,
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.registration.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
+        "field": "beneficiary.address.registration.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
+        "field": "beneficiary.address.registration.house",
+        "level": "ERROR"
+      },
+      {
+        "code": "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
+        "field": "beneficiary.address.registration.postalCode",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

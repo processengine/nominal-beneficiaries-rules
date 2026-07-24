@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: 32 кодов ошибок",
+  "name": "Покрытие Rules v4: 31 код ошибки",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
@@ -157,11 +157,6 @@
       },
       {
         "code": "FL_NONRES.ADD_DOC.REQUIRED",
-        "level": "ERROR"
-      },
-      {
-        "code": "BEN.ADDR.REG.COUNTRY.FORMAT",
-        "field": "beneficiary.address.registration.countryCode",
         "level": "ERROR"
       },
       {

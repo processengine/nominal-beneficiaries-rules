@@ -1,0 +1,22 @@
+{
+  "name": "update.fl_nonresident.ok-country-only-ignored.json",
+  "pipelineId": "entrypoints.fl_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "address": {
+        "registration": {
+          "countryCode": "US"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}
