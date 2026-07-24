@@ -1,0 +1,30 @@
+{
+  "name": "update.fl_resident.address-structured-no-full-address.json",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "address": {
+        "registration": {
+          "countryCode": "RU",
+          "postalCode": "630091",
+          "regionCode": "54",
+          "regionName": "Новосибирская область",
+          "city": "Новосибирск",
+          "streetType": "пр-кт",
+          "street": "Красный",
+          "house": "18",
+          "flat": "45"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

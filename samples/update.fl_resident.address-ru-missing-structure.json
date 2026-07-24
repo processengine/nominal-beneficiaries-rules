@@ -1,12 +1,13 @@
 {
-  "name": "update.fl_resident.address-missing-full-address.json",
+  "name": "update.fl_resident.address-ru-missing-structure.json",
   "pipelineId": "entrypoints.fl_resident.update_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_RESIDENT",
       "address": {
         "registration": {
-          "countryCode": "KZ"
+          "countryCode": "RU",
+          "city": "Новосибирск"
         }
       }
     }
@@ -16,11 +17,11 @@
   },
   "expect": {
     "status": "ERROR",
-    "exact": true,
+    "exact": false,
     "issues": [
       {
-        "code": "BEN.UPDATE.ADDR.REG.ADDRESS_LINE.REQUIRED",
-        "field": "beneficiary.address.registration.fullAddress",
+        "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.registration.street",
         "level": "ERROR"
       }
     ]
