@@ -79,5 +79,17 @@ jobs:
           tarball="$(npm pack "$package_name@$package_version" --pack-destination "$package_dir" --silent)"
           tar -xzf "$package_dir/$tarball" -C "$package_dir"
           cmp dist/snapshot.json "$package_dir/package/dist/snapshot.json"
-          cmp dist/build-info.json "$package_dir/package/dist/build-info.json"
+          node - "$package_dir/package/dist/build-info.json" <<'NODE'
+          const assert = require('node:assert/strict');
+          const fs = require('node:fs');
+
+          const publishedPath = process.argv[2];
+          const local = JSON.parse(fs.readFileSync('dist/build-info.json', 'utf8'));
+          const published = JSON.parse(fs.readFileSync(publishedPath, 'utf8'));
+
+          // prepublishOnly rebuilds the package, so builtAt legitimately changes.
+          delete local.builtAt;
+          delete published.builtAt;
+          assert.deepStrictEqual(published, local);
+          NODE
           cmp operators/node/index.js "$package_dir/package/operators/node/index.js"

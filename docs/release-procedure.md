@@ -67,4 +67,7 @@ npm view '@processengine/nominal-beneficiaries-rules@X.Y.Z' version gitHead dist
 
 Workflow дополнительно сравнивает опубликованные `snapshot.json`,
 `build-info.json` и `operators/node/index.js` с файлами, созданными в release
-job. Downstream-сервис фиксирует точную версию пакета, а не диапазон или tag.
+job. Поле `build-info.json.builtAt` в сравнении не участвует:
+`prepublishOnly` повторно собирает пакет непосредственно перед публикацией и
+закономерно меняет время сборки. Все остальные поля должны совпасть.
+Downstream-сервис фиксирует точную версию пакета, а не диапазон или tag.
