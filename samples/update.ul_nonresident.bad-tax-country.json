@@ -1,0 +1,28 @@
+{
+  "name": "update.ul_nonresident.bad-tax-country.json",
+  "pipelineId": "entrypoints.ul_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "tax": {
+        "foreignTaxResidency": {
+          "countryCode": "KAZ"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.TAX.FOREIGN_COUNTRY.FORMAT",
+        "field": "beneficiary.tax.foreignTaxResidency.countryCode",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

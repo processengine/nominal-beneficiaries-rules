@@ -8,6 +8,8 @@
     "library.ul_nonresident.type_supported",
     "entrypoints.ul_nonresident.full_validation.cond_type_is_ul_nonresident_if_supported",
     "internal.ul_nonresident.update.contacts",
-    "internal.ul_nonresident.update.address"
+    "internal.ul_nonresident.update.address",
+    "internal.ul_nonresident.update.organization",
+    "internal.ul_nonresident.update.tax"
   ]
 }

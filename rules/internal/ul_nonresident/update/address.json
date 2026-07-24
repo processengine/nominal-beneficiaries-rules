@@ -1,7 +1,10 @@
 {
   "id": "internal.ul_nonresident.update.address",
-  "type": "pipeline",
+  "type": "condition",
+  "when": "library.ul.pred_legal_address_update_present",
   "steps": [
+    "library.ul_nonresident.legal_address_required",
+    "library.ul_nonresident.legal_address_country_required",
     "library.ul_nonresident.cond_legal_address_country_if_present"
   ]
 }

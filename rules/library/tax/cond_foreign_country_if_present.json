@@ -1,0 +1,13 @@
+{
+  "id": "library.tax.cond_foreign_country_if_present",
+  "type": "condition",
+  "when": {
+    "all": [
+      "library.tax.pred_foreign_country_present"
+    ]
+  },
+  "steps": [
+    "library.tax.foreign_country_format",
+    "library.tax.foreign_country_not_us"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "1.1.0",
+    "version": "1.1.2",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -934,6 +934,10 @@
         "title": "Страна адреса регистрации — Россия",
         "description": "Условие для проверок российской структуры адреса регистрации"
       },
+      "library.address.pred_registration_address_update_present": {
+        "title": "В заявке передан адрес регистрации",
+        "description": "Условие включает полный набор проверок адреса только для заявки, содержащей адресные поля"
+      },
       "library.address.pred_street_present": {
         "title": "Заполнена улица адреса регистрации"
       },
@@ -953,6 +957,10 @@
       },
       "library.address.registration_country_required": {
         "title": "Страна адреса регистрации обязательна"
+      },
+      "library.address.registration_full_address_required_for_update": {
+        "title": "Полный адрес регистрации обязателен для обновления",
+        "description": "Если адрес передан на обновление, строка полного адреса обязательна"
       },
       "library.address.registration_house_required_for_ru": {
         "title": "Дом обязателен для адреса РФ",
@@ -1243,6 +1251,9 @@
       "library.fl_nonresident.documents.cond_passport_rf_fields": {
         "title": "Если тип документа = паспорт РФ, проверяем паспортные поля и код подразделения",
         "description": "Если тип документа = паспорт РФ, проверяем паспортные поля и код подразделения (версия для ФЛ-нерезидент)"
+      },
+      "library.fl_nonresident.documents.cond_type_code_in_dictionary_if_present": {
+        "title": "Если код документа ФЛ-нерезидента передан, проверяем его по справочнику ФЛ-нерезидента"
       },
       "library.fl_nonresident.documents.cond_type_code_not_35_if_supported": {
         "title": "Запрет кода документа 35 для ФЛ-нерезидента после проверки справочника"
@@ -1550,6 +1561,9 @@
       "library.tax.cond_foreign_address_if_present": {
         "title": "Если адрес в иностранном государстве указан, проверяем запрет США"
       },
+      "library.tax.cond_foreign_country_if_present": {
+        "title": "Если страна иностранного налогового резидентства указана, проверяем формат и ограничения"
+      },
       "library.tax.cond_foreign_tax_resident_true_if_boolean": {
         "title": "Если признак иностранного налогового резидентства указан как да или нет, проверяем подтверждение",
         "description": "Проверка значения выполняется только после проверки, что поле является логическим признаком"
@@ -1615,6 +1629,9 @@
       },
       "library.tax.pred_foreign_address_present": {
         "title": "Адрес в иностранном государстве заполнен"
+      },
+      "library.tax.pred_foreign_country_present": {
+        "title": "Страна иностранного налогового резидентства указана"
       },
       "library.tax.pred_foreign_tax_resident_boolean": {
         "title": "Признак иностранного налогового резидентства указан как да или нет",
@@ -2055,6 +2072,10 @@
         "title": "Категория бенефициара поддерживается",
         "description": "Проверяет, что категория бенефициара поддерживается"
       },
+      "library.ul.pred_legal_address_update_present": {
+        "title": "В заявке передан юридический адрес",
+        "description": "Условие включает полный набор проверок юридического адреса только при наличии адресных полей"
+      },
       "street_types_fias_basic": {
         "title": "Справочник типов улиц ФИАС",
         "description": "Допустимые типы улиц для структурированного российского адреса"
@@ -2141,6 +2162,14 @@
       "internal.ul_nonresident.update.address": {
         "title": "Юридический адрес (обновление)",
         "description": "Формат страны юридического адреса, если адрес передан."
+      },
+      "internal.ul_nonresident.update.organization": {
+        "title": "Сведения об иностранной организации (обновление)",
+        "description": "Проверяет только переданные КПП, КИО, страну и дату регистрации."
+      },
+      "internal.ul_nonresident.update.tax": {
+        "title": "Налоговые данные ЮЛ-нерезидента (обновление)",
+        "description": "Проверяет только переданные страну налогового резидентства и иностранный налоговый номер."
       },
       "library.documents.pred_type_code_present": {
         "title": "Код типа документа указан"

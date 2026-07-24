@@ -1,0 +1,19 @@
+{
+  "id": "library.address.pred_registration_address_update_present",
+  "type": "rule",
+  "operator": "any_filled",
+  "fields": [
+    "beneficiary.address.registration.fullAddress",
+    "beneficiary.address.registration.countryCode",
+    "beneficiary.address.registration.postalCode",
+    "beneficiary.address.registration.regionCode",
+    "beneficiary.address.registration.regionName",
+    "beneficiary.address.registration.city",
+    "beneficiary.address.registration.locality",
+    "beneficiary.address.registration.street",
+    "beneficiary.address.registration.streetType",
+    "beneficiary.address.registration.house",
+    "beneficiary.address.registration.building",
+    "beneficiary.address.registration.flat"
+  ]
+}

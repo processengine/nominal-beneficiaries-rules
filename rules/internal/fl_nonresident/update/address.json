@@ -1,7 +1,10 @@
 {
   "id": "internal.fl_nonresident.update.address",
-  "type": "pipeline",
+  "type": "condition",
+  "when": "library.address.pred_registration_address_update_present",
   "steps": [
+    "library.address.registration_full_address_required_for_update",
+    "library.address.registration_country_required",
     "internal.fl_nonresident.blocks.address.registration_country_if_present",
     "library.address.cond_registration_fias_structure_for_ru",
     "library.address.cond_postal_address_if_present",

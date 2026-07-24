@@ -1,0 +1,26 @@
+{
+  "name": "update.fl_resident.bad-foreign-phone.json",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "contacts": {
+        "foreignPhone": "NOT-A-PHONE"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.CONTACTS.PHONE_FOREIGN.E164",
+        "field": "beneficiary.contacts.foreignPhone",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

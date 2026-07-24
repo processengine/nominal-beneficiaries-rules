@@ -1,0 +1,33 @@
+{
+  "name": "update.fl_nonresident.ok-documents.json",
+  "pipelineId": "entrypoints.fl_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "idDoc": {
+        "typeCode": "004",
+        "series": "TM99",
+        "number": "AB999724",
+        "issueDate": "2026-07-01",
+        "issueDateEnd": "2036-07-01",
+        "issuer": "Ministry of Foreign Affairs"
+      },
+      "addDoc": {
+        "typeCode": "007",
+        "series": "77",
+        "number": "RVP-20260724",
+        "issueDate": "2026-07-01",
+        "issueDateEnd": "2029-07-01",
+        "issuer": "ГУВМ МВД России"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

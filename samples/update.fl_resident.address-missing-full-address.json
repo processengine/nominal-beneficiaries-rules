@@ -1,0 +1,28 @@
+{
+  "name": "update.fl_resident.address-missing-full-address.json",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "address": {
+        "registration": {
+          "countryCode": "KZ"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.UPDATE.ADDR.REG.ADDRESS_LINE.REQUIRED",
+        "field": "beneficiary.address.registration.fullAddress",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

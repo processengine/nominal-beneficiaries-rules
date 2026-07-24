@@ -1,0 +1,8 @@
+{
+  "id": "library.fl_nonresident.documents.cond_type_code_in_dictionary_if_present",
+  "type": "condition",
+  "when": "library.documents.pred_type_code_present",
+  "steps": [
+    "library.fl_nonresident.documents.type_code_in_dictionary"
+  ]
+}

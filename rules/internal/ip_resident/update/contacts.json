@@ -3,6 +3,7 @@
   "type": "pipeline",
   "steps": [
     "library.common.cond_phone_if_present",
+    "library.common.cond_phone_foreign_if_present",
     "library.common.cond_email_if_present",
     "library.common.cond_status_start_if_present",
     "library.common.cond_status_end_if_present"

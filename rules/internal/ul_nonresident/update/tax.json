@@ -1,0 +1,8 @@
+{
+  "id": "internal.ul_nonresident.update.tax",
+  "type": "pipeline",
+  "steps": [
+    "library.tax.cond_foreign_country_if_present",
+    "library.tax.cond_tin_if_present"
+  ]
+}

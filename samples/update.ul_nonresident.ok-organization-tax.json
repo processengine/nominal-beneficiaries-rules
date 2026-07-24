@@ -1,0 +1,30 @@
+{
+  "name": "update.ul_nonresident.ok-organization-tax.json",
+  "pipelineId": "entrypoints.ul_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_NONRESIDENT",
+      "ul": {
+        "kpp": "990901001",
+        "countryCode": "KZ",
+        "registration": {
+          "date": "2026-07-24"
+        }
+      },
+      "tax": {
+        "foreignTaxResidency": {
+          "countryCode": "KZ",
+          "tin": "KZ-990901001"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

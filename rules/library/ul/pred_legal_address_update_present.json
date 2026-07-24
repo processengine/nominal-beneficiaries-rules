@@ -1,0 +1,9 @@
+{
+  "id": "library.ul.pred_legal_address_update_present",
+  "type": "rule",
+  "operator": "any_filled",
+  "fields": [
+    "beneficiary.address.legal.fullAddress",
+    "beneficiary.address.legal.countryCode"
+  ]
+}

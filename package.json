@@ -1,6 +1,6 @@
 {
   "name": "@processengine/nominal-beneficiaries-rules",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
   "license": "UNLICENSED",
   "repository": {
