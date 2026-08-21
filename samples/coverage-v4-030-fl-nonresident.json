@@ -61,13 +61,13 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
         "code": "FL.CITIZENSHIP.REQUIRED",
         "field": "beneficiary.fl.citizenshipCode",
-        "level": "EXCEPTION"
+        "level": "ERROR"
       }
     ]
   }

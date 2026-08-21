@@ -4,7 +4,7 @@
   "operator": "not_empty",
   "field": "beneficiary.fl.citizenshipCode",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "FL.CITIZENSHIP.REQUIRED",
     "message": "Необходимо заполнить код гражданства",
     "meta": {
