@@ -1,0 +1,23 @@
+{
+  "name": "Обновление ЮЛ-резидента сохраняет прежний контракт адреса",
+  "pipelineId": "entrypoints.ul_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "410028, Саратов"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

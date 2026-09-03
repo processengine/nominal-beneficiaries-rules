@@ -1,0 +1,6 @@
+{
+  "id": "internal.ul_resident.address.city_present",
+  "type": "rule",
+  "operator": "not_empty",
+  "field": "beneficiary.address.legal.city"
+}

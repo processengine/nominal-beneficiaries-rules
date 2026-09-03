@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "1.1.6",
+    "version": "2.0.0",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -74,13 +74,41 @@
         "title": "Тип дополнительного документа",
         "description": "Код документа, подтверждающего право пребывания/проживания в РФ. Для миграционной карты не передается"
       },
+      "beneficiary.address.legal.regionCode": {
+        "title": "Код региона юридического адреса",
+        "description": "Обязательно при регистрации UL_RESIDENT; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.postalCode": {
+        "title": "Почтовый индекс юридического адреса",
+        "description": "Обязательно при регистрации UL_RESIDENT; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.city": {
+        "title": "Город юридического адреса",
+        "description": "При регистрации UL_RESIDENT требуется хотя бы одно из city или locality; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.locality": {
+        "title": "Населённый пункт юридического адреса",
+        "description": "При регистрации UL_RESIDENT требуется хотя бы одно из city или locality; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.streetType": {
+        "title": "Тип улицы юридического адреса",
+        "description": "Обязательно при регистрации UL_RESIDENT; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.street": {
+        "title": "Улица юридического адреса",
+        "description": "Обязательно при регистрации UL_RESIDENT; без изменения требований остальных сценариев"
+      },
+      "beneficiary.address.legal.house": {
+        "title": "Дом юридического адреса",
+        "description": "Обязательно при регистрации UL_RESIDENT; без изменения требований остальных сценариев"
+      },
       "beneficiary.address.legal.countryCode": {
         "title": "Страна юридического адреса",
-        "description": "Страна юридического адреса иностранной организации"
+        "description": "Страна юридического адреса ЮЛ; для регистрации UL_RESIDENT обязательно RU"
       },
       "beneficiary.address.legal.fullAddress": {
         "title": "Юридический адрес",
-        "description": "Полный юридический адрес иностранной организации"
+        "description": "Полная строка юридического адреса; необязательна при регистрации UL_RESIDENT со структурированным адресом. Прежние требования обновления ЮЛ и UL_NONRESIDENT сохраняются"
       },
       "beneficiary.address.registration.building": {
         "title": "Корпус/строение адреса регистрации",
@@ -815,9 +843,97 @@
         "title": "Сведения о юридическом лице-нерезиденте",
         "description": "Проверяет наименование, страну регистрации, ИНН или КИО, КПП и регистрационные данные"
       },
+      "internal.ul_resident.address.region_code_required": {
+        "title": "Не указан код региона юридического адреса ЮЛ-резидента",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.postal_code_required": {
+        "title": "Не указан почтовый индекс юридического адреса ЮЛ-резидента",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.city_or_locality_required": {
+        "title": "Для юридического адреса ЮЛ-резидента укажите город (city) или населённый пункт (locality)",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.street_type_required": {
+        "title": "Не указан тип улицы юридического адреса ЮЛ-резидента",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.street_required": {
+        "title": "Не указана улица юридического адреса ЮЛ-резидента",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.house_required": {
+        "title": "Не указан дом юридического адреса ЮЛ-резидента",
+        "description": "Полнота юридического адреса только при регистрации UL_RESIDENT; ошибка заполнения, а не результат проверки адреса в ЦФТ"
+      },
+      "internal.ul_resident.address.region_code_text": {
+        "title": "Укажите код региона юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.region_code_text_if_present": {
+        "title": "Если код региона указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.postal_code_text": {
+        "title": "Укажите почтовый индекс юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.postal_code_text_if_present": {
+        "title": "Если индекс указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.city_present": {
+        "title": "Город указан",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.city_text": {
+        "title": "Укажите город юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.city_text_if_present": {
+        "title": "Если город указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.locality_present": {
+        "title": "Населённый пункт указан",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.locality_text": {
+        "title": "Укажите населённый пункт юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.locality_text_if_present": {
+        "title": "Если населённый пункт указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.street_type_text": {
+        "title": "Укажите тип улицы юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.street_type_text_if_present": {
+        "title": "Если тип улицы указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.street_text": {
+        "title": "Укажите улицу юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.street_text_if_present": {
+        "title": "Если улица указана, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.house_text": {
+        "title": "Укажите дом юридического адреса ЮЛ-резидента непустой строкой",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
+      "internal.ul_resident.address.house_text_if_present": {
+        "title": "Если дом указан, проверяем текстовое значение",
+        "description": "Строковое значение с непробельным символом; только регистрация UL_RESIDENT"
+      },
       "internal.ul_resident.blocks.address": {
         "title": "Юридический адрес ЮЛ-резидента",
-        "description": "Проверяет наличие юридического адреса и страну адреса"
+        "description": "Проверяет страну RU и полноту структуры только при регистрации UL_RESIDENT; fullAddress необязателен"
       },
       "internal.ul_resident.blocks.contacts": {
         "title": "Контакты ЮЛ-резидента",

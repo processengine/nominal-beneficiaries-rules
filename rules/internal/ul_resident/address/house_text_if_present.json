@@ -1,0 +1,8 @@
+{
+  "id": "internal.ul_resident.address.house_text_if_present",
+  "type": "condition",
+  "when": "internal.ul_resident.address.house_required",
+  "steps": [
+    "internal.ul_resident.address.house_text"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Обновление ЮЛ-резидента сохраняет прежний контракт адреса",
+  "pipelineId": "entrypoints.ul_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "regionCode": "64",
+          "postalCode": "410028",
+          "city": "Саратов",
+          "streetType": "ул",
+          "street": "им Горького А.М.",
+          "house": "16/20"
+        }
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.ADDRESS.LEGAL.REQUIRED",
+        "field": "beneficiary.address.legal.fullAddress",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

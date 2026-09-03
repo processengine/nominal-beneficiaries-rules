@@ -1,0 +1,8 @@
+{
+  "id": "internal.ul_resident.address.city_text_if_present",
+  "type": "condition",
+  "when": "internal.ul_resident.address.city_present",
+  "steps": [
+    "internal.ul_resident.address.city_text"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "internal.ul_resident.address.city_or_locality_required",
+  "type": "rule",
+  "operator": "any_filled",
+  "fields": [
+    "beneficiary.address.legal.city",
+    "beneficiary.address.legal.locality"
+  ],
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.ADDRESS.LEGAL.FIAS.CITY_OR_LOCALITY.REQUIRED",
+    "message": "Для юридического адреса ЮЛ-резидента укажите город (city) или населённый пункт (locality)",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 9 — Адрес юридического лица",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "БТ задают юридический адрес ЮЛ. Состав обязательных полей уточнён для регистрации UL_RESIDENT в задаче от 2026-09-03: структурированный адрес обязателен, fullAddress необязателен. Обновление ЮЛ и другие типы не меняются."
+    }
+  }
+}

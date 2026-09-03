@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: 12 кодов ошибок",
+  "name": "Покрытие Rules v4: 17 кодов ошибок",
   "pipelineId": "entrypoints.ul_resident.full_validation",
   "payload": {
     "beneficiary": {
@@ -64,13 +64,38 @@
         "level": "ERROR"
       },
       {
-        "code": "UL.ADDRESS.LEGAL.REQUIRED",
-        "field": "beneficiary.address.legal.fullAddress",
+        "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+        "field": "beneficiary.address.legal.countryCode",
         "level": "ERROR"
       },
       {
-        "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
-        "field": "beneficiary.address.legal.countryCode",
+        "code": "UL.ADDRESS.LEGAL.FIAS.REGION_CODE.REQUIRED",
+        "field": "beneficiary.address.legal.regionCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.POSTAL_CODE.REQUIRED",
+        "field": "beneficiary.address.legal.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.CITY_OR_LOCALITY.REQUIRED",
+        "field": null,
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET_TYPE.REQUIRED",
+        "field": "beneficiary.address.legal.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.legal.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.HOUSE.REQUIRED",
+        "field": "beneficiary.address.legal.house",
         "level": "ERROR"
       },
       {

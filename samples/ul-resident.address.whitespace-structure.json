@@ -1,0 +1,84 @@
+{
+  "name": "ЮЛ-резидент: пустые составные поля (whitespace)",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "6454122829",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "address": {
+        "legal": {
+          "countryCode": "RU",
+          "fullAddress": "Адрес заполнен одной строкой",
+          "regionCode": " \t\n",
+          "postalCode": " \t\n",
+          "city": " \t\n",
+          "locality": " \t\n",
+          "streetType": " \t\n",
+          "street": " \t\n",
+          "house": " \t\n"
+        }
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.REGION_CODE.FORMAT",
+        "field": "beneficiary.address.legal.regionCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.POSTAL_CODE.FORMAT",
+        "field": "beneficiary.address.legal.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.CITY.FORMAT",
+        "field": "beneficiary.address.legal.city",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.LOCALITY.FORMAT",
+        "field": "beneficiary.address.legal.locality",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET_TYPE.FORMAT",
+        "field": "beneficiary.address.legal.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET.FORMAT",
+        "field": "beneficiary.address.legal.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.HOUSE.FORMAT",
+        "field": "beneficiary.address.legal.house",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

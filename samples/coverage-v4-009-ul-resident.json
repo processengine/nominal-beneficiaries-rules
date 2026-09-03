@@ -15,6 +15,12 @@
       },
       "address": {
         "legal": {
+          "regionCode": "64",
+          "postalCode": "410028",
+          "city": "Саратов",
+          "streetType": "ул",
+          "street": "им Горького А.М.",
+          "house": "16/20",
           "countryCode": "RU",
           "fullAddress": "410028, Саратов"
         }

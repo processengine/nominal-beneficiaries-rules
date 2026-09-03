@@ -1,0 +1,71 @@
+{
+  "name": "ЮЛ-резидент: юридический адрес отсутствует",
+  "pipelineId": "entrypoints.ul_resident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "UL_RESIDENT",
+      "inn": "6454122829",
+      "participationId": "UL-PARTICIPATION-0001",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "phone": "9801611004"
+      },
+      "status": {
+        "startDate": "2026-06-15"
+      },
+      "tax": {
+        "foreignTaxResident": false,
+        "passiveNfe": false,
+        "controllingPersonsForeignTaxResident": false,
+        "usTaxResident": false,
+        "controllingPersonsUsTaxResident": false
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-06-15"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "UL.ADDRESS.LEGAL.COUNTRY.REQUIRED",
+        "field": "beneficiary.address.legal.countryCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.REGION_CODE.REQUIRED",
+        "field": "beneficiary.address.legal.regionCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.POSTAL_CODE.REQUIRED",
+        "field": "beneficiary.address.legal.postalCode",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.CITY_OR_LOCALITY.REQUIRED",
+        "field": null,
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET_TYPE.REQUIRED",
+        "field": "beneficiary.address.legal.streetType",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.STREET.REQUIRED",
+        "field": "beneficiary.address.legal.street",
+        "level": "ERROR"
+      },
+      {
+        "code": "UL.ADDRESS.LEGAL.FIAS.HOUSE.REQUIRED",
+        "field": "beneficiary.address.legal.house",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

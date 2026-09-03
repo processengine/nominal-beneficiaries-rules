@@ -1,0 +1,24 @@
+{
+  "id": "internal.ul_resident.address.postal_code_required",
+  "type": "rule",
+  "operator": "not_empty",
+  "field": "beneficiary.address.legal.postalCode",
+  "issue": {
+    "level": "ERROR",
+    "code": "UL.ADDRESS.LEGAL.FIAS.POSTAL_CODE.REQUIRED",
+    "message": "Не указан почтовый индекс юридического адреса ЮЛ-резидента",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 9 — Адрес юридического лица",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "БТ задают юридический адрес ЮЛ. Состав обязательных полей уточнён для регистрации UL_RESIDENT в задаче от 2026-09-03: структурированный адрес обязателен, fullAddress необязателен. Обновление ЮЛ и другие типы не меняются."
+    }
+  }
+}

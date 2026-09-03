@@ -2,8 +2,20 @@
   "id": "internal.ul_resident.blocks.address",
   "type": "pipeline",
   "steps": [
-    "library.ul.legal_address_required",
     "library.ul.legal_address_country_required",
-    "library.ul.cond_legal_address_country_if_present"
+    "library.ul.cond_legal_address_country_if_present",
+    "internal.ul_resident.address.region_code_required",
+    "internal.ul_resident.address.postal_code_required",
+    "internal.ul_resident.address.city_or_locality_required",
+    "internal.ul_resident.address.street_type_required",
+    "internal.ul_resident.address.street_required",
+    "internal.ul_resident.address.house_required",
+    "internal.ul_resident.address.region_code_text_if_present",
+    "internal.ul_resident.address.postal_code_text_if_present",
+    "internal.ul_resident.address.city_text_if_present",
+    "internal.ul_resident.address.locality_text_if_present",
+    "internal.ul_resident.address.street_type_text_if_present",
+    "internal.ul_resident.address.street_text_if_present",
+    "internal.ul_resident.address.house_text_if_present"
   ]
 }
