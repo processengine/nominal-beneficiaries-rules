@@ -1,9 +1,9 @@
 {
   "id": "library.address.postal_address_not_us",
   "type": "rule",
-  "operator": "not_matches_regex",
-  "field": "beneficiary.contacts.postalAddress",
-  "value": "(?:США|USA|Usa|usa|US|U\\.S\\.)",
+  "operator": "not_equals",
+  "field": "beneficiary.contacts.postalAddressCountryCode",
+  "value": "US",
   "issue": {
     "level": "EXCEPTION",
     "code": "BEN.CONTACTS.POSTAL.NOT_US",
@@ -26,7 +26,8 @@
           "page": 7,
           "pageKind": "section-start"
         }
-      ]
+      ],
+      "explanation": "Страна почтового адреса определяется по отдельному коду ISO 3166-1 alpha-2; свободный текст адреса не является нормативным источником проверки страны."
     }
   }
 }

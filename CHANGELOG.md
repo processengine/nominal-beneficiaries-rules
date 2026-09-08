@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.2] - 2026-09-08
+
+- Запрет почтового адреса в США теперь проверяется по
+  `beneficiary.contacts.postalAddressCountryCode = US`, а не по словам в
+  свободном тексте `postalAddress`.
+- Сохранены код ошибки `BEN.CONTACTS.POSTAL.NOT_US` и уровень `EXCEPTION`;
+  поле ошибки изменено на `beneficiary.contacts.postalAddressCountryCode`.
+- Добавлены прямые проверки всех затронутых регистрационных сценариев ФЛ/ИП,
+  адресных веток обновления ФЛ/ИП-резидента и случая, когда текст содержит
+  `USA`, но отдельный код страны не равен `US`.
+
 ## [2.0.1] - 2026-09-08
 
 - Полные проверки `FL_RESIDENT`, `FL_NONRESIDENT`, `IP_RESIDENT` и

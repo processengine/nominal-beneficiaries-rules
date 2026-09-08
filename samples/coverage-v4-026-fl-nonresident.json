@@ -12,8 +12,8 @@
       "contacts": {
         "phone": "9157382046",
         "email": "belarus-nonresident@example.com",
-        "postalAddress": "USA",
-        "postalAddressCountryCode": "DE"
+        "postalAddress": "New York, 1 Main Street",
+        "postalAddressCountryCode": "US"
       },
       "status": {
         "startDate": "2026-05-18"
@@ -69,7 +69,7 @@
     "issues": [
       {
         "code": "BEN.CONTACTS.POSTAL.NOT_US",
-        "field": "beneficiary.contacts.postalAddress",
+        "field": "beneficiary.contacts.postalAddressCountryCode",
         "level": "EXCEPTION"
       }
     ]
