@@ -9,8 +9,6 @@
     ]
   },
   "steps": [
-    "library.tax.foreign_tax_resident_required",
-    "library.tax.cond_foreign_tax_resident_type_if_present",
     "library.tax.cond_foreign_tax_resident_true_if_boolean",
     "library.tax.foreign_country_required",
     "library.tax.foreign_country_format",
