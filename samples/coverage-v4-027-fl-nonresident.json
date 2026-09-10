@@ -1,5 +1,5 @@
 {
-  "name": "Совместимость FL_NONRESIDENT: входной US countryCode не влияет на российскую проверку адреса",
+  "name": "FL_NONRESIDENT: код US регистрационного адреса даёт регуляторный отказ",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
@@ -35,6 +35,7 @@
       "address": {
         "registration": {
           "countryCode": "US",
+          "fullAddress": "United States, New York, 1 Main Street",
           "postalCode": "109559",
           "regionCode": "77",
           "regionName": "г Москва",
@@ -62,8 +63,14 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "OK",
+    "status": "EXCEPTION",
     "exact": true,
-    "issues": []
+    "issues": [
+      {
+        "code": "FL_NONRESIDENT.BEN.ADDRESS.COUNTRY.NOT_US",
+        "field": "beneficiary.address.registration.countryCode",
+        "level": "EXCEPTION"
+      }
+    ]
   }
 }

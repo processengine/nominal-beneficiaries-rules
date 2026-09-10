@@ -1,11 +1,11 @@
 {
-  "name": "FL nonresident valid application",
+  "name": "FL nonresident foreign address requires full address line",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
       "inn": "390400727050",
-      "participationId": "NONRES-FOREIGN-PASSPORT-PE0512700",
+      "participationId": "NONRES-FOREIGN-ADDRESS-REQUIRED",
       "account": {
         "number": "40702810120028000006"
       },
@@ -34,8 +34,7 @@
       },
       "address": {
         "registration": {
-          "countryCode": "DE",
-          "fullAddress": "Deutschland, Berlin, Alexanderplatz 1"
+          "countryCode": "DE"
         }
       },
       "tax": {
@@ -63,8 +62,14 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "OK",
+    "status": "ERROR",
     "exact": true,
-    "issues": []
+    "issues": [
+      {
+        "code": "FL_NONRESIDENT.BEN.ADDR.REG.FOREIGN_ADDRESS.REQUIRED",
+        "field": "beneficiary.address.registration.fullAddress",
+        "level": "ERROR"
+      }
+    ]
   }
 }

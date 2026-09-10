@@ -1,0 +1,24 @@
+{
+  "id": "internal.fl_nonresident.blocks.identity_core.citizenship_not_ru",
+  "type": "rule",
+  "operator": "not_equals",
+  "field": "beneficiary.fl.citizenshipCode",
+  "value": "RU",
+  "issue": {
+    "level": "ERROR",
+    "code": "FL_NONRESIDENT.FL.CITIZENSHIP.MUST_NOT_BE_RU",
+    "message": "Гражданство ФЛ-нерезидента должно отличаться от РФ",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 7 — Гражданство",
+          "page": 13,
+          "pageKind": "section-start"
+        }
+      ]
+    }
+  }
+}

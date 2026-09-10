@@ -8,6 +8,7 @@
   },
   "steps": [
     "library.fl.citizenship_code_format",
-    "internal.fl_nonresident.blocks.identity_core.citizenship_not_us"
+    "internal.fl_nonresident.blocks.identity_core.citizenship_not_us",
+    "internal.fl_nonresident.blocks.identity_core.citizenship_non_ru_if_format_ok_not_us"
   ]
 }

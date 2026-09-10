@@ -11,7 +11,7 @@
     "internal.fl_nonresident.blocks.identity_core",
     "internal.fl_nonresident.blocks.identity_document",
     "internal.fl_nonresident.blocks.add_doc",
-    "internal.fl_nonresident.blocks.address",
+    "internal.fl_nonresident.registration.address",
     "internal.fl_nonresident.blocks.tax_flags"
   ]
 }

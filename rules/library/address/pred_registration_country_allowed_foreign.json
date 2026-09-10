@@ -1,0 +1,7 @@
+{
+  "id": "library.address.pred_registration_country_allowed_foreign",
+  "type": "rule",
+  "operator": "matches_regex",
+  "field": "beneficiary.address.registration.countryCode",
+  "value": "^(?:[A-QS-TV-Z][A-Z]|R[A-TV-Z]|U[A-RT-Z])$"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "internal.fl_nonresident.registration.address.foreign_full_address_required_if_non_ru",
+  "type": "condition",
+  "when": {
+    "all": [
+      "library.address.pred_registration_country_allowed_foreign"
+    ]
+  },
+  "steps": [
+    "internal.fl_nonresident.registration.address.foreign_full_address_required"
+  ]
+}

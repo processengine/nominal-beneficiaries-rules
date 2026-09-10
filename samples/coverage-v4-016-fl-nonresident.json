@@ -165,6 +165,11 @@
         "level": "ERROR"
       },
       {
+        "code": "BEN.ADDR.REG.COUNTRY.FORMAT",
+        "field": "beneficiary.address.registration.countryCode",
+        "level": "ERROR"
+      },
+      {
         "code": "BEN.ADDR.REG.POSTAL.LENGTH",
         "field": "beneficiary.address.registration.postalCode",
         "level": "ERROR"

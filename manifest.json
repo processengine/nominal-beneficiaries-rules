@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -160,7 +160,7 @@
       },
       "beneficiary.address.registration.state": {
         "title": "Служебная страна адреса регистрации",
-        "description": "Совместимое служебное поле; для FL_NONRESIDENT процессор всегда использует RU и требует российскую структуру адреса"
+        "description": "Совместимое служебное поле; маршрут адреса определяется по обязательному countryCode, а не по state"
       },
       "beneficiary.address.registration.street": {
         "title": "Улица адреса регистрации",
@@ -570,7 +570,7 @@
       },
       "internal.fl_nonresident.blocks.address": {
         "title": "Проверки российского адреса регистрации и почтового адреса",
-        "description": "Для ФЛ-нерезидента адрес регистрации всегда проверяется как российский; входной код страны не участвует в проверках"
+        "description": "Совместимый блок обновления ФЛ-нерезидента: содержательный адрес проверяется как российский; countryCode не управляет маршрутом"
       },
       "internal.fl_nonresident.blocks.contacts_and_status": {
         "title": "Общие проверки контактов и статуса связи"
@@ -580,6 +580,12 @@
       },
       "internal.fl_nonresident.blocks.identity_core.citizenship_if_present": {
         "title": "Если гражданство указано, то проверяем формат и ограничения"
+      },
+      "internal.fl_nonresident.blocks.identity_core.citizenship_non_ru_if_format_ok_not_us": {
+        "title": "Для допустимого кода гражданства проверяем нерезидентский признак"
+      },
+      "internal.fl_nonresident.blocks.identity_core.citizenship_not_ru": {
+        "title": "Код гражданства ФЛ-нерезидента не должен быть RU"
       },
       "internal.fl_nonresident.blocks.identity_core.citizenship_not_us": {
         "title": "Код гражданства не должен быть US"
@@ -603,6 +609,22 @@
       "internal.fl_nonresident.blocks.tax_flags.us_tax_resident_not_true": {
         "title": "Налоговое резидентство США не допускается для ФЛ-нерезидента",
         "description": "Для ФЛ-нерезидента РФ налоговое резидентство США не должно быть подтверждено"
+      },
+      "internal.fl_nonresident.registration.address": {
+        "title": "Регистрационный адрес ФЛ-нерезидента",
+        "description": "Требует код страны, отклоняет US, проверяет ФИАС-структуру для RU и полную строку для разрешённой иностранной страны"
+      },
+      "internal.fl_nonresident.registration.address.foreign_full_address_required": {
+        "title": "Полная строка иностранного адреса ФЛ-нерезидента обязательна"
+      },
+      "internal.fl_nonresident.registration.address.foreign_full_address_required_if_non_ru": {
+        "title": "Для иностранного адреса ФЛ-нерезидента проверяем полную строку"
+      },
+      "internal.fl_nonresident.registration.address.registration_country_if_present": {
+        "title": "Если страна адреса ФЛ-нерезидента указана, проверяем формат и запрет US"
+      },
+      "internal.fl_nonresident.registration.address.registration_country_not_us": {
+        "title": "Страна адреса ФЛ-нерезидента не должна быть US"
       },
       "internal.fl_resident.blocks.address": {
         "title": "Проверки адреса регистрации и почтового адреса"
@@ -1038,6 +1060,10 @@
       "library.address.pred_registration_country_ru": {
         "title": "Страна адреса регистрации — Россия",
         "description": "Условие для проверок российской структуры адреса регистрации"
+      },
+      "library.address.pred_registration_country_allowed_foreign": {
+        "title": "Страна адреса регистрации — разрешённая иностранная",
+        "description": "Условие для строкового иностранного адреса: корректный alpha-2, кроме RU и US"
       },
       "library.address.pred_registration_address_update_present": {
         "title": "В заявке передан адрес регистрации",

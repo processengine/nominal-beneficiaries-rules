@@ -1,0 +1,22 @@
+{
+  "id": "internal.fl_nonresident.registration.address",
+  "type": "pipeline",
+  "steps": [
+    "library.address.registration_country_required",
+    "internal.fl_nonresident.registration.address.registration_country_if_present",
+    "library.address.cond_registration_fias_structure_for_ru",
+    "internal.fl_nonresident.registration.address.foreign_full_address_required_if_non_ru",
+    "library.address.cond_postal_address_if_present",
+    "library.address.cond_postal_if_present",
+    "library.address.cond_region_code_if_present",
+    "library.address.cond_region_name_if_present",
+    "library.address.cond_city_if_present",
+    "library.address.cond_locality_if_present",
+    "library.address.cond_street_if_present",
+    "library.address.cond_street_type_if_present",
+    "library.address.cond_house_if_present",
+    "library.address.cond_building_if_present",
+    "library.address.cond_flat_if_present",
+    "library.fl_nonresident.address.cond_address_line_if_present"
+  ]
+}

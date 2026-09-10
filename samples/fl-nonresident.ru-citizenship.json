@@ -1,11 +1,11 @@
 {
-  "name": "FL nonresident valid application",
+  "name": "FL nonresident rejects Russian citizenship",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
       "type": "FL_NONRESIDENT",
       "inn": "390400727050",
-      "participationId": "NONRES-FOREIGN-PASSPORT-PE0512700",
+      "participationId": "NONRES-RU-CITIZENSHIP",
       "account": {
         "number": "40702810120028000006"
       },
@@ -22,7 +22,7 @@
         "middleName": "Ахмедович",
         "birthDate": "1990-04-12",
         "birthPlace": "г. Душанбе",
-        "citizenshipCode": "TJ"
+        "citizenshipCode": "RU"
       },
       "idDoc": {
         "typeCode": "004",
@@ -63,8 +63,14 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "OK",
+    "status": "ERROR",
     "exact": true,
-    "issues": []
+    "issues": [
+      {
+        "code": "FL_NONRESIDENT.FL.CITIZENSHIP.MUST_NOT_BE_RU",
+        "field": "beneficiary.fl.citizenshipCode",
+        "level": "ERROR"
+      }
+    ]
   }
 }

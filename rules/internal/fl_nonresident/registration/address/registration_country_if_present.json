@@ -1,0 +1,13 @@
+{
+  "id": "internal.fl_nonresident.registration.address.registration_country_if_present",
+  "type": "condition",
+  "when": {
+    "all": [
+      "library.address.pred_country_present"
+    ]
+  },
+  "steps": [
+    "library.address.country",
+    "internal.fl_nonresident.registration.address.registration_country_not_us"
+  ]
+}
