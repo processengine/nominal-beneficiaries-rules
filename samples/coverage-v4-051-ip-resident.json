@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: IP_RESIDENT.FL.BIRTH_PLACE.NOT_USA",
+  "name": "ИП-резидент: обозначение США в месте рождения не определяет страну",
   "pipelineId": "entrypoints.ip_resident.full_validation",
   "payload": {
     "beneficiary": {
@@ -20,7 +20,7 @@
         "lastName": "Петров",
         "firstName": "Алексей",
         "birthDate": "1979-12-01",
-        "birthPlace": "USA",
+        "birthPlace": "США",
         "citizenshipCode": "RU"
       },
       "idDoc": {
@@ -55,14 +55,8 @@
     "currentDate": "2026-06-03"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "OK",
     "exact": true,
-    "issues": [
-      {
-        "code": "IP_RESIDENT.FL.BIRTH_PLACE.NOT_USA",
-        "field": "beneficiary.fl.birthPlace",
-        "level": "EXCEPTION"
-      }
-    ]
+    "issues": []
   }
 }

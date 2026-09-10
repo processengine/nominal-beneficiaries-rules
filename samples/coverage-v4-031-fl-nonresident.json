@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+  "name": "ФЛ-нерезидент: обозначение США в месте рождения не определяет страну",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
@@ -62,14 +62,8 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "OK",
     "exact": true,
-    "issues": [
-      {
-        "code": "FL_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
-        "field": "beneficiary.fl.birthPlace",
-        "level": "EXCEPTION"
-      }
-    ]
+    "issues": []
   }
 }

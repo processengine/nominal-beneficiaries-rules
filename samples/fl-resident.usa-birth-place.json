@@ -1,5 +1,5 @@
 {
-  "name": "FL resident USA birth place",
+  "name": "ФЛ-резидент: свободный текст места рождения не определяет страну",
   "pipelineId": "entrypoints.fl_resident.full_validation",
   "payload": {
     "beneficiary": {
@@ -20,7 +20,7 @@
         "lastName": "Петров",
         "firstName": "Алексей",
         "birthDate": "1979-12-01",
-        "birthPlace": "USA, Boston",
+        "birthPlace": "RUSSIA",
         "citizenshipCode": "RU"
       },
       "idDoc": {
@@ -55,14 +55,8 @@
     "currentDate": "2026-04-12"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "OK",
     "exact": true,
-    "issues": [
-      {
-        "code": "FL.BIRTH_PLACE.NOT_USA",
-        "field": "beneficiary.fl.birthPlace",
-        "level": "EXCEPTION"
-      }
-    ]
+    "issues": []
   }
 }

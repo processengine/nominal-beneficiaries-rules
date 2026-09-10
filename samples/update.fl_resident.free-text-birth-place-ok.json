@@ -1,0 +1,20 @@
+{
+  "name": "Обновление ФЛ-резидента: свободный текст места рождения не определяет страну",
+  "pipelineId": "entrypoints.fl_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_RESIDENT",
+      "fl": {
+        "birthPlace": "RUSSIA"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-09-10"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}

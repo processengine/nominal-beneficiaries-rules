@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -204,7 +204,7 @@
       },
       "beneficiary.fl.birthPlace": {
         "title": "Место рождения",
-        "description": "Место рождения физического лица или индивидуального предпринимателя"
+        "description": "Место рождения физического лица или индивидуального предпринимателя; свободный текст не используется для определения страны"
       },
       "beneficiary.fl.citizenshipCode": {
         "title": "Код гражданства",
@@ -304,7 +304,7 @@
       },
       "beneficiary.tax.foreignTaxResidency.address": {
         "title": "Адрес в иностранном государстве",
-        "description": "Адрес фактического проживания, почтовый адрес или адрес органа управления в иностранном государстве"
+        "description": "Адрес фактического проживания, почтовый адрес или адрес органа управления в иностранном государстве; страна определяется по отдельному коду"
       },
       "beneficiary.tax.foreignTaxResidency.countryCode": {
         "title": "Страна иностранного налогового резидентства",
@@ -578,12 +578,6 @@
       "internal.fl_nonresident.blocks.identity_core": {
         "title": "Основные персональные данные"
       },
-      "internal.fl_nonresident.blocks.identity_core.birth_place_if_present": {
-        "title": "Если место рождения указано, то проверяем ограничения"
-      },
-      "internal.fl_nonresident.blocks.identity_core.birth_place_not_usa": {
-        "title": "Место рождения не должно содержать указание на США"
-      },
       "internal.fl_nonresident.blocks.identity_core.citizenship_if_present": {
         "title": "Если гражданство указано, то проверяем формат и ограничения"
       },
@@ -624,12 +618,6 @@
       },
       "internal.fl_resident.blocks.identity_core": {
         "title": "Основные персональные данные"
-      },
-      "internal.fl_resident.blocks.identity_core.birth_place_if_present": {
-        "title": "Если место рождения указано, то проверяем ограничения"
-      },
-      "internal.fl_resident.blocks.identity_core.birth_place_not_usa": {
-        "title": "Место рождения не должно содержать указание на США"
       },
       "internal.fl_resident.blocks.identity_core.citizenship_if_present": {
         "title": "Если гражданство указано, то проверяем формат и ограничения"
@@ -685,12 +673,6 @@
       },
       "internal.ip_nonresident.blocks.identity_core": {
         "title": "Основные персональные данные"
-      },
-      "internal.ip_nonresident.blocks.identity_core.birth_place_if_present": {
-        "title": "Если место рождения указано, то проверяем ограничения"
-      },
-      "internal.ip_nonresident.blocks.identity_core.birth_place_not_usa": {
-        "title": "Место рождения не должно содержать указание на США"
       },
       "internal.ip_nonresident.blocks.identity_core.citizenship_if_present": {
         "title": "Если гражданство указано, то проверяем формат и ограничения"
@@ -777,14 +759,6 @@
       "internal.ip_resident.blocks.identity_core": {
         "title": "Основные персональные данные",
         "description": "Основные персональные данные (версия для ИП-резидент)"
-      },
-      "internal.ip_resident.blocks.identity_core.birth_place_if_present": {
-        "title": "Если место рождения указано, то проверяем ограничения",
-        "description": "Если место рождения указано, то проверяем ограничения (версия для ИП-резидент)"
-      },
-      "internal.ip_resident.blocks.identity_core.birth_place_not_usa": {
-        "title": "Место рождения не должно содержать указание на США",
-        "description": "Место рождения не должно содержать указание на США (версия для ИП-резидент)"
       },
       "internal.ip_resident.blocks.identity_core.citizenship_if_present": {
         "title": "Если гражданство указано, то проверяем формат и ограничения",
@@ -1480,9 +1454,6 @@
       "library.fl.pred_birth_date_present": {
         "title": "Дата рождения указана"
       },
-      "library.fl.pred_birth_place_present": {
-        "title": "Место рождения указано"
-      },
       "library.fl.pred_citizenship_format_valid": {
         "title": "Код гражданства указан двухбуквенным кодом страны",
         "description": "Условие для проверок, которые выполняются только после корректного формата гражданства"
@@ -1685,9 +1656,6 @@
         "title": "Гражданство не Беларусь",
         "description": "Код гражданства не равен BY"
       },
-      "library.tax.cond_foreign_address_if_present": {
-        "title": "Если адрес в иностранном государстве указан, проверяем запрет США"
-      },
       "library.tax.cond_foreign_country_if_present": {
         "title": "Если страна иностранного налогового резидентства указана, проверяем формат и ограничения"
       },
@@ -1718,9 +1686,6 @@
       "library.tax.cond_us_tax_resident_type_if_present": {
         "title": "Если признак налогового резидентства США указан, проверяем тип",
         "description": "Контроль формата признака налогового резидентства США выполняется только после проверки наличия поля"
-      },
-      "library.tax.foreign_address_not_us": {
-        "title": "Адрес в иностранном государстве не должен содержать указание на США"
       },
       "library.tax.foreign_address_or_postal_required": {
         "title": "Адрес иностранного налогового резидентства должен быть указан"
@@ -1753,9 +1718,6 @@
       },
       "library.tax.phone_foreign_required": {
         "title": "Если есть иностранное налоговое резидентство и нет телефона РФ, нужен иностранный телефон"
-      },
-      "library.tax.pred_foreign_address_present": {
-        "title": "Адрес в иностранном государстве заполнен"
       },
       "library.tax.pred_foreign_country_present": {
         "title": "Страна иностранного налогового резидентства указана"

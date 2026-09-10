@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: BEN.IDDOC.ISSUE_DATE_END.FORMAT, BEN.TAX.FOREIGN_ADDRESS.NOT_US, FL_NONRES.ADD_DOC.ISSUE_DATE_END.FORMAT, FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT",
+  "name": "Покрытие Rules v4: BEN.IDDOC.ISSUE_DATE_END.FORMAT, FL_NONRES.ADD_DOC.ISSUE_DATE_END.FORMAT, FL_NONRESIDENT.BEN.IDDOC.TYPE_CODE.DICT; свободный текст иностранного адреса не определяет страну",
   "pipelineId": "entrypoints.fl_nonresident.full_validation",
   "payload": {
     "beneficiary": {
@@ -73,7 +73,7 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
@@ -90,11 +90,6 @@
         "code": "FL_NONRES.ADD_DOC.ISSUE_DATE_END.FORMAT",
         "field": "beneficiary.addDoc.issueDateEnd",
         "level": "ERROR"
-      },
-      {
-        "code": "BEN.TAX.FOREIGN_ADDRESS.NOT_US",
-        "field": "beneficiary.tax.foreignTaxResidency.address",
-        "level": "EXCEPTION"
       }
     ]
   }

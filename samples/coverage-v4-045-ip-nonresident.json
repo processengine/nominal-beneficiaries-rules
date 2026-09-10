@@ -1,5 +1,5 @@
 {
-  "name": "Покрытие Rules v4: IP_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
+  "name": "ИП-нерезидент: обозначение США в месте рождения не определяет страну",
   "pipelineId": "entrypoints.ip_nonresident.full_validation",
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
@@ -25,7 +25,7 @@
         "firstName": "Али",
         "middleName": "Ахмедович",
         "birthDate": "1990-04-12",
-        "birthPlace": "USA",
+        "birthPlace": "U.S.",
         "citizenshipCode": "TJ"
       },
       "idDoc": {
@@ -88,14 +88,8 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "OK",
     "exact": true,
-    "issues": [
-      {
-        "code": "IP_NONRESIDENT.FL.BIRTH_PLACE.NOT_USA",
-        "field": "beneficiary.fl.birthPlace",
-        "level": "EXCEPTION"
-      }
-    ]
+    "issues": []
   }
 }

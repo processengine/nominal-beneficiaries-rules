@@ -1,0 +1,20 @@
+{
+  "name": "Обновление ИП-резидента: обозначение США в месте рождения не определяет страну",
+  "pipelineId": "entrypoints.ip_resident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "IP_RESIDENT",
+      "fl": {
+        "birthPlace": "США"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-09-10"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}
