@@ -26,6 +26,11 @@ const updates = [
   ["ИП-резидент", require("../samples/update.ip_resident.ok-email-only.json"), fields],
 ];
 
+const nonresidentRegistrations = [
+  ["ФЛ-нерезидент", require("../samples/fl-nonresident.ok.json")],
+  ["ИП-нерезидент", require("../samples/ip-nonresident.ok.json")],
+];
+
 function evaluate(sample, payload) {
   return engine.runPipeline(prepared, {
     pipelineId: sample.pipelineId,
@@ -95,5 +100,60 @@ test("частичное обновление допускает отсутст�
         ]], `${title}: ${field}=${JSON.stringify(value)}`);
       }
     }
+  }
+});
+
+test("регистрация нерезидента допускает отсутствие иностранного налогового и почтового адресов", () => {
+  for (const [title, sample] of nonresidentRegistrations) {
+    const payload = structuredClone(sample.payload);
+    delete payload.beneficiary.tax.foreignTaxResidency.address;
+    delete payload.beneficiary.contacts.postalAddress;
+    delete payload.beneficiary.contacts.postalAddressCountryCode;
+
+    const result = evaluate(sample, payload);
+    assert.equal(result.status, "OK", title);
+    assert.deepEqual(issue(result), [], title);
+  }
+});
+
+test("почтовый адрес не делает иностранный налоговый адрес обязательным", () => {
+  for (const [title, sample] of nonresidentRegistrations) {
+    const payload = structuredClone(sample.payload);
+    delete payload.beneficiary.tax.foreignTaxResidency.address;
+    payload.beneficiary.contacts.postalAddress = "Республика Таджикистан, Душанбе";
+    payload.beneficiary.contacts.postalAddressCountryCode = "TJ";
+
+    const result = evaluate(sample, payload);
+    assert.equal(result.status, "OK", title);
+    assert.deepEqual(issue(result), [], title);
+  }
+});
+
+test("необязательность адреса не ослабляет обязательные налоговые данные нерезидента", () => {
+  for (const [title, sample] of nonresidentRegistrations) {
+    const withoutCountry = structuredClone(sample.payload);
+    delete withoutCountry.beneficiary.tax.foreignTaxResidency.countryCode;
+    assert.deepEqual(issue(evaluate(sample, withoutCountry)), [[
+      "BEN.TAX.FOREIGN_COUNTRY.REQUIRED",
+      "beneficiary.tax.foreignTaxResidency.countryCode",
+      "EXCEPTION",
+    ]], `${title}: страна`);
+
+    const withoutTinOrReason = structuredClone(sample.payload);
+    delete withoutTinOrReason.beneficiary.tax.foreignTaxResidency.tin;
+    delete withoutTinOrReason.beneficiary.tax.foreignTaxResidency.tinAbsenceReason;
+    assert.deepEqual(issue(evaluate(sample, withoutTinOrReason)), [[
+      "BEN.TAX.FOREIGN_TIN.OR_REASON",
+      null,
+      "EXCEPTION",
+    ]], `${title}: ИНН или причина`);
+
+    const usCountry = structuredClone(sample.payload);
+    usCountry.beneficiary.tax.foreignTaxResidency.countryCode = "US";
+    assert.deepEqual(issue(evaluate(sample, usCountry)), [[
+      "BEN.TAX.FOREIGN_COUNTRY.NOT_US",
+      "beneficiary.tax.foreignTaxResidency.countryCode",
+      "EXCEPTION",
+    ]], `${title}: США`);
   }
 });

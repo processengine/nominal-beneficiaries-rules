@@ -45,8 +45,7 @@
         "foreignTaxResidency": {
           "countryCode": "TJ",
           "tin": "123456789",
-          "tinAbsenceReason": null,
-          "address": "Republic of Tajikistan, Dushanbe, Rudaki avenue, 1"
+          "tinAbsenceReason": null
         }
       },
       "addDoc": {
