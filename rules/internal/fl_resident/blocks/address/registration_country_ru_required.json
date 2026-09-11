@@ -1,0 +1,25 @@
+{
+  "id": "internal.fl_resident.blocks.address.registration_country_ru_required",
+  "type": "rule",
+  "operator": "equals",
+  "field": "beneficiary.address.registration.countryCode",
+  "value": "RU",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ADDR.REG.COUNTRY.MUST_BE_RU",
+    "message": "Для ФЛ-резидента адрес регистрации должен быть в РФ",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 26 — Адрес места жительства, регистрации или пребывания",
+          "page": 13,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Иностранный адрес одной строкой применяется только к ФЛ-нерезиденту; регистрационный адрес ФЛ-резидента должен быть российским и структурированным для проверки по ФИАС. Подтверждено Владиславом 3 июня 2026 года."
+    }
+  }
+}

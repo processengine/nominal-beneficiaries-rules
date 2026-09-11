@@ -1,0 +1,8 @@
+{
+  "id": "internal.fl_resident.blocks.address.cond_registration_country_ru_if_allowed_foreign",
+  "type": "condition",
+  "when": "library.address.pred_registration_country_allowed_foreign",
+  "steps": [
+    "internal.fl_resident.blocks.address.registration_country_ru_required"
+  ]
+}

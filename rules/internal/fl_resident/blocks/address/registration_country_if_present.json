@@ -8,6 +8,7 @@
   },
   "steps": [
     "library.address.country",
-    "internal.fl_resident.blocks.address.registration_country_not_us"
+    "internal.fl_resident.blocks.address.registration_country_not_us",
+    "internal.fl_resident.blocks.address.cond_registration_country_ru_if_allowed_foreign"
   ]
 }

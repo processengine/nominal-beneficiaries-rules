@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -128,7 +128,7 @@
       },
       "beneficiary.address.registration.countryCode": {
         "title": "Страна адреса регистрации",
-        "description": "Код страны адреса места жительства, регистрации либо пребывания"
+        "description": "Код страны адреса места жительства, регистрации либо пребывания; для FL_RESIDENT обязательно RU"
       },
       "beneficiary.address.registration.flat": {
         "title": "Квартира адреса регистрации",
@@ -629,11 +629,17 @@
       "internal.fl_resident.blocks.address": {
         "title": "Проверки адреса регистрации и почтового адреса"
       },
+      "internal.fl_resident.blocks.address.cond_registration_country_ru_if_allowed_foreign": {
+        "title": "Для корректной иностранной страны проверяем обязательный адрес РФ у ФЛ-резидента"
+      },
       "internal.fl_resident.blocks.address.registration_country_if_present": {
-        "title": "Если страна адреса регистрации заполнена, проверяем формат и запрет США"
+        "title": "Если страна адреса ФЛ-резидента заполнена, проверяем формат, запрет США и обязательность РФ"
       },
       "internal.fl_resident.blocks.address.registration_country_not_us": {
         "title": "Страна адреса регистрации не должна быть US"
+      },
+      "internal.fl_resident.blocks.address.registration_country_ru_required": {
+        "title": "Страна адреса регистрации ФЛ-резидента должна быть RU"
       },
       "internal.fl_resident.blocks.contacts_and_status": {
         "title": "Общие проверки контактов и статуса связи"
