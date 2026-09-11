@@ -93,11 +93,6 @@
         "level": "ERROR"
       },
       {
-        "code": "FL_NONRES.ADD_DOC.SERIES.REQUIRED",
-        "field": "beneficiary.addDoc.series",
-        "level": "ERROR"
-      },
-      {
         "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
         "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason",
         "level": "EXCEPTION"

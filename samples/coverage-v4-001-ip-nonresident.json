@@ -37,8 +37,7 @@
         "issuerCode": "123-456"
       },
       "addDoc": {
-        "typeCode": "005",
-        "series": "77",
+        "typeCode": "007",
         "issuer": "МВД"
       },
       "address": {

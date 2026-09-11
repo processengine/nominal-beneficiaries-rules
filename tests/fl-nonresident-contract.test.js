@@ -31,6 +31,19 @@ function evaluateUpdate(citizenshipCode) {
   });
 }
 
+function evaluateAddDocUpdate(addDoc) {
+  return engine.runPipeline(prepared, {
+    pipelineId: "entrypoints.fl_nonresident.update_validation",
+    payload: {
+      beneficiary: {
+        type: "FL_NONRESIDENT",
+        addDoc,
+      },
+    },
+    context: sample.context,
+  });
+}
+
 function issues(result) {
   return result.issues.map(({ code, field, level }) => ({ code, field, level }));
 }
@@ -136,4 +149,106 @@ test("FL_NONRESIDENT требует ФИАС-структуру только д�
     "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
     "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
   ]);
+});
+
+test("FL_NONRESIDENT не требует серию и дату окончания для ВНЖ или РВП", () => {
+  for (const typeCode of ["005", "006"]) {
+    const result = evaluate((beneficiary) => {
+      beneficiary.addDoc = {
+        typeCode,
+        number: "123456789",
+        issueDate: "2024-01-15",
+        issuer: "ГУ МВД России",
+      };
+    });
+
+    assert.equal(result.status, "OK", typeCode);
+    assert.deepEqual(result.issues, [], typeCode);
+  }
+});
+
+test("FL_NONRESIDENT принимает три формы номера миграционной карты", () => {
+  const variants = [
+    { number: "0694412" },
+    { number: "75250694412" },
+    { series: "7525", number: "0694412" },
+  ];
+
+  for (const variant of variants) {
+    const result = evaluate((beneficiary) => {
+      beneficiary.addDoc = {
+        typeCode: "007",
+        ...variant,
+        issueDate: "2024-01-15",
+        issueDateEnd: "2027-01-15",
+      };
+    });
+
+    assert.equal(result.status, "OK", JSON.stringify(variant));
+    assert.deepEqual(result.issues, [], JSON.stringify(variant));
+  }
+});
+
+test("FL_NONRESIDENT отклоняет неверную длину, символы и сочетание серии с 11 цифрами", () => {
+  const variants = [
+    { number: "123456" },
+    { number: "06944A2" },
+    { series: "7525", number: "75250694412" },
+  ];
+
+  for (const variant of variants) {
+    const result = evaluate((beneficiary) => {
+      beneficiary.addDoc = {
+        typeCode: "007",
+        ...variant,
+        issueDate: "2024-01-15",
+        issueDateEnd: "2027-01-15",
+      };
+    });
+
+    assert.deepEqual(issues(result), [{
+      code: "FL_NONRES.ADD_DOC.MIGRATION_CARD.NUMBER.FORMAT",
+      field: "beneficiary.addDoc.number",
+      level: "ERROR",
+    }], JSON.stringify(variant));
+  }
+});
+
+test("FL_NONRESIDENT требует typeCode при передаче любого поля addDoc", () => {
+  const result = evaluate((beneficiary) => {
+    beneficiary.addDoc = {
+      number: "75250694412",
+      issueDate: "2024-01-15",
+      issueDateEnd: "2027-01-15",
+    };
+  });
+
+  assert.deepEqual(issues(result), [{
+    code: "FL_NONRES.ADD_DOC.TYPE_CODE.REQUIRED",
+    field: "beneficiary.addDoc.typeCode",
+    level: "ERROR",
+  }]);
+});
+
+test("FL_NONRESIDENT сохраняет частичный update addDoc, но требует его typeCode", () => {
+  const missingType = evaluateAddDocUpdate({ number: "0694412" });
+  assert.deepEqual(issues(missingType), [{
+    code: "FL_NONRES.ADD_DOC.TYPE_CODE.REQUIRED",
+    field: "beneficiary.addDoc.typeCode",
+    level: "ERROR",
+  }]);
+
+  const partialMigration = evaluateAddDocUpdate({
+    typeCode: "007",
+    number: "75250694412",
+  });
+  assert.equal(partialMigration.status, "OK");
+  assert.deepEqual(partialMigration.issues, []);
+
+  const partialStayDocument = evaluateAddDocUpdate({
+    typeCode: "005",
+    series: "77",
+  });
+  assert.equal(partialStayDocument.status, "OK");
+  assert.deepEqual(partialStayDocument.issues, []);
 });

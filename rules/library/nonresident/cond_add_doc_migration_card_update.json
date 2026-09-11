@@ -1,9 +1,8 @@
 {
-  "id": "library.nonresident.cond_add_doc_migration_card",
+  "id": "library.nonresident.cond_add_doc_migration_card_update",
   "type": "condition",
   "when": "library.nonresident.pred_add_doc_typeCode_migr",
   "steps": [
-    "library.nonresident.add_doc_issue_date_end_required",
     "library.nonresident.add_doc_migration_number_format",
     "library.nonresident.cond_add_doc_migration_series_if_present"
   ]

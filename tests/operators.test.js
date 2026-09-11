@@ -39,6 +39,20 @@ test("is_iso_date принимает только существующую ка�
   assert.equal(evaluate({ field: null }), "FAIL");
 });
 
+test("migration_card_number_format принимает 7, 11 и раздельные 4+7 цифр", () => {
+  const evaluate = operators.migration_card_number_format.evaluate;
+  assert.equal(evaluate({ field: "0694412", inputs: {} }), "PASS");
+  assert.equal(evaluate({ field: "75250694412", inputs: {} }), "PASS");
+  assert.equal(evaluate({ field: "0694412", inputs: { series: "7525" } }), "PASS");
+  assert.equal(evaluate({ field: "75250694412", inputs: { series: "7525" } }), "FAIL");
+  assert.equal(evaluate({ field: "06944A2", inputs: {} }), "FAIL");
+  assert.equal(evaluate({ field: "123456", inputs: {} }), "FAIL");
+  assert.equal(evaluate({ field: 694412, inputs: {} }), "FAIL");
+  assert.equal(evaluate({ field: "0694412", inputs: { series: "75" } }), "SKIP");
+  assert.equal(evaluate({ field: undefined, inputs: {} }), "SKIP");
+  assert.equal(evaluate({ field: null, inputs: {} }), "SKIP");
+});
+
 test("проверка минимального возраста корректно обрабатывает 29 февраля", () => {
   const evaluate = operators.passport_rf_issued_at_or_after_age.evaluate;
   const params = { ageYears: 14 };

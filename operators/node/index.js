@@ -58,6 +58,19 @@ function innNotRepeated({ field }) {
   return /^\d{12}$/.test(inn) && new Set(inn).size > 1 ? "PASS" : "FAIL";
 }
 
+function migrationCardNumberFormat({ field, inputs = {} }) {
+  if (field === undefined || field === null || field === "") return "SKIP";
+  if (typeof field !== "string") return "FAIL";
+
+  const series = readInput(inputs, "series");
+  if (series === undefined || series === null || series === "") {
+    return /^(?:\d{7}|\d{11})$/.test(field) ? "PASS" : "FAIL";
+  }
+
+  if (typeof series !== "string" || !/^\d{4}$/.test(series)) return "SKIP";
+  return /^\d{7}$/.test(field) ? "PASS" : "FAIL";
+}
+
 function parseIsoDate(value) {
   if (typeof value !== "string") return null;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
@@ -117,6 +130,7 @@ function validAfterReplacementAge({ field, inputs = {}, params }) {
 
 const birthDateInputs = closed({ birthDate: path }, ["birthDate"]);
 const replacementInputs = closed({ birthDate: path, currentDate: path }, ["birthDate", "currentDate"]);
+const migrationCardInputs = closed({ series: path }, ["series"]);
 
 module.exports = Object.freeze({
   inn_not_repeated: Object.freeze({
@@ -126,6 +140,13 @@ module.exports = Object.freeze({
   is_iso_date: Object.freeze({
     schema: closed({ field: path }, ["field"]),
     evaluate: isIsoDate,
+  }),
+  migration_card_number_format: Object.freeze({
+    schema: closed({
+      field: path,
+      inputs: migrationCardInputs,
+    }, ["field", "inputs"]),
+    evaluate: migrationCardNumberFormat,
   }),
   valid_inn: Object.freeze({
     schema: closed({ field: path }, ["field"]),

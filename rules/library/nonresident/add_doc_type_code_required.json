@@ -1,19 +1,12 @@
 {
-  "id": "library.nonresident.add_doc_required",
+  "id": "library.nonresident.add_doc_type_code_required",
   "type": "rule",
-  "operator": "any_filled",
-  "fields": [
-    "beneficiary.addDoc.typeCode",
-    "beneficiary.addDoc.series",
-    "beneficiary.addDoc.number",
-    "beneficiary.addDoc.issueDate",
-    "beneficiary.addDoc.issueDateEnd",
-    "beneficiary.addDoc.issuer"
-  ],
+  "operator": "not_empty",
+  "field": "beneficiary.addDoc.typeCode",
   "issue": {
     "level": "ERROR",
-    "code": "FL_NONRES.ADD_DOC.REQUIRED",
-    "message": "Для ФЛ-нерезидента укажите дополнительный документ: документ права пребывания или миграционную карту",
+    "code": "FL_NONRES.ADD_DOC.TYPE_CODE.REQUIRED",
+    "message": "Не указан тип дополнительного документа",
     "meta": {
       "requirements": [
         {
@@ -31,16 +24,9 @@
           "item": "пп. 18–26 — документ о праве пребывания или миграционная карта",
           "page": 7,
           "pageKind": "section-start"
-        },
-        {
-          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
-          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
-          "section": "2. Особенности предоставления данных бенефициаров по отдельным параметрам",
-          "item": "исключение по миграционной карте для Беларуси и стран ЕАЭС",
-          "page": 22,
-          "pageKind": "section-start"
         }
-      ]
+      ],
+      "explanation": "Текущий API использует typeCode как технический дискриминатор между документом на право пребывания и миграционной картой; код 007 обозначает миграционную карту."
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "library.nonresident.cond_add_doc_if_present",
+  "id": "library.nonresident.cond_add_doc_registration_if_present",
   "type": "condition",
   "when": {
     "any": [
@@ -12,8 +12,7 @@
     ]
   },
   "steps": [
-    "library.nonresident.add_doc_type_code_required",
-    "library.nonresident.cond_add_doc_issue_date_if_present",
-    "library.nonresident.cond_add_doc_issue_date_end_if_present"
+    "library.nonresident.add_doc_number_required",
+    "library.nonresident.add_doc_issue_date_required"
   ]
 }

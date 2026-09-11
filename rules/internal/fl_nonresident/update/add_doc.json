@@ -4,7 +4,6 @@
   "steps": [
     "library.nonresident.cond_add_doc_if_present",
     "library.nonresident.cond_add_doc_type_code_supported",
-    "library.nonresident.cond_add_doc_right_to_stay_doc",
-    "library.nonresident.cond_add_doc_migration_card"
+    "library.nonresident.cond_add_doc_migration_card_update"
   ]
 }

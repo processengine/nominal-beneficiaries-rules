@@ -1,0 +1,8 @@
+{
+  "id": "library.nonresident.cond_add_doc_migration_series_if_present",
+  "type": "condition",
+  "when": "library.nonresident.pred_add_doc_series_present",
+  "steps": [
+    "library.nonresident.add_doc_migration_series_format"
+  ]
+}

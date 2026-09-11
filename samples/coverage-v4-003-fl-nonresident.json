@@ -113,8 +113,8 @@
         "level": "ERROR"
       },
       {
-        "code": "FL_NONRES.ADD_DOC.MIGRATION_CARD.SERIES.REQUIRED",
-        "field": "beneficiary.addDoc.series",
+        "code": "FL_NONRES.ADD_DOC.MIGRATION_CARD.NUMBER.FORMAT",
+        "field": "beneficiary.addDoc.number",
         "level": "ERROR"
       },
       {
