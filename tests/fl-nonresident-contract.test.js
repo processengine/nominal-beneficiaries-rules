@@ -55,6 +55,17 @@ test("FL_NONRESIDENT принимает разрешённое иностран�
   assert.deepEqual(result.issues, []);
 });
 
+test("FL_NONRESIDENT принимает иностранный телефон как единственный контакт", () => {
+  const result = evaluate((beneficiary) => {
+    beneficiary.contacts = {
+      foreignPhone: "+992372000001",
+    };
+  });
+
+  assert.equal(result.status, "OK");
+  assert.deepEqual(result.issues, []);
+});
+
 test("FL_NONRESIDENT отклоняет российское гражданство без дублирования комплаенс-ошибки", () => {
   const result = evaluate((beneficiary) => {
     beneficiary.fl.citizenshipCode = "RU";

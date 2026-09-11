@@ -4,12 +4,13 @@
   "operator": "any_filled",
   "fields": [
     "beneficiary.contacts.phone",
+    "beneficiary.contacts.foreignPhone",
     "beneficiary.contacts.email"
   ],
   "issue": {
     "level": "ERROR",
     "code": "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
-    "message": "Необходимо заполнить хотя бы один контакт: телефон РФ или эл. почта",
+    "message": "Необходимо заполнить хотя бы один контакт: телефон РФ, иностранный телефон или эл. почта",
     "meta": {
       "requirements": [
         {
@@ -17,6 +18,14 @@
           "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
           "section": "2. Набор полей для физических лиц (ФЛ)",
           "item": "пп. 28–30 — контактные данные",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 36 — Номер телефона в иностранном государстве",
           "page": 13,
           "pageKind": "section-start"
         }

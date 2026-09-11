@@ -1,0 +1,68 @@
+{
+  "name": "FL nonresident with foreign phone as the only contact",
+  "pipelineId": "entrypoints.fl_nonresident.full_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "inn": "390400727050",
+      "participationId": "NONRES-FOREIGN-PHONE-ONLY",
+      "account": {
+        "number": "40702810120028000006"
+      },
+      "contacts": {
+        "foreignPhone": "+992372000001"
+      },
+      "status": {
+        "startDate": "2026-05-18"
+      },
+      "fl": {
+        "lastName": "Каримов",
+        "firstName": "Али",
+        "middleName": "Ахмедович",
+        "birthDate": "1990-04-12",
+        "birthPlace": "г. Душанбе",
+        "citizenshipCode": "TJ"
+      },
+      "idDoc": {
+        "typeCode": "004",
+        "series": "",
+        "number": "PE0512700",
+        "issuer": "Ministry of Internal Affairs of Tajikistan",
+        "issueDate": "2021-02-12",
+        "issueDateEnd": "2031-02-12"
+      },
+      "address": {
+        "registration": {
+          "countryCode": "DE",
+          "fullAddress": "Deutschland, Berlin, Alexanderplatz 1"
+        }
+      },
+      "tax": {
+        "usTaxResident": false,
+        "usResident": false,
+        "foreignTaxResident": true,
+        "foreignTaxResidency": {
+          "countryCode": "TJ",
+          "tin": "123456789",
+          "tinAbsenceReason": null
+        }
+      },
+      "addDoc": {
+        "typeCode": "005",
+        "series": "77",
+        "number": "123456789",
+        "issueDate": "2024-01-15",
+        "issueDateEnd": "2027-01-15",
+        "issuer": "ГУ МВД России"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-05-18"
+  },
+  "expect": {
+    "status": "OK",
+    "exact": true,
+    "issues": []
+  }
+}
