@@ -55,9 +55,25 @@ test("FL_NONRESIDENT принимает разрешённое иностран�
   assert.deepEqual(result.issues, []);
 });
 
-test("FL_NONRESIDENT принимает иностранный телефон как единственный контакт", () => {
+test("FL_NONRESIDENT не принимает иностранный телефон как единственный контакт", () => {
   const result = evaluate((beneficiary) => {
     beneficiary.contacts = {
+      foreignPhone: "+992372000001",
+    };
+  });
+
+  assert.equal(result.status, "ERROR");
+  assert.deepEqual(issues(result), [{
+    code: "FL_NONRESIDENT.BEN.CONTACTS.MIN_ONE",
+    field: null,
+    level: "ERROR",
+  }]);
+});
+
+test("FL_NONRESIDENT принимает email вместе с обязательным иностранным телефоном", () => {
+  const result = evaluate((beneficiary) => {
+    beneficiary.contacts = {
+      email: "nonresident@example.com",
       foreignPhone: "+992372000001",
     };
   });
