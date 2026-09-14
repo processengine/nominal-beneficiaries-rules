@@ -1,5 +1,5 @@
 {
-  "name": "ИП-нерезидент: обозначение США в месте рождения не определяет страну",
+  "name": "ИП-нерезидент: обозначение США в месте рождения отклоняется",
   "pipelineId": "entrypoints.ip_nonresident.full_validation",
   "payload": {
     "requestExtId": "ip-nonresident-smoke-001",
@@ -88,8 +88,14 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "OK",
+    "status": "EXCEPTION",
     "exact": true,
-    "issues": []
+    "issues": [
+      {
+        "code": "BEN.FL.BIRTH_PLACE.NOT_US",
+        "field": "beneficiary.fl.birthPlace",
+        "level": "EXCEPTION"
+      }
+    ]
   }
 }

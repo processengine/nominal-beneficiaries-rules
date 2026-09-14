@@ -65,6 +65,7 @@ assertEqual(Object.keys(operators).sort(), [
   "inn_not_repeated",
   "is_iso_date",
   "migration_card_number_format",
+  "not_contains_normalized_phrases",
   "passport_rf_issued_at_or_after_age",
   "passport_rf_valid_after_replacement_age",
   "valid_inn",

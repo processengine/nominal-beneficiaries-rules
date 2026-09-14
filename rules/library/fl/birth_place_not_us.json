@@ -1,0 +1,49 @@
+{
+  "id": "library.fl.birth_place_not_us",
+  "type": "rule",
+  "operator": "not_contains_normalized_phrases",
+  "field": "beneficiary.fl.birthPlace",
+  "params": {
+    "phrases": [
+      "США",
+      "USA",
+      "United States",
+      "United States of America",
+      "Соединенные Штаты",
+      "Соединенные Штаты Америки"
+    ],
+    "caseSensitiveTokens": [
+      "US"
+    ],
+    "dottedAbbreviations": [
+      "US",
+      "USA"
+    ]
+  },
+  "issue": {
+    "level": "EXCEPTION",
+    "code": "BEN.FL.BIRTH_PLACE.NOT_US",
+    "message": "Место рождения не должно содержать явное указание на США",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 6 — Место рождения",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 7 — Место рождения",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "Команда использует закрытый словарь явных обозначений США и Unicode-границы слов; названия городов без указания страны не классифицируются."
+    }
+  }
+}

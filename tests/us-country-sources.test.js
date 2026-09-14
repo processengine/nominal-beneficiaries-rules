@@ -95,12 +95,35 @@ test("свободный текст почтового адреса не опр�
   }
 });
 
-test("свободный текст места рождения не определяет страну", () => {
-  const variants = ["RUSSIA", "USA", "США", "United States of America"];
-  const scenarios = [...registrations, ...identityUpdates];
+test("явное обозначение США в месте рождения отклоняется при регистрации ФЛ и ИП", () => {
+  const variants = ["USA, Boston", "г. Чикаго, США", "United States of America", "U.S.A."];
 
-  for (const [index, [title, sample]] of scenarios.entries()) {
+  for (const [index, [title, sample]] of registrations.entries()) {
     const result = evaluate(sample, withBirthPlace(sample, variants[index % variants.length]));
+    assert.equal(result.status, "EXCEPTION", title);
+    assert.deepEqual(issues(result), [[
+      "BEN.FL.BIRTH_PLACE.NOT_US",
+      "beneficiary.fl.birthPlace",
+      "EXCEPTION",
+    ]], title);
+  }
+});
+
+test("границы слов защищают место рождения от ложного определения США", () => {
+  const variants = ["RUSSIA", "AUSTRALIA", "AUSTIN", "United Statesville", "г. Нью-Йорк"];
+
+  for (const [title, sample] of registrations) {
+    for (const value of variants) {
+      const result = evaluate(sample, withBirthPlace(sample, value));
+      assert.equal(result.status, "OK", `${title}: ${value}`);
+      assert.deepEqual(result.issues, [], `${title}: ${value}`);
+    }
+  }
+});
+
+test("частичное обновление birthPlace остаётся вне текущего регистрационного решения", () => {
+  for (const [title, sample] of identityUpdates) {
+    const result = evaluate(sample, withBirthPlace(sample, "USA, Boston"));
     assert.equal(result.status, "OK", title);
     assert.deepEqual(result.issues, [], title);
   }

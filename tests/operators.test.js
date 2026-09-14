@@ -53,6 +53,56 @@ test("migration_card_number_format принимает 7, 11 и раздельн�
   assert.equal(evaluate({ field: null, inputs: {} }), "SKIP");
 });
 
+test("not_contains_normalized_phrases ищет только целые фразы и явные аббревиатуры", () => {
+  const evaluate = operators.not_contains_normalized_phrases.evaluate;
+  const params = {
+    phrases: [
+      "США",
+      "USA",
+      "United States",
+      "United States of America",
+      "Соединенные Штаты",
+      "Соединенные Штаты Америки",
+    ],
+    caseSensitiveTokens: ["US"],
+    dottedAbbreviations: ["US", "USA"],
+  };
+
+  for (const value of [
+    "USA, Boston",
+    "usa — New York",
+    "г. Чикаго, США",
+    "United States of America, California",
+    "United States, Texas",
+    "Соединённые Штаты Америки, Бостон",
+    "Соединенные Штаты, Нью-Йорк",
+    "U.S.",
+    "U. S. A., Boston",
+    "Moscow, US",
+    "ＵＳＡ, Boston",
+  ]) {
+    assert.equal(evaluate({ field: value, params }), "FAIL", value);
+  }
+
+  for (const value of [
+    "RUSSIA",
+    "AUSTRALIA",
+    "AUSTIN",
+    "RUSSIAN FEDERATION",
+    "United Statesville",
+    "СШАРМ",
+    "Please contact us in Moscow",
+    "г. Нью-Йорк",
+    "ул. Американская, Москва",
+  ]) {
+    assert.equal(evaluate({ field: value, params }), "PASS", value);
+  }
+
+  assert.equal(evaluate({ field: undefined, params }), "SKIP");
+  assert.equal(evaluate({ field: null, params }), "SKIP");
+  assert.equal(evaluate({ field: 123, params }), "SKIP");
+});
+
 test("проверка минимального возраста корректно обрабатывает 29 февраля", () => {
   const evaluate = operators.passport_rf_issued_at_or_after_age.evaluate;
   const params = { ageYears: 14 };

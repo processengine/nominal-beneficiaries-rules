@@ -12,6 +12,7 @@
     "library.fl.birth_date_required",
     "library.fl.cond_birth_date_if_present",
     "library.fl.birth_place_required",
+    "library.fl.birth_place_not_us",
     "library.fl.citizenship_required",
     "internal.ip_nonresident.blocks.identity_core.citizenship_if_present"
   ]

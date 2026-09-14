@@ -10,6 +10,7 @@
 
 const path = Object.freeze({ type: "string", minLength: 1 });
 const nonNegativeInteger = Object.freeze({ type: "integer", minimum: 0 });
+const nonEmptyString = Object.freeze({ type: "string", minLength: 1 });
 
 function closed(properties, required) {
   return Object.freeze({
@@ -69,6 +70,55 @@ function migrationCardNumberFormat({ field, inputs = {} }) {
 
   if (typeof series !== "string" || !/^\d{4}$/.test(series)) return "SKIP";
   return /^\d{7}$/.test(field) ? "PASS" : "FAIL";
+}
+
+function normalizedTokens(value) {
+  if (typeof value !== "string") return [];
+  return value
+    .normalize("NFKC")
+    .replaceAll("ё", "е")
+    .replaceAll("Ё", "Е")
+    .match(/[\p{L}\p{M}\p{N}]+/gu) ?? [];
+}
+
+function containsTokenSequence(tokens, phrase) {
+  const expected = normalizedTokens(phrase).map((token) => token.toUpperCase());
+  if (expected.length === 0 || expected.length > tokens.length) return false;
+
+  const actual = tokens.map((token) => token.toUpperCase());
+  for (let start = 0; start <= actual.length - expected.length; start += 1) {
+    if (expected.every((token, offset) => actual[start + offset] === token)) return true;
+  }
+  return false;
+}
+
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function containsDottedAbbreviation(value, abbreviation) {
+  const letters = Array.from(abbreviation);
+  const dotted = letters.map(escapeRegex).join("\\s*\\.\\s*");
+  const boundary = "[^\\p{L}\\p{M}\\p{N}]";
+  const pattern = new RegExp(`(?:^|${boundary})${dotted}\\s*\\.?(?=$|${boundary})`, "iu");
+  return pattern.test(value);
+}
+
+function notContainsNormalizedPhrases({ field, params }) {
+  if (field === undefined || field === null || field === "") return "SKIP";
+  if (typeof field !== "string") return "SKIP";
+
+  const normalized = field.normalize("NFKC");
+  const tokens = normalizedTokens(normalized);
+  const hasPhrase = params.phrases.some((phrase) => containsTokenSequence(tokens, phrase));
+  const hasCaseSensitiveToken = params.caseSensitiveTokens.some(
+    (expected) => tokens.some((token) => token === expected),
+  );
+  const hasDottedAbbreviation = params.dottedAbbreviations.some(
+    (abbreviation) => containsDottedAbbreviation(normalized, abbreviation),
+  );
+
+  return hasPhrase || hasCaseSensitiveToken || hasDottedAbbreviation ? "FAIL" : "PASS";
 }
 
 function parseIsoDate(value) {
@@ -131,6 +181,23 @@ function validAfterReplacementAge({ field, inputs = {}, params }) {
 const birthDateInputs = closed({ birthDate: path }, ["birthDate"]);
 const replacementInputs = closed({ birthDate: path, currentDate: path }, ["birthDate", "currentDate"]);
 const migrationCardInputs = closed({ series: path }, ["series"]);
+const stringList = Object.freeze({
+  type: "array",
+  items: nonEmptyString,
+  minItems: 1,
+  uniqueItems: true,
+});
+const uppercaseAbbreviationList = Object.freeze({
+  type: "array",
+  items: Object.freeze({ type: "string", pattern: "^[A-Z]{2,8}$" }),
+  minItems: 1,
+  uniqueItems: true,
+});
+const normalizedPhraseParams = closed({
+  phrases: stringList,
+  caseSensitiveTokens: uppercaseAbbreviationList,
+  dottedAbbreviations: uppercaseAbbreviationList,
+}, ["phrases", "caseSensitiveTokens", "dottedAbbreviations"]);
 
 module.exports = Object.freeze({
   inn_not_repeated: Object.freeze({
@@ -147,6 +214,13 @@ module.exports = Object.freeze({
       inputs: migrationCardInputs,
     }, ["field", "inputs"]),
     evaluate: migrationCardNumberFormat,
+  }),
+  not_contains_normalized_phrases: Object.freeze({
+    schema: closed({
+      field: path,
+      params: normalizedPhraseParams,
+    }, ["field", "params"]),
+    evaluate: notContainsNormalizedPhrases,
   }),
   valid_inn: Object.freeze({
     schema: closed({ field: path }, ["field"]),

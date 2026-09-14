@@ -1,5 +1,5 @@
 {
-  "name": "ИП-резидент: обозначение США в месте рождения не определяет страну",
+  "name": "ИП-резидент: обозначение США в месте рождения отклоняется",
   "pipelineId": "entrypoints.ip_resident.full_validation",
   "payload": {
     "beneficiary": {
@@ -55,8 +55,14 @@
     "currentDate": "2026-06-03"
   },
   "expect": {
-    "status": "OK",
+    "status": "EXCEPTION",
     "exact": true,
-    "issues": []
+    "issues": [
+      {
+        "code": "BEN.FL.BIRTH_PLACE.NOT_US",
+        "field": "beneficiary.fl.birthPlace",
+        "level": "EXCEPTION"
+      }
+    ]
   }
 }
