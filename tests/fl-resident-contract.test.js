@@ -42,6 +42,42 @@ test("FL_RESIDENT принимает российский структуриро
   assert.deepEqual(result.issues, []);
 });
 
+for (const streetType of ["мкр", "мкр."]) {
+  test(`FL_RESIDENT принимает тип улицы ${streetType} при регистрации`, () => {
+    const registration = structuredClone(sample.payload.beneficiary.address.registration);
+    registration.streetType = streetType;
+
+    const result = evaluateFull(registration);
+
+    assert.equal(result.status, "OK");
+    assert.deepEqual(result.issues, []);
+  });
+
+  test(`FL_RESIDENT принимает тип улицы ${streetType} при обновлении`, () => {
+    const registration = structuredClone(sample.payload.beneficiary.address.registration);
+    registration.streetType = streetType;
+
+    const result = evaluateUpdate(registration);
+
+    assert.equal(result.status, "OK");
+    assert.deepEqual(result.issues, []);
+  });
+}
+
+test("FL_RESIDENT отклоняет неизвестный тип улицы", () => {
+  const registration = structuredClone(sample.payload.beneficiary.address.registration);
+  registration.streetType = "неизвестный";
+
+  const result = evaluateFull(registration);
+
+  assert.equal(result.status, "ERROR");
+  assert.deepEqual(issues(result), [{
+    code: "BEN.ADDR.REG.STREET_TYPE.DICT",
+    field: "beneficiary.address.registration.streetType",
+    level: "ERROR",
+  }]);
+});
+
 test("FL_RESIDENT отклоняет иностранную страну регистрационного адреса", () => {
   const result = evaluateFull({
     countryCode: "DE",
