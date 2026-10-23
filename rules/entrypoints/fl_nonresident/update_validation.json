@@ -11,6 +11,7 @@
     "internal.fl_nonresident.update.identity",
     "internal.fl_nonresident.update.document",
     "internal.fl_nonresident.update.add_doc",
+    "library.address.registration_region_area_format",
     "internal.fl_nonresident.update.address",
     "internal.fl_nonresident.update.tax"
   ]

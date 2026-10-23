@@ -2,6 +2,7 @@
   "id": "internal.fl_nonresident.registration.address",
   "type": "pipeline",
   "steps": [
+    "library.address.registration_region_area_format",
     "library.address.registration_country_required",
     "internal.fl_nonresident.registration.address.registration_country_if_present",
     "library.address.cond_registration_fias_structure_for_ru",

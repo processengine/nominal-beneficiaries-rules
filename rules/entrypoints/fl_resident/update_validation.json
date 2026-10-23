@@ -10,6 +10,7 @@
     "internal.fl_resident.update.contacts",
     "internal.fl_resident.update.identity",
     "internal.fl_resident.update.document",
+    "library.address.registration_region_area_format",
     "internal.fl_resident.update.address",
     "internal.fl_resident.update.tax"
   ]

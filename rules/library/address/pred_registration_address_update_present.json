@@ -14,6 +14,7 @@
     "beneficiary.address.registration.streetType",
     "beneficiary.address.registration.house",
     "beneficiary.address.registration.building",
-    "beneficiary.address.registration.flat"
+    "beneficiary.address.registration.flat",
+    "beneficiary.address.registration.regionArea"
   ]
 }

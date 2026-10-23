@@ -2,6 +2,7 @@
   "id": "internal.ul_resident.blocks.address",
   "type": "pipeline",
   "steps": [
+    "library.address.legal_region_area_format",
     "library.ul.legal_address_country_required",
     "library.ul.cond_legal_address_country_if_present",
     "internal.ul_resident.address.region_code_required",

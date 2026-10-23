@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "2.0.11",
+    "version": "2.0.12",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -157,6 +157,10 @@
       "beneficiary.address.registration.regionName": {
         "title": "Регион адреса регистрации",
         "description": "Наименование региона в разложенном по ФИАС адресе регистрации либо места пребывания"
+      },
+      "beneficiary.address.registration.regionArea": {
+        "title": "Район адреса регистрации",
+        "description": "Необязательное название района; при передаче непустая строка. Не заменяет regionCode/regionName субъекта РФ."
       },
       "beneficiary.address.registration.state": {
         "title": "Служебная страна адреса регистрации",
@@ -369,6 +373,10 @@
       "beneficiary.ul.registration.place": {
         "title": "Место регистрации иностранной организации",
         "description": "Место учреждения и государственной регистрации иностранного юридического лица"
+      },
+      "beneficiary.address.legal.regionArea": {
+        "title": "Район юридического адреса",
+        "description": "Необязательное название района юридического адреса ЮЛ-резидента; при передаче непустая строка."
       }
     },
     "entrypoints": {
@@ -2332,6 +2340,12 @@
       "entrypoints.ul_nonresident.update_validation": {
         "title": "Валидация обновления карточки (ul_nonresident)",
         "description": "Проверяет переданные на обновление контакты и юридический адрес ЮЛ."
+      },
+      "library.address.registration_region_area_format": {
+        "title": "Формат необязательного района регистрационного адреса"
+      },
+      "library.address.legal_region_area_format": {
+        "title": "Формат необязательного района юридического адреса"
       }
     },
     "operators": {

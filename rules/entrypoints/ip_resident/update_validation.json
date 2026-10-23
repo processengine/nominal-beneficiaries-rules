@@ -10,6 +10,7 @@
     "internal.ip_resident.update.contacts",
     "internal.ip_resident.update.identity",
     "internal.ip_resident.update.document",
+    "library.address.registration_region_area_format",
     "internal.ip_resident.update.address",
     "internal.ip_resident.update.tax"
   ]

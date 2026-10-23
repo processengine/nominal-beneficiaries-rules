@@ -1,0 +1,25 @@
+{
+  "id": "library.address.legal_region_area_format",
+  "type": "rule",
+  "operator": "matches_regex",
+  "field": "beneficiary.address.legal.regionArea",
+  "value": "[^\\s   -     　﻿]",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ADDR.LEGAL.REGION_AREA.FORMAT",
+    "message": "Укажите район адреса непустой строкой в поле beneficiary.address.legal.regionArea",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для юридических лиц (ЮЛ)",
+          "item": "п. 9 — Адрес юридического лица",
+          "page": 5,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "БТ требуют контроль адреса. Необязательное поле района regionArea и проверка непустой строки согласованы в задаче от 23.10.2026; обязательность района для всех адресов не вводится."
+    }
+  }
+}
