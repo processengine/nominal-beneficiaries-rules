@@ -1,0 +1,13 @@
+{
+  "id": "library.address.cond_street_pair",
+  "type": "condition",
+  "when": {
+    "all": [
+      "library.address.pred_street_pair_present"
+    ]
+  },
+  "steps": [
+    "library.address.registration_street_required_for_ru",
+    "library.address.registration_street_type_required_for_ru"
+  ]
+}

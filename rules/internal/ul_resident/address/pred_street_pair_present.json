@@ -1,0 +1,9 @@
+{
+  "id": "internal.ul_resident.address.pred_street_pair_present",
+  "type": "rule",
+  "operator": "any_filled",
+  "fields": [
+    "beneficiary.address.legal.street",
+    "beneficiary.address.legal.streetType"
+  ]
+}

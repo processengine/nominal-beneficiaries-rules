@@ -53,16 +53,6 @@
         "level": "ERROR"
       },
       {
-        "code": "UL.ADDRESS.LEGAL.FIAS.STREET_TYPE.REQUIRED",
-        "field": "beneficiary.address.legal.streetType",
-        "level": "ERROR"
-      },
-      {
-        "code": "UL.ADDRESS.LEGAL.FIAS.STREET.REQUIRED",
-        "field": "beneficiary.address.legal.street",
-        "level": "ERROR"
-      },
-      {
         "code": "UL.ADDRESS.LEGAL.FIAS.HOUSE.REQUIRED",
         "field": "beneficiary.address.legal.house",
         "level": "ERROR"

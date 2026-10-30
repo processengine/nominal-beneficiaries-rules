@@ -1,0 +1,9 @@
+{
+  "id": "library.address.pred_street_pair_present",
+  "type": "rule",
+  "operator": "any_filled",
+  "fields": [
+    "beneficiary.address.registration.street",
+    "beneficiary.address.registration.streetType"
+  ]
+}

@@ -171,8 +171,6 @@ test("FL_NONRESIDENT требует ФИАС-структуру только д�
   assert.deepEqual(result.issues.map(({ code }) => code), [
     "BEN.ADDR.REG.FIAS.REGION_CODE.REQUIRED",
     "BEN.ADDR.REG.FIAS.CITY_OR_LOCALITY.REQUIRED",
-    "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
-    "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
     "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
     "BEN.ADDR.REG.FIAS.POSTAL.REQUIRED",
   ]);

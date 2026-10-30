@@ -31,16 +31,6 @@
         "level": "ERROR"
       },
       {
-        "code": "BEN.ADDR.REG.FIAS.STREET.REQUIRED",
-        "field": "beneficiary.address.registration.street",
-        "level": "ERROR"
-      },
-      {
-        "code": "BEN.ADDR.REG.FIAS.STREET_TYPE.REQUIRED",
-        "field": "beneficiary.address.registration.streetType",
-        "level": "ERROR"
-      },
-      {
         "code": "BEN.ADDR.REG.FIAS.HOUSE.REQUIRED",
         "field": "beneficiary.address.registration.house",
         "level": "ERROR"

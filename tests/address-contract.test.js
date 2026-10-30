@@ -90,3 +90,22 @@ for (const type of ['fl_resident', 'fl_nonresident', 'ip_resident']) {
       || field === 'beneficiary.address.registration.regionCode'));
   });
 }
+
+for (const type of types) {
+  for (const update of [false, true]) {
+    if (update && ['ip-nonresident', 'ul-resident'].includes(type)) continue;
+    test(`${type} ${update ? 'update' : 'registration'}: both street fields may be absent, one may not`, () => {
+      const sample = require(`../samples/${type}.ok.json`);
+      const kind = type === 'ul-resident' ? 'legal' : 'registration';
+      const payload = structuredClone(sample.payload);
+      const address = payload.beneficiary.address[kind] = { countryCode: 'RU', regionCode: 'RU-NVS', regionArea: 'Новосибирский', postalCode: '630501', locality: 'Краснообск', house: '15' };
+      const pipelineId = update ? sample.pipelineId.replace('full_validation', 'update_validation') : sample.pipelineId;
+      const run = () => engine.runPipeline(prepared, { pipelineId, payload, context: sample.context });
+      assert.equal(run().status, 'OK');
+      address.street = 'Ленина';
+      assert.ok(run().issues.some(i => i.field.endsWith('.streetType')));
+      delete address.street; address.streetType = 'ул';
+      assert.ok(run().issues.some(i => i.field.endsWith('.street')));
+    });
+  }
+}

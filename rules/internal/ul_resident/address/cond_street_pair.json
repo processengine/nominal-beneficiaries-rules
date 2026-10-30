@@ -1,0 +1,13 @@
+{
+  "id": "internal.ul_resident.address.cond_street_pair",
+  "type": "condition",
+  "when": {
+    "all": [
+      "internal.ul_resident.address.pred_street_pair_present"
+    ]
+  },
+  "steps": [
+    "internal.ul_resident.address.street_required",
+    "internal.ul_resident.address.street_type_required"
+  ]
+}
