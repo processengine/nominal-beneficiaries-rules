@@ -4,7 +4,7 @@
   "operator": "not_empty",
   "field": "beneficiary.tax.foreignTaxResident",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.REQUIRED",
     "message": "Не указан признак иностранного налогового резидентства",
     "meta": {

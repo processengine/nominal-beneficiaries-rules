@@ -55,13 +55,13 @@
     "currentDate": "2026-06-03"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
         "code": "BEN.TAX.US_RESIDENT.REQUIRED",
         "field": "beneficiary.tax.usResident",
-        "level": "EXCEPTION"
+        "level": "ERROR"
       }
     ]
   }

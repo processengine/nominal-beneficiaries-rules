@@ -7,7 +7,7 @@
     "beneficiary.tax.foreignTaxResidency.tinAbsenceReason"
   ],
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.FOREIGN_TIN.OR_REASON",
     "message": "Укажите иностранный ИНН или причину его отсутствия",
     "meta": {

@@ -49,7 +49,7 @@
     "currentDate": "2026-01-01"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
@@ -89,7 +89,7 @@
       {
         "code": "BEN.TAX.US_RESIDENT.REQUIRED",
         "field": "beneficiary.tax.usResident",
-        "level": "EXCEPTION"
+        "level": "ERROR"
       }
     ]
   }

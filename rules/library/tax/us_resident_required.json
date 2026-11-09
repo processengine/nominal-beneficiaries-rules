@@ -4,7 +4,7 @@
   "operator": "not_empty",
   "field": "beneficiary.tax.usResident",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.US_RESIDENT.REQUIRED",
     "message": "Не указан признак резидентства США",
     "meta": {

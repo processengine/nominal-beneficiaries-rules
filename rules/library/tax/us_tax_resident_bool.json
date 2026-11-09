@@ -4,7 +4,7 @@
   "operator": "is_boolean",
   "field": "beneficiary.tax.usTaxResident",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.US_TAX_RESIDENT.BOOL",
     "message": "Признак налогового резидентства США должен быть указан как да или нет",
     "meta": {

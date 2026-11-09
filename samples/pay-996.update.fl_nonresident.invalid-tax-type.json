@@ -1,0 +1,29 @@
+{
+  "name": "PAY-996: update fl_nonresident, строка вместо usResident",
+  "pipelineId": "entrypoints.fl_nonresident.update_validation",
+  "payload": {
+    "beneficiary": {
+      "type": "FL_NONRESIDENT",
+      "contacts": {
+        "email": "good@example.test"
+      },
+      "tax": {
+        "usResident": "false"
+      }
+    }
+  },
+  "context": {
+    "currentDate": "2026-07-24"
+  },
+  "expect": {
+    "status": "ERROR",
+    "exact": true,
+    "issues": [
+      {
+        "code": "BEN.TAX.US_RESIDENT.BOOL",
+        "field": "beneficiary.tax.usResident",
+        "level": "ERROR"
+      }
+    ]
+  }
+}

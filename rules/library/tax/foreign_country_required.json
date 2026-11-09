@@ -4,7 +4,7 @@
   "operator": "not_empty",
   "field": "beneficiary.tax.foreignTaxResidency.countryCode",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.FOREIGN_COUNTRY.REQUIRED",
     "message": "Не указана страна иностранного налогового резидентства",
     "meta": {

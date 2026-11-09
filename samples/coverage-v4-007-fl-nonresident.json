@@ -69,7 +69,7 @@
     "currentDate": "2026-05-18"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
@@ -95,7 +95,7 @@
       {
         "code": "BEN.TAX.TIN_ABSENCE_REASON.DICT",
         "field": "beneficiary.tax.foreignTaxResidency.tinAbsenceReason",
-        "level": "EXCEPTION"
+        "level": "ERROR"
       }
     ]
   }

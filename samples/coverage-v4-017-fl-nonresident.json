@@ -71,7 +71,7 @@
     "currentDate": "2025-01-01"
   },
   "expect": {
-    "status": "EXCEPTION",
+    "status": "ERROR",
     "exact": true,
     "issues": [
       {
@@ -96,7 +96,7 @@
       },
       {
         "code": "BEN.TAX.FOREIGN_TIN.OR_REASON",
-        "level": "EXCEPTION"
+        "level": "ERROR"
       }
     ]
   }

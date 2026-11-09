@@ -4,7 +4,7 @@
   "operator": "is_boolean",
   "field": "beneficiary.tax.foreignTaxResident",
   "issue": {
-    "level": "EXCEPTION",
+    "level": "ERROR",
     "code": "BEN.TAX.FOREIGN_TAX_RESIDENT.BOOL",
     "message": "Признак иностранного налогового резидентства должен быть указан как да или нет",
     "meta": {
