@@ -1,0 +1,34 @@
+{
+  "id": "library.address.postal_ru_format",
+  "type": "rule",
+  "operator": "matches_regex",
+  "field": "beneficiary.address.registration.postalCode",
+  "value": "^[0-9]{6}$",
+  "issue": {
+    "level": "ERROR",
+    "code": "BEN.ADDR.REG.POSTAL.FORMAT",
+    "message": "Почтовый индекс российского адреса должен быть строкой из 6 цифр без пробелов",
+    "meta": {
+      "requirements": [
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для физических лиц (ФЛ)",
+          "item": "п. 26 — Адрес места жительства, регистрации или пребывания",
+          "page": 13,
+          "pageKind": "section-start"
+        },
+        {
+          "document": "Бизнес-требования для работы с бенефициарами номинальных счетов.docx",
+          "documentSha256": "sha256:521375fedfffed655736cadc6d13bd564d55aef68777cc8a3f96d24bc6235578",
+          "section": "2. Набор полей для индивидуальных предпринимателей (ИП)",
+          "item": "п. 27 — Адрес места жительства, регистрации или пребывания",
+          "page": 7,
+          "pageKind": "section-start"
+        }
+      ],
+      "explanation": "БТ требуют контроля формата адреса, но не задают маску индекса. Ровно шесть ASCII-цифр для российского адреса приняты в PAY-995 по поручению пользователя от 11.11.2026 с учётом описания ВПС Russian Federation и сообщения Константина об ограничении ЦФТ. Обязательность и иностранный формат не меняются.",
+      "sourceUrl": "https://www.upu.int/UPU/media/upu/PostalEntitiesFiles/addressingUnit/rusEn.pdf"
+    }
+  }
+}

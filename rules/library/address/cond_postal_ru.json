@@ -1,0 +1,6 @@
+{
+  "id": "library.address.cond_postal_ru",
+  "type": "condition",
+  "when": "library.address.pred_registration_country_ru",
+  "steps": ["library.address.postal_ru"]
+}

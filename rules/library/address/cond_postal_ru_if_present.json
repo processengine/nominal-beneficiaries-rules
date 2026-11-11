@@ -1,0 +1,6 @@
+{
+  "id": "library.address.cond_postal_ru_if_present",
+  "type": "condition",
+  "when": "library.address.pred_postal_present",
+  "steps": ["library.address.postal_ru"]
+}

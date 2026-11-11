@@ -1,0 +1,8 @@
+{
+  "id": "library.address.postal_ru",
+  "type": "pipeline",
+  "steps": [
+    "library.address.cond_postal_ru_legacy_length",
+    "library.address.cond_postal_ru_format"
+  ]
+}

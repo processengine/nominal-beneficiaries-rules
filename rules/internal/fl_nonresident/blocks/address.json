@@ -8,7 +8,7 @@
     "library.address.registration_house_required_for_ru",
     "library.address.registration_postal_required_for_ru",
     "library.address.cond_postal_address_if_present",
-    "library.address.cond_postal_if_present",
+    "library.address.cond_postal_ru_if_present",
     "library.address.cond_region_code_if_present",
     "library.address.cond_region_name_if_present",
     "library.address.cond_city_if_present",

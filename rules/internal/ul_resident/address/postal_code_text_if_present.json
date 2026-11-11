@@ -1,7 +1,12 @@
 {
   "id": "internal.ul_resident.address.postal_code_text_if_present",
   "type": "condition",
-  "when": "internal.ul_resident.address.postal_code_required",
+  "when": {
+    "all": [
+      "internal.ul_resident.address.postal_code_required",
+      "library.ul.legal_address_country_ru"
+    ]
+  },
   "steps": [
     "internal.ul_resident.address.postal_code_text"
   ]

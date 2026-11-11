@@ -1,0 +1,6 @@
+{
+  "id": "library.address.pred_postal_string",
+  "type": "rule",
+  "operator": "is_string",
+  "field": "beneficiary.address.registration.postalCode"
+}

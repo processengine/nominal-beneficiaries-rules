@@ -1,7 +1,7 @@
 {
   "project": {
     "id": "nominal-beneficiaries-rules",
-    "version": "2.0.14",
+    "version": "2.0.15",
     "title": "Бенефициары номинальных счетов",
     "description": "Пакет правил для проверки бенефициаров номинальных счетов: ФЛ, ИП и ЮЛ, резиденты и нерезиденты, а также отвязка бенефициара",
     "language": "ru"
@@ -1019,7 +1019,31 @@
         "title": "Проверка населённого пункта адреса регистрации на длину"
       },
       "library.address.postal": {
-        "title": "Проверка почтового индекса адреса регистрации"
+        "title": "Прежнее ограничение длины почтового индекса до 32 символов"
+      },
+      "library.address.pred_postal_string": {
+        "title": "Почтовый индекс передан строкой"
+      },
+      "library.address.postal_ru": {
+        "title": "Формат уже российского почтового индекса"
+      },
+      "library.address.postal_ru_format": {
+        "title": "Российский индекс содержит ровно шесть ASCII-цифр"
+      },
+      "library.address.cond_postal_ru_legacy_length": {
+        "title": "Сохраняем прежнюю ошибку длины для российского индекса свыше 32 символов"
+      },
+      "library.address.cond_postal_ru_format": {
+        "title": "Проверяем российский формат без дублирования ошибки длины"
+      },
+      "library.address.cond_postal_ru": {
+        "title": "Применяем российский формат при стране адреса RU"
+      },
+      "library.address.cond_postal_non_ru": {
+        "title": "Сохраняем прежний формат индекса вне российской ветки"
+      },
+      "library.address.cond_postal_ru_if_present": {
+        "title": "Проверяем переданный индекс уже российского адреса"
       },
       "library.address.postal_address_country_format": {
         "title": "Код страны почтового адреса должен быть в формате ISO 3166-1 alpha-2"
@@ -2392,6 +2416,9 @@
       },
       "is_empty": {
         "description": "не заполнено"
+      },
+      "is_string": {
+        "description": "передано строковое JSON-значение без преобразования типа"
       },
       "is_iso_date": {
         "description": "является существующей календарной датой в формате YYYY-MM-DD"

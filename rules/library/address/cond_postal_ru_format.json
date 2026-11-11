@@ -1,0 +1,11 @@
+{
+  "id": "library.address.cond_postal_ru_format",
+  "type": "condition",
+  "when": {
+    "any": [
+      { "not": "library.address.pred_postal_string" },
+      "library.address.postal"
+    ]
+  },
+  "steps": ["library.address.postal_ru_format"]
+}

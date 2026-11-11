@@ -50,10 +50,14 @@ jobs:
         run: |
           package_name="$(node -p "require('./package.json').name")"
           package_version="$(node -p "require('./package.json').version")"
-          if npm view "$package_name@$package_version" version >/dev/null 2>&1; then
-            echo "$package_name@$package_version is already published" >&2
-            exit 1
-          fi
+          published_versions="$(npm view "$package_name" versions --json --prefer-online --registry=https://registry.npmjs.org)"
+          node - "$package_name" "$package_version" "$published_versions" <<'NODE'
+          const assert = require('node:assert/strict');
+          const [name, version, json] = process.argv.slice(2);
+          const versions = JSON.parse(json);
+          assert(Array.isArray(versions), 'npm versions must be an array');
+          assert(!versions.includes(version), `${name}@${version} is already published`);
+          NODE
 
       - name: Publish to npm
         run: npm publish --access public
@@ -63,8 +67,9 @@ jobs:
           package_name="$(node -p "require('./package.json').name")"
           package_version="$(node -p "require('./package.json').version")"
           published_git_head=""
-          for attempt in $(seq 1 12); do
-            published_git_head="$(npm view "$package_name@$package_version" gitHead 2>/dev/null || true)"
+          for attempt in $(seq 1 24); do
+            echo "Read published gitHead, attempt $attempt/24"
+            published_git_head="$(npm view "$package_name@$package_version" gitHead --prefer-online --registry=https://registry.npmjs.org || true)"
             if [ -n "$published_git_head" ]; then
               break
             fi
@@ -76,7 +81,7 @@ jobs:
           fi
 
           package_dir="$(mktemp -d)"
-          tarball="$(npm pack "$package_name@$package_version" --pack-destination "$package_dir" --silent)"
+          tarball="$(npm pack "$package_name@$package_version" --pack-destination "$package_dir" --silent --prefer-online --registry=https://registry.npmjs.org)"
           tar -xzf "$package_dir/$tarball" -C "$package_dir"
           cmp dist/snapshot.json "$package_dir/package/dist/snapshot.json"
           node - "$package_dir/package/dist/build-info.json" <<'NODE'

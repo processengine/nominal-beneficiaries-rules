@@ -1,0 +1,11 @@
+{
+  "id": "library.address.cond_postal_ru_legacy_length",
+  "type": "condition",
+  "when": {
+    "all": [
+      "library.address.pred_postal_string",
+      { "not": "library.address.postal" }
+    ]
+  },
+  "steps": ["library.address.postal"]
+}
