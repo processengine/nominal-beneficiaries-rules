@@ -1,6 +1,6 @@
 {
   "name": "@processengine/nominal-beneficiaries-rules",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
   "license": "UNLICENSED",
   "repository": {
@@ -15,7 +15,7 @@
     "build": "jsonspecs build --fail-on-warning",
     "test:operators": "node --test tests/operators.test.js",
     "test:rules": "jsonspecs test",
-    "test": "npm run validate && npm run test:operators && npm run test:rules && npm run build && npm run verify:package && npm run test:address && npm run test:tax && npm run test:us-country-sources && npm run test:fl-resident-contract && npm run test:fl-nonresident-contract && npm run test:address-contract && npm run test:postal-code",
+    "test": "npm run validate && npm run test:operators && npm run test:rules && npm run build && npm run verify:package && npm run test:address && npm run test:tax && npm run test:us-country-sources && npm run test:fl-resident-contract && npm run test:fl-nonresident-contract && npm run test:address-contract && npm run test:postal-code && node --test tests/release-verification.test.mjs",
     "test:address": "node --test tests/ul-address.test.js",
     "test:tax": "node --test tests/tax-flags.test.js",
     "test:us-country-sources": "node --test tests/us-country-sources.test.js",
