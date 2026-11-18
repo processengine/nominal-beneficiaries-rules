@@ -1,6 +1,6 @@
 {
   "name": "@processengine/nominal-beneficiaries-rules",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "Пакет правил проверок бенефициаров номинальных счетов для jsonspecs",
   "license": "UNLICENSED",
   "repository": {
@@ -15,7 +15,7 @@
     "build": "jsonspecs build --fail-on-warning",
     "test:operators": "node --test tests/operators.test.js",
     "test:rules": "jsonspecs test",
-    "test": "npm run validate && npm run test:operators && npm run test:rules && npm run build && npm run verify:package && npm run test:address && npm run test:tax && npm run test:us-country-sources && npm run test:fl-resident-contract && npm run test:fl-nonresident-contract && npm run test:address-contract && npm run test:postal-code && node --test tests/release-verification.test.mjs",
+    "test": "npm run validate && npm run test:operators && npm run test:rules && npm run build && npm run verify:package && npm run test:address && npm run test:tax && npm run test:us-country-sources && npm run test:fl-resident-contract && npm run test:fl-nonresident-contract && npm run test:address-contract && npm run test:postal-code && node --test tests/release-verification.test.mjs && npm run test:street-types",
     "test:address": "node --test tests/ul-address.test.js",
     "test:tax": "node --test tests/tax-flags.test.js",
     "test:us-country-sources": "node --test tests/us-country-sources.test.js",
@@ -26,7 +26,8 @@
     "prepublishOnly": "node scripts/verify-publish-context.mjs && npm run release:check",
     "version:set": "node scripts/set-version.mjs",
     "test:address-contract": "node --test tests/address-contract.test.js",
-    "test:postal-code": "node --test tests/postal-code.test.js"
+    "test:postal-code": "node --test tests/postal-code.test.js",
+    "test:street-types": "node --test tests/street-types-pay-1035.test.js"
   },
   "dependencies": {
     "@jsonspecs/rules": "4.0.1"

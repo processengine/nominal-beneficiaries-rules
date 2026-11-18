@@ -1,0 +1,342 @@
+{
+  "source": "PAY-1035, approved 59 literal spellings from preprod address research of 2026-11-16",
+  "proposalSha256": "c38b9154c5e44bdb2c89f1a7439d27de5e28103421dfe44fb6c877134112cdb0",
+  "previousEntries": [
+    "ал",
+    "ал.",
+    "б-р",
+    "б-р.",
+    "дор",
+    "дор.",
+    "кв-л",
+    "кв-л.",
+    "км",
+    "км.",
+    "лн",
+    "лн.",
+    "мкр",
+    "мкр.",
+    "наб",
+    "наб.",
+    "пер",
+    "пер.",
+    "пл",
+    "пл.",
+    "пр-д",
+    "пр-д.",
+    "пр-кт",
+    "пр-кт.",
+    "туп",
+    "туп.",
+    "ул",
+    "ул.",
+    "ш",
+    "ш."
+  ],
+  "types": [
+    {
+      "officialType": "б-г",
+      "name": "Берег",
+      "tier": "historical-compatibility",
+      "entries": [
+        "б-г"
+      ]
+    },
+    {
+      "officialType": "з.",
+      "name": "Зона",
+      "tier": "current",
+      "entries": [
+        "з",
+        "зона",
+        "з."
+      ]
+    },
+    {
+      "officialType": "м-в",
+      "name": "Массив",
+      "tier": "current",
+      "entries": [
+        "м-в"
+      ]
+    },
+    {
+      "officialType": "месторожд.",
+      "name": "Месторождение",
+      "tier": "current",
+      "entries": [
+        "месторожд",
+        "месторожд."
+      ]
+    },
+    {
+      "officialType": "ост-в",
+      "name": "Остров",
+      "tier": "current",
+      "entries": [
+        "ост-в"
+      ]
+    },
+    {
+      "officialType": "парк",
+      "name": "Парк",
+      "tier": "current",
+      "entries": [
+        "парк"
+      ]
+    },
+    {
+      "officialType": "платф.",
+      "name": "Платформа",
+      "tier": "historical-compatibility",
+      "entries": [
+        "платф",
+        "платф."
+      ]
+    },
+    {
+      "officialType": "пл-ка",
+      "name": "Площадка",
+      "tier": "historical-compatibility",
+      "entries": [
+        "пл-ка"
+      ]
+    },
+    {
+      "officialType": "п/р",
+      "name": "Промышленный район",
+      "tier": "historical-compatibility",
+      "entries": [
+        "п/р"
+      ]
+    },
+    {
+      "officialType": "рзд.",
+      "name": "Разъезд",
+      "tier": "current",
+      "entries": [
+        "рзд",
+        "рзд."
+      ]
+    },
+    {
+      "officialType": "р-н",
+      "name": "Район",
+      "tier": "current",
+      "entries": [
+        "р-н"
+      ]
+    },
+    {
+      "officialType": "тер.",
+      "name": "Территория",
+      "tier": "current",
+      "entries": [
+        "тер",
+        "тер."
+      ]
+    },
+    {
+      "officialType": "тер. ГСК",
+      "name": "Территория ГСК",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. гск",
+        "тер. ГСК"
+      ]
+    },
+    {
+      "officialType": "тер. ДНП",
+      "name": "Территория дачных некоммерческих партнерств",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. днп",
+        "тер. ДНП"
+      ]
+    },
+    {
+      "officialType": "тер. ДНТ",
+      "name": "Территория дачных некоммерческих товариществ",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. днт",
+        "тер. ДНТ"
+      ]
+    },
+    {
+      "officialType": "тер. ДПК",
+      "name": "Территория дачных потребительских кооперативов",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. дпк",
+        "тер. ДПК"
+      ]
+    },
+    {
+      "officialType": "тер. ОНТ",
+      "name": "Территория огороднического некоммерческого товарищества",
+      "tier": "current",
+      "entries": [
+        "тер. онт",
+        "тер. ОНТ"
+      ]
+    },
+    {
+      "officialType": "тер. ПК",
+      "name": "Территория потребительского кооператива",
+      "tier": "current",
+      "entries": [
+        "тер. пк",
+        "тер. ПК"
+      ]
+    },
+    {
+      "officialType": "тер. СНП",
+      "name": "Территория садоводческих некоммерческих партнерств",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. снп",
+        "тер. СНП"
+      ]
+    },
+    {
+      "officialType": "тер. СНТ",
+      "name": "Территория садоводческого некоммерческого товарищества",
+      "tier": "current",
+      "entries": [
+        "тер. снт",
+        "тер. СНТ"
+      ]
+    },
+    {
+      "officialType": "тер.СОСН",
+      "name": "Территория ведения гражданами садоводства или огородничества для собственных нужд",
+      "tier": "current",
+      "entries": [
+        "тер.сосн",
+        "тер.СОСН"
+      ]
+    },
+    {
+      "officialType": "тер. СПК",
+      "name": "Территория садоводческих потребительских кооперативов",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер. спк",
+        "тер. СПК"
+      ]
+    },
+    {
+      "officialType": "тер. ТСН",
+      "name": "Территория товарищества собственников недвижимости",
+      "tier": "current",
+      "entries": [
+        "тер. тсн",
+        "тер. ТСН"
+      ]
+    },
+    {
+      "officialType": "тер.ф.х.",
+      "name": "Территория ФХ",
+      "tier": "historical-compatibility",
+      "entries": [
+        "тер.ф.х",
+        "тер.ф.х."
+      ]
+    },
+    {
+      "officialType": "ус.",
+      "name": "Усадьба",
+      "tier": "historical-compatibility",
+      "entries": [
+        "ус",
+        "ус."
+      ]
+    },
+    {
+      "officialType": "взв.",
+      "name": "Взвоз",
+      "tier": "historical-compatibility",
+      "entries": [
+        "взв",
+        "взв."
+      ]
+    },
+    {
+      "officialType": "взд.",
+      "name": "Въезд",
+      "tier": "historical-compatibility",
+      "entries": [
+        "взд",
+        "взд."
+      ]
+    },
+    {
+      "officialType": "ззд.",
+      "name": "Заезд",
+      "tier": "historical-compatibility",
+      "entries": [
+        "ззд",
+        "ззд."
+      ]
+    },
+    {
+      "officialType": "к-цо",
+      "name": "Кольцо",
+      "tier": "historical-compatibility",
+      "entries": [
+        "к-цо"
+      ]
+    },
+    {
+      "officialType": "мгстр.",
+      "name": "Магистраль",
+      "tier": "current",
+      "entries": [
+        "мгстр",
+        "мгстр."
+      ]
+    },
+    {
+      "officialType": "пер-д",
+      "name": "Переезд",
+      "tier": "historical-compatibility",
+      "entries": [
+        "пер-д"
+      ]
+    },
+    {
+      "officialType": "пр-к",
+      "name": "Просек",
+      "tier": "historical-compatibility",
+      "entries": [
+        "пр-к"
+      ]
+    },
+    {
+      "officialType": "пр-лок",
+      "name": "Проселок",
+      "tier": "historical-compatibility",
+      "entries": [
+        "пр-лок"
+      ]
+    },
+    {
+      "officialType": "проул.",
+      "name": "Проулок",
+      "tier": "current",
+      "entries": [
+        "проул",
+        "проул."
+      ]
+    },
+    {
+      "officialType": "ряд",
+      "name": "Ряд",
+      "tier": "historical-compatibility",
+      "entries": [
+        "ряд"
+      ]
+    }
+  ]
+}
